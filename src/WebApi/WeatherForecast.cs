@@ -1,4 +1,4 @@
-namespace WebApi;
+namespace EmployeeControl.WebApi;
 
 public class WeatherForecast
 {
