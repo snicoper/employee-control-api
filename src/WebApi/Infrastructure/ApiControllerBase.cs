@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EmployeeControl.WebApi.Controllers;
+namespace EmployeeControl.WebApi.Infrastructure;
 
 [ApiController]
 [Produces("application/json")]
