@@ -1,3 +1,6 @@
+using EmployeeControl.Application;
+using EmployeeControl.Domain;
+using EmployeeControl.Infrastructure;
 using EmployeeControl.WebApi;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -5,6 +8,9 @@ using Serilog.Sinks.SystemConsole.Themes;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddApplicationServices();
+builder.Services.AddDomainServices();
+builder.Services.AddInfrastructureServices();
 builder.Services.AddWebApiServices();
 
 builder
