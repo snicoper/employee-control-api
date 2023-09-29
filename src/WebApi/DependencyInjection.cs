@@ -3,6 +3,7 @@ using EmployeeControl.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using NSwag;
 using NSwag.Generation.Processors.Security;
+using ZymLabs.NSwag.FluentValidation;
 
 namespace EmployeeControl.WebApi;
 
@@ -20,19 +21,31 @@ public static class DependencyInjection
 
         services.AddScoped<ICurrentUserService, CurrentUserService>();
 
-        services.AddControllers();
-        services.AddEndpointsApiExplorer();
-
-        // Customize default API behavior.
-        services.Configure<ApiBehaviorOptions>(options =>
+        // FluentValidation.
+        services.AddScoped(provider =>
         {
-            options.SuppressModelStateInvalidFilter = true;
+            var validationRules = provider.GetService<IEnumerable<FluentValidationRule>>();
+            var loggerFactory = provider.GetService<ILoggerFactory>();
+
+            return new FluentValidationSchemaProcessor(provider, validationRules, loggerFactory);
         });
 
+        services.AddControllersWithViews();
+        services.AddEndpointsApiExplorer();
+        services.AddRazorPages();
+
         // NSwag.
-        services.AddOpenApiDocument(configure =>
+        services.AddOpenApiDocument((configure, sp) =>
         {
             configure.Title = "Employee Control API";
+
+            // Add the fluent validations schema processor.
+            var fluentValidationSchemaProcessor =
+                sp.CreateScope().ServiceProvider.GetRequiredService<FluentValidationSchemaProcessor>();
+
+            configure.SchemaProcessors.Add(fluentValidationSchemaProcessor);
+
+            // Add JWT.
             configure.AddSecurity(
                 "JWT",
                 Enumerable.Empty<string>(),
@@ -45,6 +58,12 @@ public static class DependencyInjection
                 });
 
             configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
+        });
+
+        // Customize default API behavior.
+        services.Configure<ApiBehaviorOptions>(options =>
+        {
+            options.SuppressModelStateInvalidFilter = true;
         });
 
         // Routing.
