@@ -13,6 +13,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddWebApiServices(this IServiceCollection services)
     {
+        services.AddDatabaseDeveloperPageExceptionFilter();
         services.AddHttpContextAccessor();
 
         services.Scan(scan =>
