@@ -1,6 +1,8 @@
 ﻿using EmployeeControl.Application.Common.Behaviours;
+using EmployeeControl.Application.Common.Models.Options;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -8,7 +10,7 @@ namespace EmployeeControl.Application;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
     {
         // Scrutor.
         services.Scan(scan =>
@@ -32,6 +34,14 @@ public static class DependencyInjection
             config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(PerformanceBehaviour<,>));
         });
+
+        // Strongly typed options validations.
+        var ais = configuration.GetSection(JwtOption.Section);
+
+        services.AddOptions<JwtOption>()
+            .Bind(configuration.GetSection(JwtOption.Section))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
         return services;
     }

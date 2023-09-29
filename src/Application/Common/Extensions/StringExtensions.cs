@@ -1,26 +1,7 @@
-﻿using EmployeeControl.Application.Common.Exceptions;
-
-namespace EmployeeControl.Application.Common.Extensions;
+﻿namespace EmployeeControl.Application.Common.Extensions;
 
 public static class StringExtensions
 {
-    /// <summary>
-    ///     Lanza una excepción si el valor es vacío o nulo.
-    /// </summary>
-    /// <param name="value">El valor de comprobar.</param>
-    /// <returns>Retorna el mismo valor pasado por parámetro.</returns>
-    /// <exception cref="ConfigurationNullParameterException"></exception>
-    public static string RaiseConfigurationNullParameterExceptionIfNullOrEmpty(this string? value)
-    {
-        if (string.IsNullOrEmpty(value))
-        {
-            throw new ConfigurationNullParameterException($"The parameter {nameof(value)} cannot be null");
-        }
-
-
-        return value;
-    }
-
     /// <summary>
     ///     Devolver un string con la primera letra en minúscula.
     /// </summary>
