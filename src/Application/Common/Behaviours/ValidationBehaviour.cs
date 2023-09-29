@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using EmployeeControl.Application.Common.Exceptions;
+using FluentValidation;
 using MediatR;
 
 namespace EmployeeControl.Application.Common.Behaviours;
@@ -30,13 +31,13 @@ public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TReque
                 v.ValidateAsync(context, cancellationToken)));
 
         var failures = validationResults
-            .Where(r => r.Errors.Any())
+            .Where(r => r.Errors.Count != 0)
             .SelectMany(r => r.Errors)
             .ToList();
 
-        if (failures.Any())
+        if (failures.Count != 0)
         {
-            throw new ValidationException(failures);
+            throw new CustomValidationException(failures);
         }
 
         return await next();

@@ -45,6 +45,13 @@ if (app.Environment.IsDevelopment())
 app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
+
+app.UseExceptionHandler(_ => { });
+
+app.UseCors("DefaultCors");
+
 app.UseAuthorization();
+
 app.MapControllers();
+
 app.Run();

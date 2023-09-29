@@ -1,4 +1,5 @@
 using EmployeeControl.Application.Common.Interfaces;
+using EmployeeControl.WebApi.Infrastructure;
 using EmployeeControl.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -40,6 +41,8 @@ public static class DependencyInjection
             options.ApiVersionReader = new UrlSegmentApiVersionReader();
         });
 
+        services.AddExceptionHandler<CustomExceptionHandler>();
+
         services.AddControllersWithViews();
         services.AddEndpointsApiExplorer();
         services.AddRazorPages();
@@ -53,7 +56,7 @@ public static class DependencyInjection
             var fluentValidationSchemaProcessor =
                 sp.CreateScope().ServiceProvider.GetRequiredService<FluentValidationSchemaProcessor>();
 
-            configure.SchemaProcessors.Add(fluentValidationSchemaProcessor);
+            configure.SchemaSettings.SchemaProcessors.Add(fluentValidationSchemaProcessor);
 
             // Add JWT.
             configure.AddSecurity(
@@ -78,6 +81,19 @@ public static class DependencyInjection
 
         // Routing.
         services.AddRouting(options => { options.LowercaseUrls = true; });
+
+        // Cors.
+        services.AddCors(options =>
+        {
+            options.AddPolicy("DefaultCors", builder =>
+            {
+                builder
+                    .WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            });
+        });
 
         return services;
     }
