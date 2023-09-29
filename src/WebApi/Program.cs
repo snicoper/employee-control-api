@@ -1,9 +1,29 @@
 using EmployeeControl.WebApi;
+using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddWebApiServices();
+
+builder
+    .Host
+    .UseSerilog((hostingContext, loggerConfiguration) =>
+    {
+        loggerConfiguration
+            .ReadFrom.Configuration(hostingContext.Configuration)
+            .Enrich.FromLogContext()
+            .WriteTo.Console(
+                outputTemplate:
+                "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}",
+                theme: AnsiConsoleTheme.Literate);
+
+        if (!hostingContext.HostingEnvironment.IsDevelopment())
+        {
+            loggerConfiguration.WriteTo.File("web_api_log.txt");
+        }
+    });
 
 var app = builder.Build();
 
@@ -17,6 +37,8 @@ if (app.Environment.IsDevelopment())
         options.RoutePrefix = string.Empty;
     });
 }
+
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
