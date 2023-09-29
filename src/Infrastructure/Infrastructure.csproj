@@ -3,6 +3,7 @@
   <PropertyGroup>
     <RootNamespace>EmployeeControl.Infrastructure</RootNamespace>
     <AssemblyName>EmployeeControl.Infrastructure</AssemblyName>
+    <UserSecretsId>0157c237-4f3c-4151-8c25-58585049af10</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

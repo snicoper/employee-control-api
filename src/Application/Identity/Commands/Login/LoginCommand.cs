@@ -2,7 +2,4 @@
 
 namespace EmployeeControl.Application.Identity.Commands.Login;
 
-public record LoginCommand(string UserName, string Password)
-    : IRequest<LoginDto>
-{
-}
+public record LoginCommand(string UserName, string Password) : IRequest<LoginDto>;

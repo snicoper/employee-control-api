@@ -36,8 +36,6 @@ public static class DependencyInjection
         });
 
         // Strongly typed options validations.
-        var ais = configuration.GetSection(JwtOption.Section);
-
         services.AddOptions<JwtOption>()
             .Bind(configuration.GetSection(JwtOption.Section))
             .ValidateDataAnnotations()
