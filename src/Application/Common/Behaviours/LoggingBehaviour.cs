@@ -7,21 +7,21 @@ namespace EmployeeControl.Application.Common.Behaviours;
 public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest>
     where TRequest : notnull
 {
+    private readonly ICurrentUserService _currentUserService;
     private readonly IIdentityService _identityService;
     private readonly ILogger<TRequest> _logger;
-    private readonly ICurrentUserService _currentUser;
 
-    public LoggingBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUser, IIdentityService identityService)
+    public LoggingBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService, IIdentityService identityService)
     {
         _logger = logger;
-        _currentUser = currentUser;
+        _currentUserService = currentUserService;
         _identityService = identityService;
     }
 
     public async Task Process(TRequest request, CancellationToken cancellationToken)
     {
         var requestName = typeof(TRequest).Name;
-        var userId = _currentUser.Id ?? string.Empty;
+        var userId = _currentUserService.Id ?? string.Empty;
         var userName = string.Empty;
 
         if (!string.IsNullOrEmpty(userId))
