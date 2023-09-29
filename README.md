@@ -1,4 +1,4 @@
-# AgendaOne
+# Employee Control
 
 `dotnet tool install -g dotnet-ef`
 

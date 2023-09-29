@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.CommandAndQueries.Home.Queries.Prueba;
+﻿using EmployeeControl.Application.Home.Queries.Prueba;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,32 +1,79 @@
-﻿using EmployeeControl.Application.Common.Interfaces;
+﻿using EmployeeControl.Application.Common.Extensions;
+using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Application.Common.Services;
 
 public class IdentityService : IIdentityService
 {
-    public Task<string?> GetUserNameAsync(string userId)
+    private readonly IAuthorizationService _authorizationService;
+    private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
+    private readonly UserManager<ApplicationUser> _userManager;
+
+    public IdentityService(
+        UserManager<ApplicationUser> userManager,
+        IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
+        IAuthorizationService authorizationService)
     {
-        throw new NotImplementedException();
+        _userManager = userManager;
+        _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
+        _authorizationService = authorizationService;
     }
 
-    public Task<bool> IsInRoleAsync(string userId, string role)
+    public async Task<string?> GetUserNameAsync(string userId)
     {
-        throw new NotImplementedException();
+        var user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+
+        return user.UserName;
     }
 
-    public Task<bool> AuthorizeAsync(string userId, string policyName)
+    public async Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
     {
-        throw new NotImplementedException();
+        var user = new ApplicationUser { UserName = userName, Email = userName };
+
+        var result = await _userManager.CreateAsync(user, password);
+
+        return (result.ToApplicationResult(), user.Id);
     }
 
-    public Task<(Result Result, string UserId)> CreateUserAsync(string userName, string password)
+    public async Task<bool> IsInRoleAsync(string userId, string role)
     {
-        throw new NotImplementedException();
+        var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+
+        return user != null && await _userManager.IsInRoleAsync(user, role);
     }
 
-    public Task<Result> DeleteUserAsync(string userId)
+    public async Task<bool> AuthorizeAsync(string userId, string policyName)
     {
-        throw new NotImplementedException();
+        var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+
+        if (user == null)
+        {
+            return false;
+        }
+
+        var principal = await _userClaimsPrincipalFactory.CreateAsync(user);
+
+        var result = await _authorizationService.AuthorizeAsync(principal, policyName);
+
+        return result.Succeeded;
+    }
+
+    public async Task<Result> DeleteUserAsync(string userId)
+    {
+        var user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+
+        return user != null ? await DeleteUserAsync(user) : Result.Success();
+    }
+
+    public async Task<Result> DeleteUserAsync(ApplicationUser user)
+    {
+        var result = await _userManager.DeleteAsync(user);
+
+        return result.ToApplicationResult();
     }
 }

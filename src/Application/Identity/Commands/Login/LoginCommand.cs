@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace EmployeeControl.Application.CommandAndQueries.Identity.Commands.Login;
+namespace EmployeeControl.Application.Identity.Commands.Login;
 
 public record LoginCommand(string UserName, string Password)
     : IRequest<LoginDto>

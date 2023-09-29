@@ -9,7 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace EmployeeControl.Application.CommandAndQueries.Identity.Commands.Login;
+namespace EmployeeControl.Application.Identity.Commands.Login;
 
 public class LoginHandler : IRequestHandler<LoginCommand, LoginDto>
 {

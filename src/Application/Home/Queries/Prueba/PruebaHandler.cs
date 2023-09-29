@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace EmployeeControl.Application.CommandAndQueries.Home.Queries.Prueba;
+namespace EmployeeControl.Application.Home.Queries.Prueba;
 
 public class PruebaHandler : IRequestHandler<PruebaQuery, PruebaDto>
 {

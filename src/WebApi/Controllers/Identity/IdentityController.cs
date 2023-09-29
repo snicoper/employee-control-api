@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.CommandAndQueries.Identity.Commands.Login;
+﻿using EmployeeControl.Application.Identity.Commands.Login;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
