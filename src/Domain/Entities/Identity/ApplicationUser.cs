@@ -2,6 +2,4 @@
 
 namespace EmployeeControl.Domain.Entities.Identity;
 
-public class ApplicationUser : IdentityUser
-{
-}
+public class ApplicationUser : IdentityUser;

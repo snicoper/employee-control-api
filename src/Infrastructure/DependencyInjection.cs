@@ -1,14 +1,18 @@
-﻿using EmployeeControl.Application.Common.Interfaces;
+﻿using EmployeeControl.Application.Common.Extensions;
+using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities.Identity;
 using EmployeeControl.Infrastructure.Data;
 using EmployeeControl.Infrastructure.Data.DbSeeds;
 using EmployeeControl.Infrastructure.Data.Interceptors;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace EmployeeControl.Infrastructure;
 
@@ -53,6 +57,29 @@ public static class DependencyInjection
 
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
+
+        services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                var jwtKey = configuration["Jwt:Key"].RaiseConfigurationNullParameterExceptionIfNullOrEmpty();
+                var jwtIssuer = configuration["Jwt:Issuer"].RaiseConfigurationNullParameterExceptionIfNullOrEmpty();
+                var jwtAudience = configuration["Jwt:Audience"].RaiseConfigurationNullParameterExceptionIfNullOrEmpty();
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtIssuer,
+                    ValidAudience = jwtAudience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+                };
+            });
 
         return services;
     }
