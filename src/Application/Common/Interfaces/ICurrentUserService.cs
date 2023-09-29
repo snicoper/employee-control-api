@@ -1,6 +1,6 @@
 ﻿namespace EmployeeControl.Application.Common.Interfaces;
 
-public interface IUserService
+public interface ICurrentUserService
 {
     string? Id { get; }
 }

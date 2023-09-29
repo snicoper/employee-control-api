@@ -10,11 +10,11 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
     where TRequest : notnull
 {
     private readonly IIdentityService _identityService;
-    private readonly IUserService _userService;
+    private readonly ICurrentUserService _currentUserService;
 
-    public AuthorizationBehaviour(IUserService userService, IIdentityService identityService)
+    public AuthorizationBehaviour(ICurrentUserService currentUserService, IIdentityService identityService)
     {
-        _userService = userService;
+        _currentUserService = currentUserService;
         _identityService = identityService;
     }
 
@@ -30,7 +30,7 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
         }
 
         // Must be authenticated user.
-        if (_userService.Id == null)
+        if (_currentUserService.Id == null)
         {
             throw new UnauthorizedAccessException();
         }
@@ -47,7 +47,7 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
             {
                 foreach (var role in roles)
                 {
-                    var isInRole = await _identityService.IsInRoleAsync(_userService.Id, role.Trim());
+                    var isInRole = await _identityService.IsInRoleAsync(_currentUserService.Id, role.Trim());
 
                     if (!isInRole)
                     {
@@ -79,7 +79,7 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
 
         foreach (var policy in attributesWithPolicies.Select(a => a.Policy))
         {
-            var authorized = await _identityService.AuthorizeAsync(_userService.Id, policy);
+            var authorized = await _identityService.AuthorizeAsync(_currentUserService.Id, policy);
 
             if (!authorized)
             {

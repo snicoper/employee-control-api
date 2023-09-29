@@ -10,10 +10,20 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
+        // Scrutor.
+        services.Scan(scan =>
+            scan.FromCallingAssembly()
+                .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Service")))
+                .AsImplementedInterfaces()
+                .WithTransientLifetime());
+
+        // Automapper.
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
+        // FluentValidator.
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
+        // MediatR.
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());

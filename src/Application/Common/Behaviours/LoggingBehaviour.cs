@@ -9,19 +9,19 @@ public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest>
 {
     private readonly IIdentityService _identityService;
     private readonly ILogger<TRequest> _logger;
-    private readonly IUserService _user;
+    private readonly ICurrentUserService _currentUser;
 
-    public LoggingBehaviour(ILogger<TRequest> logger, IUserService user, IIdentityService identityService)
+    public LoggingBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUser, IIdentityService identityService)
     {
         _logger = logger;
-        _user = user;
+        _currentUser = currentUser;
         _identityService = identityService;
     }
 
     public async Task Process(TRequest request, CancellationToken cancellationToken)
     {
         var requestName = typeof(TRequest).Name;
-        var userId = _user.Id ?? string.Empty;
+        var userId = _currentUser.Id ?? string.Empty;
         var userName = string.Empty;
 
         if (!string.IsNullOrEmpty(userId))

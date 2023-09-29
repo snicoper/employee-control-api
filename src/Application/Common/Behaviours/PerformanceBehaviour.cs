@@ -11,13 +11,13 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
     private readonly IIdentityService _identityService;
     private readonly ILogger<TRequest> _logger;
     private readonly Stopwatch _timer;
-    private readonly IUserService _userService;
+    private readonly ICurrentUserService _currentUserService;
 
-    public PerformanceBehaviour(ILogger<TRequest> logger, IUserService userService, IIdentityService identityService)
+    public PerformanceBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService, IIdentityService identityService)
     {
         _timer = new Stopwatch();
         _logger = logger;
-        _userService = userService;
+        _currentUserService = currentUserService;
         _identityService = identityService;
     }
 
@@ -40,7 +40,7 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
         }
 
         var requestName = typeof(TRequest).Name;
-        var userId = _userService.Id ?? string.Empty;
+        var userId = _currentUserService.Id ?? string.Empty;
         var userName = string.Empty;
 
         if (!string.IsNullOrEmpty(userId))
