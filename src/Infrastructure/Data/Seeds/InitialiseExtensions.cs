@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace EmployeeControl.Infrastructure.Data.DbSeeds;
+namespace EmployeeControl.Infrastructure.Data.Seeds;
 
 public static class InitialiseExtensions
 {

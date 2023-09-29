@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace EmployeeControl.Infrastructure.Data.DbSeeds;
+namespace EmployeeControl.Infrastructure.Data.Seeds;
 
 public class ApplicationDbContextInitialize
 {

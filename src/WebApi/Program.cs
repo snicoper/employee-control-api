@@ -1,7 +1,7 @@
 using EmployeeControl.Application;
 using EmployeeControl.Domain;
 using EmployeeControl.Infrastructure;
-using EmployeeControl.Infrastructure.Data.DbSeeds;
+using EmployeeControl.Infrastructure.Data.Seeds;
 using EmployeeControl.WebApi;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -61,6 +61,9 @@ if (app.Environment.IsDevelopment())
 app.UseExceptionHandler(_ => { });
 
 app.UseCors("DefaultCors");
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
