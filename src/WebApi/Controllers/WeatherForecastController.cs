@@ -10,6 +10,10 @@ public class WeatherForecastController : ApiControllerBase
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
+    /// <summary>
+    ///     Prueba de controller.
+    /// </summary>
+    /// <returns>Lista de reaultado.</returns>
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {

@@ -1,7 +1,8 @@
 using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.WebApi.Services;
-using Microsoft.OpenApi.Models;
-using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
+using NSwag;
+using NSwag.Generation.Processors.Security;
 
 namespace EmployeeControl.WebApi;
 
@@ -20,21 +21,34 @@ public static class DependencyInjection
         services.AddScoped<ICurrentUserService, CurrentUserService>();
 
         services.AddControllers();
-
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen(options =>
+
+        // Customize default API behavior.
+        services.Configure<ApiBehaviorOptions>(options =>
         {
-            options.SwaggerDoc(
-                "v1",
-                new OpenApiInfo
+            options.SuppressModelStateInvalidFilter = true;
+        });
+
+        // NSwag.
+        services.AddOpenApiDocument(configure =>
+        {
+            configure.Title = "Employee Control API";
+            configure.AddSecurity(
+                "JWT",
+                Enumerable.Empty<string>(),
+                new OpenApiSecurityScheme
                 {
-                    Version = "v1", Title = "Employee Control", Description = "Web API for managing Employee Control items"
+                    Type = OpenApiSecuritySchemeType.ApiKey,
+                    Name = "Authorization",
+                    In = OpenApiSecurityApiKeyLocation.Header,
+                    Description = "Type into the text box: Bearer {your JWT token}."
                 });
 
-            var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+            configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
         });
+
+        // Routing.
+        services.AddRouting(options => { options.LowercaseUrls = true; });
 
         return services;
     }
