@@ -24,24 +24,20 @@ public class LoginHandler : IRequestHandler<LoginCommand, LoginDto>
 
     public async Task<LoginDto> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var jwtKey = _jwtOptions.Key;
-        var jwtIssuer = _jwtOptions.Issuer;
-        var jwtAudience = _jwtOptions.Audience;
-
         // Verifica credenciales con Identity y obtniene las Claims.
         var user = await CheckPasswordAndGetUserAsync(request);
         var roles = await _userManager.GetRolesAsync(user);
         var claims = GetUserClaims(user, roles);
 
         // Genera un token según los claims.
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey ?? string.Empty));
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Key ?? string.Empty));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
         var tokenDescriptor = new JwtSecurityToken(
-            jwtIssuer,
-            jwtAudience,
+            _jwtOptions.Issuer,
+            _jwtOptions.Audience,
             claims,
-            expires: DateTime.Now.AddDays(30),
+            expires: DateTime.Now.AddDays(_jwtOptions.LifeTimeDays),
             signingCredentials: credentials);
 
         var jwt = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
