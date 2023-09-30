@@ -1,4 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Interfaces;
+using EmployeeControl.Application.Common.Interfaces.Identity;
 using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
 

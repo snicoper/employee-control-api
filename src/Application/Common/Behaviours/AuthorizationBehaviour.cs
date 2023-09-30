@@ -1,5 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces;
+using EmployeeControl.Application.Common.Interfaces.Identity;
 using EmployeeControl.Application.Common.Security;
 using MediatR;
 using System.Reflection;

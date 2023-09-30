@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 
-namespace EmployeeControl.Application.Common.Interfaces;
+namespace EmployeeControl.Application.Common.Interfaces.Identity;
 
 public interface IIdentityService
 {

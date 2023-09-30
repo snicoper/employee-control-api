@@ -1,4 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Interfaces;
+using EmployeeControl.Application.Common.Interfaces.Identity;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
@@ -8,12 +9,13 @@ namespace EmployeeControl.Application.Common.Behaviours;
 public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
 {
+    private readonly ICurrentUserService _currentUserService;
     private readonly IIdentityService _identityService;
     private readonly ILogger<TRequest> _logger;
     private readonly Stopwatch _timer;
-    private readonly ICurrentUserService _currentUserService;
 
-    public PerformanceBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService, IIdentityService identityService)
+    public PerformanceBehaviour(ILogger<TRequest> logger, ICurrentUserService currentUserService,
+        IIdentityService identityService)
     {
         _timer = new Stopwatch();
         _logger = logger;
