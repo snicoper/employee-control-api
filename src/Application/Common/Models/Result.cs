@@ -1,9 +1,8 @@
 ﻿namespace EmployeeControl.Application.Common.Models;
 
-// TODO: Revisar esta clase.
 public class Result
 {
-    internal Result(bool succeeded, IEnumerable<string> errors)
+    private Result(bool succeeded, IEnumerable<string> errors)
     {
         Succeeded = succeeded;
         Errors = errors.ToArray();

@@ -65,9 +65,9 @@ public static class DependencyInjection
             })
             .AddJwtBearer(options =>
             {
-                var jwtKey = configuration[JwtOption.JwtKey] ?? string.Empty;
-                var jwtIssuer = configuration[JwtOption.JwtIssuer];
-                var jwtAudience = configuration[JwtOption.JwtAudience];
+                var jwtKey = configuration[JwtOptions.JwtKey] ?? string.Empty;
+                var jwtIssuer = configuration[JwtOptions.JwtIssuer];
+                var jwtAudience = configuration[JwtOptions.JwtAudience];
 
                 options.TokenValidationParameters = new TokenValidationParameters
                 {

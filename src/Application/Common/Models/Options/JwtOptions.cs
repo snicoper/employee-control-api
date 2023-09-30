@@ -2,9 +2,9 @@
 
 namespace EmployeeControl.Application.Common.Models.Options;
 
-public class JwtOption
+public class JwtOptions
 {
-    public const string Section = "Jwt";
+    public const string SectionName = "Jwt";
     public const string JwtLifeTimeDays = "Jwt:LifeTimeDays";
     public const string JwtIssuer = "Jwt:Issuer";
     public const string JwtAudience = "Jwt:Audience";

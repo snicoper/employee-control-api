@@ -2,9 +2,9 @@
 
 namespace EmployeeControl.Application.Identity.Commands.CreateAccount;
 
-public class CreateAccountHandler : IRequestHandler<CreateAccountCommand, CreateAccountDto>
+public class CreateAccountHandler : IRequestHandler<CreateAccountCommand, int>
 {
-    public Task<CreateAccountDto> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
+    public Task<int> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

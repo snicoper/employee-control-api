@@ -17,7 +17,7 @@ public class IdentityController : ApiControllerBase
     /// <returns>Token en caso de éxito.</returns>
     [AllowAnonymous]
     [HttpPost("login")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<LoginDto>> Login(LoginCommand command)
     {
@@ -33,7 +33,7 @@ public class IdentityController : ApiControllerBase
     [HttpPost("create-account")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<CreateAccountDto>> CreateAccount(CreateAccountCommand command)
+    public async Task<ActionResult<int>> CreateAccount(CreateAccountCommand command)
     {
         return await Mediator.Send(command);
     }

@@ -13,13 +13,13 @@ namespace EmployeeControl.Application.Identity.Commands.Login;
 
 public class LoginHandler : IRequestHandler<LoginCommand, LoginDto>
 {
-    private readonly JwtOption _jwtOptions;
+    private readonly JwtOptions _jwtOptionses;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public LoginHandler(UserManager<ApplicationUser> userManager, IOptions<JwtOption> jwtOptions)
+    public LoginHandler(UserManager<ApplicationUser> userManager, IOptions<JwtOptions> jwtOptions)
     {
         _userManager = userManager;
-        _jwtOptions = jwtOptions.Value;
+        _jwtOptionses = jwtOptions.Value;
     }
 
     public async Task<LoginDto> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -30,14 +30,14 @@ public class LoginHandler : IRequestHandler<LoginCommand, LoginDto>
         var claims = GetUserClaims(user, roles);
 
         // Genera un token según los claims.
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Key ?? string.Empty));
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptionses.Key ?? string.Empty));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
         var tokenDescriptor = new JwtSecurityToken(
-            _jwtOptions.Issuer,
-            _jwtOptions.Audience,
+            _jwtOptionses.Issuer,
+            _jwtOptionses.Audience,
             claims,
-            expires: DateTime.Now.AddDays(_jwtOptions.LifeTimeDays),
+            expires: DateTime.Now.AddDays(_jwtOptionses.LifeTimeDays),
             signingCredentials: credentials);
 
         var jwt = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);

@@ -36,8 +36,8 @@ public static class DependencyInjection
         });
 
         // Strongly typed options validations.
-        services.AddOptions<JwtOption>()
-            .Bind(configuration.GetSection(JwtOption.Section))
+        services.AddOptions<JwtOptions>()
+            .Bind(configuration.GetSection(JwtOptions.SectionName))
             .ValidateDataAnnotations()
             .ValidateOnStart();
 
