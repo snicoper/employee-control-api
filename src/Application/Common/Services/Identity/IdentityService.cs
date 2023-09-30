@@ -15,7 +15,7 @@ namespace EmployeeControl.Application.Common.Services.Identity;
 public class IdentityService : IIdentityService
 {
     private readonly IAuthorizationService _authorizationService;
-    private readonly IStringLocalizer<IdentityLocalizer> _localizer;
+    private readonly IStringLocalizer<IdentityResource> _localizer;
     private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IValidationFailureService _validationFailureService;
@@ -25,7 +25,7 @@ public class IdentityService : IIdentityService
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
         IAuthorizationService authorizationService,
         IValidationFailureService validationFailureService,
-        IStringLocalizer<IdentityLocalizer> localizer)
+        IStringLocalizer<IdentityResource> localizer)
     {
         _userManager = userManager;
         _userClaimsPrincipalFactory = userClaimsPrincipalFactory;

@@ -1,3 +1,3 @@
 ﻿namespace EmployeeControl.Application.Localization;
 
-public class IdentityLocalizer;
+public class SharedResource;

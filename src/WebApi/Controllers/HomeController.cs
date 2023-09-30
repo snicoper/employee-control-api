@@ -1,5 +1,6 @@
 ﻿using EmployeeControl.Application.Cqrs.Home.Queries.Prueba;
 using EmployeeControl.WebApi.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeControl.WebApi.Controllers;
@@ -8,6 +9,7 @@ namespace EmployeeControl.WebApi.Controllers;
 public class HomeController : ApiControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<PruebaDto>> Prueba()
     {

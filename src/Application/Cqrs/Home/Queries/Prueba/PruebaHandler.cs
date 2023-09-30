@@ -1,12 +1,21 @@
-﻿using MediatR;
+﻿using EmployeeControl.Application.Localization;
+using MediatR;
+using Microsoft.Extensions.Localization;
 
 namespace EmployeeControl.Application.Cqrs.Home.Queries.Prueba;
 
 public class PruebaHandler : IRequestHandler<PruebaQuery, PruebaDto>
 {
+    private readonly IStringLocalizer<IdentityResource> _localizer;
+
+    public PruebaHandler(IStringLocalizer<IdentityResource> localizer)
+    {
+        _localizer = localizer;
+    }
+
     public Task<PruebaDto> Handle(PruebaQuery request, CancellationToken cancellationToken)
     {
-        var result = new PruebaDto { Nombre = "Salvador Nicolas", Email = "snicoper@example.com" };
+        var result = new PruebaDto { Message = _localizer["Hello"] };
 
         return Task.FromResult(result);
     }

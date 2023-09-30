@@ -1,8 +1,8 @@
 using EmployeeControl.Application.Common.Interfaces;
-using EmployeeControl.Application.Common.Interfaces.Identity;
 using EmployeeControl.WebApi.Infrastructure;
 using EmployeeControl.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using NSwag;
 using NSwag.Generation.Processors.Security;
@@ -45,7 +45,10 @@ public static class DependencyInjection
 
         services.AddExceptionHandler<CustomExceptionHandler>();
 
-        services.AddControllersWithViews();
+        services.AddControllersWithViews()
+            .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+            .AddDataAnnotationsLocalization();
+
         services.AddEndpointsApiExplorer();
         services.AddRazorPages();
 
@@ -98,7 +101,7 @@ public static class DependencyInjection
         });
 
         // Localization.
-        services.AddLocalization(opt => { opt.ResourcesPath = "Localization"; });
+        services.AddLocalization(opt => { opt.ResourcesPath = "Resources"; });
 
         return services;
     }
