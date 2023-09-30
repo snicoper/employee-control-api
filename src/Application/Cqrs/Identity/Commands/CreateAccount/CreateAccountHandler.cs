@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace EmployeeControl.Application.Identity.Commands.CreateAccount;
+namespace EmployeeControl.Application.Cqrs.Identity.Commands.CreateAccount;
 
 public class CreateAccountHandler : IRequestHandler<CreateAccountCommand, int>
 {

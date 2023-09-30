@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Models;
 using MediatR;
 
-namespace EmployeeControl.Application.Admin.AdminIdentity.Queries;
+namespace EmployeeControl.Application.Cqrs.Admin.AdminIdentity.Queries;
 
 public class GetAdminIdentitiesQuery : IRequest<ResponseData<GetAdminIdentitiesDto>>
 {

@@ -1,4 +1,4 @@
-﻿namespace EmployeeControl.Application.Home.Queries.Prueba;
+﻿namespace EmployeeControl.Application.Cqrs.Home.Queries.Prueba;
 
 public class PruebaDto
 {

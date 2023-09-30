@@ -2,7 +2,7 @@
 using EmployeeControl.Application.Common.Mapping;
 using EmployeeControl.Domain.Entities.Identity;
 
-namespace EmployeeControl.Application.Admin.AdminIdentity.Queries;
+namespace EmployeeControl.Application.Cqrs.Admin.AdminIdentity.Queries;
 
 public class GetAdminIdentitiesDto : IMapFrom<ApplicationUser>
 {

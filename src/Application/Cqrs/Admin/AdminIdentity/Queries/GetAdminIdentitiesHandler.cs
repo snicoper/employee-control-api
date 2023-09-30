@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Application.Admin.AdminIdentity.Queries;
+namespace EmployeeControl.Application.Cqrs.Admin.AdminIdentity.Queries;
 
 public class GetAdminIdentitiesHandler : IRequestHandler<GetAdminIdentitiesQuery, ResponseData<GetAdminIdentitiesDto>>
 {

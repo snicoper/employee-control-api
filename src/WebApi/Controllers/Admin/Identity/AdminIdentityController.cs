@@ -1,5 +1,5 @@
-﻿using EmployeeControl.Application.Admin.AdminIdentity.Queries;
-using EmployeeControl.Application.Common.Models;
+﻿using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Cqrs.Admin.AdminIdentity.Queries;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 

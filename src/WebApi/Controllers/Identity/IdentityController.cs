@@ -1,5 +1,5 @@
-using EmployeeControl.Application.Identity.Commands.CreateAccount;
-using EmployeeControl.Application.Identity.Commands.Login;
+using EmployeeControl.Application.Cqrs.Identity.Commands.CreateAccount;
+using EmployeeControl.Application.Cqrs.Identity.Commands.Login;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
