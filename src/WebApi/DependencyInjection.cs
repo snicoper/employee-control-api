@@ -100,9 +100,6 @@ public static class DependencyInjection
             });
         });
 
-        // Localization.
-        services.AddLocalization(opt => { opt.ResourcesPath = "Resources"; });
-
         return services;
     }
 }

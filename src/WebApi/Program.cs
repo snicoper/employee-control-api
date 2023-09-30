@@ -45,9 +45,11 @@ else
     app.UseHsts();
 }
 
+app.UseHttpsRedirection();
+
 app.UseSerilogRequestLogging();
 
-app.UseHttpsRedirection();
+app.UseRequestLocalization();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
