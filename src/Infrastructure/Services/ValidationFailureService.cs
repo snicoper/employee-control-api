@@ -2,7 +2,7 @@
 using EmployeeControl.Application.Common.Interfaces;
 using FluentValidation.Results;
 
-namespace EmployeeControl.Application.Common.Services;
+namespace EmployeeControl.Infrastructure.Services;
 
 public class ValidationFailureService : IValidationFailureService
 {
@@ -10,7 +10,7 @@ public class ValidationFailureService : IValidationFailureService
 
     public bool HasErrors()
     {
-        return Errors.Any();
+        return Errors.Count != 0;
     }
 
     public int ErrorsCount()

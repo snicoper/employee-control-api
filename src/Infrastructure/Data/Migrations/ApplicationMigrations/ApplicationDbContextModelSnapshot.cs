@@ -22,7 +22,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations.ApplicationMigrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("EmployeeControl.Domain.Entities.Identity.ApplicationUser", b =>
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -40,6 +40,16 @@ namespace EmployeeControl.Infrastructure.Data.Migrations.ApplicationMigrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -229,7 +239,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations.ApplicationMigrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.Identity.ApplicationUser", null)
+                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -238,7 +248,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations.ApplicationMigrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.Identity.ApplicationUser", null)
+                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -253,7 +263,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations.ApplicationMigrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EmployeeControl.Domain.Entities.Identity.ApplicationUser", null)
+                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -262,7 +272,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations.ApplicationMigrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.Identity.ApplicationUser", null)
+                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

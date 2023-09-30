@@ -66,7 +66,10 @@ public class ApplicationDbContextInitialize
 
 
         // Default users.
-        var administrator = new ApplicationUser { UserName = "admin", Email = "admin@localhost" };
+        var administrator = new ApplicationUser
+        {
+            UserName = "admin", FirstName = "Admin", LastName = "Admin1", Email = "admin@localhost"
+        };
 
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
