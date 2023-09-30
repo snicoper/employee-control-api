@@ -2,9 +2,9 @@
 using EmployeeControl.Application.Common.Mapping;
 using EmployeeControl.Domain.Entities;
 
-namespace EmployeeControl.Application.Cqrs.Admin.AdminIdentity.Queries;
+namespace EmployeeControl.Application.Cqrs.Admin.AdminIdentity.Queries.GetAdminIdentitiesPaginated;
 
-public class GetAdminIdentitiesDto : IMapFrom<ApplicationUser>
+public class GetAdminIdentitiesPaginatedDto : IMapFrom<ApplicationUser>
 {
     public string? Id { get; set; }
 
@@ -13,7 +13,7 @@ public class GetAdminIdentitiesDto : IMapFrom<ApplicationUser>
     public void Mapping(Profile profile)
     {
         profile
-            .CreateMap<ApplicationUser, GetAdminIdentitiesDto>()
+            .CreateMap<ApplicationUser, GetAdminIdentitiesPaginatedDto>()
             .ForMember(
                 dest => dest.NombreDeUsuario,
                 opt => opt.MapFrom(src => $"{src.UserName}, {src.UserName}"));

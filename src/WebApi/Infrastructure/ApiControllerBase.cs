@@ -1,9 +1,11 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeControl.WebApi.Infrastructure;
 
 [ApiController]
+[Authorize]
 [Produces("application/json")]
 public class ApiControllerBase : ControllerBase
 {

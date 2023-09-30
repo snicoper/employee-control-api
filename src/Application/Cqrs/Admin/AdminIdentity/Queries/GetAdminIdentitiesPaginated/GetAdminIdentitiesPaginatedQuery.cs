@@ -3,12 +3,12 @@ using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Constants;
 using MediatR;
 
-namespace EmployeeControl.Application.Cqrs.Admin.AdminIdentity.Queries;
+namespace EmployeeControl.Application.Cqrs.Admin.AdminIdentity.Queries.GetAdminIdentitiesPaginated;
 
 [Authorize(Roles = Roles.Administrator)]
-public class GetAdminIdentitiesQuery : IRequest<ResponseData<GetAdminIdentitiesDto>>
+public class GetAdminIdentitiesPaginatedQuery : IRequest<ResponseData<GetAdminIdentitiesPaginatedDto>>
 {
-    public GetAdminIdentitiesQuery(RequestData requestData)
+    public GetAdminIdentitiesPaginatedQuery(RequestData requestData)
     {
         RequestData = requestData;
     }

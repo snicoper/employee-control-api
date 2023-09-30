@@ -1,5 +1,4 @@
-﻿using EmployeeControl.Application.Common.Interfaces;
-using EmployeeControl.Application.Common.Interfaces.Identity;
+﻿using EmployeeControl.Application.Common.Interfaces.Identity;
 using MediatR;
 
 namespace EmployeeControl.Application.Cqrs.Identity.Commands.Login;
@@ -15,7 +14,7 @@ public class LoginHandler : IRequestHandler<LoginCommand, LoginDto>
 
     public async Task<LoginDto> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var jwt = await _loginService.LoginAsync(request.UserName, request.Password);
+        var jwt = await _loginService.LoginAsync(request.Identifier, request.Password);
 
         return new LoginDto { Token = jwt };
     }

@@ -5,26 +5,27 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Application.Cqrs.Admin.AdminIdentity.Queries;
+namespace EmployeeControl.Application.Cqrs.Admin.AdminIdentity.Queries.GetAdminIdentitiesPaginated;
 
-public class GetAdminIdentitiesHandler : IRequestHandler<GetAdminIdentitiesQuery, ResponseData<GetAdminIdentitiesDto>>
+public class GetAdminIdentitiesPaginatedHandler
+    : IRequestHandler<GetAdminIdentitiesPaginatedQuery, ResponseData<GetAdminIdentitiesPaginatedDto>>
 {
     private readonly IMapper _mapper;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public GetAdminIdentitiesHandler(UserManager<ApplicationUser> userManager, IMapper mapper)
+    public GetAdminIdentitiesPaginatedHandler(UserManager<ApplicationUser> userManager, IMapper mapper)
     {
         _userManager = userManager;
         _mapper = mapper;
     }
 
-    public async Task<ResponseData<GetAdminIdentitiesDto>> Handle(
-        GetAdminIdentitiesQuery request,
+    public async Task<ResponseData<GetAdminIdentitiesPaginatedDto>> Handle(
+        GetAdminIdentitiesPaginatedQuery request,
         CancellationToken cancellationToken)
     {
         var users = _userManager.Users.AsNoTracking();
 
-        var result = await ResponseData<GetAdminIdentitiesDto>.CreateAsync(
+        var result = await ResponseData<GetAdminIdentitiesPaginatedDto>.CreateAsync(
             users,
             request.RequestData,
             _mapper,
