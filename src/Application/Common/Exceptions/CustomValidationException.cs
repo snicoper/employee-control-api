@@ -3,8 +3,14 @@
 namespace EmployeeControl.Application.Common.Exceptions;
 
 [Serializable]
-public class CustomValidationException() : Exception("One or more validation failures have occurred.")
+public class CustomValidationException : Exception
 {
+    public CustomValidationException()
+        : base("One or more validation failures have occurred.")
+    {
+        Errors = new Dictionary<string, string[]>();
+    }
+
     public CustomValidationException(IEnumerable<ValidationFailure> failures)
         : this()
     {
@@ -13,5 +19,5 @@ public class CustomValidationException() : Exception("One or more validation fai
             .ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray());
     }
 
-    public IDictionary<string, string[]> Errors { get; } = new Dictionary<string, string[]>();
+    public IDictionary<string, string[]> Errors { get; }
 }

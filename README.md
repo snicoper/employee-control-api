@@ -11,3 +11,13 @@ dotnet ef migrations add Initial -p ../Infrastructure/Infrastructure.csproj  -c 
 
 dotnet ef database update -c ApplicationDbContext
 ```
+
+## Secrets
+
+```bash
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "User Id=postgres;Password=Password44!;Server=localhost;Port=5432;Database=EmployeeControl;Integrated Security=true;Pooling=true;"
+  }
+}
+```

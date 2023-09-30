@@ -3,6 +3,7 @@
   <PropertyGroup>
     <RootNamespace>EmployeeControl.WebApi</RootNamespace>
     <AssemblyName>EmployeeControl.WebApi</AssemblyName>
+    <UserSecretsId>b50e9c12-c1ea-4af4-87cf-88e9343ed6f8</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

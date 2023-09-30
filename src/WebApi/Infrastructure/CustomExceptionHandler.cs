@@ -71,7 +71,8 @@ public class CustomExceptionHandler : IExceptionHandler
         {
             Status = StatusCodes.Status401Unauthorized,
             Title = "Unauthorized",
-            Type = "https://tools.ietf.org/html/rfc7235#section-3.1"
+            Type = "https://tools.ietf.org/html/rfc7235#section-3.1",
+            Detail = GetDetailsExceptionIfNotProduction(httpContext, exception)
         });
     }
 
@@ -83,7 +84,8 @@ public class CustomExceptionHandler : IExceptionHandler
         {
             Status = StatusCodes.Status403Forbidden,
             Title = "Forbidden",
-            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.3"
+            Type = "https://tools.ietf.org/html/rfc7231#section-6.5.3",
+            Detail = GetDetailsExceptionIfNotProduction(httpContext, exception)
         });
     }
 
@@ -91,16 +93,21 @@ public class CustomExceptionHandler : IExceptionHandler
     {
         httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
-        var hostEnvironment = httpContext
-            .RequestServices
-            .GetRequiredService<IWebHostEnvironment>();
-
         await httpContext.Response.WriteAsJsonAsync(new ProblemDetails
         {
             Status = StatusCodes.Status500InternalServerError,
             Title = "An error occurred while processing your request.",
             Type = "https://tools.ietf.org/html/rfc7231#section-6.6.1",
-            Detail = !hostEnvironment.IsProduction() ? exception.Message : string.Empty
+            Detail = GetDetailsExceptionIfNotProduction(httpContext, exception)
         });
+    }
+
+    private string GetDetailsExceptionIfNotProduction(HttpContext httpContext, Exception exception)
+    {
+        var hostEnvironment = httpContext
+            .RequestServices
+            .GetRequiredService<IWebHostEnvironment>();
+
+        return !hostEnvironment.IsProduction() ? exception.Message : string.Empty;
     }
 }

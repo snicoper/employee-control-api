@@ -76,7 +76,7 @@ public static class QueryableOrderByExtensions
         var type = typeof(TEntity);
         var property = type.GetProperty(orderByProperty);
 
-        var prop = orderByProperty.Split('.').Select(s => typeof(TEntity).GetProperty(s)).ToArray();
+        var prop = orderByProperty.Split('.').Select(name => typeof(TEntity).GetProperty(name)).ToArray();
         if (property is null && prop.Length > 1)
         {
             property = prop.FirstOrDefault();
