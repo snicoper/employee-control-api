@@ -1,0 +1,211 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "EmployeeControl",
+    "dateExported": "2023-09-30T19:15:25.464Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "84b06e87-d1ef-46e7-9f0f-a9b805570b49",
+            "name": "Identiry",
+            "containerId": "",
+            "created": "2023-09-28T14:13:56.609Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "9b4c679a-235e-4852-9adb-1fbf3ddb1004",
+            "name": "Home",
+            "containerId": "",
+            "created": "2023-09-28T14:19:09.409Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "ed0fcbfe-46f6-4001-9bcf-7ac7ec481441",
+            "name": "Culture",
+            "containerId": "",
+            "created": "2023-09-30T19:03:28.926Z",
+            "sortNum": 30000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "75f30b7a-745d-47b7-a860-33b3fea75dc4",
+            "colId": "0e96dcd8-9449-408b-b214-417cb79d4fd0",
+            "containerId": "84b06e87-d1ef-46e7-9f0f-a9b805570b49",
+            "name": "Login 200",
+            "url": "{{api-url}}/identity/login",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-09-28T14:14:04.154Z",
+            "modified": "2023-09-30T18:10:02.033Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"identifier\": \"admin\",\n  \"password\": \"Password4!\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "set-env-var",
+                    "custom": "json.token",
+                    "action": "setto",
+                    "value": "{{token}}"
+                },
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "1b9a67c6-be03-4492-967a-813ce7122aee",
+            "colId": "0e96dcd8-9449-408b-b214-417cb79d4fd0",
+            "containerId": "9b4c679a-235e-4852-9adb-1fbf3ddb1004",
+            "name": "Home 200",
+            "url": "{{api-url}}/home",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-09-28T14:19:21.752Z",
+            "modified": "2023-09-30T18:10:28.780Z",
+            "headers": [
+                {
+                    "name": "Accept-Language",
+                    "value": "en-US"
+                }
+            ],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "{{token}}"
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                },
+                {
+                    "type": "Content-Type",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "application/json; charset=utf-8"
+                }
+            ]
+        },
+        {
+            "_id": "6412fc2c-639b-4b29-a09b-626a008015a1",
+            "colId": "0e96dcd8-9449-408b-b214-417cb79d4fd0",
+            "containerId": "84b06e87-d1ef-46e7-9f0f-a9b805570b49",
+            "name": "Login 403",
+            "url": "{{api-url}}/identity/login",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-09-28T14:51:04.976Z",
+            "modified": "2023-09-30T18:11:38.228Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"identifier\": \"administrator\",\n  \"password\": \"Administrator\"\n}",
+                "form": []
+            },
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "401"
+                },
+                {
+                    "type": "json-query",
+                    "custom": "json.title",
+                    "action": "equal",
+                    "value": "Unauthorized"
+                }
+            ]
+        },
+        {
+            "_id": "65b25874-59d5-4c26-8c6c-af7590779e0b",
+            "colId": "0e96dcd8-9449-408b-b214-417cb79d4fd0",
+            "containerId": "ed0fcbfe-46f6-4001-9bcf-7ac7ec481441",
+            "name": "Current",
+            "url": "{{api-url}}/culture/current",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-09-30T19:03:42.657Z",
+            "modified": "2023-09-30T19:04:57.319Z",
+            "headers": [],
+            "params": [],
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                },
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "\"es-ES\""
+                }
+            ]
+        },
+        {
+            "_id": "9d34a346-76a7-436f-b3b3-427a138be180",
+            "colId": "0e96dcd8-9449-408b-b214-417cb79d4fd0",
+            "containerId": "ed0fcbfe-46f6-4001-9bcf-7ac7ec481441",
+            "name": "Supported",
+            "url": "{{api-url}}/culture/supported",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-09-30T19:05:22.571Z",
+            "modified": "2023-09-30T19:11:13.595Z",
+            "headers": [],
+            "params": [],
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                }
+            ]
+        },
+        {
+            "_id": "e147503f-1f89-436a-b83e-07a6dff2ad3a",
+            "colId": "0e96dcd8-9449-408b-b214-417cb79d4fd0",
+            "containerId": "ed0fcbfe-46f6-4001-9bcf-7ac7ec481441",
+            "name": "Current-en-US",
+            "url": "{{api-url}}/culture/current",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2023-09-30T19:13:11.487Z",
+            "modified": "2023-09-30T19:14:03.917Z",
+            "headers": [
+                {
+                    "name": "Accept-Language",
+                    "value": "en-US"
+                }
+            ],
+            "params": [],
+            "tests": [
+                {
+                    "type": "res-code",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "200"
+                },
+                {
+                    "type": "res-body",
+                    "custom": "",
+                    "action": "equal",
+                    "value": "\"en-US\""
+                }
+            ]
+        }
+    ]
+}
