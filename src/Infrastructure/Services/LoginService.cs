@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Identity;
+﻿using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.Application.Common.Models.Options;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace EmployeeControl.Infrastructure.Services.Identity;
+namespace EmployeeControl.Infrastructure.Services;
 
 public class LoginService : ILoginService
 {

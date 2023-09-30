@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Interfaces.Identity;
+using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 

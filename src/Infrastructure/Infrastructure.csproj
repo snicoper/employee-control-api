@@ -18,4 +18,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0-rc.1.23419.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Identity\" />
+  </ItemGroup>
+
 </Project>

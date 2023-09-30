@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Identity;
+﻿using EmployeeControl.Application.Common.Interfaces;
 using MediatR;
 
 namespace EmployeeControl.Application.Cqrs.Identity.Commands.Login;

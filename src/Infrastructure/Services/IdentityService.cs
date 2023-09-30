@@ -1,5 +1,4 @@
 ﻿using EmployeeControl.Application.Common.Interfaces;
-using EmployeeControl.Application.Common.Interfaces.Identity;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Constants;
@@ -9,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
-namespace EmployeeControl.Infrastructure.Services.Identity;
+namespace EmployeeControl.Infrastructure.Services;
 
 public class IdentityService : IIdentityService
 {
