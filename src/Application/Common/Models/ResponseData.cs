@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.EntityFramework.Filter;
 using EmployeeControl.Application.Common.EntityFramework.OrderBy;
-using EmployeeControl.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Application.Common.Models;
@@ -19,7 +18,7 @@ public class ResponseData<TDto> : RequestData
         RequestData request,
         IMapper mapper,
         CancellationToken cancellationToken)
-        where TEntity : BaseEntity
+        where TEntity : class
     {
         var totalItems = await source
             .Filter(request)
