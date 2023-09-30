@@ -1,4 +1,5 @@
 using EmployeeControl.Application.Common.Interfaces;
+using EmployeeControl.Application.Common.Interfaces.Identity;
 using EmployeeControl.WebApi.Infrastructure;
 using EmployeeControl.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Common.Interfaces;
+﻿using EmployeeControl.Application.Common.Interfaces.Identity;
 using EmployeeControl.Application.Common.Models.Options;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -8,7 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace EmployeeControl.Infrastructure.Services;
+namespace EmployeeControl.Application.Common.Services.Identity;
 
 public class LoginService : ILoginService
 {
@@ -23,7 +23,7 @@ public class LoginService : ILoginService
 
     public async Task<string> LoginAsync(string identifier, string password)
     {
-        // Verifica credenciales con Identity y obtniene las Claims.
+        // Verifica credenciales con Identity y obtiene las Claims.
         var user = await CheckPasswordAndGetUserAsync(identifier, password);
         var roles = await _userManager.GetRolesAsync(user);
         var claims = GetUserClaims(user, roles);

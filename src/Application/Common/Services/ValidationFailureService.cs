@@ -2,7 +2,7 @@
 using EmployeeControl.Application.Common.Interfaces;
 using FluentValidation.Results;
 
-namespace EmployeeControl.Infrastructure.Services;
+namespace EmployeeControl.Application.Common.Services;
 
 public class ValidationFailureService : IValidationFailureService
 {

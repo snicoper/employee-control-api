@@ -1,4 +1,4 @@
-﻿namespace EmployeeControl.Application.Common.Interfaces;
+﻿namespace EmployeeControl.Application.Common.Interfaces.Identity;
 
 public interface ILoginService
 {

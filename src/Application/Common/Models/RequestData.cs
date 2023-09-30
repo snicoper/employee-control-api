@@ -2,7 +2,7 @@
 
 public class RequestData
 {
-    public int TotalItems { get; set; } = 0;
+    public int TotalItems { get; set; }
 
     public int PageNumber { get; set; } = 1;
 

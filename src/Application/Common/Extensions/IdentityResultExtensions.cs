@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Models;
 using Microsoft.AspNetCore.Identity;
 
-namespace EmployeeControl.Infrastructure.Services;
+namespace EmployeeControl.Application.Common.Extensions;
 
 public static class IdentityResultExtensions
 {
