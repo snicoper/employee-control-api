@@ -25,12 +25,10 @@ public class GetAdminIdentitiesPaginatedHandler
     {
         var users = _userManager.Users.AsNoTracking();
 
-        var result = await ResponseData<GetAdminIdentitiesPaginatedDto>.CreateAsync(
+        return await ResponseData<GetAdminIdentitiesPaginatedDto>.CreateAsync(
             users,
             request.RequestData,
             _mapper,
             cancellationToken);
-
-        return result;
     }
 }

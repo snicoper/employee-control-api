@@ -1,3 +1,4 @@
+using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Models;
 using System.Linq.Dynamic.Core;
 using System.Text;
@@ -40,7 +41,7 @@ public static class QueryableFilterExtensions
 
     private static void ComposeQuery(RequestFilter filter, StringBuilder query, int valuePosition)
     {
-        var relationalOperator = FilterOperator.GetRelationalOperator(filter.RelationalOperator ?? string.Empty);
+        var relationalOperator = FilterOperator.GetRelationalOperator(filter.RelationalOperator.NotNull());
         var logicalOperator = !string.IsNullOrEmpty(filter.LogicalOperator)
             ? FilterOperator.GetLogicalOperator(filter.LogicalOperator)
             : string.Empty;

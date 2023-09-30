@@ -26,6 +26,6 @@ public static class EnumExtensions
             outString = ((DisplayAttribute)attrs[0]).GetName();
         }
 
-        return outString ?? string.Empty;
+        return outString.NotNull();
     }
 }

@@ -63,14 +63,12 @@ public static class QueryableOrderByExtensions
             _ => throw new NotImplementedException()
         };
 
-        fieldName ??= string.Empty;
-
-        source = source.OrderByCommand(fieldName, command);
+        source = source.OrderByCommand(fieldName.NotNull(), command);
 
         return (IOrderedQueryable<TEntity>)source;
     }
 
-    private static IOrderedQueryable<TEntity> OrderByCommand<TEntity>(
+    public static IOrderedQueryable<TEntity> OrderByCommand<TEntity>(
         this IQueryable<TEntity> source,
         string orderByProperty,
         string command)

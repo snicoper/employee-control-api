@@ -1,4 +1,5 @@
-﻿using EmployeeControl.Application.Common.Interfaces;
+﻿using EmployeeControl.Application.Common.Extensions;
+using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.Application.Common.Models.Options;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
@@ -65,7 +66,7 @@ public static class DependencyInjection
             })
             .AddJwtBearer(options =>
             {
-                var jwtKey = configuration[JwtOptions.JwtKey] ?? string.Empty;
+                var jwtKey = configuration[JwtOptions.JwtKey].NotNull();
                 var jwtIssuer = configuration[JwtOptions.JwtIssuer];
                 var jwtAudience = configuration[JwtOptions.JwtAudience];
 

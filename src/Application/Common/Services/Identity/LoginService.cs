@@ -1,4 +1,5 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Identity;
+﻿using EmployeeControl.Application.Common.Extensions;
+using EmployeeControl.Application.Common.Interfaces.Identity;
 using EmployeeControl.Application.Common.Models.Options;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -26,10 +27,10 @@ public class LoginService : ILoginService
         // Verifica credenciales con Identity y obtiene las Claims.
         var user = await CheckPasswordAndGetUserAsync(identifier, password);
         var roles = await _userManager.GetRolesAsync(user);
-        var claims = GetUserClaims(user, roles);
+        var claims = UserClaims(user, roles);
 
         // Genera un token según los claims.
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Key ?? string.Empty));
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Key.NotNull()));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
         var tokenDescriptor = new JwtSecurityToken(
@@ -54,10 +55,11 @@ public class LoginService : ILoginService
         return user;
     }
 
-    private IEnumerable<Claim> GetUserClaims(ApplicationUser user, IEnumerable<string> roles)
+    private IEnumerable<Claim> UserClaims(ApplicationUser user, IEnumerable<string> roles)
     {
-        var userName = user.UserName ?? string.Empty;
-        var claims = new List<Claim> { new(ClaimTypes.Sid, user.Id), new(ClaimTypes.Name, userName) };
+        var claims = new List<Claim> { new(ClaimTypes.Sid, user.Id), new(ClaimTypes.Name, user.UserName.NotNull()) };
+
+        // Roles in claims.
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
         return claims;
