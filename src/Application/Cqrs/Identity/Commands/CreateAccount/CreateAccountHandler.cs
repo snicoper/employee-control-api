@@ -1,11 +1,28 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using EmployeeControl.Application.Common.Interfaces;
+using EmployeeControl.Domain.Entities;
+using MediatR;
 
 namespace EmployeeControl.Application.Cqrs.Identity.Commands.CreateAccount;
 
-public class CreateAccountHandler : IRequestHandler<CreateAccountCommand, int>
+public class CreateAccountHandler : IRequestHandler<CreateAccountCommand, string>
 {
-    public Task<int> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
+    private readonly IIdentityService _identityService;
+    private readonly IMapper _mapper;
+
+    public CreateAccountHandler(IIdentityService identityService, IMapper mapper)
     {
-        throw new NotImplementedException();
+        _identityService = identityService;
+        _mapper = mapper;
+    }
+
+    public async Task<string> Handle(CreateAccountCommand request, CancellationToken cancellationToken)
+    {
+        var user = _mapper.Map<CreateAccountCommand, ApplicationUser>(request);
+        var password = request.Password ?? string.Empty;
+
+        var result = await _identityService.CreateUserAsync(user, password);
+
+        return result.Id;
     }
 }

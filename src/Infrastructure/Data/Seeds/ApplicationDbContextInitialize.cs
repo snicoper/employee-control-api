@@ -1,5 +1,5 @@
 ﻿using EmployeeControl.Domain.Constants;
-using EmployeeControl.Domain.Entities.Identity;
+using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -54,23 +54,24 @@ public class ApplicationDbContextInitialize
     public async Task TrySeedAsync()
     {
         // Default roles.
-        var administratorRole = new IdentityRole(Roles.Administrator);
-
-        if (_roleManager.Roles.All(r => r.Name != administratorRole.Name))
+        var createRole = new List<IdentityRole>
         {
-            await _roleManager.CreateAsync(administratorRole);
+            new(Roles.Administrator), new(Roles.EnterpriseAdministrator), new(Roles.HumanResources), new(Roles.Employee)
+        };
+
+        foreach (var identityRole in createRole.Where(identityRole => _roleManager.Roles.All(r => r.Name != identityRole.Name)))
+        {
+            await _roleManager.CreateAsync(identityRole);
         }
 
+
         // Default users.
-        var administrator = new ApplicationUser { UserName = "admin@localhost", Email = "admin@localhost" };
+        var administrator = new ApplicationUser { UserName = "admin", Email = "admin@localhost" };
 
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
             await _userManager.CreateAsync(administrator, "Password4!");
-            if (!string.IsNullOrWhiteSpace(administratorRole.Name))
-            {
-                await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
-            }
+            await _userManager.AddToRolesAsync(administrator, new[] { Roles.Administrator });
         }
 
         // Default data

@@ -1,5 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Interfaces;
-using EmployeeControl.Domain.Entities.Identity;
+using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;

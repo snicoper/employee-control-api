@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Domain.Entities.Identity;
+using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

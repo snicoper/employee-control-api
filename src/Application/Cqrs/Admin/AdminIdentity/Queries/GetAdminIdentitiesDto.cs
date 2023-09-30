@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Mapping;
-using EmployeeControl.Domain.Entities.Identity;
+using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Cqrs.Admin.AdminIdentity.Queries;
 

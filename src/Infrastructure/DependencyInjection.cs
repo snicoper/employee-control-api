@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.Application.Common.Models.Options;
 using EmployeeControl.Domain.Constants;
-using EmployeeControl.Domain.Entities.Identity;
+using EmployeeControl.Domain.Entities;
 using EmployeeControl.Infrastructure.Data;
 using EmployeeControl.Infrastructure.Data.Interceptors;
 using EmployeeControl.Infrastructure.Data.Seeds;

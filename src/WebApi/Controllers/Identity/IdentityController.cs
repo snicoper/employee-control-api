@@ -33,7 +33,7 @@ public class IdentityController : ApiControllerBase
     [HttpPost("create-account")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<int>> CreateAccount(CreateAccountCommand command)
+    public async Task<ActionResult<string>> CreateAccount(CreateAccountCommand command)
     {
         return await Mediator.Send(command);
     }
