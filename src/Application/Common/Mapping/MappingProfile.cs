@@ -39,14 +39,15 @@ public class MappingProfile : Profile
             {
                 var interfaces = type.GetInterfaces().Where(HasInterface).ToList();
 
-                if (interfaces.Count > 0)
+                if (interfaces.Count <= 0)
                 {
-                    foreach (var @interface in interfaces)
-                    {
-                        var interfaceMethodInfo = @interface.GetMethod(mappingMethodName, argumentTypes);
+                    continue;
+                }
 
-                        interfaceMethodInfo?.Invoke(instance, new object[] { this });
-                    }
+                foreach (var interfaceMethodInfo in interfaces.Select(@interface =>
+                             @interface.GetMethod(mappingMethodName, argumentTypes)))
+                {
+                    interfaceMethodInfo?.Invoke(instance, new object[] { this });
                 }
             }
         }
