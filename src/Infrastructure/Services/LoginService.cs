@@ -44,7 +44,7 @@ public class LoginService : ILoginService
 
     private async Task<ApplicationUser> CheckPasswordAndGetUserAsync(string identifier, string password)
     {
-        var user = await _userManager.FindByNameAsync(identifier);
+        var user = _userManager.Users.SingleOrDefault(au => au.UserName == identifier || au.Email == identifier);
 
         if (user is null || !await _userManager.CheckPasswordAsync(user, password))
         {
