@@ -45,55 +45,48 @@ public class EmailService : IEmailService
 
     public bool IsBodyHtml { get; set; }
 
-    public async Task SendMailAsync()
-    {
-        await SendAsync();
-    }
-
     public async Task SendMailWithViewAsync<TModel>(string viewName, TModel model)
         where TModel : class
     {
+        IsBodyHtml = true;
+
         Body = await _razorViewToStringRendererService.RenderViewToStringAsync(
             viewName,
             model,
             new Dictionary<string, object?>());
 
-        await SendAsync();
+        Send();
     }
 
-    private async Task SendAsync()
+    public void SendMailAsync()
     {
-        ValidateEmail();
+        Send();
+    }
 
-        using var client = new SmtpClient(_emailSenderSettings.Host, _emailSenderSettings.Port);
-        client.UseDefaultCredentials = false;
-        client.Credentials = new NetworkCredential(_emailSenderSettings.Username, _emailSenderSettings.Password);
-        client.DeliveryMethod = SmtpDeliveryMethod.Network;
-        client.EnableSsl = _emailSenderSettings.UseSsl;
-
-        var mailMessage = new MailMessage();
-        mailMessage.Priority = MailPriority;
-
-        mailMessage.From = new MailAddress(From.NotNull());
-
-        foreach (var to in To)
-        {
-            mailMessage.To.Add(new MailAddress(to));
-        }
-
+    private void Send()
+    {
+        using var mailMessage = new MailMessage("snicoper@outlook.com", "snicoper@gmail.com");
         mailMessage.Subject = Subject;
         mailMessage.Body = Body;
         mailMessage.IsBodyHtml = IsBodyHtml;
 
+        using var client = new SmtpClient();
+        client.Host = _emailSenderSettings.Host.NotNull();
+        client.Port = _emailSenderSettings.Port;
+        client.Credentials = new NetworkCredential(_emailSenderSettings.Username, _emailSenderSettings.Password);
+        client.UseDefaultCredentials = false;
+        client.EnableSsl = true;
+
+        ValidateEmail();
         LoggerMessage();
 
-        // Solo en Prod se envían los mensajes por SMTP.
+        // Solo en Production se envían los mensajes por SMTP.
         if (!_environment.IsProduction())
         {
             return;
         }
 
-        await client.SendMailAsync(mailMessage);
+        client.Send(mailMessage);
     }
 
     private void ValidateEmail()
@@ -128,6 +121,6 @@ public class EmailService : IEmailService
         stringBuilder.Append($"Body: {body}\n");
         stringBuilder.Append("=========================================================\n");
 
-        _logger.LogDebug("{log}", stringBuilder.ToString());
+        _logger.LogDebug("{logEmail}", stringBuilder.ToString());
     }
 }
