@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Common.Interfaces;
 
-public interface IEmailSenderService
+public interface IEmailService
 {
     /// <summary>
     ///     Prioridad del Email, por defecto High.

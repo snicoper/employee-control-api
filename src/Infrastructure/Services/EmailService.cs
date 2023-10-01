@@ -11,16 +11,16 @@ using System.Text;
 
 namespace EmployeeControl.Infrastructure.Services;
 
-public class EmailSenderSenderService : IEmailSenderService
+public class EmailService : IEmailService
 {
     private readonly EmailSenderSettings _emailSenderSettings;
     private readonly IHostEnvironment _environment;
-    private readonly ILogger<EmailSenderSenderService> _logger;
+    private readonly ILogger<EmailService> _logger;
     private readonly IRazorViewToStringRendererService _razorViewToStringRendererService;
 
-    public EmailSenderSenderService(
+    public EmailService(
         IOptions<EmailSenderSettings> options,
-        ILogger<EmailSenderSenderService> logger,
+        ILogger<EmailService> logger,
         IHostEnvironment environment,
         IRazorViewToStringRendererService razorViewToStringRendererService)
     {

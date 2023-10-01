@@ -10,11 +10,11 @@ namespace EmployeeControl.WebApi.Controllers;
 [Route("api/v{version:apiVersion}/home")]
 public class HomeController : ApiControllerBase
 {
-    private readonly IEmailSenderService _emailSenderService;
+    private readonly IEmailService _emailService;
 
-    public HomeController(IEmailSenderService emailSenderService)
+    public HomeController(IEmailService emailService)
     {
-        _emailSenderService = emailSenderService;
+        _emailService = emailService;
     }
 
     [HttpGet]
@@ -30,11 +30,11 @@ public class HomeController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<string>> SendMailTest()
     {
-        _emailSenderService.To.Add("snicoper@outlook.com");
-        _emailSenderService.Subject = "Mensaje de prueba";
+        _emailService.To.Add("snicoper@outlook.com");
+        _emailService.Subject = "Mensaje de prueba";
         var model = new TestEmailDto { Name = "Salvador Nicolas" };
 
-        await _emailSenderService.SendMailWithViewAsync("TestEmail", model);
+        await _emailService.SendMailWithViewAsync("TestEmail", model);
 
         return "Ok";
     }
