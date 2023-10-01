@@ -232,6 +232,69 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "TestRenderHtml",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/home/test-render-html",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"home",
+								"test-render-html"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TestEmail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api_url}}/home/test-email",
+							"host": [
+								"{{api_url}}"
+							],
+							"path": [
+								"home",
+								"test-email"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
