@@ -1,6 +1,6 @@
 ﻿namespace EmployeeControl.Application.Common.Models.Emails;
 
-public class TestEmailDto
+public class TestEmailViewModel
 {
     public string? Name { get; set; }
 }

@@ -34,7 +34,7 @@ public class HomeController : ApiControllerBase
     {
         _emailService.To.Add("snicoper@example.com");
         _emailService.Subject = "Mensaje de prueba";
-        var model = new TestEmailDto { Name = "Salvador Nicolas" };
+        var model = new TestEmailViewModel { Name = "Salvador Nicolas" };
 
         await _emailService.SendMailWithViewAsync("TestEmail", model);
 
@@ -48,7 +48,7 @@ public class HomeController : ApiControllerBase
     {
         return await _razorViewToStringRendererService.RenderViewToStringAsync(
             "TestRenderToString",
-            new { Amount = 108, Message = "Hello" },
+            new TestEmailViewModel { Name = "Test" },
             new Dictionary<string, object?>());
     }
 }
