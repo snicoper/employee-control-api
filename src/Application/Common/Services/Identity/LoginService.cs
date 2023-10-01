@@ -1,6 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Identity;
-using EmployeeControl.Application.Common.Models.Options;
+using EmployeeControl.Application.Common.Models.Settings;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -13,13 +13,13 @@ namespace EmployeeControl.Application.Common.Services.Identity;
 
 public class LoginService : ILoginService
 {
-    private readonly JwtOptions _jwtOptions;
+    private readonly JwtSettings _jwtSettings;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public LoginService(IOptions<JwtOptions> jwtOptions, UserManager<ApplicationUser> userManager)
+    public LoginService(IOptions<JwtSettings> jwtOptions, UserManager<ApplicationUser> userManager)
     {
         _userManager = userManager;
-        _jwtOptions = jwtOptions.Value;
+        _jwtSettings = jwtOptions.Value;
     }
 
     public async Task<string> LoginAsync(string identifier, string password)
@@ -30,14 +30,14 @@ public class LoginService : ILoginService
         var claims = UserClaims(user, roles);
 
         // Genera un token según los claims.
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtOptions.Key.NotNull()));
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key.NotNull()));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
         var tokenDescriptor = new JwtSecurityToken(
-            _jwtOptions.Issuer,
-            _jwtOptions.Audience,
+            _jwtSettings.Issuer,
+            _jwtSettings.Audience,
             claims,
-            expires: DateTime.Now.AddDays(_jwtOptions.LifeTimeDays),
+            expires: DateTime.Now.AddDays(_jwtSettings.LifeTimeDays),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);

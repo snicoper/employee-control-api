@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EmployeeControl.Application.Common.Models.Options;
+namespace EmployeeControl.Application.Common.Models.Settings;
 
-public class JwtOptions
+public class JwtSettings
 {
     public const string SectionName = "Jwt";
+
     public const string JwtLifeTimeDays = "Jwt:LifeTimeDays";
     public const string JwtIssuer = "Jwt:Issuer";
     public const string JwtAudience = "Jwt:Audience";

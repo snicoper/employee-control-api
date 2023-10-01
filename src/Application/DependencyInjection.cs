@@ -1,6 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Behaviours;
 using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Models.Options;
+using EmployeeControl.Application.Common.Models.Settings;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -39,8 +39,13 @@ public static class DependencyInjection
         });
 
         // Strongly typed options validations.
-        services.AddOptions<JwtOptions>()
-            .Bind(configuration.GetSection(JwtOptions.SectionName))
+        services.AddOptions<JwtSettings>()
+            .Bind(configuration.GetSection(JwtSettings.SectionName))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+
+        services.AddOptions<EmailSenderSettings>()
+            .Bind(configuration.GetSection(EmailSenderSettings.SectionName))
             .ValidateDataAnnotations()
             .ValidateOnStart();
 

@@ -100,6 +100,14 @@ public static class DependencyInjection
             });
         });
 
+        services.Configure<RazorViewEngineOptions>(o =>
+        {
+            o.ViewLocationFormats.Clear();
+            o.ViewLocationFormats.Add("/Views/{1}/{0}" + RazorViewEngine.ViewExtension);
+            o.ViewLocationFormats.Add("/Views/Emails/{0}" + RazorViewEngine.ViewExtension);
+            o.ViewLocationFormats.Add("/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
+        });
+
         return services;
     }
 }
