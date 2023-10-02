@@ -5,7 +5,7 @@ namespace EmployeeControl.Application.Common.Extensions;
 public static class EnumExtensions
 {
     /// <summary>
-    ///     Obtiene el valor de [Display(Name = "")] en un Enum.
+    /// Obtiene el valor de [Display(Name = "")] en un Enum.
     /// </summary>
     public static string EnumDisplayNameFor(this Enum value)
     {

@@ -74,7 +74,9 @@ public class ApplicationDbContextInitialize
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
         {
             await _userManager.CreateAsync(administrator, "Password4!");
-            await _userManager.AddToRolesAsync(administrator, new[] { Roles.Administrator });
+            await _userManager.AddToRolesAsync(
+                administrator,
+                new[] { Roles.Administrator, Roles.Employee, Roles.HumanResources, Roles.EnterpriseAdministrator });
         }
 
         // Default data

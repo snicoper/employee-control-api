@@ -3,7 +3,7 @@
 public interface ILoginService
 {
     /// <summary>
-    ///     Log in de un usuario.
+    /// Log in de un usuario.
     /// </summary>
     /// <param name="identifier">Un identificador valido.</param>
     /// <param name="password">Password.</param>

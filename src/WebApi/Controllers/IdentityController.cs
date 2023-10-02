@@ -10,7 +10,7 @@ namespace EmployeeControl.WebApi.Controllers;
 public class IdentityController : ApiControllerBase
 {
     /// <summary>
-    ///     Creación de una cuenta por el usuario.
+    /// Creación de una cuenta por el usuario.
     /// </summary>
     /// <param name="command">Datos del usuario.</param>
     /// <returns>Id del usuario creado en caso de éxito.</returns>
@@ -24,7 +24,7 @@ public class IdentityController : ApiControllerBase
     }
 
     /// <summary>
-    ///     Identificación de un usuario.
+    /// Identificación de un usuario.
     /// </summary>
     /// <param name="command">Datos de usuario.</param>
     /// <returns>Token en caso de éxito.</returns>

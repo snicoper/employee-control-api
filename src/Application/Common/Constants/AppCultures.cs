@@ -13,12 +13,12 @@ public static class AppCultures
     private static readonly CultureInfo EnUs = new("en-US");
 
     /// <summary>
-    ///     Cultura por defecto.
+    /// Cultura por defecto.
     /// </summary>
     public static readonly CultureInfo DefaultCulture = EsEs;
 
     /// <summary>
-    ///     Obtener todas las culturas disponibles.
+    /// Obtener todas las culturas disponibles.
     /// </summary>
     /// <returns>Lista CultureInfo disponibles</returns>
     public static List<CultureInfo> GetAll()

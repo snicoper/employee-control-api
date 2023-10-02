@@ -11,7 +11,7 @@ namespace EmployeeControl.WebApi.Controllers;
 public class CultureController : ApiControllerBase
 {
     /// <summary>
-    ///     Obtener cultura actual.
+    /// Obtener cultura actual.
     /// </summary>
     /// <returns>Cultura actual.</returns>
     [HttpGet("current")]
@@ -26,7 +26,7 @@ public class CultureController : ApiControllerBase
     }
 
     /// <summary>
-    ///     Obtener culturas soportadas..
+    /// Obtener culturas soportadas..
     /// </summary>
     /// <returns>Lista de culturas soportadas.</returns>
     [HttpGet("supported")]

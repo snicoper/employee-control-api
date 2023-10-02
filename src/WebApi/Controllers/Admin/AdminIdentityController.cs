@@ -9,7 +9,7 @@ namespace EmployeeControl.WebApi.Controllers.Admin;
 public class AdminIdentityController : ApiControllerBase
 {
     /// <summary>
-    ///     Obtener lista de usuarios paginados.
+    /// Obtener lista de usuarios paginados.
     /// </summary>
     /// <param name="request">Datos de paginación.</param>
     /// <returns>Lista de usuarios paginados.</returns>

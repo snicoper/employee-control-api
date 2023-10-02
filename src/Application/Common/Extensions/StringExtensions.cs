@@ -3,7 +3,7 @@
 public static class StringExtensions
 {
     /// <summary>
-    ///     Evita que un string sea null.
+    /// Evita que un string sea null.
     /// </summary>
     /// <param name="value">String a comprobar.</param>
     /// <returns>Si el string es null devolverá string.Empty, en caso contrario el valor de value.</returns>
@@ -13,7 +13,7 @@ public static class StringExtensions
     }
 
     /// <summary>
-    ///     Devolver un string con la primera letra en minúscula.
+    /// Devolver un string con la primera letra en minúscula.
     /// </summary>
     public static string LowerCaseFirst(this string value)
     {
@@ -21,7 +21,7 @@ public static class StringExtensions
     }
 
     /// <summary>
-    ///     Devolver un string con la primera letra en mayúscula.
+    /// Devolver un string con la primera letra en mayúscula.
     /// </summary>
     public static string UpperCaseFirst(this string value)
     {
@@ -29,7 +29,7 @@ public static class StringExtensions
     }
 
     /// <summary>
-    ///     Devolver un string con la primera letra de cada palabra en mayúscula.
+    /// Devolver un string con la primera letra de cada palabra en mayúscula.
     /// </summary>
     public static string ToTile(this string value)
     {

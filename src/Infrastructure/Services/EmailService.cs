@@ -93,17 +93,17 @@ public class EmailService : IEmailService
     {
         if (To.Count == 0)
         {
-            throw new EmailSenderException("The value cannot be an empty string. (Parameter 'To')");
+            throw new EmailServiceException("The value cannot be an empty string. (Parameter 'To')");
         }
 
         if (string.IsNullOrEmpty(Subject))
         {
-            throw new EmailSenderException("The value cannot be an empty string. (Parameter 'Subject')");
+            throw new EmailServiceException("The value cannot be an empty string. (Parameter 'Subject')");
         }
 
         if (string.IsNullOrEmpty(Body))
         {
-            throw new EmailSenderException("The value cannot be an empty string. (Parameter 'Body')");
+            throw new EmailServiceException("The value cannot be an empty string. (Parameter 'Body')");
         }
     }
 
