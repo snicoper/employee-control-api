@@ -1,33 +1,40 @@
 default:
   interruptible: true
-  image: mcr.microsoft.com/dotnet/sdk:8.0
-
-before_script:
-  - "apt-get install -y nodejs"
-  - "npm install -g newman"
 
 stages:
   - build
-  - test
-  - release
+  - tests
+  - deploy
 
-build:
+variables:
+  CSPROJ_PATH: 'src/WebApi/WebApi.csproj'
+  NPM_DIST: wwwroot
+
+build-npm:
+  image: node:16
   stage: build
   script:
-    - dotnet build
-
-test:
-  stage: test
-  script:
-    - dotnet test
-    - newman run '.\compose\postman\Employee Control.postman_collection.json' --insecure
-
-release:
-  stage: release
-  only:
-    - master
+    - cd $NPM_ROOT
+    - npm install newman -g
   artifacts:
     paths:
-      - publish/
+      - $NPM_DIST/
+    expire_in: 20 minutes
+
+build:
+  image: mcr.microsoft.com/dotnet/sdk:8.0
+  stage: build
   script:
-    - dotnet publish -c Release -o ../publish src/WebApi/WebApi.csproj
+    - 'dotnet build $CSPROJ_PATH'
+
+tests:
+  image: mcr.microsoft.com/dotnet/sdk:8.0
+  stage: tests
+  script:
+    - 'dotnet test $CSPROJ_PATH'
+
+deploy:
+  image: mcr.microsoft.com/dotnet/sdk:8.0
+  stage: deploy
+  script:
+    - 'dotnet publish $CSPROJ_PATH'
