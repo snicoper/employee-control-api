@@ -8,7 +8,7 @@ stages:
 
 variables:
   CSPROJ_PATH: 'src/WebApi/WebApi.csproj'
-  NPM_DIST: wwwroot
+  NPM_DIST: 'compose/postman'
 
 build-npm:
   image: node:16
@@ -16,6 +16,7 @@ build-npm:
   script:
     - cd $NPM_ROOT
     - npm install newman -g
+    - newman run ./Employee\ Control.postman_collection.json --insecure
   artifacts:
     paths:
       - $NPM_DIST/
