@@ -15,5 +15,10 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
         builder.Property(p => p.LastName)
             .HasMaxLength(50)
             .IsRequired();
+
+        builder.Property(p => p.RefreshToken)
+            .HasMaxLength(50);
+
+        builder.Property(p => p.RefreshTokenExpiryTime);
     }
 }
