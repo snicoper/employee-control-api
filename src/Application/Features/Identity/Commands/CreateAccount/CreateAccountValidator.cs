@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace EmployeeControl.Application.Cqrs.Identity.Commands.CreateAccount;
+namespace EmployeeControl.Application.Features.Identity.Commands.CreateAccount;
 
 public class CreateAccountValidator : AbstractValidator<CreateAccountCommand>
 {

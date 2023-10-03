@@ -4,7 +4,7 @@ using EmployeeControl.Application.Common.Interfaces.Identity;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 
-namespace EmployeeControl.Application.Cqrs.Identity.Commands.CreateAccount;
+namespace EmployeeControl.Application.Features.Identity.Commands.CreateAccount;
 
 public class CreateAccountHandler : IRequestHandler<CreateAccountCommand, string>
 {

@@ -2,7 +2,7 @@
 using EmployeeControl.Application.Common.Mapping;
 using EmployeeControl.Domain.Entities;
 
-namespace EmployeeControl.Application.Cqrs.Admin.AdminIdentity.Queries.GetAdminIdentitiesPaginated;
+namespace EmployeeControl.Application.Features.Admin.AdminIdentity.Queries.GetAdminIdentitiesPaginated;
 
 public class GetAdminIdentitiesPaginatedDto : IMapFrom<ApplicationUser>
 {

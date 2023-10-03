@@ -1,6 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.Application.Common.Models.Emails;
-using EmployeeControl.Application.Cqrs.Home.Queries.Prueba;
+using EmployeeControl.Application.Features.Home.Queries.Prueba;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

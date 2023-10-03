@@ -28,7 +28,7 @@ builder
 
         if (!hostingContext.HostingEnvironment.IsDevelopment())
         {
-            loggerConfiguration.WriteTo.File("web_api_log.txt");
+            loggerConfiguration.WriteTo.File("web_api_log.txt", rollingInterval: RollingInterval.Day);
         }
     });
 

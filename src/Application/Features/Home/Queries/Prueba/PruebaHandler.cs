@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.Extensions.Localization;
 
-namespace EmployeeControl.Application.Cqrs.Home.Queries.Prueba;
+namespace EmployeeControl.Application.Features.Home.Queries.Prueba;
 
 public class PruebaHandler : IRequestHandler<PruebaQuery, PruebaDto>
 {

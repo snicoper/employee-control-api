@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Identity;
 using MediatR;
 
-namespace EmployeeControl.Application.Cqrs.Identity.Commands.RefreshToken;
+namespace EmployeeControl.Application.Features.Identity.Commands.RefreshToken;
 
 public class RefreshTokenHandler : IRequestHandler<RefreshTokenCommand, RefreshTokenDto>
 {

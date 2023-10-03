@@ -1,6 +1,6 @@
-using EmployeeControl.Application.Cqrs.Identity.Commands.CreateAccount;
-using EmployeeControl.Application.Cqrs.Identity.Commands.Login;
-using EmployeeControl.Application.Cqrs.Identity.Commands.RefreshToken;
+using EmployeeControl.Application.Features.Identity.Commands.CreateAccount;
+using EmployeeControl.Application.Features.Identity.Commands.Login;
+using EmployeeControl.Application.Features.Identity.Commands.RefreshToken;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

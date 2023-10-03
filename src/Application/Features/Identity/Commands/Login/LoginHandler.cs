@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Identity;
 using MediatR;
 
-namespace EmployeeControl.Application.Cqrs.Identity.Commands.Login;
+namespace EmployeeControl.Application.Features.Identity.Commands.Login;
 
 public class LoginHandler : IRequestHandler<LoginCommand, LoginDto>
 {

@@ -37,7 +37,7 @@ public class TokenService : ITokenService
             _jwtSettings.Issuer,
             _jwtSettings.Audience,
             claims,
-            expires: DateTime.Now.AddMinutes(_jwtSettings.LifeTimeMinutes),
+            expires: DateTime.Now.AddMinutes(_jwtSettings.TokenLifeTimeMinutes),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);

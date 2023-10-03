@@ -3,7 +3,7 @@ using EmployeeControl.Application.Common.Mapping;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 
-namespace EmployeeControl.Application.Cqrs.Identity.Commands.CreateAccount;
+namespace EmployeeControl.Application.Features.Identity.Commands.CreateAccount;
 
 public class CreateAccountCommand : IRequest<string>, IMapFrom<ApplicationUser>
 {
