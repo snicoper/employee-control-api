@@ -1,8 +1,7 @@
-﻿using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Extensions;
+﻿using EmployeeControl.Application.Features.Culture.Queries.CurrentCulture;
+using EmployeeControl.Application.Features.Culture.Queries.SupportedCultures;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeControl.WebApi.Controllers;
@@ -14,26 +13,23 @@ public class CultureController : ApiControllerBase
     /// Obtener cultura actual.
     /// </summary>
     /// <returns>Cultura actual.</returns>
-    [HttpGet("current")]
     [AllowAnonymous]
+    [HttpGet("current")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public ActionResult<string> CurrentCulture()
+    public async Task<ActionResult<CurrentCultureDto>> CurrentCulture()
     {
-        var culture = Request.HttpContext.Features.Get<IRequestCultureFeature>();
-        var current = culture?.RequestCulture.Culture.ToString();
-
-        return current.NotNull();
+        return await Mediator.Send(new CurrentCultureQuery());
     }
 
     /// <summary>
-    /// Obtener culturas soportadas..
+    /// Obtener culturas soportadas.
     /// </summary>
     /// <returns>Lista de culturas soportadas.</returns>
-    [HttpGet("supported")]
     [AllowAnonymous]
+    [HttpGet("supported")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public ActionResult<ICollection<string>> GetSupportedCultures()
+    public async Task<ActionResult<SupportedCulturesDto>> SupportedCultures()
     {
-        return AppCultures.GetAll().Select(c => c.Name).ToArray();
+        return await Mediator.Send(new SupportedCulturesQuery());
     }
 }

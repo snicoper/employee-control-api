@@ -10,174 +10,198 @@
 			"name": "Identity",
 			"item": [
 				{
-					"name": "Login 200",
-					"event": [
+					"name": "Login",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Status code is 200', function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"\r",
-									"var jsonData = JSON.parse(responseBody);\r",
-									"pm.environment.set('access_token', jsonData['accessToken']);\r",
-									"pm.environment.set('refresh_token', jsonData['refreshToken']);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"identifier\": \"admin\",\r\n  \"password\": \"Password4!\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"name": "Login 200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 200', function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('Data contains accessToken', function () {\r",
+											"    pm.expect(pm.response.json().accessToken).not.be.empty;\r",
+											"});\r",
+											"\r",
+											"pm.test('Data contains refreshToken', function () {\r",
+											"    pm.expect(pm.response.json().refreshToken).not.be.empty;\r",
+											"});\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"pm.environment.set('access_token', jsonData['accessToken']);\r",
+											"pm.environment.set('refresh_token', jsonData['refreshToken']);"
+										],
+										"type": "text/javascript"
+									}
 								}
-							}
-						},
-						"url": {
-							"raw": "{{api_url}}/identity/login",
-							"host": [
-								"{{api_url}}"
 							],
-							"path": [
-								"identity",
-								"login"
-							]
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"identifier\": \"admin\",\r\n  \"password\": \"Password4!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/identity/login",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"identity",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login 401",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 401', function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"identifier\": \"adminnnnnnnnnn\",\r\n  \"password\": \"Password4!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/identity/login",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"identity",
+										"login"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Login 401",
-					"event": [
+					"name": "RefreshToken",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Status code is 401', function () {\r",
-									"    pm.response.to.have.status(401);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"identifier\": \"adminnnnnnnnnn\",\r\n  \"password\": \"Password4!\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"name": "RefreshToken 200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 200', function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('Data contains accessToken', function () {\r",
+											"    pm.expect(pm.response.json().accessToken).not.be.empty;\r",
+											"});\r",
+											"\r",
+											"pm.test('Data contains refreshToken', function () {\r",
+											"    pm.expect(pm.response.json().refreshToken).not.be.empty;\r",
+											"});\r",
+											"\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"pm.environment.set('access_token', jsonData['accessToken']);\r",
+											"pm.environment.set('refresh_token', jsonData['refreshToken']);"
+										],
+										"type": "text/javascript"
+									}
 								}
-							}
-						},
-						"url": {
-							"raw": "{{api_url}}/identity/login",
-							"host": [
-								"{{api_url}}"
 							],
-							"path": [
-								"identity",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "RefreshToken 200",
-					"event": [
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"refreshToken\": \"{{refresh_token}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/identity/refresh-token",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"identity",
+										"refresh-token"
+									]
+								}
+							},
+							"response": []
+						},
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Status code is 200', function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"\r",
-									"var jsonData = JSON.parse(responseBody);\r",
-									"pm.environment.set('access_token', jsonData['accessToken']);\r",
-									"pm.environment.set('refresh_token', jsonData['refreshToken']);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"refreshToken\": \"{{refresh_token}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"name": "RefreshToken 401",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 401', function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
 								}
-							}
-						},
-						"url": {
-							"raw": "{{api_url}}/identity/refresh-token",
-							"host": [
-								"{{api_url}}"
 							],
-							"path": [
-								"identity",
-								"refresh-token"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "RefreshToken 401",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Status code is 401', function () {\r",
-									"    pm.response.to.have.status(401);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"refreshToken\": \"expiredToeen\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"refreshToken\": \"expiredToeen\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api_url}}/identity/refresh-token",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"identity",
+										"refresh-token"
+									]
 								}
-							}
-						},
-						"url": {
-							"raw": "{{api_url}}/identity/refresh-token",
-							"host": [
-								"{{api_url}}"
-							],
-							"path": [
-								"identity",
-								"refresh-token"
-							]
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		},
@@ -185,84 +209,89 @@
 			"name": "AdminIdentity",
 			"item": [
 				{
-					"name": "Paginated 200",
-					"event": [
+					"name": "GetAdminIdentitiesPaginated",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Status code is 200', function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{api_url}}/admin/identity/paginated",
-							"host": [
-								"{{api_url}}"
+							"name": "GetAdminIdentitiesPaginated 200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 200', function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
 							],
-							"path": [
-								"admin",
-								"identity",
-								"paginated"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Paginated 401",
-					"event": [
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{api_url}}/admin/identity/paginated",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"identity",
+										"paginated"
+									]
+								}
+							},
+							"response": []
+						},
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Status code is 401', function () {\r",
-									"    pm.response.to.have.status(401);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "noauth"
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{api_url}}/admin/identity/paginated",
-							"host": [
-								"{{api_url}}"
+							"name": "GetAdminIdentitiesPaginated 401",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 401', function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
 							],
-							"path": [
-								"admin",
-								"identity",
-								"paginated"
-							]
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/admin/identity/paginated",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"admin",
+										"identity",
+										"paginated"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			],
 			"event": [
@@ -291,96 +320,111 @@
 			"item": [
 				{
 					"name": "Prueba",
-					"event": [
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Status code is 200', function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{api_url}}/home",
-							"host": [
-								"{{api_url}}"
+							"name": "Prueba 200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 200', function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
 							],
-							"path": [
-								"home"
-							]
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/home",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"home"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "TestEmail",
-					"event": [
+					"name": "TestMail",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Status code is 200', function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{api_url}}/home/test-email",
-							"host": [
-								"{{api_url}}"
+							"name": "TestEmail 200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 200', function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
 							],
-							"path": [
-								"home",
-								"test-email"
-							]
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/home/test-email",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"home",
+										"test-email"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
 					"name": "TestRenderHtml",
-					"event": [
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Status code is 200', function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{api_url}}/home/test-render-html",
-							"host": [
-								"{{api_url}}"
+							"name": "TestRenderHtml 200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 200', function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
 							],
-							"path": [
-								"home",
-								"test-render-html"
-							]
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/home/test-render-html",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"home",
+										"test-render-html"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				}
 			]
 		},
@@ -388,111 +432,125 @@
 			"name": "Culture",
 			"item": [
 				{
-					"name": "Current",
-					"event": [
+					"name": "CurrentCulture",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Status code is 200', function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test('Body contains es-ES', function () {\r",
-									"    pm.response.to.have.body('\"es-ES\"');\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{api_url}}/culture/current",
-							"host": [
-								"{{api_url}}"
+							"name": "CurrentCulture 200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 200', function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('locale contains es-ES', function () {\r",
+											"    pm.expect(pm.response.json().locale).to.eql('es-ES');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
 							],
-							"path": [
-								"culture",
-								"current"
-							]
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/culture/current",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"culture",
+										"current"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CurrentCulture en-US 200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 200', function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('locale contains en-US', function () {\r",
+											"    pm.expect(pm.response.json().locale).to.eql('en-US');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "en-US",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{api_url}}/culture/current",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"culture",
+										"current"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Current en-US",
-					"event": [
+					"name": "SupportedCultures",
+					"item": [
 						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Body contains en-US', function () {\r",
-									"    pm.response.to.have.body('\"en-US\"');\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept-Language",
-								"value": "en-US",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{api_url}}/culture/current",
-							"host": [
-								"{{api_url}}"
+							"name": "SupportedCultures 200",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test('Status code is 200', function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test('locales have 4 items', function () {\r",
+											"    pm.expect(Object.keys(pm.response.json().locales).length).to.eql(4);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
 							],
-							"path": [
-								"culture",
-								"current"
-							]
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api_url}}/culture/supported",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"culture",
+										"supported"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Supported",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test('Status code is 200', function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test('Response have 4 items', function () {\r",
-									"    pm.expect(Object.keys(pm.response.json()).length).to.eql(4);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{api_url}}/culture/supported",
-							"host": [
-								"{{api_url}}"
-							],
-							"path": [
-								"culture",
-								"supported"
-							]
-						}
-					},
-					"response": []
+					]
 				}
 			]
 		}
