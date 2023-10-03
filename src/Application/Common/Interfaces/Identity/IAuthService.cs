@@ -1,6 +1,6 @@
 ﻿namespace EmployeeControl.Application.Common.Interfaces.Identity;
 
-public interface ILoginService
+public interface IAuthService
 {
     /// <summary>
     /// Log in de un usuario.
@@ -8,5 +8,5 @@ public interface ILoginService
     /// <param name="identifier">Un identificador valido.</param>
     /// <param name="password">Password.</param>
     /// <returns>Jwt en caso de éxito.</returns>
-    Task<string> LoginAsync(string identifier, string password);
+    Task<(string AccessToken, string RefreshToken)> LoginAsync(string identifier, string password);
 }

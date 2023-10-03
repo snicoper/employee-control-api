@@ -5,17 +5,17 @@ namespace EmployeeControl.Application.Cqrs.Identity.Commands.Login;
 
 public class LoginHandler : IRequestHandler<LoginCommand, LoginDto>
 {
-    private readonly ILoginService _loginService;
+    private readonly IAuthService _authService;
 
-    public LoginHandler(ILoginService loginService)
+    public LoginHandler(IAuthService authService)
     {
-        _loginService = loginService;
+        _authService = authService;
     }
 
     public async Task<LoginDto> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var jwt = await _loginService.LoginAsync(request.Identifier, request.Password);
+        var result = await _authService.LoginAsync(request.Identifier, request.Password);
 
-        return new LoginDto { Token = jwt };
+        return new LoginDto { AccessToken = result.AccessToken, RefreshToken = result.RefreshToken };
     }
 }
