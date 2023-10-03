@@ -1,5 +1,4 @@
 ﻿using EmployeeControl.Application.Common.Interfaces;
-using EmployeeControl.Application.Common.Interfaces.Identity;
 using EmployeeControl.Domain.Common;
 using EmployeeControl.Infrastructure.Data.Extensions;
 using Microsoft.EntityFrameworkCore;
@@ -46,7 +45,8 @@ public class AuditableEntityInterceptor : SaveChangesInterceptor
         {
             if (entry.State == EntityState.Added)
             {
-                _dateTime.GetUtcNow();
+                entry.Entity.CreatedBy = _currentUserService.Id;
+                entry.Entity.Created = _dateTime.GetUtcNow();
             }
 
             if (entry.State != EntityState.Added && entry.State != EntityState.Modified && !entry.HasChangedOwnedEntities())
