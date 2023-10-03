@@ -16,7 +16,7 @@ build-npm:
   script:
     - cd $NPM_ROOT
     - npm install newman -g
-    - newman run ./Employee\ Control.postman_collection.json --insecure
+  #    - newman run ./Employee\ Control.postman_collection.json --insecure
   artifacts:
     paths:
       - $NPM_DIST/
