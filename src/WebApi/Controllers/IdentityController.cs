@@ -25,7 +25,7 @@ public class IdentityController : ApiControllerBase
     }
 
     /// <summary>
-    /// Identificación de un usuario.
+    /// Identificación de usuario.
     /// </summary>
     /// <param name="command">Datos de usuario.</param>
     /// <returns>Token y refresh token en caso de éxito.</returns>
@@ -40,9 +40,9 @@ public class IdentityController : ApiControllerBase
     }
 
     /// <summary>
-    /// Refresh token.
+    /// Obtener nuevo token y refresh token.
     /// </summary>
-    /// <param name="command">Refresh token del usuario.</param>
+    /// <param name="command">Actual refresh token del usuario.</param>
     /// <returns>Token y refresh token en caso de éxito.</returns>
     [AllowAnonymous]
     [HttpPost("refresh-token")]

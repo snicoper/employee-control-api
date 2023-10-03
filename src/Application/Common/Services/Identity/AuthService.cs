@@ -1,4 +1,5 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Identity;
+﻿using EmployeeControl.Application.Common.Exceptions;
+using EmployeeControl.Application.Common.Interfaces.Identity;
 using EmployeeControl.Application.Common.Models.Settings;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -28,14 +29,31 @@ public class AuthService : IAuthService
             throw new UnauthorizedAccessException();
         }
 
-        var jwt = await _tokenService.GenerateAccessTokenAsync(user);
-        var refreshToken = _tokenService.GenerateRefreshToken();
+        return await GenerateUserTokenAsync(user);
+    }
 
-        user.RefreshToken = refreshToken;
+    public async Task<(string AccessToken, string RefreshToken)> RefreshTokenAsync(string refreshToken)
+    {
+        var user = _userManager.Users.SingleOrDefault(u => u.RefreshToken == refreshToken);
+
+        if (user is null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+        {
+            throw new ForbiddenAccessException();
+        }
+
+        return await GenerateUserTokenAsync(user);
+    }
+
+    private async Task<(string AccessToken, string RefreshToken)> GenerateUserTokenAsync(ApplicationUser user)
+    {
+        var jwt = await _tokenService.GenerateAccessTokenAsync(user);
+        var newRefreshToken = _tokenService.GenerateRefreshToken();
+
+        user.RefreshToken = newRefreshToken;
         user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_jwtSettings.ExpirationTokenLifeTimeDays);
 
         await _userManager.UpdateAsync(user);
 
-        return (jwt, refreshToken);
+        return (jwt, newRefreshToken);
     }
 }

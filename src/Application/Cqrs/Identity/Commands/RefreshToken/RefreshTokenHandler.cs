@@ -1,44 +1,21 @@
-﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Identity;
-using EmployeeControl.Application.Common.Models.Settings;
-using EmployeeControl.Domain.Entities;
+﻿using EmployeeControl.Application.Common.Interfaces.Identity;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
 
 namespace EmployeeControl.Application.Cqrs.Identity.Commands.RefreshToken;
 
 public class RefreshTokenHandler : IRequestHandler<RefreshTokenCommand, RefreshTokenDto>
 {
-    private readonly JwtSettings _jwtSettings;
-    private readonly ITokenService _tokenService;
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IAuthService _authService;
 
-    public RefreshTokenHandler(UserManager<ApplicationUser> userManager, ITokenService tokenService,
-        IOptions<JwtSettings> options)
+    public RefreshTokenHandler(IAuthService authService)
     {
-        _userManager = userManager;
-        _tokenService = tokenService;
-        _jwtSettings = options.Value;
+        _authService = authService;
     }
 
     public async Task<RefreshTokenDto> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
-        var user = _userManager.Users.SingleOrDefault(u => u.RefreshToken == request.RefreshToken);
+        var result = await _authService.RefreshTokenAsync(request.RefreshToken);
 
-        if (user is null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
-        {
-            throw new ForbiddenAccessException();
-        }
-
-        var jwt = await _tokenService.GenerateAccessTokenAsync(user);
-        var refreshToken = _tokenService.GenerateRefreshToken();
-
-        user.RefreshToken = refreshToken;
-        user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(_jwtSettings.ExpirationTokenLifeTimeDays);
-
-        await _userManager.UpdateAsync(user);
-
-        return new RefreshTokenDto { AccessToken = jwt, RefreshToken = refreshToken };
+        return new RefreshTokenDto { AccessToken = result.AccessToken, RefreshToken = result.RefreshToken };
     }
 }

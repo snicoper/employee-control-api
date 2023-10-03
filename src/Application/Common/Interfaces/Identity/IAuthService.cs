@@ -9,4 +9,11 @@ public interface IAuthService
     /// <param name="password">Password.</param>
     /// <returns>Jwt en caso de éxito.</returns>
     Task<(string AccessToken, string RefreshToken)> LoginAsync(string identifier, string password);
+
+    /// <summary>
+    /// Obtener un nuevo Refresh token.
+    /// </summary>
+    /// <param name="refreshToken">Actual refresh token</param>
+    /// <returns>Nuevo token y refresh token en caso de éxito.</returns>
+    Task<(string AccessToken, string RefreshToken)> RefreshTokenAsync(string refreshToken);
 }
