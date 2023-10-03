@@ -1,5 +1,4 @@
-﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Identity;
+﻿using EmployeeControl.Application.Common.Interfaces.Identity;
 using EmployeeControl.Application.Common.Models.Settings;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -38,7 +37,7 @@ public class AuthService : IAuthService
 
         if (user is null || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
         {
-            throw new ForbiddenAccessException();
+            throw new UnauthorizedAccessException();
         }
 
         return await GenerateUserTokenAsync(user);
