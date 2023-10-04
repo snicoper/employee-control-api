@@ -8,6 +8,9 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
 {
     public void Configure(EntityTypeBuilder<ApplicationUser> builder)
     {
+        builder.HasIndex(p => p.RefreshToken)
+            .IsUnique();
+
         builder.Property(p => p.FirstName)
             .HasMaxLength(50)
             .IsRequired();

@@ -33,7 +33,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations.ApplicationMigrations
                     Id = table.Column<string>(type: "text", nullable: false),
                     FirstName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     LastName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    RefreshToken = table.Column<string>(type: "text", nullable: true),
+                    RefreshToken = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
                     RefreshTokenExpiryTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
@@ -191,6 +191,12 @@ namespace EmployeeControl.Infrastructure.Data.Migrations.ApplicationMigrations
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_RefreshToken",
+                table: "AspNetUsers",
+                column: "RefreshToken",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",

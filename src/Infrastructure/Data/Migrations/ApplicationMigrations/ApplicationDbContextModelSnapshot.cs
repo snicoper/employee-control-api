@@ -75,7 +75,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations.ApplicationMigrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("RefreshToken")
-                        .HasColumnType("text");
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<DateTimeOffset>("RefreshTokenExpiryTime")
                         .HasColumnType("timestamp with time zone");
@@ -98,6 +99,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations.ApplicationMigrations
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
+
+                    b.HasIndex("RefreshToken")
+                        .IsUnique();
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
