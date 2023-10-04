@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using EmployeeControl.Application.Common.Extensions;
+using FluentValidation.Results;
 
 namespace EmployeeControl.Application.Common.Exceptions;
 
@@ -16,7 +17,7 @@ public class CustomValidationException : Exception
     {
         Errors = failures
             .GroupBy(e => e.PropertyName, e => e.ErrorMessage)
-            .ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray());
+            .ToDictionary(failureGroup => failureGroup.Key.LowerCaseFirst(), failureGroup => failureGroup.ToArray());
     }
 
     public IDictionary<string, string[]> Errors { get; }
