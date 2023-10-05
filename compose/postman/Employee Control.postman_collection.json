@@ -429,13 +429,13 @@
 			]
 		},
 		{
-			"name": "Culture",
+			"name": "Localization",
 			"item": [
 				{
-					"name": "CurrentCulture",
+					"name": "CurrentLocale",
 					"item": [
 						{
-							"name": "CurrentCulture 200",
+							"name": "CurrentLocale 200",
 							"event": [
 								{
 									"listen": "test",
@@ -457,20 +457,20 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{api_url}}/culture/current",
+									"raw": "{{api_url}}/localization/current-locale",
 									"host": [
 										"{{api_url}}"
 									],
 									"path": [
-										"culture",
-										"current"
+										"localization",
+										"current-locale"
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "CurrentCulture en-US 200",
+							"name": "CurrentLocale en-US 200",
 							"event": [
 								{
 									"listen": "test",
@@ -498,13 +498,13 @@
 									}
 								],
 								"url": {
-									"raw": "{{api_url}}/culture/current",
+									"raw": "{{api_url}}/localization/current-locale",
 									"host": [
 										"{{api_url}}"
 									],
 									"path": [
-										"culture",
-										"current"
+										"localization",
+										"current-locale"
 									]
 								}
 							},
@@ -513,10 +513,10 @@
 					]
 				},
 				{
-					"name": "SupportedCultures",
+					"name": "SupportedLocales",
 					"item": [
 						{
-							"name": "SupportedCultures 200",
+							"name": "SupportedLocales 200",
 							"event": [
 								{
 									"listen": "test",
@@ -538,13 +538,13 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{api_url}}/culture/supported",
+									"raw": "{{api_url}}/localization/supported-locales",
 									"host": [
 										"{{api_url}}"
 									],
 									"path": [
-										"culture",
-										"supported"
+										"localization",
+										"supported-locales"
 									]
 								}
 							},
