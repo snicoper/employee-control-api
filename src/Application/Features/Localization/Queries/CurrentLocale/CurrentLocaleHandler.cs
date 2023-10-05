@@ -2,22 +2,22 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 
-namespace EmployeeControl.Application.Features.Culture.Queries.CurrentCulture;
+namespace EmployeeControl.Application.Features.Localization.Queries.CurrentLocale;
 
-public class CurrentCultureHandler : IRequestHandler<CurrentCultureQuery, CurrentCultureDto>
+public class CurrentLocaleHandler : IRequestHandler<CurrentLocaleQuery, CurrentLocaleDto>
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public CurrentCultureHandler(IHttpContextAccessor httpContextAccessor)
+    public CurrentLocaleHandler(IHttpContextAccessor httpContextAccessor)
     {
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public Task<CurrentCultureDto> Handle(CurrentCultureQuery request, CancellationToken cancellationToken)
+    public Task<CurrentLocaleDto> Handle(CurrentLocaleQuery request, CancellationToken cancellationToken)
     {
         var culture = _httpContextAccessor.HttpContext?.Features.Get<IRequestCultureFeature>();
         var locale = culture?.RequestCulture.Culture.ToString();
-        var result = new CurrentCultureDto { Locale = locale };
+        var result = new CurrentLocaleDto { Locale = locale };
 
         return Task.FromResult(result);
     }
