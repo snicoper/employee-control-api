@@ -39,7 +39,6 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationDbContext>((provider, options) =>
         {
             options.AddInterceptors(provider.GetServices<ISaveChangesInterceptor>());
-
             options.UseNpgsql(connectionString);
         });
 
