@@ -32,7 +32,8 @@ public class IdentityRegisterValidator : AbstractValidator<IdentityRegisterComma
 
         RuleFor(r => r.ConfirmPassword)
             .NotEmpty()
-            .Equal(r => r.Password);
+            .Equal(r => r.Password)
+            .WithMessage(localizer["Las contraseñas no coinciden."]);
 
         RuleFor(r => r.CompanyName)
             .NotEmpty()
