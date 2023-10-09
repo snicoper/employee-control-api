@@ -6,7 +6,4 @@ using MediatR;
 namespace EmployeeControl.Application.Features.Admin.AdminIdentity.Queries.GetAdminIdentitiesPaginated;
 
 [Authorize(Roles = Roles.Administrator)]
-public record GetAdminIdentitiesPaginatedQuery(RequestData RequestData) : IRequest<ResponseData<GetAdminIdentitiesPaginatedDto>>
-{
-    public RequestData RequestData { get; } = RequestData;
-}
+public record GetAdminIdentitiesPaginatedQuery(RequestData RequestData) : IRequest<ResponseData<GetAdminIdentitiesPaginatedDto>>;

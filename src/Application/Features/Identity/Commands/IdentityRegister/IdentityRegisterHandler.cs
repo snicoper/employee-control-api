@@ -6,8 +6,8 @@ using MediatR;
 
 namespace EmployeeControl.Application.Features.Identity.Commands.IdentityRegister;
 
-internal class IdentityRegisterHandler
-    (IIdentityService identityService, IMapper mapper) : IRequestHandler<IdentityRegisterCommand, string>
+internal class IdentityRegisterHandler(IIdentityService identityService, IMapper mapper)
+    : IRequestHandler<IdentityRegisterCommand, string>
 {
     public async Task<string> Handle(IdentityRegisterCommand request, CancellationToken cancellationToken)
     {
