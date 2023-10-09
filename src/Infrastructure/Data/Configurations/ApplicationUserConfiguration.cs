@@ -8,20 +8,30 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
 {
     public void Configure(EntityTypeBuilder<ApplicationUser> builder)
     {
-        builder.HasIndex(p => p.RefreshToken)
+        // Indexes.
+        builder.HasIndex(au => au.Email)
             .IsUnique();
 
-        builder.Property(p => p.FirstName)
+        builder.HasIndex(au => au.RefreshToken)
+            .IsUnique();
+
+        // Relations.
+        builder.HasOne(au => au.Company)
+            .WithMany(c => c.ApplicationUsers)
+            .IsRequired();
+
+        // Properties.
+        builder.Property(au => au.Email)
+            .HasMaxLength(100)
+            .IsRequired();
+
+        builder.Property(au => au.LastName)
             .HasMaxLength(50)
             .IsRequired();
 
-        builder.Property(p => p.LastName)
-            .HasMaxLength(50)
-            .IsRequired();
-
-        builder.Property(p => p.RefreshToken)
+        builder.Property(au => au.RefreshToken)
             .HasMaxLength(50);
 
-        builder.Property(p => p.RefreshTokenExpiryTime);
+        builder.Property(au => au.RefreshTokenExpiryTime);
     }
 }

@@ -53,6 +53,26 @@ public class ApplicationDbContextInitialize
 
     public async Task TrySeedAsync()
     {
+        await CreateCompanies();
+        await CreateRoles();
+        await CreateUsers();
+    }
+
+    private async Task CreateCompanies()
+    {
+        if (_context.Company.Any(c => c.Name == "Company test"))
+        {
+            return;
+        }
+
+        var company = new Company { Name = "Company test" };
+
+        await _context.Company.AddAsync(company);
+        await _context.SaveChangesAsync(CancellationToken.None);
+    }
+
+    private async Task CreateRoles()
+    {
         // Default roles.
         var createRole = new List<IdentityRole>
         {
@@ -63,12 +83,22 @@ public class ApplicationDbContextInitialize
         {
             await _roleManager.CreateAsync(identityRole);
         }
+    }
 
+    private async Task CreateUsers()
+    {
+        var company = _context.Company
+            .AsNoTracking()
+            .SingleAsync(c => c.Name == "Company test");
 
         // Default users.
         var administrator = new ApplicationUser
         {
-            UserName = "admin", FirstName = "Admin", LastName = "Admin1", Email = "admin@localhost"
+            CompanyId = company.Id,
+            UserName = "admin",
+            FirstName = "Admin",
+            LastName = "Admin1",
+            Email = "admin@localhost"
         };
 
         if (_userManager.Users.All(u => u.UserName != administrator.UserName))
@@ -78,8 +108,5 @@ public class ApplicationDbContextInitialize
                 administrator,
                 new[] { Roles.Administrator, Roles.Employee, Roles.HumanResources, Roles.EnterpriseAdministrator });
         }
-
-        // Default data
-        // Seed, if necessary
     }
 }

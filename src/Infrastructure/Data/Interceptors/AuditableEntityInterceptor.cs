@@ -9,9 +9,9 @@ namespace EmployeeControl.Infrastructure.Data.Interceptors;
 public class AuditableEntityInterceptor : SaveChangesInterceptor
 {
     private readonly ICurrentUserService _currentUserService;
-    private readonly TimeProvider _dateTime;
+    private readonly IDateTime _dateTime;
 
-    public AuditableEntityInterceptor(ICurrentUserService currentUserService, TimeProvider dateTime)
+    public AuditableEntityInterceptor(ICurrentUserService currentUserService, IDateTime dateTime)
     {
         _currentUserService = currentUserService;
         _dateTime = dateTime;
@@ -46,7 +46,7 @@ public class AuditableEntityInterceptor : SaveChangesInterceptor
             if (entry.State == EntityState.Added)
             {
                 entry.Entity.CreatedBy = _currentUserService.Id;
-                entry.Entity.Created = _dateTime.GetUtcNow();
+                entry.Entity.Created = _dateTime.UtcNow;
             }
 
             if (entry.State != EntityState.Added && entry.State != EntityState.Modified && !entry.HasChangedOwnedEntities())
@@ -55,7 +55,7 @@ public class AuditableEntityInterceptor : SaveChangesInterceptor
             }
 
             entry.Entity.LastModifiedBy = _currentUserService.Id;
-            entry.Entity.LastModified = _dateTime.GetUtcNow();
+            entry.Entity.LastModified = _dateTime.UtcNow;
         }
     }
 }
