@@ -1,5 +1,5 @@
-﻿using EmployeeControl.Application.Common.FluentValidators;
-using EmployeeControl.Application.Common.Interfaces;
+﻿using EmployeeControl.Application.Common.Interfaces;
+using EmployeeControl.Application.Common.Validators;
 using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Entities;
 using FluentValidation;

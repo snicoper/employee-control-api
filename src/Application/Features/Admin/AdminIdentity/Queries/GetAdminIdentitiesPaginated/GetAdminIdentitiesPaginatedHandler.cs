@@ -7,9 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Application.Features.Admin.AdminIdentity.Queries.GetAdminIdentitiesPaginated;
 
-internal class GetAdminIdentitiesPaginatedHandler
-    (UserManager<ApplicationUser> userManager, IMapper mapper) : IRequestHandler<GetAdminIdentitiesPaginatedQuery,
-        ResponseData<GetAdminIdentitiesPaginatedDto>>
+internal class GetAdminIdentitiesPaginatedHandler(UserManager<ApplicationUser> userManager, IMapper mapper)
+    : IRequestHandler<GetAdminIdentitiesPaginatedQuery, ResponseData<GetAdminIdentitiesPaginatedDto>>
 {
     public async Task<ResponseData<GetAdminIdentitiesPaginatedDto>> Handle(
         GetAdminIdentitiesPaginatedQuery request,

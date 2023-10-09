@@ -4,7 +4,7 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
-namespace EmployeeControl.Application.Common.FluentValidators;
+namespace EmployeeControl.Application.Common.Validators;
 
 public static class CompanyValidatorExtensions
 {
