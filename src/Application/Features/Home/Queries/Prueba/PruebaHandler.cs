@@ -8,8 +8,9 @@ internal class PruebaHandler(IStringLocalizer<IdentityLocalizer> localizer) : IR
 {
     public Task<PruebaDto> Handle(PruebaQuery request, CancellationToken cancellationToken)
     {
-        var resultResponse = new PruebaDto { Message = localizer["Hello"] };
+        var result = new PruebaDto { Message = localizer["Hello"] };
+        var resultResponse = Task.FromResult(result);
 
-        return Task.FromResult(resultResponse);
+        return resultResponse;
     }
 }

@@ -13,7 +13,6 @@ internal class IdentityRegisterHandler
     {
         var user = mapper.Map<IdentityRegisterCommand, ApplicationUser>(request);
         var password = request.Password.NotNull();
-
         var resultResponse = await identityService.CreateUserAsync(user, password);
 
         return resultResponse.Id;
