@@ -1,13 +1,13 @@
 {
 	"info": {
-		"_postman_id": "1797e815-f630-494d-a25c-5c7e1fbc4cca",
+		"_postman_id": "9752b797-2754-418b-99f7-df5fd004adc2",
 		"name": "Employee Control",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "3523454"
 	},
 	"item": [
 		{
-			"name": "Identity",
+			"name": "Auth",
 			"item": [
 				{
 					"name": "Login",
@@ -52,12 +52,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{api_url}}/identity/login",
+									"raw": "{{api_url}}/auth/login",
 									"host": [
 										"{{api_url}}"
 									],
 									"path": [
-										"identity",
+										"auth",
 										"login"
 									]
 								}
@@ -92,12 +92,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{api_url}}/identity/login",
+									"raw": "{{api_url}}/auth/login",
 									"host": [
 										"{{api_url}}"
 									],
 									"path": [
-										"identity",
+										"auth",
 										"login"
 									]
 								}
@@ -149,12 +149,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{api_url}}/identity/refresh-token",
+									"raw": "{{api_url}}/auth/refresh-token",
 									"host": [
 										"{{api_url}}"
 									],
 									"path": [
-										"identity",
+										"auth",
 										"refresh-token"
 									]
 								}
@@ -189,15 +189,28 @@
 									}
 								},
 								"url": {
-									"raw": "{{api_url}}/identity/refresh-token",
+									"raw": "{{api_url}}/auth/refresh-token",
 									"host": [
 										"{{api_url}}"
 									],
 									"path": [
-										"identity",
+										"auth",
 										"refresh-token"
 									]
 								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Register",
+					"item": [
+						{
+							"name": "Register 201",
+							"request": {
+								"method": "GET",
+								"header": []
 							},
 							"response": []
 						}
