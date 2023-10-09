@@ -1,14 +1,14 @@
-using EmployeeControl.Application.Features.Identity.Commands.Login;
-using EmployeeControl.Application.Features.Identity.Commands.RefreshToken;
-using EmployeeControl.Application.Features.Identity.Commands.Register;
+using EmployeeControl.Application.Features.Auth.Commands.Login;
+using EmployeeControl.Application.Features.Auth.Commands.RefreshToken;
+using EmployeeControl.Application.Features.Auth.Commands.Register;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeControl.WebApi.Controllers;
 
-[Route("api/v{version:apiVersion}/identity")]
-public class IdentityController : ApiControllerBase
+[Route("api/v{version:apiVersion}/auth")]
+public class AuthController : ApiControllerBase
 {
     /// <summary>
     /// Creación de una cuenta por el usuario.
@@ -49,7 +49,7 @@ public class IdentityController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<RefreshTokenDto>> Login(RefreshTokenCommand command)
+    public async Task<ActionResult<RefreshTokenDto>> RefreshToken(RefreshTokenCommand command)
     {
         return await Mediator.Send(command);
     }

@@ -1,4 +1,4 @@
-﻿namespace EmployeeControl.Application.Features.Identity.Commands.RefreshToken;
+﻿namespace EmployeeControl.Application.Features.Auth.Commands.RefreshToken;
 
 public class RefreshTokenDto
 {

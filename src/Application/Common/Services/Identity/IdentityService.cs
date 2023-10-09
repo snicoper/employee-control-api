@@ -1,37 +1,28 @@
 ﻿using EmployeeControl.Application.Common.Extensions;
-using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.Application.Common.Interfaces.Identity;
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
 
 namespace EmployeeControl.Application.Common.Services.Identity;
 
 public class IdentityService : IIdentityService
 {
     private readonly IAuthorizationService _authorizationService;
-    private readonly IStringLocalizer<IdentityResource> _localizer;
     private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
     private readonly UserManager<ApplicationUser> _userManager;
-    private readonly IValidationFailureService _validationFailureService;
 
     public IdentityService(
         UserManager<ApplicationUser> userManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
-        IAuthorizationService authorizationService,
-        IValidationFailureService validationFailureService,
-        IStringLocalizer<IdentityResource> localizer)
+        IAuthorizationService authorizationService)
     {
         _userManager = userManager;
         _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
         _authorizationService = authorizationService;
-        _validationFailureService = validationFailureService;
-        _localizer = localizer;
     }
 
     public async Task<string?> GetUserNameAsync(string userId)
@@ -66,21 +57,6 @@ public class IdentityService : IIdentityService
 
     public async Task<(Result Result, string Id)> CreateUserAsync(ApplicationUser applicationUser, string password)
     {
-        var user = _userManager.Users.SingleOrDefault(u => u.UserName == applicationUser.UserName);
-
-        if (user != null)
-        {
-            // Comprobar si el userName es único.
-            _validationFailureService.AddAndRaiseException(
-                nameof(ApplicationUser.UserName),
-                _localizer["Nombre de usuario ya registrado"]);
-
-            // Comprobar si el email es único.
-            _validationFailureService.AddAndRaiseException(
-                nameof(ApplicationUser.Email),
-                _localizer["Email de usuario ya registrado"]);
-        }
-
         var result = await _userManager.CreateAsync(applicationUser, password);
         await _userManager.AddToRolesAsync(applicationUser, new[] { Roles.Employee });
 

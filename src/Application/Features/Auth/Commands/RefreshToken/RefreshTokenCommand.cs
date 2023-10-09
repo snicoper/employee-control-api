@@ -1,5 +1,5 @@
 ﻿using MediatR;
 
-namespace EmployeeControl.Application.Features.Identity.Commands.RefreshToken;
+namespace EmployeeControl.Application.Features.Auth.Commands.RefreshToken;
 
 public record RefreshTokenCommand(string RefreshToken) : IRequest<RefreshTokenDto>;

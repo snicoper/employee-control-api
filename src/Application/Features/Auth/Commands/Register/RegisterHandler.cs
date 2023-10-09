@@ -4,7 +4,7 @@ using EmployeeControl.Application.Common.Interfaces.Identity;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 
-namespace EmployeeControl.Application.Features.Identity.Commands.Register;
+namespace EmployeeControl.Application.Features.Auth.Commands.Register;
 
 public class RegisterHandler : IRequestHandler<RegisterCommand, string>
 {
