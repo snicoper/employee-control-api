@@ -41,7 +41,7 @@ public static class QueryableFilterExtensions
 
     private static void ComposeQuery(RequestFilter filter, StringBuilder query, int valuePosition)
     {
-        var relationalOperator = FilterOperator.GetRelationalOperator(filter.RelationalOperator.NotNull());
+        var relationalOperator = FilterOperator.GetRelationalOperator(filter.RelationalOperator.SetEmptyIfNull());
         var logicalOperator = !string.IsNullOrEmpty(filter.LogicalOperator)
             ? FilterOperator.GetLogicalOperator(filter.LogicalOperator)
             : string.Empty;

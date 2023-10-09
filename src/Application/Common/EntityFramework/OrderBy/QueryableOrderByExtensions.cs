@@ -63,7 +63,7 @@ public static class QueryableOrderByExtensions
             _ => throw new NotImplementedException()
         };
 
-        source = source.OrderByCommand(fieldName.NotNull(), command);
+        source = source.OrderByCommand(fieldName.SetEmptyIfNull(), command);
 
         return (IOrderedQueryable<TEntity>)source;
     }

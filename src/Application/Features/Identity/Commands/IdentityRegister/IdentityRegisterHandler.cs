@@ -12,7 +12,7 @@ internal class IdentityRegisterHandler
     public async Task<string> Handle(IdentityRegisterCommand request, CancellationToken cancellationToken)
     {
         var user = mapper.Map<IdentityRegisterCommand, ApplicationUser>(request);
-        var password = request.Password.NotNull();
+        var password = request.Password.SetEmptyIfNull();
         var resultResponse = await identityService.CreateUserAsync(user, password);
 
         return resultResponse.Id;

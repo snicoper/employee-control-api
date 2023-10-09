@@ -71,7 +71,7 @@ public class EmailService : IEmailService
         mailMessage.IsBodyHtml = IsBodyHtml;
 
         using var client = new SmtpClient();
-        client.Host = _emailSenderSettings.Host.NotNull();
+        client.Host = _emailSenderSettings.Host.SetEmptyIfNull();
         client.Port = _emailSenderSettings.Port;
         client.Credentials = new NetworkCredential(_emailSenderSettings.Username, _emailSenderSettings.Password);
         client.UseDefaultCredentials = false;

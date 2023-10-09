@@ -16,7 +16,7 @@ public class LoggingBehaviour<TRequest>(
     public async Task Process(TRequest request, CancellationToken cancellationToken)
     {
         var requestName = typeof(TRequest).Name;
-        var userId = currentUserService.Id.NotNull();
+        var userId = currentUserService.Id.SetEmptyIfNull();
         var userName = string.Empty;
 
         if (!string.IsNullOrEmpty(userId))
