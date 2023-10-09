@@ -3,9 +3,9 @@ using EmployeeControl.Application.Common.Mapping;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 
-namespace EmployeeControl.Application.Features.Identity.Commands.CreateAccount;
+namespace EmployeeControl.Application.Features.Identity.Commands.Register;
 
-public class CreateAccountCommand : IRequest<string>, IMapFrom<ApplicationUser>
+public class RegisterCommand : IRequest<string>, IMapFrom<ApplicationUser>
 {
     public string? UserName { get; set; }
 
@@ -17,6 +17,6 @@ public class CreateAccountCommand : IRequest<string>, IMapFrom<ApplicationUser>
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<CreateAccountCommand, ApplicationUser>();
+        profile.CreateMap<RegisterCommand, ApplicationUser>();
     }
 }

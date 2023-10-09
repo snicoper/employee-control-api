@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace EmployeeControl.Application.Features.Identity.Commands.CreateAccount;
+namespace EmployeeControl.Application.Features.Identity.Commands.Register;
 
-public class CreateAccountValidator : AbstractValidator<CreateAccountCommand>
+public class RegisterValidator : AbstractValidator<RegisterCommand>
 {
-    public CreateAccountValidator()
+    public RegisterValidator()
     {
         RuleFor(r => r.UserName)
             .NotEmpty()

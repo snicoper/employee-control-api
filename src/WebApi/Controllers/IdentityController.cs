@@ -1,6 +1,6 @@
-using EmployeeControl.Application.Features.Identity.Commands.CreateAccount;
 using EmployeeControl.Application.Features.Identity.Commands.Login;
 using EmployeeControl.Application.Features.Identity.Commands.RefreshToken;
+using EmployeeControl.Application.Features.Identity.Commands.Register;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +16,10 @@ public class IdentityController : ApiControllerBase
     /// <param name="command">Datos del usuario.</param>
     /// <returns>Id del usuario creado en caso de éxito.</returns>
     [AllowAnonymous]
-    [HttpPost("create-account")]
+    [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<string>> CreateAccount(CreateAccountCommand command)
+    public async Task<ActionResult<string>> Register(RegisterCommand command)
     {
         return await Mediator.Send(command);
     }
