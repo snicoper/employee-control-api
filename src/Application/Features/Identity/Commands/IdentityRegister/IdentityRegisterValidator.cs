@@ -18,13 +18,13 @@ public class IdentityRegisterValidator : AbstractValidator<IdentityRegisterComma
         RuleFor(r => r.UserName)
             .NotEmpty()
             .MaximumLength(256)
-            .IdentityBeUniqueUserName(userManager, localizer);
+            .IdentityUniqueUserName(userManager, localizer);
 
         RuleFor(r => r.Email)
             .NotEmpty()
             .EmailAddress()
             .MaximumLength(256)
-            .IdentityBeUniqueEmail(userManager, localizer);
+            .IdentityUniqueEmail(userManager, localizer);
 
         RuleFor(r => r.Password)
             .NotEmpty()
@@ -37,6 +37,6 @@ public class IdentityRegisterValidator : AbstractValidator<IdentityRegisterComma
         RuleFor(r => r.CompanyName)
             .NotEmpty()
             .MaximumLength(50)
-            .CompanyBeUniqueName(context, localizer);
+            .CompanyUniqueName(context, localizer);
     }
 }
