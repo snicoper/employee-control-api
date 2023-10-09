@@ -33,7 +33,7 @@ public class IdentityService(
     {
         var user = userManager.Users.SingleOrDefault(u => u.Id == userId);
 
-        if (user == null)
+        if (user is null)
         {
             return false;
         }

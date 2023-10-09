@@ -25,7 +25,7 @@ public class AuthorizationBehaviour<TRequest, TResponse>(ICurrentUserService cur
         }
 
         // Must be authenticated user.
-        if (currentUserService.Id == null)
+        if (currentUserService.Id is null)
         {
             throw new UnauthorizedAccessException();
         }

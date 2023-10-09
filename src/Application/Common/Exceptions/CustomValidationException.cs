@@ -6,7 +6,7 @@ namespace EmployeeControl.Application.Common.Exceptions;
 [Serializable]
 public class CustomValidationException() : Exception("One or more validation failures have occurred.")
 {
-    public CustomValidationException(IEnumerable<ValidationFailure> failures)
+    public CustomValidationException(IReadOnlyCollection<ValidationFailure> failures)
         : this()
     {
         Errors = failures

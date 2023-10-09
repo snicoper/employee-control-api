@@ -26,7 +26,7 @@ public class DispatchDomainEventsInterceptor(IMediator mediator) : SaveChangesIn
 
     public async Task DispatchDomainEvents(DbContext? context)
     {
-        if (context == null)
+        if (context is null)
         {
             return;
         }

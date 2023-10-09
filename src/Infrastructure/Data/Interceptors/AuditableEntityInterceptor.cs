@@ -27,14 +27,14 @@ public class AuditableEntityInterceptor(ICurrentUserService currentUserService, 
 
     public void UpdateEntities(DbContext? context)
     {
-        if (context == null)
+        if (context is null)
         {
             return;
         }
 
         foreach (var entry in context.ChangeTracker.Entries<BaseAuditableEntity>())
         {
-            if (entry.State == EntityState.Added)
+            if (entry.State is EntityState.Added)
             {
                 entry.Entity.CreatedBy = currentUserService.Id;
                 entry.Entity.Created = dateTime.UtcNow;
