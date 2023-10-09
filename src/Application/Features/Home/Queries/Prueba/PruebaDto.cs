@@ -1,6 +1,3 @@
 ﻿namespace EmployeeControl.Application.Features.Home.Queries.Prueba;
 
-public class PruebaDto
-{
-    public string? Message { get; set; }
-}
+public record PruebaDto(string? Message);

@@ -8,7 +8,7 @@ internal class RefreshTokenHandler(IAuthService authService) : IRequestHandler<R
     public async Task<RefreshTokenDto> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
         var result = await authService.RefreshTokenAsync(request.RefreshToken);
-        var resultResponse = new RefreshTokenDto { AccessToken = result.AccessToken, RefreshToken = result.RefreshToken };
+        var resultResponse = new RefreshTokenDto(result.AccessToken, result.RefreshToken);
 
         return resultResponse;
     }

@@ -4,7 +4,7 @@ using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Features.Admin.AdminIdentity.Queries.GetAdminIdentitiesPaginated;
 
-public class GetAdminIdentitiesPaginatedDto : IMapFrom<ApplicationUser>
+public record GetAdminIdentitiesPaginatedDto : IMapFrom<ApplicationUser>
 {
     public string? Id { get; set; }
 

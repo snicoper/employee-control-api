@@ -8,7 +8,7 @@ internal class LoginHandler(IAuthService authService) : IRequestHandler<LoginCom
     public async Task<LoginDto> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         var result = await authService.LoginAsync(request.Identifier, request.Password);
-        var resultResponse = new LoginDto { AccessToken = result.AccessToken, RefreshToken = result.RefreshToken };
+        var resultResponse = new LoginDto(result.AccessToken, result.RefreshToken);
 
         return resultResponse;
     }
