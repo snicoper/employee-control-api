@@ -6,34 +6,21 @@ using Microsoft.Extensions.Logging;
 
 namespace EmployeeControl.Infrastructure.Data.Seeds;
 
-public class ApplicationDbContextInitialize
+public class ApplicationDbContextInitialize(
+    ILogger<ApplicationDbContextInitialize> logger,
+    ApplicationDbContext context,
+    UserManager<ApplicationUser> userManager,
+    RoleManager<IdentityRole> roleManager)
 {
-    private readonly ApplicationDbContext _context;
-    private readonly ILogger<ApplicationDbContextInitialize> _logger;
-    private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly UserManager<ApplicationUser> _userManager;
-
-    public ApplicationDbContextInitialize(
-        ILogger<ApplicationDbContextInitialize> logger,
-        ApplicationDbContext context,
-        UserManager<ApplicationUser> userManager,
-        RoleManager<IdentityRole> roleManager)
-    {
-        _logger = logger;
-        _context = context;
-        _userManager = userManager;
-        _roleManager = roleManager;
-    }
-
     public async Task InitialiseAsync()
     {
         try
         {
-            await _context.Database.MigrateAsync();
+            await context.Database.MigrateAsync();
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while initialising the database.");
+            logger.LogError(ex, "An error occurred while initialising the database.");
             throw;
         }
     }
@@ -46,7 +33,7 @@ public class ApplicationDbContextInitialize
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error occurred while seeding the database.");
+            logger.LogError(ex, "An error occurred while seeding the database.");
             throw;
         }
     }
@@ -60,15 +47,15 @@ public class ApplicationDbContextInitialize
 
     private async Task CreateCompanies()
     {
-        if (_context.Company.Any(c => c.Name == "Company test"))
+        if (context.Company.Any(c => c.Name == "Company test"))
         {
             return;
         }
 
         var company = new Company { Name = "Company test" };
 
-        await _context.Company.AddAsync(company);
-        await _context.SaveChangesAsync(CancellationToken.None);
+        await context.Company.AddAsync(company);
+        await context.SaveChangesAsync(CancellationToken.None);
     }
 
     private async Task CreateRoles()
@@ -79,15 +66,15 @@ public class ApplicationDbContextInitialize
             new(Roles.Administrator), new(Roles.EnterpriseAdministrator), new(Roles.HumanResources), new(Roles.Employee)
         };
 
-        foreach (var identityRole in createRole.Where(identityRole => _roleManager.Roles.All(r => r.Name != identityRole.Name)))
+        foreach (var identityRole in createRole.Where(identityRole => roleManager.Roles.All(r => r.Name != identityRole.Name)))
         {
-            await _roleManager.CreateAsync(identityRole);
+            await roleManager.CreateAsync(identityRole);
         }
     }
 
     private async Task CreateUsers()
     {
-        var company = _context.Company
+        var company = context.Company
             .AsNoTracking()
             .SingleAsync(c => c.Name == "Company test");
 
@@ -101,10 +88,10 @@ public class ApplicationDbContextInitialize
             Email = "admin@localhost"
         };
 
-        if (_userManager.Users.All(u => u.UserName != administrator.UserName))
+        if (userManager.Users.All(u => u.UserName != administrator.UserName))
         {
-            await _userManager.CreateAsync(administrator, "Password4!");
-            await _userManager.AddToRolesAsync(
+            await userManager.CreateAsync(administrator, "Password4!");
+            await userManager.AddToRolesAsync(
                 administrator,
                 new[] { Roles.Administrator, Roles.Employee, Roles.HumanResources, Roles.EnterpriseAdministrator });
         }

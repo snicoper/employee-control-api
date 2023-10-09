@@ -7,30 +7,20 @@ using Microsoft.Extensions.Options;
 
 namespace EmployeeControl.Application.Common.Services.Identity;
 
-public class AuthService : IAuthService
-{
-    private readonly JwtSettings _jwtSettings;
-    private readonly ITokenService _tokenService;
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly IDateTime _dateTime;
-
-    public AuthService(
+public class AuthService(
         UserManager<ApplicationUser> userManager,
         IOptions<JwtSettings> options,
         IDateTime dateTime,
         ITokenService tokenService)
-    {
-        _userManager = userManager;
-        _dateTime = dateTime;
-        _jwtSettings = options.Value;
-        _tokenService = tokenService;
-    }
+    : IAuthService
+{
+    private readonly JwtSettings _jwtSettings = options.Value;
 
     public async Task<(string AccessToken, string RefreshToken)> LoginAsync(string identifier, string password)
     {
-        var user = _userManager.Users.SingleOrDefault(au => au.UserName == identifier || au.Email == identifier);
+        var user = userManager.Users.SingleOrDefault(au => au.UserName == identifier || au.Email == identifier);
 
-        if (user is null || !await _userManager.CheckPasswordAsync(user, password))
+        if (user is null || !await userManager.CheckPasswordAsync(user, password))
         {
             throw new UnauthorizedAccessException();
         }
@@ -40,9 +30,9 @@ public class AuthService : IAuthService
 
     public async Task<(string AccessToken, string RefreshToken)> RefreshTokenAsync(string refreshToken)
     {
-        var user = _userManager.Users.SingleOrDefault(u => u.RefreshToken == refreshToken);
+        var user = userManager.Users.SingleOrDefault(u => u.RefreshToken == refreshToken);
 
-        if (user is null || user.RefreshTokenExpiryTime <= _dateTime.UtcNow)
+        if (user is null || user.RefreshTokenExpiryTime <= dateTime.UtcNow)
         {
             throw new UnauthorizedAccessException();
         }
@@ -52,13 +42,13 @@ public class AuthService : IAuthService
 
     private async Task<(string AccessToken, string RefreshToken)> GenerateUserTokenAsync(ApplicationUser user)
     {
-        var jwt = await _tokenService.GenerateAccessTokenAsync(user);
-        var newRefreshToken = _tokenService.GenerateRefreshToken();
+        var jwt = await tokenService.GenerateAccessTokenAsync(user);
+        var newRefreshToken = tokenService.GenerateRefreshToken();
 
         user.RefreshToken = newRefreshToken;
-        user.RefreshTokenExpiryTime = _dateTime.UtcNow.AddDays(_jwtSettings.RefreshTokenLifeTimeDays);
+        user.RefreshTokenExpiryTime = dateTime.UtcNow.AddDays(_jwtSettings.RefreshTokenLifeTimeDays);
 
-        await _userManager.UpdateAsync(user);
+        await userManager.UpdateAsync(user);
 
         return (jwt, newRefreshToken);
     }

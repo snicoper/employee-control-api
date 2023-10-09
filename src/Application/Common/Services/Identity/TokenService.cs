@@ -12,21 +12,15 @@ using System.Text;
 
 namespace EmployeeControl.Application.Common.Services.Identity;
 
-public class TokenService : ITokenService
+public class TokenService(IOptions<JwtSettings> jwtOptions, UserManager<ApplicationUser> userManager)
+    : ITokenService
 {
-    private readonly JwtSettings _jwtSettings;
-    private readonly UserManager<ApplicationUser> _userManager;
-
-    public TokenService(IOptions<JwtSettings> jwtOptions, UserManager<ApplicationUser> userManager)
-    {
-        _userManager = userManager;
-        _jwtSettings = jwtOptions.Value;
-    }
+    private readonly JwtSettings _jwtSettings = jwtOptions.Value;
 
     public async Task<string> GenerateAccessTokenAsync(ApplicationUser user)
     {
         var claims = new List<Claim> { new(ClaimTypes.Sid, user.Id), new(ClaimTypes.Name, user.UserName.NotNull()) };
-        var roles = await _userManager.GetRolesAsync(user);
+        var roles = await userManager.GetRolesAsync(user);
 
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 

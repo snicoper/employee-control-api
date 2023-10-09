@@ -3,7 +3,7 @@ using MediatR;
 
 namespace EmployeeControl.Application.Features.Localization.Queries.SupportedLocales;
 
-public class SupportedLocalesHandler : IRequestHandler<SupportedLocalesQuery, SupportedLocalesDto>
+internal class SupportedLocalesHandler : IRequestHandler<SupportedLocalesQuery, SupportedLocalesDto>
 {
     public Task<SupportedLocalesDto> Handle(SupportedLocalesQuery request, CancellationToken cancellationToken)
     {

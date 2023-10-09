@@ -2,6 +2,4 @@
 
 namespace EmployeeControl.Application.Features.Home.Queries.Prueba;
 
-public class PruebaQuery : IRequest<PruebaDto>
-{
-}
+public record PruebaQuery : IRequest<PruebaDto>;

@@ -6,23 +6,14 @@ using MediatR;
 
 namespace EmployeeControl.Application.Features.Auth.Commands.Register;
 
-public class RegisterHandler : IRequestHandler<RegisterCommand, string>
+internal class RegisterHandler(IIdentityService identityService, IMapper mapper) : IRequestHandler<RegisterCommand, string>
 {
-    private readonly IIdentityService _identityService;
-    private readonly IMapper _mapper;
-
-    public RegisterHandler(IIdentityService identityService, IMapper mapper)
-    {
-        _identityService = identityService;
-        _mapper = mapper;
-    }
-
     public async Task<string> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        var user = _mapper.Map<RegisterCommand, ApplicationUser>(request);
+        var user = mapper.Map<RegisterCommand, ApplicationUser>(request);
         var password = request.Password.NotNull();
 
-        var result = await _identityService.CreateUserAsync(user, password);
+        var result = await identityService.CreateUserAsync(user, password);
 
         return result.Id;
     }

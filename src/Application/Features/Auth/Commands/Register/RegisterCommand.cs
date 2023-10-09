@@ -5,26 +5,18 @@ using MediatR;
 
 namespace EmployeeControl.Application.Features.Auth.Commands.Register;
 
-public class RegisterCommand : IRequest<string>, IMapFrom<ApplicationUser>
+public record RegisterCommand(string? UserName, string? Email, string? Password, string? ConfirmPassword, string CompanyName)
+    : IRequest<string>, IMapFrom<ApplicationUser>
 {
-    public RegisterCommand(string? userName, string? email, string? password, string? confirmPassword, string companyName)
-    {
-        UserName = userName;
-        Email = email;
-        Password = password;
-        ConfirmPassword = confirmPassword;
-        CompanyName = companyName;
-    }
+    public string? UserName { get; } = UserName;
 
-    public string? UserName { get; }
+    public string? Email { get; } = Email;
 
-    public string? Email { get; }
+    public string? Password { get; } = Password;
 
-    public string? Password { get; }
+    public string? ConfirmPassword { get; } = ConfirmPassword;
 
-    public string? ConfirmPassword { get; }
-
-    public string? CompanyName { get; }
+    public string? CompanyName { get; } = CompanyName;
 
     public void Mapping(Profile profile)
     {

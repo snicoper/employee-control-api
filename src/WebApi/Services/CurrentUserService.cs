@@ -3,14 +3,8 @@ using System.Security.Claims;
 
 namespace EmployeeControl.WebApi.Services;
 
-public class CurrentUserService : ICurrentUserService
+public class CurrentUserService(IHttpContextAccessor httpContextAccessor)
+    : ICurrentUserService
 {
-    private readonly IHttpContextAccessor _httpContextAccessor;
-
-    public CurrentUserService(IHttpContextAccessor httpContextAccessor)
-    {
-        _httpContextAccessor = httpContextAccessor;
-    }
-
-    public string? Id => _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Sid);
+    public string? Id => httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Sid);
 }

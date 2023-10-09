@@ -4,14 +4,8 @@ using FluentValidation.Results;
 namespace EmployeeControl.Application.Common.Exceptions;
 
 [Serializable]
-public class CustomValidationException : Exception
+public class CustomValidationException() : Exception("One or more validation failures have occurred.")
 {
-    public CustomValidationException()
-        : base("One or more validation failures have occurred.")
-    {
-        Errors = new Dictionary<string, string[]>();
-    }
-
     public CustomValidationException(IEnumerable<ValidationFailure> failures)
         : this()
     {
@@ -20,5 +14,5 @@ public class CustomValidationException : Exception
             .ToDictionary(failureGroup => failureGroup.Key.LowerCaseFirst(), failureGroup => failureGroup.ToArray());
     }
 
-    public IDictionary<string, string[]> Errors { get; }
+    public IDictionary<string, string[]> Errors { get; } = new Dictionary<string, string[]>();
 }

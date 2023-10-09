@@ -7,18 +7,10 @@ using System.Reflection;
 
 namespace EmployeeControl.Application.Common.Behaviours;
 
-public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+public class AuthorizationBehaviour<TRequest, TResponse>(ICurrentUserService currentUserService, IIdentityService identityService)
+    : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
 {
-    private readonly ICurrentUserService _currentUserService;
-    private readonly IIdentityService _identityService;
-
-    public AuthorizationBehaviour(ICurrentUserService currentUserService, IIdentityService identityService)
-    {
-        _currentUserService = currentUserService;
-        _identityService = identityService;
-    }
-
     public async Task<TResponse> Handle(
         TRequest request,
         RequestHandlerDelegate<TResponse> next,
@@ -33,17 +25,17 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
         }
 
         // Must be authenticated user.
-        if (_currentUserService.Id == null)
+        if (currentUserService.Id == null)
         {
             throw new UnauthorizedAccessException();
         }
 
         // Role-based authorization.
-        await RoleBasedAuthorization(attributes, _currentUserService.Id);
+        await RoleBasedAuthorization(attributes, currentUserService.Id);
 
 
         // Policy-based authorization.
-        await PolicyBasedAuthorization(attributes, _currentUserService.Id);
+        await PolicyBasedAuthorization(attributes, currentUserService.Id);
 
 
         // User is authorized / authorization not required.
@@ -63,7 +55,7 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
             {
                 foreach (var role in roles)
                 {
-                    var isInRole = await _identityService.IsInRoleAsync(userId, role.Trim());
+                    var isInRole = await identityService.IsInRoleAsync(userId, role.Trim());
 
                     if (!isInRole)
                     {
@@ -97,7 +89,7 @@ public class AuthorizationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRe
 
         foreach (var policy in attributesWithPolicies.Select(a => a.Policy))
         {
-            var authorized = await _identityService.AuthorizeAsync(userId, policy);
+            var authorized = await identityService.AuthorizeAsync(userId, policy);
 
             if (!authorized)
             {

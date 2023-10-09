@@ -11,22 +11,12 @@ using Microsoft.AspNetCore.Routing;
 
 namespace EmployeeControl.Infrastructure.Services;
 
-public class RazorViewToStringRendererService : IRazorViewToStringRendererService
-{
-    private readonly IServiceProvider _serviceProvider;
-    private readonly ITempDataProvider _tempDataProvider;
-    private readonly IRazorViewEngine _viewEngine;
-
-    public RazorViewToStringRendererService(
+public class RazorViewToStringRendererService(
         IRazorViewEngine viewEngine,
         ITempDataProvider tempDataProvider,
         IServiceProvider serviceProvider)
-    {
-        _viewEngine = viewEngine;
-        _tempDataProvider = tempDataProvider;
-        _serviceProvider = serviceProvider;
-    }
-
+    : IRazorViewToStringRendererService
+{
     public async Task<string> RenderViewToStringAsync(string viewName, object model, Dictionary<string, object?> viewData)
     {
         var actionContext = GetActionContext();
@@ -40,7 +30,7 @@ public class RazorViewToStringRendererService : IRazorViewToStringRendererServic
             viewDataDict.Add(data);
         }
 
-        TempDataDictionary tempDataDict = new(actionContext.HttpContext, _tempDataProvider);
+        TempDataDictionary tempDataDict = new(actionContext.HttpContext, tempDataProvider);
 
         ViewContext viewContext = new(
             actionContext,
@@ -57,13 +47,13 @@ public class RazorViewToStringRendererService : IRazorViewToStringRendererServic
 
     private IView FindView(ActionContext actionContext, string viewName)
     {
-        var getViewResult = _viewEngine.GetView(null, viewName, true);
+        var getViewResult = viewEngine.GetView(null, viewName, true);
         if (getViewResult.Success)
         {
             return getViewResult.View;
         }
 
-        var findViewResult = _viewEngine.FindView(actionContext, viewName, true);
+        var findViewResult = viewEngine.FindView(actionContext, viewName, true);
         if (findViewResult.Success)
         {
             return findViewResult.View;
@@ -79,7 +69,7 @@ public class RazorViewToStringRendererService : IRazorViewToStringRendererServic
 
     private ActionContext GetActionContext()
     {
-        var httpContext = new DefaultHttpContext { RequestServices = _serviceProvider };
+        var httpContext = new DefaultHttpContext { RequestServices = serviceProvider };
         return new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
     }
 }

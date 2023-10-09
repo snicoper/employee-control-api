@@ -8,17 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace EmployeeControl.WebApi.Controllers;
 
 [Route("api/v{version:apiVersion}/home")]
-public class HomeController : ApiControllerBase
+public class HomeController(IEmailService emailService, IRazorViewToStringRendererService razorViewToStringRendererService)
+    : ApiControllerBase
 {
-    private readonly IEmailService _emailService;
-    private readonly IRazorViewToStringRendererService _razorViewToStringRendererService;
-
-    public HomeController(IEmailService emailService, IRazorViewToStringRendererService razorViewToStringRendererService)
-    {
-        _emailService = emailService;
-        _razorViewToStringRendererService = razorViewToStringRendererService;
-    }
-
     [HttpGet]
     [AllowAnonymous]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -32,11 +24,11 @@ public class HomeController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<string>> TestEmail()
     {
-        _emailService.To.Add("snicoper@example.com");
-        _emailService.Subject = "Mensaje de prueba";
+        emailService.To.Add("snicoper@example.com");
+        emailService.Subject = "Mensaje de prueba";
         var model = new TestEmailViewModel { Name = "Salvador Nicolas" };
 
-        await _emailService.SendMailWithViewAsync("TestEmail", model);
+        await emailService.SendMailWithViewAsync("TestEmail", model);
 
         return "Ok";
     }
@@ -46,7 +38,7 @@ public class HomeController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<string>> TestRenderHtml()
     {
-        return await _razorViewToStringRendererService.RenderViewToStringAsync(
+        return await razorViewToStringRendererService.RenderViewToStringAsync(
             "TestRenderToString",
             new TestEmailViewModel { Name = "Test" },
             new Dictionary<string, object?>());

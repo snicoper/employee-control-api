@@ -1,21 +1,14 @@
-﻿using EmployeeControl.Application.Localization;
+﻿using EmployeeControl.Application.Localizations;
 using MediatR;
 using Microsoft.Extensions.Localization;
 
 namespace EmployeeControl.Application.Features.Home.Queries.Prueba;
 
-public class PruebaHandler : IRequestHandler<PruebaQuery, PruebaDto>
+internal class PruebaHandler(IStringLocalizer<IdentityLocalizer> localizer) : IRequestHandler<PruebaQuery, PruebaDto>
 {
-    private readonly IStringLocalizer<IdentityResource> _localizer;
-
-    public PruebaHandler(IStringLocalizer<IdentityResource> localizer)
-    {
-        _localizer = localizer;
-    }
-
     public Task<PruebaDto> Handle(PruebaQuery request, CancellationToken cancellationToken)
     {
-        var result = new PruebaDto { Message = _localizer["Hello"] };
+        var result = new PruebaDto { Message = localizer["Hello"] };
 
         return Task.FromResult(result);
     }
