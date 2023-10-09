@@ -12,7 +12,8 @@ internal class CurrentLocaleHandler(IHttpContextAccessor httpContextAccessor)
         var culture = httpContextAccessor.HttpContext?.Features.Get<IRequestCultureFeature>();
         var locale = culture?.RequestCulture.Culture.ToString();
         var result = new CurrentLocaleDto { Locale = locale };
+        var resultResponse = Task.FromResult(result);
 
-        return Task.FromResult(result);
+        return resultResponse;
     }
 }

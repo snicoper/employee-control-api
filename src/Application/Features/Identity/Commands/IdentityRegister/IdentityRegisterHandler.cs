@@ -14,8 +14,8 @@ internal class IdentityRegisterHandler
         var user = mapper.Map<IdentityRegisterCommand, ApplicationUser>(request);
         var password = request.Password.NotNull();
 
-        var result = await identityService.CreateUserAsync(user, password);
+        var resultResponse = await identityService.CreateUserAsync(user, password);
 
-        return result.Id;
+        return resultResponse.Id;
     }
 }

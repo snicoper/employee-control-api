@@ -14,6 +14,8 @@ internal class SupportedLocalesHandler : IRequestHandler<SupportedLocalesQuery, 
             supportedCultures.Locales.Add(cultureInfo.Name);
         }
 
-        return Task.FromResult(supportedCultures);
+        var resultResponse = Task.FromResult(supportedCultures);
+
+        return resultResponse;
     }
 }

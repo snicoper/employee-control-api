@@ -16,10 +16,12 @@ internal class GetAdminIdentitiesPaginatedHandler(UserManager<ApplicationUser> u
     {
         var users = userManager.Users.AsNoTracking();
 
-        return await ResponseData<GetAdminIdentitiesPaginatedDto>.CreateAsync(
+        var usersResponse = await ResponseData<GetAdminIdentitiesPaginatedDto>.CreateAsync(
             users,
             request.RequestData,
             mapper,
             cancellationToken);
+
+        return usersResponse;
     }
 }
