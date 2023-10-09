@@ -3,9 +3,14 @@ using EmployeeControl.Application.Common.Mapping;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 
-namespace EmployeeControl.Application.Features.Auth.Commands.Register;
+namespace EmployeeControl.Application.Features.Identity.Commands.IdentityRegister;
 
-public record RegisterCommand(string? UserName, string? Email, string? Password, string? ConfirmPassword, string CompanyName)
+public record IdentityRegisterCommand(
+        string? UserName,
+        string? Email,
+        string? Password,
+        string? ConfirmPassword,
+        string CompanyName)
     : IRequest<string>, IMapFrom<ApplicationUser>
 {
     public string? UserName { get; } = UserName;
@@ -20,6 +25,6 @@ public record RegisterCommand(string? UserName, string? Email, string? Password,
 
     public void Mapping(Profile profile)
     {
-        profile.CreateMap<RegisterCommand, ApplicationUser>();
+        profile.CreateMap<IdentityRegisterCommand, ApplicationUser>();
     }
 }

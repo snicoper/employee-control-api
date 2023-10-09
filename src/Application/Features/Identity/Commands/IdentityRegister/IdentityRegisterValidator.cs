@@ -6,11 +6,11 @@ using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 
-namespace EmployeeControl.Application.Features.Auth.Commands.Register;
+namespace EmployeeControl.Application.Features.Identity.Commands.IdentityRegister;
 
-public class RegisterValidator : AbstractValidator<RegisterCommand>
+public class IdentityRegisterValidator : AbstractValidator<IdentityRegisterCommand>
 {
-    public RegisterValidator(
+    public IdentityRegisterValidator(
         IApplicationDbContext context,
         UserManager<ApplicationUser> userManager,
         IStringLocalizer<IdentityLocalizer> localizer)
