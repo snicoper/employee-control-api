@@ -22,7 +22,7 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
 
         // Properties.
         builder.Property(au => au.FirstName)
-            .HasMaxLength(100)
+            .HasMaxLength(50)
             .IsRequired();
 
         builder.Property(au => au.LastName)
