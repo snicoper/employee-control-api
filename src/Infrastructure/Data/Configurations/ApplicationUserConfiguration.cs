@@ -21,7 +21,7 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
             .IsRequired();
 
         // Properties.
-        builder.Property(au => au.Email)
+        builder.Property(au => au.FirstName)
             .HasMaxLength(100)
             .IsRequired();
 
