@@ -15,10 +15,11 @@ public class IdentityRegisterValidator : AbstractValidator<IdentityRegisterComma
         UserManager<ApplicationUser> userManager,
         IStringLocalizer<IdentityLocalizer> localizer)
     {
-        RuleFor(r => r.UserName)
-            .NotEmpty()
-            .MaximumLength(256)
-            .IdentityUniqueUserName(userManager, localizer);
+        RuleFor(r => r.FirstName)
+            .NotEmpty();
+
+        RuleFor(r => r.LastName)
+            .NotEmpty();
 
         RuleFor(r => r.Email)
             .NotEmpty()

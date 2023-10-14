@@ -2,4 +2,4 @@
 
 namespace EmployeeControl.Application.Features.Auth.Commands.Login;
 
-public record LoginCommand(string Identifier, string Password) : IRequest<LoginDto>;
+public record LoginCommand(string Email, string Password) : IRequest<LoginDto>;

@@ -13,6 +13,11 @@ public abstract class Roles
     public const string EnterpriseAdministrator = nameof(EnterpriseAdministrator);
 
     /// <summary>
+    /// Staff de empresa.
+    /// </summary>
+    public const string Staff = nameof(Staff);
+
+    /// <summary>
     /// Recursos humanos (RRHH).
     /// </summary>
     public const string HumanResources = nameof(HumanResources);

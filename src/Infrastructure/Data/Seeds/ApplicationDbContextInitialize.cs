@@ -63,7 +63,11 @@ public class ApplicationDbContextInitialize(
         // Default roles.
         var createRole = new List<IdentityRole>
         {
-            new(Roles.Administrator), new(Roles.EnterpriseAdministrator), new(Roles.HumanResources), new(Roles.Employee)
+            new(Roles.Administrator),
+            new(Roles.EnterpriseAdministrator),
+            new(Roles.Staff),
+            new(Roles.HumanResources),
+            new(Roles.Employee)
         };
 
         foreach (var identityRole in createRole.Where(identityRole => roleManager.Roles.All(r => r.Name != identityRole.Name)))

@@ -3,7 +3,8 @@
 namespace EmployeeControl.Application.Features.Identity.Commands.IdentityRegister;
 
 public record IdentityRegisterCommand(
-        string? UserName,
+        string? FirstName,
+        string? LastName,
         string? Email,
         string? Password,
         string? ConfirmPassword,

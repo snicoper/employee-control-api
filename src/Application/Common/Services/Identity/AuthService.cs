@@ -16,9 +16,9 @@ public class AuthService(
 {
     private readonly JwtSettings _jwtSettings = options.Value;
 
-    public async Task<(string AccessToken, string RefreshToken)> LoginAsync(string identifier, string password)
+    public async Task<(string AccessToken, string RefreshToken)> LoginAsync(string email, string password)
     {
-        var user = userManager.Users.SingleOrDefault(au => au.UserName == identifier || au.Email == identifier);
+        var user = userManager.Users.SingleOrDefault(au => au.Email == email);
 
         if (user is null || !await userManager.CheckPasswordAsync(user, password))
         {
