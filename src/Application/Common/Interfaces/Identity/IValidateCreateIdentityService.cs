@@ -2,7 +2,7 @@ using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Common.Interfaces.Identity;
 
-public interface IValidateCreateIdentity
+public interface IValidateCreateIdentityService
 {
     Task UserValidationAsync(ApplicationUser applicationUser);
 

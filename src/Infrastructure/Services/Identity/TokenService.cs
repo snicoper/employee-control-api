@@ -10,7 +10,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace EmployeeControl.Application.Common.Services.Identity;
+namespace EmployeeControl.Infrastructure.Services.Identity;
 
 public class TokenService(IOptions<JwtSettings> jwtOptions, UserManager<ApplicationUser> userManager)
     : ITokenService

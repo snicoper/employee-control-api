@@ -8,13 +8,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Application.Common.Services.Identity;
+namespace EmployeeControl.Infrastructure.Services.Identity;
 
 public class IdentityService(
         UserManager<ApplicationUser> userManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
         IAuthorizationService authorizationService,
-        IValidateCreateIdentity validateCreateIdentity,
+        IValidateCreateIdentityService validateCreateIdentityService,
         IValidationFailureService validationFailureService)
     : IIdentityService
 {
@@ -60,8 +60,8 @@ public class IdentityService(
         string password,
         IEnumerable<string> roles)
     {
-        await validateCreateIdentity.UserValidationAsync(applicationUser);
-        await validateCreateIdentity.PasswordValidationAsync(applicationUser, password);
+        await validateCreateIdentityService.UserValidationAsync(applicationUser);
+        await validateCreateIdentityService.PasswordValidationAsync(applicationUser, password);
 
         applicationUser.Active = true;
 

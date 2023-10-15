@@ -5,16 +5,16 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
-namespace EmployeeControl.Application.Common.Services.Identity;
+namespace EmployeeControl.Infrastructure.Services.Identity;
 
-public class ValidateCreateIdentity(
+public class ValidateCreateIdentityService(
         UserManager<ApplicationUser> userManager,
         IUserValidator<ApplicationUser> userValidator,
         IPasswordValidator<ApplicationUser> passwordValidator,
         IStringLocalizer<ApplicationUser> localizer,
         IValidationFailureService validationFailureService,
         ILogger<IdentityService> logger)
-    : IValidateCreateIdentity
+    : IValidateCreateIdentityService
 {
     public async Task UserValidationAsync(ApplicationUser applicationUser)
     {

@@ -5,7 +5,7 @@ using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
-namespace EmployeeControl.Application.Common.Services.Identity;
+namespace EmployeeControl.Infrastructure.Services.Identity;
 
 public class AuthService(
         UserManager<ApplicationUser> userManager,
