@@ -78,17 +78,26 @@ public class ApplicationDbContextInitialize(
 
     private async Task CreateUsers()
     {
-        var company = context.Company
+        var company = await context.Company
             .AsNoTracking()
             .SingleOrDefaultAsync(c => c.Name == "Company test");
+
+        if (company is null)
+        {
+            return;
+        }
 
         // Default users.
         var user = new ApplicationUser
         {
-            CompanyId = company.Id, FirstName = "Admin", LastName = "Admin1", Email = "admin@localhost"
+            CompanyId = company.Id,
+            UserName = "admin@localhost",
+            FirstName = "Admin",
+            LastName = "Admin1",
+            Email = "admin@localhost"
         };
 
-        if (await userManager.Users.AnyAsync(u => u.UserName != user.UserName))
+        if (!await userManager.Users.AnyAsync(u => u.Email != user.Email))
         {
             await userManager.CreateAsync(user, "Password4!");
             await userManager.AddToRolesAsync(
