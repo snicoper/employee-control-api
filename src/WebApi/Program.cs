@@ -1,6 +1,7 @@
 using EmployeeControl.Application;
 using EmployeeControl.Domain;
 using EmployeeControl.Infrastructure;
+using EmployeeControl.Infrastructure.Data.Seeds;
 using EmployeeControl.WebApi;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -33,11 +34,10 @@ builder
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Initialise Database in development.
 if (app.Environment.IsDevelopment())
 {
-    // FIXME: Comprobar los seeds por que falla al iniciar el server.
-    // await app.InitialiseDatabaseAsync();
+    await app.InitialiseDatabaseAsync();
 }
 else
 {

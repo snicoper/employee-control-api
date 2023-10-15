@@ -38,7 +38,7 @@ public class ApplicationDbContextInitialize(
         }
     }
 
-    public async Task TrySeedAsync()
+    private async Task TrySeedAsync()
     {
         await CreateCompanies();
         await CreateRoles();
@@ -80,24 +80,20 @@ public class ApplicationDbContextInitialize(
     {
         var company = context.Company
             .AsNoTracking()
-            .SingleAsync(c => c.Name == "Company test");
+            .SingleOrDefaultAsync(c => c.Name == "Company test");
 
         // Default users.
-        var administrator = new ApplicationUser
+        var user = new ApplicationUser
         {
-            CompanyId = company.Id,
-            UserName = "admin",
-            FirstName = "Admin",
-            LastName = "Admin1",
-            Email = "admin@localhost"
+            CompanyId = company.Id, FirstName = "Admin", LastName = "Admin1", Email = "admin@localhost"
         };
 
-        if (userManager.Users.All(u => u.UserName != administrator.UserName))
+        if (await userManager.Users.AnyAsync(u => u.UserName != user.UserName))
         {
-            await userManager.CreateAsync(administrator, "Password4!");
+            await userManager.CreateAsync(user, "Password4!");
             await userManager.AddToRolesAsync(
-                administrator,
-                new[] { Roles.Administrator, Roles.Employee, Roles.HumanResources, Roles.EnterpriseAdministrator });
+                user,
+                new[] { Roles.Administrator, Roles.Employee, Roles.Staff, Roles.HumanResources, Roles.EnterpriseAdministrator });
         }
     }
 }
