@@ -7,14 +7,14 @@ using Microsoft.Extensions.Logging;
 
 namespace EmployeeControl.Infrastructure.Services.Identity;
 
-public class ValidateCreateIdentityService(
+public class IdentityCreateValidationService(
         UserManager<ApplicationUser> userManager,
         IUserValidator<ApplicationUser> userValidator,
         IPasswordValidator<ApplicationUser> passwordValidator,
         IStringLocalizer<ApplicationUser> localizer,
         IValidationFailureService validationFailureService,
         ILogger<IdentityService> logger)
-    : IValidateCreateIdentityService
+    : IIdentityCreateValidationService
 {
     public async Task UserValidationAsync(ApplicationUser applicationUser)
     {

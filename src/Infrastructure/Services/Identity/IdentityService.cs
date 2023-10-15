@@ -14,7 +14,7 @@ public class IdentityService(
         UserManager<ApplicationUser> userManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
         IAuthorizationService authorizationService,
-        IValidateCreateIdentityService validateCreateIdentityService,
+        IIdentityCreateValidationService identityCreateValidationService,
         IValidationFailureService validationFailureService)
     : IIdentityService
 {
@@ -60,8 +60,8 @@ public class IdentityService(
         string password,
         IEnumerable<string> roles)
     {
-        await validateCreateIdentityService.UserValidationAsync(applicationUser);
-        await validateCreateIdentityService.PasswordValidationAsync(applicationUser, password);
+        await identityCreateValidationService.UserValidationAsync(applicationUser);
+        await identityCreateValidationService.PasswordValidationAsync(applicationUser, password);
 
         applicationUser.Active = true;
 
