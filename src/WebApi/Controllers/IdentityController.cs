@@ -21,6 +21,6 @@ public class IdentityController : ApiControllerBase
     {
         var result = await Mediator.Send(command);
 
-        return ObjectResult201(result);
+        return ObjectResultCreated(result);
     }
 }

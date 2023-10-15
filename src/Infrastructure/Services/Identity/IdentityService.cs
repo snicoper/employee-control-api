@@ -48,13 +48,6 @@ public class IdentityService(
         return result.Succeeded;
     }
 
-    public async Task<Result> DeleteUserAsync(ApplicationUser applicationUser)
-    {
-        var result = await userManager.DeleteAsync(applicationUser);
-
-        return result.ToApplicationResult();
-    }
-
     public async Task<(Result Result, string Id)> CreateUserAsync(
         ApplicationUser applicationUser,
         string password,
@@ -64,11 +57,7 @@ public class IdentityService(
         await identityCreateValidationService.PasswordValidationAsync(applicationUser, password);
 
         applicationUser.Active = true;
-
-        if (string.IsNullOrEmpty(applicationUser.UserName))
-        {
-            applicationUser.UserName = applicationUser.Email;
-        }
+        applicationUser.UserName = applicationUser.Email;
 
         var result = await userManager.CreateAsync(applicationUser, password);
 
@@ -85,5 +74,12 @@ public class IdentityService(
         await userManager.AddToRolesAsync(applicationUser, roles);
 
         return (result.ToApplicationResult(), applicationUser.Id);
+    }
+
+    public async Task<Result> DeleteUserAsync(ApplicationUser applicationUser)
+    {
+        var result = await userManager.DeleteAsync(applicationUser);
+
+        return result.ToApplicationResult();
     }
 }
