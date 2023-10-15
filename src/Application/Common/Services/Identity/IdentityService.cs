@@ -57,4 +57,11 @@ public class IdentityService(
 
         return (result.ToApplicationResult(), applicationUser.Id);
     }
+
+    public async Task<Result> DeleteUserAsync(ApplicationUser applicationUser)
+    {
+        var result = await userManager.DeleteAsync(applicationUser);
+
+        return result.ToApplicationResult();
+    }
 }
