@@ -26,15 +26,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Update="appsettings.Development.json">
-      <DependentUpon>appsettings.json</DependentUpon>
-    </Content>
-  </ItemGroup>
-
-  <PropertyGroup>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <NoWarn>$(NoWarn);1591</NoWarn>
-  </PropertyGroup>
-
 </Project>
