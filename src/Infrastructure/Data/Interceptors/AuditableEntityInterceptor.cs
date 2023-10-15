@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace EmployeeControl.Infrastructure.Data.Interceptors;
 
-public class AuditableEntityInterceptor(ICurrentUserService currentUserService, IDateTime dateTime) : SaveChangesInterceptor
+public class AuditableEntityInterceptor
+    (ICurrentUserService currentUserService, IDateTimeService dateTimeService) : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
     {
@@ -37,7 +38,7 @@ public class AuditableEntityInterceptor(ICurrentUserService currentUserService, 
             if (entry.State is EntityState.Added)
             {
                 entry.Entity.CreatedBy = currentUserService.Id;
-                entry.Entity.Created = dateTime.UtcNow;
+                entry.Entity.Created = dateTimeService.UtcNow;
             }
 
             if (entry.State != EntityState.Added && entry.State != EntityState.Modified && !entry.HasChangedOwnedEntities())
@@ -46,7 +47,7 @@ public class AuditableEntityInterceptor(ICurrentUserService currentUserService, 
             }
 
             entry.Entity.LastModifiedBy = currentUserService.Id;
-            entry.Entity.LastModified = dateTime.UtcNow;
+            entry.Entity.LastModified = dateTimeService.UtcNow;
         }
     }
 }

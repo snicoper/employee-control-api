@@ -1,6 +1,8 @@
+using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.WebApi.Infrastructure;
 using EmployeeControl.WebApi.Services;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Versioning;
@@ -107,6 +109,17 @@ public static class DependencyInjection
             o.ViewLocationFormats.Add("/Views/Emails/{0}" + RazorViewEngine.ViewExtension);
             o.ViewLocationFormats.Add("/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
         });
+
+        // Culture.
+        services.Configure<RequestLocalizationOptions>(options =>
+        {
+            options.DefaultRequestCulture = new RequestCulture(AppCultures.DefaultCulture);
+            options.SupportedCultures = AppCultures.GetAll();
+            options.SupportedUICultures = AppCultures.GetAll();
+        });
+
+        // Localization.
+        services.AddLocalization(opt => { opt.ResourcesPath = "Resources"; });
 
         return services;
     }

@@ -1,10 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Behaviours;
-using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Models.Settings;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -48,17 +45,6 @@ public static class DependencyInjection
             .Bind(configuration.GetSection(EmailSenderSettings.SectionName))
             .ValidateDataAnnotations()
             .ValidateOnStart();
-
-        // Culture.
-        services.Configure<RequestLocalizationOptions>(options =>
-        {
-            options.DefaultRequestCulture = new RequestCulture(AppCultures.DefaultCulture);
-            options.SupportedCultures = AppCultures.GetAll();
-            options.SupportedUICultures = AppCultures.GetAll();
-        });
-
-        // Localization.
-        services.AddLocalization(opt => { opt.ResourcesPath = "Resources"; });
 
         return services;
     }
