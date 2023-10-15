@@ -47,6 +47,11 @@ public class IdentityService(
 
     public async Task<(Result Result, string Id)> CreateUserAsync(ApplicationUser applicationUser, string password)
     {
+        if (string.IsNullOrEmpty(applicationUser.UserName))
+        {
+            applicationUser.UserName = applicationUser.Email;
+        }
+
         var result = await userManager.CreateAsync(applicationUser, password);
         await userManager.AddToRolesAsync(applicationUser, new[] { Roles.Employee });
 
