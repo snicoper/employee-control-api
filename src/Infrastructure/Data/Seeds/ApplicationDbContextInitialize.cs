@@ -94,7 +94,8 @@ public class ApplicationDbContextInitialize(
             UserName = "admin@localhost",
             FirstName = "Admin",
             LastName = "Admin1",
-            Email = "admin@localhost"
+            Email = "admin@localhost",
+            Active = true
         };
 
         if (!await userManager.Users.AnyAsync(u => u.Email != user.Email))

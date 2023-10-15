@@ -4,14 +4,12 @@ using EmployeeControl.Application.Common.Interfaces.Identity;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
 namespace EmployeeControl.Application.Features.Identity.Commands.IdentityRegister;
 
 internal class IdentityRegisterHandler(
         IIdentityService identityService,
-        RoleManager<IdentityRole> roleManager,
         IApplicationDbContext context,
         ILogger<IdentityRegisterHandler> logger)
     : IRequestHandler<IdentityRegisterCommand, string>
@@ -37,19 +35,14 @@ internal class IdentityRegisterHandler(
             };
 
             var password = request.Password.SetEmptyIfNull();
-            var resultResponse = await identityService.CreateUserAsync(user, password);
 
-            // Roles para usuario creado compañia.
-            var createRole = new List<IdentityRole>
+            // Roles para usuario creado.
+            var roles = new List<string>
             {
                 new(Roles.EnterpriseAdministrator), new(Roles.Staff), new(Roles.HumanResources), new(Roles.Employee)
             };
 
-            foreach (var identityRole in createRole.Where(identityRole =>
-                         roleManager.Roles.All(r => r.Name != identityRole.Name)))
-            {
-                await roleManager.CreateAsync(identityRole);
-            }
+            var resultResponse = await identityService.CreateUserAsync(user, password, roles);
 
             await transaction.CommitAsync(cancellationToken);
 

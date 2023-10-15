@@ -19,6 +19,8 @@ public class IdentityController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<string>> IdentityRegister(IdentityRegisterCommand command)
     {
-        return await Mediator.Send(command);
+        var result = await Mediator.Send(command);
+
+        return ObjectResult201(result);
     }
 }

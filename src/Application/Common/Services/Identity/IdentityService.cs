@@ -1,7 +1,8 @@
-﻿using EmployeeControl.Application.Common.Extensions;
+﻿using EmployeeControl.Application.Common.Constants;
+using EmployeeControl.Application.Common.Extensions;
+using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.Application.Common.Interfaces.Identity;
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,7 +13,8 @@ namespace EmployeeControl.Application.Common.Services.Identity;
 public class IdentityService(
         UserManager<ApplicationUser> userManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
-        IAuthorizationService authorizationService)
+        IAuthorizationService authorizationService,
+        IValidationFailureService validationFailureService)
     : IIdentityService
 {
     public async Task<string?> GetUserNameAsync(string userId)
@@ -45,23 +47,39 @@ public class IdentityService(
         return result.Succeeded;
     }
 
-    public async Task<(Result Result, string Id)> CreateUserAsync(ApplicationUser applicationUser, string password)
+    public async Task<Result> DeleteUserAsync(ApplicationUser applicationUser)
     {
+        var result = await userManager.DeleteAsync(applicationUser);
+
+        return result.ToApplicationResult();
+    }
+
+    public async Task<(Result Result, string Id)> CreateUserAsync(
+        ApplicationUser applicationUser,
+        string password,
+        IEnumerable<string> roles)
+    {
+        applicationUser.Active = true;
+
         if (string.IsNullOrEmpty(applicationUser.UserName))
         {
             applicationUser.UserName = applicationUser.Email;
         }
 
         var result = await userManager.CreateAsync(applicationUser, password);
-        await userManager.AddToRolesAsync(applicationUser, new[] { Roles.Employee });
+
+        if (!result.Succeeded)
+        {
+            foreach (var identityError in result.Errors)
+            {
+                validationFailureService.Add(ValidationErrorsKeys.Identity, identityError.Description);
+            }
+
+            validationFailureService.RaiseException();
+        }
+
+        await userManager.AddToRolesAsync(applicationUser, roles);
 
         return (result.ToApplicationResult(), applicationUser.Id);
-    }
-
-    public async Task<Result> DeleteUserAsync(ApplicationUser applicationUser)
-    {
-        var result = await userManager.DeleteAsync(applicationUser);
-
-        return result.ToApplicationResult();
     }
 }

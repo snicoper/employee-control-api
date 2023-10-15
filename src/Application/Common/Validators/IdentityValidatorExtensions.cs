@@ -32,7 +32,7 @@ public static class IdentityValidatorExtensions
             .MustAsync(async (email, cancellationToken) =>
             {
                 return string.IsNullOrEmpty(email) ||
-                       !await userManager.Users.AnyAsync(u => u.UserName == email, cancellationToken);
+                       !await userManager.Users.AnyAsync(u => u.Email == email, cancellationToken);
             })
             .WithMessage(localizer["El email ya esta en uso."]);
     }

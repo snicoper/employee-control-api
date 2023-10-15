@@ -45,15 +45,24 @@ public static class DependencyInjection
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
         services.AddScoped<ApplicationDbContextInitialize>();
 
-        services.AddAuthentication()
-            .AddBearerToken(IdentityConstants.BearerScheme);
-
         services.AddAuthorizationBuilder();
 
+        // Identity.
         services
             .AddIdentityCore<ApplicationUser>()
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
+
+        services.Configure<IdentityOptions>(options =>
+        {
+            // Default Password settings.
+            options.Password.RequireDigit = false;
+            options.Password.RequireLowercase = false;
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequiredLength = 6;
+            options.Password.RequiredUniqueChars = 0;
+        });
 
         services.AddAuthorization(options =>
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
