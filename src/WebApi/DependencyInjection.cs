@@ -14,7 +14,7 @@ namespace EmployeeControl.WebApi;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddWebApiServices(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddWebApiServices(this IServiceCollection services)
     {
         services.AddDatabaseDeveloperPageExceptionFilter();
         services.AddHttpContextAccessor();
