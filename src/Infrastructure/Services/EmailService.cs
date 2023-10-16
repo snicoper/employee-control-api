@@ -69,6 +69,7 @@ public class EmailService : IEmailService
         mailMessage.Subject = Subject;
         mailMessage.Body = Body;
         mailMessage.IsBodyHtml = IsBodyHtml;
+        mailMessage.Priority = MailPriority;
 
         using var client = new SmtpClient();
         client.Host = _emailSenderSettings.Host.SetEmptyIfNull();
