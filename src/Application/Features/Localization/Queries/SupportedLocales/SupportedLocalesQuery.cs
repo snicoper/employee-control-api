@@ -2,4 +2,4 @@
 
 namespace EmployeeControl.Application.Features.Localization.Queries.SupportedLocales;
 
-public record SupportedLocalesQuery : IRequest<SupportedLocalesDto>;
+public record SupportedLocalesQuery : IRequest<SupportedLocalesResponse>;

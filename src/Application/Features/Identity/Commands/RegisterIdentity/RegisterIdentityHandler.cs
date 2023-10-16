@@ -6,15 +6,15 @@ using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace EmployeeControl.Application.Features.Identity.Commands.IdentityRegister;
+namespace EmployeeControl.Application.Features.Identity.Commands.RegisterIdentity;
 
-internal class IdentityRegisterHandler(
+internal class RegisterIdentityHandler(
         IIdentityService identityService,
         IApplicationDbContext context,
-        ILogger<IdentityRegisterHandler> logger)
-    : IRequestHandler<IdentityRegisterCommand, string>
+        ILogger<RegisterIdentityHandler> logger)
+    : IRequestHandler<RegisterIdentityCommand, string>
 {
-    public async Task<string> Handle(IdentityRegisterCommand request, CancellationToken cancellationToken)
+    public async Task<string> Handle(RegisterIdentityCommand request, CancellationToken cancellationToken)
     {
         await using var transaction = await context.Database.BeginTransactionAsync(cancellationToken);
 

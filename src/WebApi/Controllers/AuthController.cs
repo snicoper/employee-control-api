@@ -19,7 +19,7 @@ public class AuthController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<LoginDto>> Login(LoginCommand command)
+    public async Task<ActionResult<LoginResponse>> Login(LoginCommand command)
     {
         return await Mediator.Send(command);
     }
@@ -34,7 +34,7 @@ public class AuthController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<RefreshTokenDto>> RefreshToken(RefreshTokenCommand command)
+    public async Task<ActionResult<RefreshTokenResponse>> RefreshToken(RefreshTokenCommand command)
     {
         return await Mediator.Send(command);
     }

@@ -2,4 +2,4 @@
 
 namespace EmployeeControl.Application.Features.Localization.Queries.CurrentLocale;
 
-public record CurrentLocaleQuery : IRequest<CurrentLocaleDto>;
+public record CurrentLocaleQuery : IRequest<CurrentLocaleResponse>;

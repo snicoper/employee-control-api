@@ -3,12 +3,12 @@ using MediatR;
 
 namespace EmployeeControl.Application.Features.Localization.Queries.SupportedLocales;
 
-internal class SupportedLocalesHandler : IRequestHandler<SupportedLocalesQuery, SupportedLocalesDto>
+internal class SupportedLocalesHandler : IRequestHandler<SupportedLocalesQuery, SupportedLocalesResponse>
 {
-    public Task<SupportedLocalesDto> Handle(SupportedLocalesQuery request, CancellationToken cancellationToken)
+    public Task<SupportedLocalesResponse> Handle(SupportedLocalesQuery request, CancellationToken cancellationToken)
     {
         var supportedCultures = AppCultures.GetAll().Select(cultureInfo => cultureInfo.Name).ToList();
-        var resultResponse = Task.FromResult(new SupportedLocalesDto(supportedCultures));
+        var resultResponse = Task.FromResult(new SupportedLocalesResponse(supportedCultures));
 
         return resultResponse;
     }

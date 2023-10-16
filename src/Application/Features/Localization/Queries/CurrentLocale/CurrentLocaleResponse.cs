@@ -1,3 +1,3 @@
 ﻿namespace EmployeeControl.Application.Features.Localization.Queries.CurrentLocale;
 
-public record CurrentLocaleDto(string? Locale);
+public record CurrentLocaleResponse(string? Locale);

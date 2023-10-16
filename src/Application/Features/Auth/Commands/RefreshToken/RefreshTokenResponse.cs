@@ -1,3 +1,3 @@
 ﻿namespace EmployeeControl.Application.Features.Auth.Commands.RefreshToken;
 
-public record RefreshTokenDto(string? AccessToken, string? RefreshToken);
+public record RefreshTokenResponse(string? AccessToken, string? RefreshToken);

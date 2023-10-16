@@ -3,12 +3,12 @@ using MediatR;
 
 namespace EmployeeControl.Application.Features.Auth.Commands.Login;
 
-internal class LoginHandler(IAuthService authService) : IRequestHandler<LoginCommand, LoginDto>
+internal class LoginHandler(IAuthService authService) : IRequestHandler<LoginCommand, LoginResponse>
 {
-    public async Task<LoginDto> Handle(LoginCommand request, CancellationToken cancellationToken)
+    public async Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
         var result = await authService.LoginAsync(request.Email, request.Password);
-        var resultResponse = new LoginDto(result.AccessToken, result.RefreshToken);
+        var resultResponse = new LoginResponse(result.AccessToken, result.RefreshToken);
 
         return resultResponse;
     }

@@ -1,4 +1,4 @@
-using EmployeeControl.Application.Features.Identity.Commands.IdentityRegister;
+using EmployeeControl.Application.Features.Identity.Commands.RegisterIdentity;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +17,7 @@ public class IdentityController : ApiControllerBase
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<string>> IdentityRegister(IdentityRegisterCommand command)
+    public async Task<ActionResult<string>> RegisterIdentity(RegisterIdentityCommand command)
     {
         var result = await Mediator.Send(command);
 

@@ -1,3 +1,3 @@
 ﻿namespace EmployeeControl.Application.Features.Home.Queries.Prueba;
 
-public record PruebaDto(string? Message);
+public record PruebaResponse(string? Message);

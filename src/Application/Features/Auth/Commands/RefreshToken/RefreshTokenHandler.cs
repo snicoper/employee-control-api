@@ -3,12 +3,12 @@ using MediatR;
 
 namespace EmployeeControl.Application.Features.Auth.Commands.RefreshToken;
 
-internal class RefreshTokenHandler(IAuthService authService) : IRequestHandler<RefreshTokenCommand, RefreshTokenDto>
+internal class RefreshTokenHandler(IAuthService authService) : IRequestHandler<RefreshTokenCommand, RefreshTokenResponse>
 {
-    public async Task<RefreshTokenDto> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+    public async Task<RefreshTokenResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
         var result = await authService.RefreshTokenAsync(request.RefreshToken);
-        var resultResponse = new RefreshTokenDto(result.AccessToken, result.RefreshToken);
+        var resultResponse = new RefreshTokenResponse(result.AccessToken, result.RefreshToken);
 
         return resultResponse;
     }

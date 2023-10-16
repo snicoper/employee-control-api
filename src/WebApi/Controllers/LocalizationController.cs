@@ -16,7 +16,7 @@ public class LocalizationController : ApiControllerBase
     [AllowAnonymous]
     [HttpGet("current-locale")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<CurrentLocaleDto>> CurrentLocale()
+    public async Task<ActionResult<CurrentLocaleResponse>> CurrentLocale()
     {
         return await Mediator.Send(new CurrentLocaleQuery());
     }
@@ -28,7 +28,7 @@ public class LocalizationController : ApiControllerBase
     [AllowAnonymous]
     [HttpGet("supported-locales")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<SupportedLocalesDto>> SupportedLocales()
+    public async Task<ActionResult<SupportedLocalesResponse>> SupportedLocales()
     {
         return await Mediator.Send(new SupportedLocalesQuery());
     }
