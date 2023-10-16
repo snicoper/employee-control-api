@@ -1,4 +1,4 @@
-﻿namespace EmployeeControl.Application.Common.Models;
+﻿namespace EmployeeControl.Application.Common.Models.Indentity;
 
 public class Result
 {

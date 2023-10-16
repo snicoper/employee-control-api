@@ -1,3 +1,3 @@
 ﻿namespace EmployeeControl.Application.Common.Models;
 
-public abstract class BaseDto;
+public abstract class BaseResponse;

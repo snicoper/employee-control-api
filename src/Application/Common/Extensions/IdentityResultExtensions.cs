@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Common.Models;
+﻿using EmployeeControl.Application.Common.Models.Indentity;
 using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeControl.Application.Common.Extensions;

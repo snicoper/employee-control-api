@@ -1,6 +1,6 @@
 ﻿namespace EmployeeControl.Application.Common.Models;
 
-public abstract class BaseAuditableDto : BaseDto
+public abstract class BaseAuditableResponse : BaseResponse
 {
     public DateTimeOffset Created { get; set; }
 

@@ -15,7 +15,7 @@ public class AdminIdentityController : ApiControllerBase
     /// <returns>Lista de usuarios paginados.</returns>
     [HttpGet("paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<ResponseData<GetAdminIdentitiesPaginatedDto>>> GetAdminIdentitiesPaginated(
+    public async Task<ActionResult<ResponseData<GetAdminIdentitiesPaginatedResponse>>> GetAdminIdentitiesPaginated(
         [FromQuery] RequestData request)
     {
         return await Mediator.Send(new GetAdminIdentitiesPaginatedQuery(request));

@@ -4,7 +4,7 @@ using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Features.Admin.AdminIdentity.Queries.GetAdminIdentitiesPaginated;
 
-public record GetAdminIdentitiesPaginatedDto : IMapFrom<ApplicationUser>
+public record GetAdminIdentitiesPaginatedResponse : IMapFrom<ApplicationUser>
 {
     public string? Id { get; set; }
 
@@ -13,7 +13,7 @@ public record GetAdminIdentitiesPaginatedDto : IMapFrom<ApplicationUser>
     public void Mapping(Profile profile)
     {
         profile
-            .CreateMap<ApplicationUser, GetAdminIdentitiesPaginatedDto>()
+            .CreateMap<ApplicationUser, GetAdminIdentitiesPaginatedResponse>()
             .ForMember(
                 dest => dest.NombreDeUsuario,
                 opt => opt.MapFrom(src => $"{src.UserName}, {src.UserName}"));

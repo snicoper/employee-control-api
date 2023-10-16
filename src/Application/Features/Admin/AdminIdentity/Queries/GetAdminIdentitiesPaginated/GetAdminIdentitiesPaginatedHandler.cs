@@ -8,15 +8,15 @@ using Microsoft.EntityFrameworkCore;
 namespace EmployeeControl.Application.Features.Admin.AdminIdentity.Queries.GetAdminIdentitiesPaginated;
 
 internal class GetAdminIdentitiesPaginatedHandler(UserManager<ApplicationUser> userManager, IMapper mapper)
-    : IRequestHandler<GetAdminIdentitiesPaginatedQuery, ResponseData<GetAdminIdentitiesPaginatedDto>>
+    : IRequestHandler<GetAdminIdentitiesPaginatedQuery, ResponseData<GetAdminIdentitiesPaginatedResponse>>
 {
-    public async Task<ResponseData<GetAdminIdentitiesPaginatedDto>> Handle(
+    public async Task<ResponseData<GetAdminIdentitiesPaginatedResponse>> Handle(
         GetAdminIdentitiesPaginatedQuery request,
         CancellationToken cancellationToken)
     {
         var users = userManager.Users.AsNoTracking();
 
-        var resultResponse = await ResponseData<GetAdminIdentitiesPaginatedDto>.CreateAsync(
+        var resultResponse = await ResponseData<GetAdminIdentitiesPaginatedResponse>.CreateAsync(
             users,
             request.RequestData,
             mapper,
