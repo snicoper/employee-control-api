@@ -18,7 +18,7 @@ public class LocalizationController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<CurrentLocaleResponse>> CurrentLocale()
     {
-        return await Mediator.Send(new CurrentLocaleQuery());
+        return await Sender.Send(new CurrentLocaleQuery());
     }
 
     /// <summary>
@@ -30,6 +30,6 @@ public class LocalizationController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<SupportedLocalesResponse>> SupportedLocales()
     {
-        return await Mediator.Send(new SupportedLocalesQuery());
+        return await Sender.Send(new SupportedLocalesQuery());
     }
 }

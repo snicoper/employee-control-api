@@ -18,6 +18,6 @@ public class AdminIdentityController : ApiControllerBase
     public async Task<ActionResult<ResponseData<GetAdminIdentitiesPaginatedResponse>>> GetAdminIdentitiesPaginated(
         [FromQuery] RequestData request)
     {
-        return await Mediator.Send(new GetAdminIdentitiesPaginatedQuery(request));
+        return await Sender.Send(new GetAdminIdentitiesPaginatedQuery(request));
     }
 }

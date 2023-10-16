@@ -16,7 +16,7 @@ public class HomeController(IEmailService emailService, IRazorViewToStringRender
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<PruebaResponse>> Prueba()
     {
-        return await Mediator.Send(new PruebaQuery());
+        return await Sender.Send(new PruebaQuery());
     }
 
     [HttpGet("test-email")]

@@ -9,9 +9,9 @@ namespace EmployeeControl.WebApi.Infrastructure;
 [Produces("application/json")]
 public class ApiControllerBase : ControllerBase
 {
-    private ISender? _mediator;
+    private ISender? _sender;
 
-    protected ISender Mediator => _mediator ??= HttpContext.RequestServices.GetRequiredService<ISender>();
+    protected ISender Sender => _sender ??= HttpContext.RequestServices.GetRequiredService<ISender>();
 
     protected ObjectResult ObjectResultCreated<TResult>(TResult result)
     {

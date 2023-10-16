@@ -19,7 +19,7 @@ public class IdentityController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<string>> RegisterIdentity(RegisterIdentityCommand command)
     {
-        var result = await Mediator.Send(command);
+        var result = await Sender.Send(command);
 
         return ObjectResultCreated(result);
     }
