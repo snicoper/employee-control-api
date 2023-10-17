@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Common.Behaviours;
+using EmployeeControl.Application.Common.Behaviours;
 using EmployeeControl.Application.Common.Models.Settings;
 using FluentValidation;
 using MediatR;
