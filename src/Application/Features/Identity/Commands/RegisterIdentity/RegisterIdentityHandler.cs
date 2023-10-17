@@ -46,7 +46,7 @@ internal class RegisterIdentityHandler(
 
             await transaction.CommitAsync(cancellationToken);
 
-            return resultResponse.Value.SetEmptyIfNull();
+            return resultResponse.Id;
         }
         catch (Exception ex)
         {
