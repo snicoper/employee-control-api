@@ -18,4 +18,8 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0-rc.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\Entities\" />
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Extensions;
-using EmployeeControl.Application.Common.Interfaces.Identity;
+using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 using EmployeeControl.Application.Common.Models.Settings;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +10,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace EmployeeControl.Infrastructure.Services.Identity;
+namespace EmployeeControl.Infrastructure.Services.Entities.Identity;
 
 public class TokenService(IOptions<JwtSettings> jwtOptions, UserManager<ApplicationUser> userManager)
     : ITokenService

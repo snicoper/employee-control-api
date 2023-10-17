@@ -1,6 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces;
-using EmployeeControl.Application.Common.Interfaces.Identity;
+using EmployeeControl.Application.Common.Interfaces.Entities.Company;
+using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using MediatR;
@@ -10,6 +11,7 @@ namespace EmployeeControl.Application.Features.Identity.Commands.RegisterIdentit
 
 internal class RegisterIdentityHandler(
         IIdentityService identityService,
+        ICompanyService companyService,
         IApplicationDbContext context,
         ILogger<RegisterIdentityHandler> logger)
     : IRequestHandler<RegisterIdentityCommand, string>
@@ -21,17 +23,12 @@ internal class RegisterIdentityHandler(
         try
         {
             // Crear compañía en una transaction.
-            var company = new Company { Name = request.CompanyName };
-            await context.Company.AddAsync(company, cancellationToken);
-            await context.SaveChangesAsync(cancellationToken);
+            var newCompany = new Company { Name = request.CompanyName };
+            var company = await companyService.CreateCompanyAsync(newCompany, cancellationToken);
 
             var user = new ApplicationUser
             {
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Email = request.Email,
-                Active = true,
-                CompanyId = company.Id
+                FirstName = request.FirstName, LastName = request.LastName, Email = request.Email, CompanyId = company.Id
             };
 
             var password = request.Password.SetEmptyIfNull();

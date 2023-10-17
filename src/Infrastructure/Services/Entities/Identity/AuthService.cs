@@ -1,6 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces;
-using EmployeeControl.Application.Common.Interfaces.Identity;
+using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 using EmployeeControl.Application.Common.Models.Settings;
 using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Entities;
@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 
-namespace EmployeeControl.Infrastructure.Services.Identity;
+namespace EmployeeControl.Infrastructure.Services.Entities.Identity;
 
 public class AuthService(
         UserManager<ApplicationUser> userManager,

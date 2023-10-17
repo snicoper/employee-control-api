@@ -1,20 +1,20 @@
 ﻿using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces;
-using EmployeeControl.Application.Common.Interfaces.Identity;
+using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Infrastructure.Services.Identity;
+namespace EmployeeControl.Infrastructure.Services.Entities.Identity;
 
 public class IdentityService(
         UserManager<ApplicationUser> userManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
         IAuthorizationService authorizationService,
-        IIdentityValidationService identityValidationService,
+        IIdentityValidatorService identityValidatorService,
         IValidationFailureService validationFailureService)
     : IIdentityService
 {
@@ -62,9 +62,9 @@ public class IdentityService(
         CancellationToken cancellationToken)
     {
         // Validaciones.
-        await identityValidationService.UserValidationAsync(applicationUser);
-        await identityValidationService.PasswordValidationAsync(applicationUser, password);
-        await identityValidationService.UniqueEmailValidationAsync(applicationUser, cancellationToken);
+        await identityValidatorService.UserValidationAsync(applicationUser);
+        await identityValidatorService.PasswordValidationAsync(applicationUser, password);
+        await identityValidatorService.UniqueEmailValidationAsync(applicationUser, cancellationToken);
 
         applicationUser.Active = true;
         applicationUser.UserName = applicationUser.Email;

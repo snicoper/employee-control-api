@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Identity;
+﻿using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 using MediatR;
 
 namespace EmployeeControl.Application.Features.Auth.Commands.RefreshToken;
