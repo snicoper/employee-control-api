@@ -2,9 +2,9 @@ using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Common.Interfaces.Identity;
 
-public interface IIdentityCreateValidationService
+public interface IIdentityValidationService
 {
-    Task ValidateUniqueEmail(ApplicationUser applicationUser, CancellationToken cancellationToken);
+    Task UniqueEmailValidationAsync(ApplicationUser applicationUser, CancellationToken cancellationToken);
 
     Task UserValidationAsync(ApplicationUser applicationUser);
 

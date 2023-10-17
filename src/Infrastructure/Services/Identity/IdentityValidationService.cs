@@ -8,16 +8,16 @@ using Microsoft.Extensions.Logging;
 
 namespace EmployeeControl.Infrastructure.Services.Identity;
 
-public class IdentityCreateValidationService(
+public class IdentityValidationService(
         UserManager<ApplicationUser> userManager,
         IUserValidator<ApplicationUser> userValidator,
         IPasswordValidator<ApplicationUser> passwordValidator,
         IStringLocalizer<ApplicationUser> localizer,
         IValidationFailureService validationFailureService,
         ILogger<IdentityService> logger)
-    : IIdentityCreateValidationService
+    : IIdentityValidationService
 {
-    public async Task ValidateUniqueEmail(ApplicationUser applicationUser, CancellationToken cancellationToken)
+    public async Task UniqueEmailValidationAsync(ApplicationUser applicationUser, CancellationToken cancellationToken)
     {
         var isRegistered = await userManager.Users.AnyAsync(au => au.Email == applicationUser.Email, cancellationToken);
 

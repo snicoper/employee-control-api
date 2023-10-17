@@ -14,7 +14,7 @@ public class IdentityService(
         UserManager<ApplicationUser> userManager,
         IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
         IAuthorizationService authorizationService,
-        IIdentityCreateValidationService identityCreateValidationService,
+        IIdentityValidationService identityValidationService,
         IValidationFailureService validationFailureService)
     : IIdentityService
 {
@@ -62,9 +62,9 @@ public class IdentityService(
         CancellationToken cancellationToken)
     {
         // Validaciones.
-        await identityCreateValidationService.UserValidationAsync(applicationUser);
-        await identityCreateValidationService.PasswordValidationAsync(applicationUser, password);
-        await identityCreateValidationService.ValidateUniqueEmail(applicationUser, cancellationToken);
+        await identityValidationService.UserValidationAsync(applicationUser);
+        await identityValidationService.PasswordValidationAsync(applicationUser, password);
+        await identityValidationService.UniqueEmailValidationAsync(applicationUser, cancellationToken);
 
         applicationUser.Active = true;
         applicationUser.UserName = applicationUser.Email;
