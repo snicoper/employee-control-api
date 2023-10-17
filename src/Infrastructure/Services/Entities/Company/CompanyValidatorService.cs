@@ -1,10 +1,17 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Entities.Company;
-using EmployeeControl.Infrastructure.Data;
+﻿using EmployeeControl.Application.Common.Interfaces;
+using EmployeeControl.Application.Common.Interfaces.Entities.Company;
+using EmployeeControl.Application.Localizations;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 
 namespace EmployeeControl.Infrastructure.Services.Entities.Company;
 
-public class CompanyValidatorService(ApplicationDbContext context, ValidationFailureService validationFailureService)
+public class CompanyValidatorService(
+        IApplicationDbContext context,
+        IValidationFailureService validationFailureService,
+        ILogger<CompanyValidatorService> logger,
+        IStringLocalizer<CompanyLocalizer> localizer)
     : ICompanyValidatorService
 {
     public async Task UniqueNameValidationAsync(string name, CancellationToken cancellationToken)
@@ -13,7 +20,9 @@ public class CompanyValidatorService(ApplicationDbContext context, ValidationFai
 
         if (company is not null)
         {
-            validationFailureService.Add(nameof(company.Name), "El nombre de compañía ya existe.");
+            var message = localizer["El nombre de compañía ya existe."];
+            logger.LogDebug("{message}", message);
+            validationFailureService.Add(nameof(company.Name), message);
         }
     }
 }

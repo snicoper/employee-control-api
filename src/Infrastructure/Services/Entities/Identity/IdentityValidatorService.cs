@@ -50,4 +50,14 @@ public class IdentityValidatorService(
             validationFailureService.Add("Password", errorMessage);
         }
     }
+
+    public async Task CheckPasswordValidationAsync(ApplicationUser applicationUser, string password)
+    {
+        if (!await userManager.CheckPasswordAsync(applicationUser, password))
+        {
+            var errorMessage = localizer["La contraseña no parece valida."];
+            logger.LogWarning("{message}", errorMessage);
+            validationFailureService.Add("Password", errorMessage);
+        }
+    }
 }

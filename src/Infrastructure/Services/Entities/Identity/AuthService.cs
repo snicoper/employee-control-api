@@ -6,6 +6,7 @@ using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace EmployeeControl.Infrastructure.Services.Entities.Identity;
@@ -16,7 +17,8 @@ public class AuthService(
         IDateTimeService dateTimeService,
         ITokenService tokenService,
         IStringLocalizer<IdentityLocalizer> localizer,
-        IValidationFailureService validationFailureService)
+        IValidationFailureService validationFailureService,
+        ILogger<AuthService> logger)
     : IAuthService
 {
     private readonly JwtSettings _jwtSettings = options.Value;
@@ -34,17 +36,17 @@ public class AuthService(
         // Validación email confirmado.
         if (!user.EmailConfirmed)
         {
-            validationFailureService.AddAndRaiseException(
-                ValidationErrorsKeys.NonFieldErrors,
-                localizer["El correo ha de ser validado."]);
+            var message = localizer["El correo ha de ser validado."];
+            logger.LogDebug("{message}", message);
+            validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NonFieldErrors, message);
         }
 
         // Validación cuenta activa.
         if (!user.Active)
         {
-            validationFailureService.AddAndRaiseException(
-                ValidationErrorsKeys.NonFieldErrors,
-                localizer["La cuenta no esta activa."]);
+            var message = localizer["La cuenta no esta activa."];
+            logger.LogDebug("{message}", message);
+            validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NonFieldErrors, message);
         }
 
         var tokensResult = await GenerateUserTokenAsync(user);
