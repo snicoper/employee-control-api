@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Common.Models.Indentity;
+﻿using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Common.Interfaces.Identity;

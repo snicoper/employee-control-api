@@ -2,7 +2,7 @@
 using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.Application.Common.Interfaces.Identity;
-using EmployeeControl.Application.Common.Models.Indentity;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
