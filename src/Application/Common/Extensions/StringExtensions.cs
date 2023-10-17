@@ -63,8 +63,6 @@ public static class StringExtensions
     /// <summary>
     /// Genera un Slug de un string.
     /// </summary>
-    /// <param name="text"></param>
-    /// <returns></returns>
     public static string Slugify(this string text)
     {
         const string pattern = @"[^a-zA-Z0-9\-]";

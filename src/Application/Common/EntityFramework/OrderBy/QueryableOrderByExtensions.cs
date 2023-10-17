@@ -38,36 +38,6 @@ public static class QueryableOrderByExtensions
                 .Aggregate(source, (current, field) => HandleOrderByCommand(current, field));
     }
 
-    private static IQueryable<TEntity> OrderByDefault<TEntity>(IQueryable<TEntity> source)
-    {
-        var propertyInfo = typeof(TEntity).GetProperty("Created") ?? typeof(TEntity).GetProperty("Id");
-
-        return propertyInfo is not null ? source.OrderBy($"{propertyInfo.Name} DESC") : source;
-    }
-
-    private static IOrderedQueryable<TEntity> HandleOrderByCommand<TEntity>(
-        IQueryable<TEntity> source,
-        RequestOrderBy field,
-        OrderByCommandType orderByCommandType = OrderByCommandType.ThenBy)
-    {
-        var fieldName = field.PropertyName?.UpperCaseFirst();
-
-        var command = orderByCommandType switch
-        {
-            OrderByCommandType.OrderBy => field.Order == OrderType.Asc
-                ? QueryableOrderByCommandType.OrderByDescending
-                : QueryableOrderByCommandType.OrderBy,
-            OrderByCommandType.ThenBy => field.Order == OrderType.Desc
-                ? QueryableOrderByCommandType.ThenByDescending
-                : QueryableOrderByCommandType.ThenBy,
-            _ => throw new NotImplementedException()
-        };
-
-        source = source.OrderByCommand(fieldName.SetEmptyIfNull(), command);
-
-        return (IOrderedQueryable<TEntity>)source;
-    }
-
     public static IOrderedQueryable<TEntity> OrderByCommand<TEntity>(
         this IQueryable<TEntity> source,
         string orderByProperty,
@@ -99,5 +69,35 @@ public static class QueryableOrderByExtensions
             Expression.Quote(orderByExpression));
 
         return (IOrderedQueryable<TEntity>)source.Provider.CreateQuery<TEntity>(resultExpression);
+    }
+
+    private static IQueryable<TEntity> OrderByDefault<TEntity>(IQueryable<TEntity> source)
+    {
+        var propertyInfo = typeof(TEntity).GetProperty("Created") ?? typeof(TEntity).GetProperty("Id");
+
+        return propertyInfo is not null ? source.OrderBy($"{propertyInfo.Name} DESC") : source;
+    }
+
+    private static IOrderedQueryable<TEntity> HandleOrderByCommand<TEntity>(
+        IQueryable<TEntity> source,
+        RequestOrderBy field,
+        OrderByCommandType orderByCommandType = OrderByCommandType.ThenBy)
+    {
+        var fieldName = field.PropertyName?.UpperCaseFirst();
+
+        var command = orderByCommandType switch
+        {
+            OrderByCommandType.OrderBy => field.Order == OrderType.Asc
+                ? QueryableOrderByCommandType.OrderByDescending
+                : QueryableOrderByCommandType.OrderBy,
+            OrderByCommandType.ThenBy => field.Order == OrderType.Desc
+                ? QueryableOrderByCommandType.ThenByDescending
+                : QueryableOrderByCommandType.ThenBy,
+            _ => throw new NotImplementedException()
+        };
+
+        source = source.OrderByCommand(fieldName.SetEmptyIfNull(), command);
+
+        return (IOrderedQueryable<TEntity>)source;
     }
 }

@@ -4,13 +4,13 @@ namespace EmployeeControl.Application.Common.Constants;
 
 public static class AppCultures
 {
-    private static readonly CultureInfo Es = new("es");
+    public static readonly CultureInfo Es = new("es");
 
-    private static readonly CultureInfo EsEs = new("es-ES");
+    public static readonly CultureInfo EsEs = new("es-ES");
 
-    private static readonly CultureInfo En = new("en");
+    public static readonly CultureInfo En = new("en");
 
-    private static readonly CultureInfo EnUs = new("en-US");
+    public static readonly CultureInfo EnUs = new("en-US");
 
     /// <summary>
     /// Cultura por defecto.
@@ -20,7 +20,7 @@ public static class AppCultures
     /// <summary>
     /// Obtener todas las culturas disponibles.
     /// </summary>
-    /// <returns>Lista CultureInfo disponibles</returns>
+    /// <returns>Lista CultureInfo disponibles.</returns>
     public static List<CultureInfo> GetAll()
     {
         return new List<CultureInfo> { Es, EsEs, En, EnUs };

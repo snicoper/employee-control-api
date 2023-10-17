@@ -24,7 +24,11 @@ public class LoggingBehaviour<TRequest>(
             userName = await identityService.GetUserNameAsync(userId);
         }
 
-        logger.LogInformation("CleanArchitecture Request: {Name} {@UserId} {@UserName} {@Request}",
-            requestName, userId, userName, request);
+        logger.LogInformation(
+            "CleanArchitecture Request: {Name} {@UserId} {@UserName} {@Request}",
+            requestName,
+            userId,
+            userName,
+            request);
     }
 }

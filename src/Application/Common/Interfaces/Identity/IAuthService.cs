@@ -13,7 +13,7 @@ public interface IAuthService
     /// <summary>
     /// Obtener un nuevo Refresh token.
     /// </summary>
-    /// <param name="refreshToken">Actual refresh token</param>
+    /// <param name="refreshToken">Actual refresh token.</param>
     /// <returns>Nuevo token y refresh token en caso de éxito.</returns>
     Task<(string AccessToken, string RefreshToken)> RefreshTokenAsync(string refreshToken);
 }
