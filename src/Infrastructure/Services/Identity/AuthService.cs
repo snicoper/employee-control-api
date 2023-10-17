@@ -25,7 +25,9 @@ public class AuthService(
             throw new UnauthorizedAccessException();
         }
 
-        return await GenerateUserTokenAsync(user);
+        var tokensResult = await GenerateUserTokenAsync(user);
+
+        return tokensResult;
     }
 
     public async Task<(string AccessToken, string RefreshToken)> RefreshTokenAsync(string refreshToken)
@@ -37,7 +39,9 @@ public class AuthService(
             throw new UnauthorizedAccessException();
         }
 
-        return await GenerateUserTokenAsync(user);
+        var tokensResult = await GenerateUserTokenAsync(user);
+
+        return tokensResult;
     }
 
     private async Task<(string AccessToken, string RefreshToken)> GenerateUserTokenAsync(ApplicationUser user)

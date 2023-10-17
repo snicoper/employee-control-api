@@ -34,7 +34,9 @@ public class TokenService(IOptions<JwtSettings> jwtOptions, UserManager<Applicat
             expires: DateTime.Now.AddMinutes(_jwtSettings.AccessTokenLifeTimeMinutes),
             signingCredentials: credentials);
 
-        return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+        var token = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+
+        return token;
     }
 
     public string GenerateRefreshToken()
@@ -42,7 +44,8 @@ public class TokenService(IOptions<JwtSettings> jwtOptions, UserManager<Applicat
         var randomNumber = new byte[32];
         using var randomNumberGenerator = RandomNumberGenerator.Create();
         randomNumberGenerator.GetBytes(randomNumber);
+        var tokenRefresh = Convert.ToBase64String(randomNumber);
 
-        return Convert.ToBase64String(randomNumber);
+        return tokenRefresh;
     }
 }

@@ -70,6 +70,7 @@ public class RazorViewToStringRendererService(
     private ActionContext GetActionContext()
     {
         var httpContext = new DefaultHttpContext { RequestServices = serviceProvider };
+
         return new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
     }
 }
