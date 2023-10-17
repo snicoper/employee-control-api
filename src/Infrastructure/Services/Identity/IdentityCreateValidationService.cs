@@ -2,6 +2,7 @@ using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.Application.Common.Interfaces.Identity;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
@@ -16,6 +17,18 @@ public class IdentityCreateValidationService(
         ILogger<IdentityService> logger)
     : IIdentityCreateValidationService
 {
+    public async Task ValidateUniqueEmail(ApplicationUser applicationUser, CancellationToken cancellationToken)
+    {
+        var isRegistered = await userManager.Users.AnyAsync(au => au.Email == applicationUser.Email, cancellationToken);
+
+        if (isRegistered)
+        {
+            var errorMessage = localizer["El email ya esta registrado."];
+            logger.LogWarning("{message}", errorMessage);
+            validationFailureService.Add(nameof(applicationUser.Email), errorMessage);
+        }
+    }
+
     public async Task UserValidationAsync(ApplicationUser applicationUser)
     {
         var validUser = await userValidator.ValidateAsync(userManager, applicationUser);

@@ -48,13 +48,23 @@ public class IdentityService(
         return result.Succeeded;
     }
 
+    public async Task<Result> DeleteUserAsync(ApplicationUser applicationUser)
+    {
+        var result = await userManager.DeleteAsync(applicationUser);
+
+        return result.ToApplicationResult();
+    }
+
     public async Task<(Result Result, string Id)> CreateUserAsync(
         ApplicationUser applicationUser,
         string password,
-        IEnumerable<string> roles)
+        IEnumerable<string> roles,
+        CancellationToken cancellationToken)
     {
+        // Validaciones.
         await identityCreateValidationService.UserValidationAsync(applicationUser);
         await identityCreateValidationService.PasswordValidationAsync(applicationUser, password);
+        await identityCreateValidationService.ValidateUniqueEmail(applicationUser, cancellationToken);
 
         applicationUser.Active = true;
         applicationUser.UserName = applicationUser.Email;
@@ -67,19 +77,12 @@ public class IdentityService(
             {
                 validationFailureService.Add(ValidationErrorsKeys.Identity, identityError.Description);
             }
-
-            validationFailureService.RaiseException();
         }
+
+        validationFailureService.RaiseExceptionIfExistsErrors();
 
         await userManager.AddToRolesAsync(applicationUser, roles);
 
         return (result.ToApplicationResult(), applicationUser.Id);
-    }
-
-    public async Task<Result> DeleteUserAsync(ApplicationUser applicationUser)
-    {
-        var result = await userManager.DeleteAsync(applicationUser);
-
-        return result.ToApplicationResult();
     }
 }

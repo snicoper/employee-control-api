@@ -37,12 +37,8 @@ internal class RegisterIdentityHandler(
             var password = request.Password.SetEmptyIfNull();
 
             // Roles para usuario creado.
-            var roles = new List<string>
-            {
-                new(Roles.EnterpriseAdministrator), new(Roles.Staff), new(Roles.HumanResources), new(Roles.Employee)
-            };
-
-            var resultResponse = await identityService.CreateUserAsync(user, password, roles);
+            var roles = new List<string> { new(Roles.EnterpriseAdministrator), new(Roles.HumanResources), new(Roles.Employee) };
+            var resultResponse = await identityService.CreateUserAsync(user, password, roles, cancellationToken);
 
             await transaction.CommitAsync(cancellationToken);
 
