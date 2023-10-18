@@ -26,12 +26,15 @@ public class AuthEmailsService(
         var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
         // Url validación.
-        var urlParams = new Dictionary<string, string> { { "token", code } };
-        var urlCallback = linkGeneratorService.GenerateWebApp(UrlsWebApp.EmailRegisterValidate, urlParams);
+        var queryParams = new Dictionary<string, string> { ["userId"] = user.Id, ["code"] = code };
+        var urlCallback = linkGeneratorService.GenerateWebApp(UrlsWebApp.EmailRegisterValidate, queryParams);
 
         var model = new ValidateEmailRegistrationViewModel
         {
-            CompanyName = company.Name, Email = user.Email, UrlValidate = urlCallback, SiteName = webApiSettings.Value.SiteName
+            CompanyName = company.Name,
+            Email = user.Email,
+            UrlValidate = urlCallback,
+            SiteName = webApiSettings.Value.SiteName
         };
 
         emailService.Subject = localizer["Confirmación de email en Employee Control."];

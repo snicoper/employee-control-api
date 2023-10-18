@@ -1,8 +1,8 @@
 ﻿using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.Application.Common.Models.Settings;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using System.Web;
 
 namespace EmployeeControl.Infrastructure.Services;
 
@@ -19,7 +19,7 @@ public class LinkGeneratorService(IOptions<WebAppSettings> webAppSettings) : ILi
 
         foreach (var (key, value) in queryParams)
         {
-            var valueEncode = encodeParams ? HttpUtility.HtmlEncode(value) : value;
+            var valueEncode = encodeParams ? Base64UrlEncoder.Encode(value) : value;
             var paramOperator = queryString.Length == 0 ? "?" : "&";
             queryString.Append($"{paramOperator}{key}={valueEncode}");
         }
