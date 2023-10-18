@@ -23,7 +23,7 @@ internal class EmailValidationForwardingHandler(
 
         if (user is null)
         {
-            var message = localizer["El usuario no éxiste en la base de datos."];
+            var message = localizer["El usuario no existe en la base de datos."];
 
             return Result.Failure(message);
         }

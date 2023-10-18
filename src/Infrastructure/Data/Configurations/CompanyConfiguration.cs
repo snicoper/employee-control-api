@@ -9,6 +9,9 @@ public class CompanyConfiguration : BaseAuditableEntityConfiguration<Company>, I
 {
     public void Configure(EntityTypeBuilder<Company> builder)
     {
+        // Primary key.
+        builder.HasKey(c => c.Id);
+
         // Indexes.
         builder.HasIndex(c => c.Id);
 
