@@ -244,6 +244,12 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 name: "IX_Company_Id",
                 table: "Company",
                 column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Company_Name",
+                table: "Company",
+                column: "Name",
+                unique: true);
         }
 
         /// <inheritdoc />

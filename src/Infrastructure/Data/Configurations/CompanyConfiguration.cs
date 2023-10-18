@@ -15,6 +15,9 @@ public class CompanyConfiguration : BaseAuditableEntityConfiguration<Company>, I
         // Indexes.
         builder.HasIndex(c => c.Id);
 
+        builder.HasIndex(c => c.Name)
+            .IsUnique();
+
         // Relations.
         builder.HasMany(c => c.ApplicationUsers)
             .WithOne(au => au.Company)

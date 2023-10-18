@@ -6,6 +6,7 @@ using EmployeeControl.Domain.Entities;
 using EmployeeControl.Infrastructure.Data;
 using EmployeeControl.Infrastructure.Data.Interceptors;
 using EmployeeControl.Infrastructure.Data.Seeds;
+using EmployeeControl.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,7 @@ public static class DependencyInjection
                 .WithTransientLifetime());
 
         services.AddSingleton(TimeProvider.System);
+        services.AddScoped<IValidationFailureService, ValidationFailureService>();
 
         var connectionString = configuration.GetConnectionString("DefaultConnection");
 

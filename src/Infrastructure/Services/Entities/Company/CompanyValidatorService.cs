@@ -22,7 +22,7 @@ public class CompanyValidatorService(
         {
             var message = localizer["El nombre de compañía ya existe."];
             logger.LogDebug("{message}", message);
-            validationFailureService.Add(nameof(company.Name), message);
+            validationFailureService.Add("CompanyName", message);
         }
     }
 }

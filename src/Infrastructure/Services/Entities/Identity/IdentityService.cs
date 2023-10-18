@@ -1,5 +1,4 @@
-﻿using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Extensions;
+﻿using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 using EmployeeControl.Application.Common.Models;
@@ -61,28 +60,19 @@ public class IdentityService(
         IEnumerable<string> roles,
         CancellationToken cancellationToken)
     {
+        applicationUser.Active = true;
+        applicationUser.UserName = applicationUser.Email;
+
         // Validaciones.
         await identityValidatorService.UserValidationAsync(applicationUser);
         await identityValidatorService.PasswordValidationAsync(applicationUser, password);
         await identityValidatorService.UniqueEmailValidationAsync(applicationUser, cancellationToken);
-
-        applicationUser.Active = true;
-        applicationUser.UserName = applicationUser.Email;
-
-        var result = await userManager.CreateAsync(applicationUser, password);
-
-        if (!result.Succeeded)
-        {
-            foreach (var identityError in result.Errors)
-            {
-                validationFailureService.Add(ValidationErrorsKeys.Identity, identityError.Description);
-            }
-        }
-
         validationFailureService.RaiseExceptionIfExistsErrors();
+
+        var identityResult = await userManager.CreateAsync(applicationUser, password);
 
         await userManager.AddToRolesAsync(applicationUser, roles);
 
-        return (result.ToApplicationResult(), applicationUser.Id);
+        return (identityResult.ToApplicationResult(), applicationUser.Id);
     }
 }

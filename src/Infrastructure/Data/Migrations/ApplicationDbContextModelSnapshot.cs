@@ -146,6 +146,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasIndex("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Company");
                 });
 

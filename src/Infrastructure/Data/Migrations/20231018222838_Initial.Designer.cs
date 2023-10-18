@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231018192741_Initial")]
+    [Migration("20231018222838_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -148,6 +148,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Company");
                 });
