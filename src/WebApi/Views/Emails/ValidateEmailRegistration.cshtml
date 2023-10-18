@@ -1,15 +1,18 @@
 ﻿@model ValidateEmailRegistrationViewModel
 
 @{
-  Layout = "";
+  ViewData["Title"] = "Validación Email de nuevo registro";
 }
 
+<h3>Bienvenido a <strong>@Model.SiteName</strong></h3>
+
 <p>
-  Bienvenido a <strong>@Model.CompanyName</strong>, por favor para completar el registro, visite este
-  <a href="@Model.Url">enlace.</a>
+  Su cuenta requiere de validación del correo electrónico, por favor para completar el registro visite el siguiente enlace<br/>
+
+  <a class="btn btn-outline-primary" href="@Model.UrlValidate">Validar correo electrónico</a>
 </p>
 
 <p>
   Si no puede navegar al enlace anterior, copie y pegue el siguiente enlace en su navegador<br/>
-  @Url
+  @Model.UrlValidate
 </p>

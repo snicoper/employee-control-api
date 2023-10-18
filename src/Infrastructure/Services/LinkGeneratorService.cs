@@ -6,13 +6,11 @@ using System.Web;
 
 namespace EmployeeControl.Infrastructure.Services;
 
-public class LinkGeneratorService(IOptions<WebAppSettings> options) : ILinkGeneratorService
+public class LinkGeneratorService(IOptions<WebAppSettings> webAppSettings) : ILinkGeneratorService
 {
-    private readonly WebAppSettings _webAppSettings = options.Value;
-
     public string GenerateWebApp(string path)
     {
-        return $"{_webAppSettings.Scheme}://{_webAppSettings.Host}/{path}";
+        return $"{webAppSettings.Value.Scheme}://{webAppSettings.Value.Host}/{path}";
     }
 
     public string GenerateWebApp(string path, Dictionary<string, string> queryParams, bool encodeParams = true)

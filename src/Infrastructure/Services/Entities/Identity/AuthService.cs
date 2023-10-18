@@ -13,7 +13,7 @@ namespace EmployeeControl.Infrastructure.Services.Entities.Identity;
 
 public class AuthService(
         UserManager<ApplicationUser> userManager,
-        IOptions<JwtSettings> options,
+        IOptions<JwtSettings> jwtSettings,
         IDateTimeService dateTimeService,
         ITokenService tokenService,
         IStringLocalizer<IdentityLocalizer> localizer,
@@ -21,8 +21,6 @@ public class AuthService(
         ILogger<AuthService> logger)
     : IAuthService
 {
-    private readonly JwtSettings _jwtSettings = options.Value;
-
     public async Task<(string AccessToken, string RefreshToken)> LoginAsync(string email, string password)
     {
         var user = userManager.Users.SingleOrDefault(au => au.Email == email);
@@ -74,7 +72,7 @@ public class AuthService(
         var newRefreshToken = tokenService.GenerateRefreshToken();
 
         user.RefreshToken = newRefreshToken;
-        user.RefreshTokenExpiryTime = dateTimeService.UtcNow.AddDays(_jwtSettings.RefreshTokenLifeTimeDays);
+        user.RefreshTokenExpiryTime = dateTimeService.UtcNow.AddDays(jwtSettings.Value.RefreshTokenLifeTimeDays);
 
         await userManager.UpdateAsync(user);
 
