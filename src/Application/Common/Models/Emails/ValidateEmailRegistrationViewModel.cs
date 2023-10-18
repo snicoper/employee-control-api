@@ -1,6 +1,6 @@
 ﻿namespace EmployeeControl.Application.Common.Models.Emails;
 
-public class ValidateEmailRegistrationViewModel
+public record ValidateEmailRegistrationViewModel
 {
     public string? SiteName { get; set; }
 
