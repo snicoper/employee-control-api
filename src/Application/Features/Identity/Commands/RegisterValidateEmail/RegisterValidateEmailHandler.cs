@@ -1,5 +1,4 @@
-﻿using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Models;
+﻿using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Entities;
 using MediatR;
@@ -30,7 +29,7 @@ internal class RegisterValidateEmailHandler(
             message = localizer["El usuario no ha sido encontrado."];
             logger.LogDebug("{message}", message);
 
-            return Result.Failure(new[] { ValidationErrorsKeys.Identity, message });
+            return Result.Failure(message);
         }
 
         var confirmEmailResult = await userManager.ConfirmEmailAsync(user, code);
@@ -43,6 +42,6 @@ internal class RegisterValidateEmailHandler(
         message = localizer["El tiempo de validación ha expirado."];
         logger.LogDebug("{message}", message);
 
-        return Result.Failure(new[] { ValidationErrorsKeys.Identity, message });
+        return Result.Failure(message);
     }
 }

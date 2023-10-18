@@ -98,7 +98,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         column: x => x.CompanyId,
                         principalTable: "Company",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

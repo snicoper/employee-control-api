@@ -286,7 +286,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
                         .WithMany("ApplicationUsers")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");

@@ -37,9 +37,13 @@ public class AuthEmailsService(
             SiteName = webApiSettings.Value.SiteName
         };
 
-        emailService.Subject = localizer["Confirmación de email en Employee Control."];
+        emailService.Subject = localizer[
+            "Confirmación de correo electrónico en {0}.",
+            webApiSettings.Value.SiteName.SetEmptyIfNull()];
+
         emailService.To.Add(model.Email.SetEmptyIfNull());
         emailService.IsBodyHtml = true;
+
         await emailService.SendMailWithViewAsync(EmailViews.ValidateEmailRegistration, model);
     }
 }

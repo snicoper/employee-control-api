@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231014235050_Initial")]
+    [Migration("20231018163019_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -289,7 +289,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
                         .WithMany("ApplicationUsers")
                         .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
