@@ -1,0 +1,15 @@
+﻿@model ValidateEmailRegistrationViewModel
+
+@{
+  Layout = "";
+}
+
+<p>
+  Bienvenido a <strong>@Model.CompanyName</strong>, por favor para completar el registro, visite este
+  <a href="@Model.Url">enlace.</a>
+</p>
+
+<p>
+  Si no puede navegar al enlace anterior, copie y pegue el siguiente enlace en su navegador<br/>
+  @Url
+</p>

@@ -13,6 +13,7 @@ internal class RegisterIdentityHandler(
         IIdentityService identityService,
         ICompanyService companyService,
         IApplicationDbContext context,
+        IAuthEmailsService authEmailsService,
         ILogger<RegisterIdentityHandler> logger)
     : IRequestHandler<RegisterIdentityCommand, string>
 {
@@ -33,9 +34,12 @@ internal class RegisterIdentityHandler(
 
             var password = request.Password.SetEmptyIfNull();
 
-            // Roles para usuario creado.
+            // Roles para usuario y creación del usuario.
             var roles = new List<string> { new(Roles.EnterpriseAdministrator), new(Roles.HumanResources), new(Roles.Employee) };
             var resultResponse = await identityService.CreateUserAsync(user, password, roles, cancellationToken);
+
+            // Mandar email de verificación de Email.
+            await authEmailsService.SendValidateEmailAsync(user, company);
 
             await transaction.CommitAsync(cancellationToken);
 

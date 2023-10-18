@@ -58,7 +58,7 @@ public class EmailService : IEmailService
         Send();
     }
 
-    public void SendMailAsync()
+    public void SendMail()
     {
         Send();
     }

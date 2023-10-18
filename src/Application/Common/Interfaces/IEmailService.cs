@@ -37,7 +37,7 @@ public interface IEmailService
     /// <summary>
     /// Envía un Email.
     /// </summary>
-    void SendMailAsync();
+    void SendMail();
 
     /// <summary>
     /// Envía un Email utilizando una plantilla y un modelo.
