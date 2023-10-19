@@ -241,6 +241,8 @@ dotnet_naming_style.begins_with_i.capitalization = pascal_case
 dotnet_style_namespace_match_folder = error
 dotnet_diagnostic.IDE0130.severity = error
 dotnet_diagnostic.IDE0005.severity = error
+dotnet_diagnostic.CS8019.severity = error
+dotnet_diagnostic.IDE0005.severity = error
 
 ####################################
 # Stylecoop Analyzer.

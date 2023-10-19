@@ -1,5 +1,4 @@
 using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.WebApi.Infrastructure;
 using EmployeeControl.WebApi.Services;
