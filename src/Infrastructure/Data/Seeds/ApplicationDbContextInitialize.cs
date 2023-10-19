@@ -102,9 +102,17 @@ public class ApplicationDbContextInitialize(
         if (!await userManager.Users.AnyAsync(u => u.Email != user.Email))
         {
             await userManager.CreateAsync(user, "Password4!");
-            await userManager.AddToRolesAsync(
-                user,
-                new[] { Roles.Administrator, Roles.Employee, Roles.Staff, Roles.HumanResources, Roles.EnterpriseAdministrator });
+
+            var rolesToAdd = new[]
+            {
+                Roles.Administrator,
+                Roles.Employee,
+                Roles.Staff,
+                Roles.HumanResources,
+                Roles.EnterpriseAdministrator
+            };
+
+            await userManager.AddToRolesAsync(user, rolesToAdd);
         }
     }
 }

@@ -21,7 +21,6 @@ internal class RecoveryPasswordHandler(UserManager<ApplicationUser> userManager,
 
         // Generar code de validación.
         var code = await userManager.GeneratePasswordResetTokenAsync(user);
-
         await identityEmailsService.SendRecoveryPasswordAsync(user, code);
 
         return Result.Success();

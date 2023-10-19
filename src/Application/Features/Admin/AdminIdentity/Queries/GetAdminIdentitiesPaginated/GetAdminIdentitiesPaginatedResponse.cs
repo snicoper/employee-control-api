@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Mapping;
 using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Features.Admin.AdminIdentity.Queries.GetAdminIdentitiesPaginated;
 
-public record GetAdminIdentitiesPaginatedResponse : IMapFrom<ApplicationUser>
+public record GetAdminIdentitiesPaginatedResponse
 {
     public string? Id { get; set; }
 
@@ -14,9 +13,11 @@ public record GetAdminIdentitiesPaginatedResponse : IMapFrom<ApplicationUser>
 
     public string? Email { get; set; }
 
-    public void Mapping(Profile profile)
+    public class Mapping : Profile
     {
-        profile
-            .CreateMap<ApplicationUser, GetAdminIdentitiesPaginatedResponse>();
+        public Mapping()
+        {
+            CreateMap<ApplicationUser, GetAdminIdentitiesPaginatedResponse>();
+        }
     }
 }

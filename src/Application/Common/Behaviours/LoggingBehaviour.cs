@@ -25,7 +25,7 @@ public class LoggingBehaviour<TRequest>(
         }
 
         logger.LogInformation(
-            "CleanArchitecture Request: {Name} {@UserId} {@UserName} {@Request}",
+            "Employee Control Request: {Name} {@UserId} {@UserName} {@Request}",
             requestName,
             userId,
             userName,

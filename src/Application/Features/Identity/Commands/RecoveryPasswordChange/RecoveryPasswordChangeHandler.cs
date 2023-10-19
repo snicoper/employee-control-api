@@ -29,7 +29,6 @@ internal class RecoveryPasswordChangeHandler(
         {
             var message = localizer["El usuario no ha sido encontrado."];
             logger.LogDebug("{message}", message);
-
             validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NonFieldErrors, message);
         }
 
@@ -40,7 +39,8 @@ internal class RecoveryPasswordChangeHandler(
         }
 
         var resetResult = await userManager.ResetPasswordAsync(user!, code, request.Password);
+        var result = !resetResult.Succeeded ? Result.Failure(localizer["Error al cambiar la contraseña"]) : Result.Success();
 
-        return !resetResult.Succeeded ? Result.Failure(localizer["Error al cambiar la contraseña"]) : Result.Success();
+        return result;
     }
 }

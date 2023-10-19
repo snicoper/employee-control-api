@@ -7,13 +7,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace EmployeeControl.Infrastructure.Data;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    : IdentityDbContext<ApplicationUser>(options), IApplicationDbContext
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-    {
-    }
-
     public DbSet<Company> Company => Set<Company>();
 
     public new DatabaseFacade Database => base.Database;

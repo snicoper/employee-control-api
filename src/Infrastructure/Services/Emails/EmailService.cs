@@ -32,6 +32,7 @@ public class EmailService : IEmailService
 
         MailPriority = MailPriority.High;
         From = _emailSenderSettings.DefaultFrom;
+        IsBodyHtml = true;
     }
 
     public MailPriority MailPriority { get; set; }

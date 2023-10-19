@@ -102,12 +102,12 @@ public static class DependencyInjection
             });
         });
 
-        services.Configure<RazorViewEngineOptions>(o =>
+        services.Configure<RazorViewEngineOptions>(options =>
         {
-            o.ViewLocationFormats.Clear();
-            o.ViewLocationFormats.Add("/Views/{1}/{0}" + RazorViewEngine.ViewExtension);
-            o.ViewLocationFormats.Add("/Views/Emails/{0}" + RazorViewEngine.ViewExtension);
-            o.ViewLocationFormats.Add("/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
+            options.ViewLocationFormats.Clear();
+            options.ViewLocationFormats.Add("/Views/{1}/{0}" + RazorViewEngine.ViewExtension);
+            options.ViewLocationFormats.Add("/Views/Emails/{0}" + RazorViewEngine.ViewExtension);
+            options.ViewLocationFormats.Add("/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
         });
 
         // Culture.
@@ -119,7 +119,7 @@ public static class DependencyInjection
         });
 
         // Localization.
-        services.AddLocalization(opt => { opt.ResourcesPath = "Resources"; });
+        services.AddLocalization(options => { options.ResourcesPath = "Resources"; });
 
         return services;
     }

@@ -11,6 +11,8 @@ public static class QueryableOrderByExtensions
 {
     public static IQueryable<TEntity> Ordering<TEntity>(this IQueryable<TEntity> source, RequestData request)
     {
+        var result = source;
+
         if (string.IsNullOrEmpty(request.Orders))
         {
             // Por defecto si existe, ordena por "Create | Id" - Descending.
@@ -26,16 +28,20 @@ public static class QueryableOrderByExtensions
 
         if (requestItemOrderBy.Length == 0 || firstField is null)
         {
-            return OrderByDefault(source);
+            result = OrderByDefault(source);
+
+            return result;
         }
 
         source = HandleOrderByCommand(source, firstField, OrderByCommandType.OrderBy);
 
-        return string.IsNullOrEmpty(firstField.PropertyName)
+        result = string.IsNullOrEmpty(firstField.PropertyName)
             ? source
             : requestItemOrderBy
                 .Skip(1)
                 .Aggregate(source, (current, field) => HandleOrderByCommand(current, field));
+
+        return result;
     }
 
     public static IOrderedQueryable<TEntity> OrderByCommand<TEntity>(
@@ -64,18 +70,21 @@ public static class QueryableOrderByExtensions
         var resultExpression = Expression.Call(
             typeof(Queryable),
             command,
-            new[] { type, property.PropertyType },
+            [type, property.PropertyType],
             source.Expression,
             Expression.Quote(orderByExpression));
 
-        return (IOrderedQueryable<TEntity>)source.Provider.CreateQuery<TEntity>(resultExpression);
+        var result = (IOrderedQueryable<TEntity>)source.Provider.CreateQuery<TEntity>(resultExpression);
+
+        return result;
     }
 
     private static IQueryable<TEntity> OrderByDefault<TEntity>(IQueryable<TEntity> source)
     {
         var propertyInfo = typeof(TEntity).GetProperty("Created") ?? typeof(TEntity).GetProperty("Id");
+        var result = propertyInfo is not null ? source.OrderBy($"{propertyInfo.Name} DESC") : source;
 
-        return propertyInfo is not null ? source.OrderBy($"{propertyInfo.Name} DESC") : source;
+        return result;
     }
 
     private static IOrderedQueryable<TEntity> HandleOrderByCommand<TEntity>(
@@ -97,7 +106,8 @@ public static class QueryableOrderByExtensions
         };
 
         source = source.OrderByCommand(fieldName.SetEmptyIfNull(), command);
+        var result = (IOrderedQueryable<TEntity>)source;
 
-        return (IOrderedQueryable<TEntity>)source;
+        return result;
     }
 }

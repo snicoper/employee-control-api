@@ -44,7 +44,7 @@ public class PerformanceBehaviour<TRequest, TResponse>(
         }
 
         logger.LogWarning(
-            "DotnetBoilerplate Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
+            "Employee Control Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
             requestName,
             elapsedMilliseconds,
             userId,

@@ -28,7 +28,10 @@ public class IdentityEmailsService(
         // View model.
         var model = new ValidateEmailRegistrationViewModel
         {
-            CompanyName = company.Name, Email = user.Email, Callback = callback, SiteName = webApiSettings.Value.SiteName
+            CompanyName = company.Name,
+            Email = user.Email,
+            Callback = callback,
+            SiteName = webApiSettings.Value.SiteName
         };
 
         // Send email.
@@ -37,7 +40,6 @@ public class IdentityEmailsService(
             webApiSettings.Value.SiteName.SetEmptyIfNull()];
 
         emailService.To.Add(model.Email.SetEmptyIfNull());
-        emailService.IsBodyHtml = true;
 
         await emailService.SendMailWithViewAsync(EmailViews.ValidateEmailRegistration, model);
     }
@@ -51,7 +53,8 @@ public class IdentityEmailsService(
         // View model.
         var recoveryPasswordViewModel = new RecoveryPasswordViewModel
         {
-            SiteName = webApiSettings.Value.SiteName, CallBack = callback
+            SiteName = webApiSettings.Value.SiteName,
+            CallBack = callback
         };
 
         // Send email.
@@ -60,7 +63,6 @@ public class IdentityEmailsService(
             webApiSettings.Value.SiteName.SetEmptyIfNull()];
 
         emailService.To.Add(user.Email.SetEmptyIfNull());
-        emailService.IsBodyHtml = true;
 
         await emailService.SendMailWithViewAsync(EmailViews.RecoveryPassword, recoveryPasswordViewModel);
     }

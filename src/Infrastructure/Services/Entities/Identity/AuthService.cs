@@ -6,7 +6,6 @@ using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace EmployeeControl.Infrastructure.Services.Entities.Identity;
@@ -17,15 +16,14 @@ public class AuthService(
         IDateTimeService dateTimeService,
         ITokenService tokenService,
         IStringLocalizer<IdentityLocalizer> localizer,
-        IValidationFailureService validationFailureService,
-        ILogger<AuthService> logger)
+        IValidationFailureService validationFailureService)
     : IAuthService
 {
     public async Task<(string AccessToken, string RefreshToken)> LoginAsync(string email, string password)
     {
         var user = userManager.Users.SingleOrDefault(au => au.Email == email);
 
-        // Validación del password.
+        // Validación de usuario y password, 401 si no es valido el login.
         if (user is null || !await userManager.CheckPasswordAsync(user, password))
         {
             throw new UnauthorizedAccessException();
@@ -34,16 +32,14 @@ public class AuthService(
         // Validación email confirmado.
         if (!user.EmailConfirmed)
         {
-            var message = localizer["El correo ha de ser validado."];
-            logger.LogDebug("{message}", message);
+            var message = localizer["El correo esta pendiente de validación desde tu bandeja de correo."];
             validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NonFieldErrors, message);
         }
 
         // Validación cuenta activa.
         if (!user.Active)
         {
-            var message = localizer["La cuenta no esta activa."];
-            logger.LogDebug("{message}", message);
+            var message = localizer["La cuenta no esta activa, debes hablar con un responsable de tu empresa."];
             validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NonFieldErrors, message);
         }
 

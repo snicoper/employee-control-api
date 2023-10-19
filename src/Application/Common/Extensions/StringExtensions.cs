@@ -45,7 +45,9 @@ public static class StringExtensions
     /// <returns>El string con la primera letra en mayúsculas.</returns>
     public static string UpperCaseFirst(this string value)
     {
-        return string.IsNullOrEmpty(value) ? value : $"{value[..1].ToUpper()}{value[1..]}";
+        var result = string.IsNullOrEmpty(value) ? value : $"{value[..1].ToUpper()}{value[1..]}";
+
+        return result;
     }
 
     /// <summary>

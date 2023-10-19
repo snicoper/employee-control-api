@@ -31,14 +31,17 @@ internal class RegisterIdentityHandler(
 
             var user = new ApplicationUser
             {
-                FirstName = request.FirstName, LastName = request.LastName, Email = request.Email, CompanyId = company.Id
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                CompanyId = company.Id
             };
 
             var password = request.Password.SetEmptyIfNull();
 
             // Roles para usuario y creación del usuario.
             var roles = new List<string> { new(Roles.EnterpriseAdministrator), new(Roles.HumanResources), new(Roles.Employee) };
-            var resultResponse = await identityService.CreateUserAsync(user, password, roles, cancellationToken);
+            var (result, userId) = await identityService.CreateUserAsync(user, password, roles, cancellationToken);
 
             // Generar code de validación.
             var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -48,7 +51,7 @@ internal class RegisterIdentityHandler(
 
             await transaction.CommitAsync(cancellationToken);
 
-            return resultResponse.Id;
+            return userId;
         }
         catch (Exception ex)
         {

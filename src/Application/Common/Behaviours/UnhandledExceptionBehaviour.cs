@@ -21,7 +21,7 @@ public class UnhandledExceptionBehaviour<TRequest, TResponse>(ILogger<TRequest> 
 
             logger.LogError(
                 ex,
-                "DotnetBoilerplate Request: Unhandled Exception for Request {Name} {@Request}",
+                "Employee Control Request: Unhandled Exception for Request {Name} {@Request}",
                 requestName,
                 request);
 
