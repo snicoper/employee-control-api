@@ -1,4 +1,7 @@
-﻿using EmployeeControl.Application.Common.Extensions;
+﻿using System.Net;
+using System.Net.Mail;
+using System.Text;
+using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Emails;
 using EmployeeControl.Application.Common.Interfaces.Views;
 using EmployeeControl.Application.Common.Models.Settings;
@@ -6,9 +9,6 @@ using EmployeeControl.Infrastructure.Exceptions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Net;
-using System.Net.Mail;
-using System.Text;
 
 namespace EmployeeControl.Infrastructure.Services.Emails;
 

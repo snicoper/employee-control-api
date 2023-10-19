@@ -1,10 +1,9 @@
-﻿using EmployeeControl.Application.Common.Interfaces;
+﻿using System.Reflection;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using System.Reflection;
 
 namespace EmployeeControl.Infrastructure.Data;
 

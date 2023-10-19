@@ -1,10 +1,9 @@
-﻿using EmployeeControl.Application.Common.Extensions;
-using EmployeeControl.Application.Common.Interfaces;
+﻿using System.Diagnostics;
+using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 
 namespace EmployeeControl.Application.Common.Behaviours;
 

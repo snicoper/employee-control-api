@@ -1,5 +1,4 @@
 ﻿using EmployeeControl.Application.Common.Extensions;
-using EmployeeControl.Application.Common.Interfaces;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 using EmployeeControl.Application.Common.Models;

@@ -1,5 +1,5 @@
-﻿using EmployeeControl.Application.Common.Extensions;
-using EmployeeControl.Application.Common.Interfaces;
+﻿using System.Text;
+using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Models.Settings;
@@ -8,7 +8,6 @@ using EmployeeControl.Domain.Entities;
 using EmployeeControl.Infrastructure.Data;
 using EmployeeControl.Infrastructure.Data.Interceptors;
 using EmployeeControl.Infrastructure.Data.Seeds;
-using EmployeeControl.Infrastructure.Services;
 using EmployeeControl.Infrastructure.Services.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +16,6 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 namespace EmployeeControl.Infrastructure;
 

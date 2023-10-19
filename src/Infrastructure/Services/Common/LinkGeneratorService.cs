@@ -1,8 +1,8 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Common;
+﻿using System.Text;
+using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Models.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 namespace EmployeeControl.Infrastructure.Services.Common;
 

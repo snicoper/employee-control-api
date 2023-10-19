@@ -1,10 +1,10 @@
+using System.Reflection;
 using EmployeeControl.Application.Common.Behaviours;
 using EmployeeControl.Application.Common.Models.Settings;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace EmployeeControl.Application;
 
