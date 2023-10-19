@@ -1,4 +1,6 @@
-﻿using EmployeeControl.Application.Common.Models;
+﻿using EmployeeControl.Application.Common.Constants;
+using EmployeeControl.Application.Common.Interfaces;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Entities;
 using MediatR;
@@ -11,6 +13,7 @@ namespace EmployeeControl.Application.Features.Identity.Commands.RecoveryPasswor
 
 internal class RecoveryPasswordChangeHandler(
         UserManager<ApplicationUser> userManager,
+        IValidationFailureService validationFailureService,
         IStringLocalizer<IdentityLocalizer> localizer,
         ILogger<RecoveryPasswordChangeHandler> logger)
     : IRequestHandler<RecoveryPasswordChangeCommand, Result>
@@ -27,10 +30,16 @@ internal class RecoveryPasswordChangeHandler(
             var message = localizer["El usuario no ha sido encontrado."];
             logger.LogDebug("{message}", message);
 
-            return Result.Failure(message);
+            validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NonFieldErrors, message);
         }
 
-        var resetResult = await userManager.ResetPasswordAsync(user, code, request.Password);
+        if (!user!.EmailConfirmed)
+        {
+            var message = localizer["La cuenta ha de confirmar el email primero."];
+            validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NonFieldErrors, message);
+        }
+
+        var resetResult = await userManager.ResetPasswordAsync(user!, code, request.Password);
 
         return !resetResult.Succeeded ? Result.Failure(localizer["Error al cambiar la contraseña"]) : Result.Success();
     }

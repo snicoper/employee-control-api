@@ -42,7 +42,10 @@ internal class EmailValidationForwardingHandler(
             return Result.Failure(message);
         }
 
-        await identityEmailsService.SendValidateEmailAsync(user, user.Company);
+        // Generar code de validación.
+        var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+
+        await identityEmailsService.SendValidateEmailAsync(user, user.Company, code);
 
         return Result.Success();
     }

@@ -5,11 +5,13 @@ using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
 namespace EmployeeControl.Application.Features.Identity.Commands.RegisterIdentity;
 
 internal class RegisterIdentityHandler(
+        UserManager<ApplicationUser> userManager,
         IIdentityService identityService,
         ICompanyService companyService,
         IApplicationDbContext context,
@@ -38,8 +40,11 @@ internal class RegisterIdentityHandler(
             var roles = new List<string> { new(Roles.EnterpriseAdministrator), new(Roles.HumanResources), new(Roles.Employee) };
             var resultResponse = await identityService.CreateUserAsync(user, password, roles, cancellationToken);
 
+            // Generar code de validación.
+            var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+
             // Mandar email de verificación de Email.
-            await identityEmailsService.SendValidateEmailAsync(user, company);
+            await identityEmailsService.SendValidateEmailAsync(user, company, code);
 
             await transaction.CommitAsync(cancellationToken);
 

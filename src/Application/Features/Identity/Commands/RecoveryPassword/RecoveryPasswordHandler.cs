@@ -14,12 +14,16 @@ internal class RecoveryPasswordHandler(UserManager<ApplicationUser> userManager,
     {
         var user = await userManager.FindByEmailAsync(request.Email.SetEmptyIfNull());
 
-        if (user is null)
+        // Para restablecer contraseña, el usuario ha debido confirmar el email.
+        if (user is null || !user.EmailConfirmed)
         {
-            return Result.Failure("error");
+            return Result.Failure(string.Empty);
         }
 
-        await identityEmailsService.SendRecoveryPasswordAsync(user);
+        // Generar code de validación.
+        var code = await userManager.GeneratePasswordResetTokenAsync(user);
+
+        await identityEmailsService.SendRecoveryPasswordAsync(user, code);
 
         return Result.Success();
     }

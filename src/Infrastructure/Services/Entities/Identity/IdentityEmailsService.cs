@@ -6,25 +6,20 @@ using EmployeeControl.Application.Common.Models.Emails;
 using EmployeeControl.Application.Common.Models.Settings;
 using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 
 namespace EmployeeControl.Infrastructure.Services.Entities.Identity;
 
 public class IdentityEmailsService(
-        UserManager<ApplicationUser> userManager,
         IEmailService emailService,
         ILinkGeneratorService linkGeneratorService,
         IStringLocalizer<SharedLocalizer> localizer,
         IOptions<WebApiSettings> webApiSettings)
     : IIdentityEmailsService
 {
-    public async Task SendValidateEmailAsync(ApplicationUser user, Domain.Entities.Company company)
+    public async Task SendValidateEmailAsync(ApplicationUser user, Domain.Entities.Company company, string code)
     {
-        // Generar code de validación.
-        var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
-
         // Url validación.
         var queryParams = new Dictionary<string, string> { ["userId"] = user.Id, ["code"] = code };
         var callback = linkGeneratorService.GenerateWebApp(UrlsWebApp.EmailRegisterValidate, queryParams);
@@ -46,14 +41,11 @@ public class IdentityEmailsService(
         await emailService.SendMailWithViewAsync(EmailViews.ValidateEmailRegistration, model);
     }
 
-    public async Task SendRecoveryPasswordAsync(ApplicationUser user)
+    public async Task SendRecoveryPasswordAsync(ApplicationUser user, string code)
     {
-        // Generar code de validación.
-        var code = await userManager.GeneratePasswordResetTokenAsync(user);
-
         // Url validación.
         var queryParams = new Dictionary<string, string> { ["userId"] = user.Id, ["code"] = code };
-        var callback = linkGeneratorService.GenerateWebApp(UrlsWebApp.RecoveryPassword, queryParams);
+        var callback = linkGeneratorService.GenerateWebApp(UrlsWebApp.RecoveryPasswordChange, queryParams);
 
         // View model.
         var recoveryPasswordViewModel = new RecoveryPasswordViewModel

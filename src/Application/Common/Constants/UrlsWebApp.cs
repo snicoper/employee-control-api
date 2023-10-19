@@ -10,5 +10,5 @@ public abstract class UrlsWebApp
     /// <summary>
     /// Url del formulario para restablecer contraseña olvidada.
     /// </summary>
-    public const string RecoveryPassword = "identity/recovery-password";
+    public const string RecoveryPasswordChange = "identity/recovery-password-change";
 }
