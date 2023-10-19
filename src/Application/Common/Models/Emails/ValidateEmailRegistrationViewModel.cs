@@ -8,5 +8,5 @@ public record ValidateEmailRegistrationViewModel
 
     public string? CompanyName { get; set; }
 
-    public string? UrlValidate { get; set; }
+    public string? Callback { get; set; }
 }

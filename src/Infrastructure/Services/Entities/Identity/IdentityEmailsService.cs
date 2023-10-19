@@ -12,13 +12,13 @@ using Microsoft.Extensions.Options;
 
 namespace EmployeeControl.Infrastructure.Services.Entities.Identity;
 
-public class AuthEmailsService(
+public class IdentityEmailsService(
         UserManager<ApplicationUser> userManager,
         IEmailService emailService,
         ILinkGeneratorService linkGeneratorService,
         IStringLocalizer<SharedLocalizer> localizer,
         IOptions<WebApiSettings> webApiSettings)
-    : IAuthEmailsService
+    : IIdentityEmailsService
 {
     public async Task SendValidateEmailAsync(ApplicationUser user, Domain.Entities.Company company)
     {
@@ -27,16 +27,18 @@ public class AuthEmailsService(
 
         // Url validación.
         var queryParams = new Dictionary<string, string> { ["userId"] = user.Id, ["code"] = code };
-        var urlCallback = linkGeneratorService.GenerateWebApp(UrlsWebApp.EmailRegisterValidate, queryParams);
+        var callback = linkGeneratorService.GenerateWebApp(UrlsWebApp.EmailRegisterValidate, queryParams);
 
+        // View model.
         var model = new ValidateEmailRegistrationViewModel
         {
             CompanyName = company.Name,
             Email = user.Email,
-            UrlValidate = urlCallback,
+            Callback = callback,
             SiteName = webApiSettings.Value.SiteName
         };
 
+        // Send email.
         emailService.Subject = localizer[
             "Confirmación de correo electrónico en {0}.",
             webApiSettings.Value.SiteName.SetEmptyIfNull()];
@@ -45,5 +47,31 @@ public class AuthEmailsService(
         emailService.IsBodyHtml = true;
 
         await emailService.SendMailWithViewAsync(EmailViews.ValidateEmailRegistration, model);
+    }
+
+    public async Task SendRecoveryPasswordAsync(ApplicationUser user)
+    {
+        // Generar code de validación.
+        var code = await userManager.GeneratePasswordResetTokenAsync(user);
+
+        // Url validación.
+        var queryParams = new Dictionary<string, string> { ["userId"] = user.Id, ["code"] = code };
+        var callback = linkGeneratorService.GenerateWebApp(UrlsWebApp.EmailRegisterValidate, queryParams);
+
+        // View model.
+        var recoveryPasswordViewModel = new RecoveryPasswordViewModel
+        {
+            SiteName = webApiSettings.Value.SiteName, CallBack = callback
+        };
+
+        // Send email.
+        emailService.Subject = localizer[
+            "Confirmación de cambio de email en {0}.",
+            webApiSettings.Value.SiteName.SetEmptyIfNull()];
+
+        emailService.To.Add(user.Email.SetEmptyIfNull());
+        emailService.IsBodyHtml = true;
+
+        await emailService.SendMailWithViewAsync(EmailViews.RecoveryPassword, recoveryPasswordViewModel);
     }
 }

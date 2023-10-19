@@ -11,7 +11,7 @@ namespace EmployeeControl.Application.Features.Identity.Commands.EmailValidation
 
 internal class EmailValidationForwardingHandler(
         UserManager<ApplicationUser> userManager,
-        IAuthEmailsService authEmailsService,
+        IIdentityEmailsService identityEmailsService,
         IStringLocalizer<IdentityLocalizer> localizer)
     : IRequestHandler<EmailValidationForwardingCommand, Result>
 {
@@ -42,7 +42,7 @@ internal class EmailValidationForwardingHandler(
             return Result.Failure(message);
         }
 
-        await authEmailsService.SendValidateEmailAsync(user, user.Company);
+        await identityEmailsService.SendValidateEmailAsync(user, user.Company);
 
         return Result.Success();
     }

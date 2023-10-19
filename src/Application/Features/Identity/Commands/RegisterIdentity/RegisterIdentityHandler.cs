@@ -13,7 +13,7 @@ internal class RegisterIdentityHandler(
         IIdentityService identityService,
         ICompanyService companyService,
         IApplicationDbContext context,
-        IAuthEmailsService authEmailsService,
+        IIdentityEmailsService identityEmailsService,
         ILogger<RegisterIdentityHandler> logger)
     : IRequestHandler<RegisterIdentityCommand, string>
 {
@@ -39,7 +39,7 @@ internal class RegisterIdentityHandler(
             var resultResponse = await identityService.CreateUserAsync(user, password, roles, cancellationToken);
 
             // Mandar email de verificación de Email.
-            await authEmailsService.SendValidateEmailAsync(user, company);
+            await identityEmailsService.SendValidateEmailAsync(user, company);
 
             await transaction.CommitAsync(cancellationToken);
 

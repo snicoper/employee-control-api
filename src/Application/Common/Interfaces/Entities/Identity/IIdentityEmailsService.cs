@@ -2,7 +2,9 @@
 
 namespace EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 
-public interface IAuthEmailsService
+public interface IIdentityEmailsService
 {
     Task SendValidateEmailAsync(ApplicationUser user, Domain.Entities.Company company);
+
+    Task SendRecoveryPasswordAsync(ApplicationUser user);
 }
