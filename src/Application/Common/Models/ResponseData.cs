@@ -5,15 +5,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Application.Common.Models;
 
-public class ResponseData<TDto> : RequestData
+public class ResponseData<TResponse> : RequestData
+    where TResponse : class
 {
-    public IEnumerable<TDto> Items { get; private init; } = new HashSet<TDto>();
+    public IEnumerable<TResponse> Items { get; private init; } = new HashSet<TResponse>();
 
     public bool HasPreviousPage => PageNumber > 1;
 
     public bool HasNextPage => PageNumber < TotalPages;
 
-    public static async Task<ResponseData<TDto>> CreateAsync<TEntity>(
+    public static async Task<ResponseData<TResponse>> CreateAsync<TEntity>(
         IQueryable<TEntity> source,
         RequestData request,
         IMapper mapper,
@@ -35,16 +36,18 @@ public class ResponseData<TDto> : RequestData
 
         var totalPages = (int)Math.Ceiling(totalItems / (double)request.PageSize);
 
-        return new ResponseData<TDto>
+        var responseData = new ResponseData<TResponse>
         {
             TotalItems = totalItems,
             PageNumber = request.PageNumber,
             TotalPages = totalPages,
             Ratio = request.Ratio,
             PageSize = request.PageSize,
-            Items = mapper.Map<List<TDto>>(items),
+            Items = mapper.Map<List<TResponse>>(items),
             Orders = request.Orders,
             Filters = request.Filters
         };
+
+        return responseData;
     }
 }
