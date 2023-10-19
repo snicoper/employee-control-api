@@ -33,7 +33,9 @@ public static class StringExtensions
     /// <returns>El string con la primera letra en minúsculas.</returns>
     public static string LowerCaseFirst(this string value)
     {
-        return string.IsNullOrEmpty(value) ? value : $"{value[..1].ToLower()}{value[1..]}";
+        var result = string.IsNullOrEmpty(value) ? value : $"{value[..1].ToLower()}{value[1..]}";
+
+        return result;
     }
 
     /// <summary>
@@ -57,7 +59,9 @@ public static class StringExtensions
             .Select(part => part.UpperCaseFirst())
             .ToList();
 
-        return string.IsNullOrEmpty(value) ? value : string.Join(" ", parts);
+        var result = string.IsNullOrEmpty(value) ? value : string.Join(" ", parts);
+
+        return result;
     }
 
     /// <summary>
@@ -90,6 +94,8 @@ public static class StringExtensions
             }
         }
 
-        return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+        var result = stringBuilder.ToString().Normalize(NormalizationForm.FormC);
+
+        return result;
     }
 }
