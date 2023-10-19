@@ -1,5 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Extensions;
-using EmployeeControl.Application.Common.Interfaces;
+using EmployeeControl.Application.Common.Interfaces.Emails;
+using EmployeeControl.Application.Common.Interfaces.Views;
 using EmployeeControl.Application.Common.Models.Settings;
 using EmployeeControl.Infrastructure.Exceptions;
 using Microsoft.Extensions.Hosting;
@@ -9,7 +10,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 
-namespace EmployeeControl.Infrastructure.Services;
+namespace EmployeeControl.Infrastructure.Services.Emails;
 
 public class EmailService : IEmailService
 {

@@ -1,5 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces;
+using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Entities;

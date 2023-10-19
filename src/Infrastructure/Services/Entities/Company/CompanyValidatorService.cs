@@ -1,4 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Interfaces;
+using EmployeeControl.Application.Common.Interfaces.Common;
+using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Entities.Company;
 using EmployeeControl.Application.Localizations;
 using Microsoft.EntityFrameworkCore;

@@ -1,4 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Interfaces;
+using EmployeeControl.Application.Common.Interfaces.Common;
 using System.Security.Claims;
 
 namespace EmployeeControl.WebApi.Services;

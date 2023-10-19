@@ -1,6 +1,6 @@
-﻿using EmployeeControl.Application.Common.Interfaces;
+﻿using EmployeeControl.Application.Common.Interfaces.Common;
 
-namespace EmployeeControl.Infrastructure.Services;
+namespace EmployeeControl.Infrastructure.Services.Common;
 
 public class DateTimeService : IDateTimeService
 {

@@ -1,10 +1,10 @@
-﻿using EmployeeControl.Application.Common.Interfaces;
+﻿using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Models.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace EmployeeControl.Infrastructure.Services;
+namespace EmployeeControl.Infrastructure.Services.Common;
 
 public class LinkGeneratorService(IOptions<WebAppSettings> webAppSettings) : ILinkGeneratorService
 {

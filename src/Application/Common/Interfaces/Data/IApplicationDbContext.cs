@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
-namespace EmployeeControl.Application.Common.Interfaces;
+namespace EmployeeControl.Application.Common.Interfaces.Data;
 
 public interface IApplicationDbContext
 {

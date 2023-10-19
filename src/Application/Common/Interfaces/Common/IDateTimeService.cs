@@ -1,4 +1,4 @@
-﻿namespace EmployeeControl.Application.Common.Interfaces;
+﻿namespace EmployeeControl.Application.Common.Interfaces.Common;
 
 public interface IDateTimeService
 {

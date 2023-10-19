@@ -1,6 +1,6 @@
 ﻿using System.Net.Mail;
 
-namespace EmployeeControl.Application.Common.Interfaces;
+namespace EmployeeControl.Application.Common.Interfaces.Emails;
 
 public interface IEmailService
 {

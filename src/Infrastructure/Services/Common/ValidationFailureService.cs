@@ -1,8 +1,8 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces;
+using EmployeeControl.Application.Common.Interfaces.Common;
 using FluentValidation.Results;
 
-namespace EmployeeControl.Infrastructure.Services;
+namespace EmployeeControl.Infrastructure.Services.Common;
 
 public class ValidationFailureService : IValidationFailureService
 {

@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Common.Interfaces;
+﻿using EmployeeControl.Application.Common.Interfaces.Views;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 
-namespace EmployeeControl.Infrastructure.Services;
+namespace EmployeeControl.Infrastructure.Services.Views;
 
 public class RazorViewToStringRendererService(
         IRazorViewEngine viewEngine,
