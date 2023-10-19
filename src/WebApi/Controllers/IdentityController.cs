@@ -1,6 +1,7 @@
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.Identity.Commands.EmailValidationForwarding;
 using EmployeeControl.Application.Features.Identity.Commands.RecoveryPassword;
+using EmployeeControl.Application.Features.Identity.Commands.RecoveryPasswordChange;
 using EmployeeControl.Application.Features.Identity.Commands.RegisterIdentity;
 using EmployeeControl.Application.Features.Identity.Commands.RegisterValidateEmail;
 using EmployeeControl.WebApi.Infrastructure;
@@ -61,7 +62,7 @@ public class IdentityController : ApiControllerBase
     }
 
     /// <summary>
-    /// Recordar contraseña, envía un email para establecer nueva contraseña.
+    /// Recordar contraseña, envía un email para restablecer una nueva contraseña.
     /// </summary>
     /// <param name="command">Datos del UserId del usuario a validar.</param>
     /// <returns>Result.</returns>
@@ -70,6 +71,22 @@ public class IdentityController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Result>> RecoveryPassword(RecoveryPasswordCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Restablece una contraseña olvidada.
+    /// </summary>
+    /// <param name="command">Datos para restablecer la contraseña.</param>
+    /// <returns>Result.</returns>
+    [AllowAnonymous]
+    [HttpPost("recovery-password-change")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Result>> RecoveryPasswordChange(RecoveryPasswordChangeCommand command)
     {
         var result = await Sender.Send(command);
 

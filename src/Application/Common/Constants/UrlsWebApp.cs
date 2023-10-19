@@ -6,4 +6,9 @@ public abstract class UrlsWebApp
     /// Url para la validación de Email del usuario.
     /// </summary>
     public const string EmailRegisterValidate = "identity/register-validate";
+
+    /// <summary>
+    /// Url del formulario para restablecer contraseña olvidada.
+    /// </summary>
+    public const string RecoveryPassword = "identity/recovery-password";
 }

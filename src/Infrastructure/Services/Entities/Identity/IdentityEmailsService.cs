@@ -32,10 +32,7 @@ public class IdentityEmailsService(
         // View model.
         var model = new ValidateEmailRegistrationViewModel
         {
-            CompanyName = company.Name,
-            Email = user.Email,
-            Callback = callback,
-            SiteName = webApiSettings.Value.SiteName
+            CompanyName = company.Name, Email = user.Email, Callback = callback, SiteName = webApiSettings.Value.SiteName
         };
 
         // Send email.
@@ -56,7 +53,7 @@ public class IdentityEmailsService(
 
         // Url validación.
         var queryParams = new Dictionary<string, string> { ["userId"] = user.Id, ["code"] = code };
-        var callback = linkGeneratorService.GenerateWebApp(UrlsWebApp.EmailRegisterValidate, queryParams);
+        var callback = linkGeneratorService.GenerateWebApp(UrlsWebApp.RecoveryPassword, queryParams);
 
         // View model.
         var recoveryPasswordViewModel = new RecoveryPasswordViewModel
