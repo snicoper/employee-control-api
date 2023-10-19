@@ -13,6 +13,8 @@ public class HomeController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<PruebaResponse>> Prueba()
     {
-        return await Sender.Send(new PruebaQuery());
+        var result = await Sender.Send(new PruebaQuery());
+
+        return result;
     }
 }

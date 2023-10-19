@@ -13,8 +13,23 @@ public class ApiControllerBase : ControllerBase
 
     protected ISender Sender => _sender ??= HttpContext.RequestServices.GetRequiredService<ISender>();
 
-    protected ObjectResult ObjectResultCreated<TResult>(TResult result)
+    /// <summary>
+    /// Devolver un resultado con un StatusCode concreto.
+    /// </summary>
+    /// <param name="result">Resultado a devolver.</param>
+    /// <param name="statusCode">StatusCode respuesta.</param>
+    /// <typeparam name="TResult">Tipo a devolver.</typeparam>
+    protected ObjectResult ObjectResultWithStatusCode<TResult>(TResult result, int statusCode)
     {
-        return new ObjectResult(result) { StatusCode = StatusCodes.Status201Created };
+        return new ObjectResult(result) { StatusCode = statusCode };
+    }
+
+    /// <summary>
+    /// Devolver un StatusCode concreto con un valor vacío.
+    /// </summary>
+    /// <param name="statusCode">StatusCode a devolver.</param>
+    protected ObjectResult ObjectResultWithStatusCode(int statusCode)
+    {
+        return new ObjectResult(null) { StatusCode = statusCode };
     }
 }

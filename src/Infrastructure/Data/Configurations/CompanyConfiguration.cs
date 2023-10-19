@@ -20,8 +20,7 @@ public class CompanyConfiguration : BaseAuditableEntityConfiguration<Company>, I
 
         // Relations.
         builder.HasMany(c => c.ApplicationUsers)
-            .WithOne(au => au.Company)
-            .OnDelete(DeleteBehavior.Cascade);
+            .WithOne(au => au.Company);
 
         // Properties.
         builder.Property(c => c.Name)

@@ -21,7 +21,9 @@ public class AuthController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<LoginResponse>> Login(LoginCommand command)
     {
-        return await Sender.Send(command);
+        var result = await Sender.Send(command);
+
+        return result;
     }
 
     /// <summary>
@@ -36,6 +38,8 @@ public class AuthController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<RefreshTokenResponse>> RefreshToken(RefreshTokenCommand command)
     {
-        return await Sender.Send(command);
+        var result = await Sender.Send(command);
+
+        return result;
     }
 }

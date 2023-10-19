@@ -18,7 +18,9 @@ public class LocalizationController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<CurrentLocaleResponse>> CurrentLocale()
     {
-        return await Sender.Send(new CurrentLocaleQuery());
+        var result = await Sender.Send(new CurrentLocaleQuery());
+
+        return result;
     }
 
     /// <summary>
@@ -30,6 +32,8 @@ public class LocalizationController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<SupportedLocalesResponse>> SupportedLocales()
     {
-        return await Sender.Send(new SupportedLocalesQuery());
+        var result = await Sender.Send(new SupportedLocalesQuery());
+
+        return result;
     }
 }

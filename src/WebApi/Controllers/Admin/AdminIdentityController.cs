@@ -18,6 +18,8 @@ public class AdminIdentityController : ApiControllerBase
     public async Task<ActionResult<ResponseData<GetAdminIdentitiesPaginatedResponse>>> GetAdminIdentitiesPaginated(
         [FromQuery] RequestData request)
     {
-        return await Sender.Send(new GetAdminIdentitiesPaginatedQuery(request));
+        var result = await Sender.Send(new GetAdminIdentitiesPaginatedQuery(request));
+
+        return result;
     }
 }

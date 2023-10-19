@@ -26,7 +26,7 @@ public class IdentityController : ApiControllerBase
     {
         var result = await Sender.Send(command);
 
-        return ObjectResultCreated(result);
+        return ObjectResultWithStatusCode(result, StatusCodes.Status201Created);
     }
 
     /// <summary>
