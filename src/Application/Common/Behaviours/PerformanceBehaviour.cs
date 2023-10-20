@@ -35,7 +35,7 @@ public class PerformanceBehaviour<TRequest, TResponse>(
         }
 
         var requestName = typeof(TRequest).Name;
-        var userId = currentUserService.Id.SetEmptyIfNull();
+        var userId = currentUserService.Id.ToEmptyIfNull();
         var userName = string.Empty;
 
         if (!string.IsNullOrEmpty(userId))

@@ -37,7 +37,7 @@ internal class RegisterIdentityHandler(
                 CompanyId = company.Id
             };
 
-            var password = request.Password.SetEmptyIfNull();
+            var password = request.Password.ToEmptyIfNull();
 
             // Roles para usuario y creación del usuario.
             var roles = new List<string> { new(Roles.EnterpriseAdministrator), new(Roles.HumanResources), new(Roles.Employee) };

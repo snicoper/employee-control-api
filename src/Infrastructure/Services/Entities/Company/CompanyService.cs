@@ -16,7 +16,7 @@ public class CompanyService(
         CancellationToken cancellationToken)
     {
         // Validaciones.
-        await companyValidatorService.UniqueNameValidationAsync(company.Name.SetEmptyIfNull(), cancellationToken);
+        await companyValidatorService.UniqueNameValidationAsync(company.Name.ToEmptyIfNull(), cancellationToken);
         validationFailureService.RaiseExceptionIfExistsErrors();
 
         await context.Company.AddAsync(company, cancellationToken);

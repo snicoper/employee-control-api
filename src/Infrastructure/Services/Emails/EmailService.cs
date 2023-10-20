@@ -74,7 +74,7 @@ public class EmailService : IEmailService
         mailMessage.Priority = MailPriority;
 
         using var client = new SmtpClient();
-        client.Host = _emailSenderSettings.Host.SetEmptyIfNull();
+        client.Host = _emailSenderSettings.Host.ToEmptyIfNull();
         client.Port = _emailSenderSettings.Port;
         client.Credentials = new NetworkCredential(_emailSenderSettings.Username, _emailSenderSettings.Password);
         client.UseDefaultCredentials = false;

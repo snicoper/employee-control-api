@@ -11,7 +11,7 @@ public static class StringExtensions
     /// </summary>
     /// <param name="value">String a comprobar.</param>
     /// <returns>Si el string es null devolverá string.Empty, en caso contrario el valor de value.</returns>
-    public static string SetEmptyIfNull(this string? value)
+    public static string ToEmptyIfNull(this string? value)
     {
         return value ?? string.Empty;
     }

@@ -79,7 +79,7 @@ public static class DependencyInjection
             })
             .AddJwtBearer(options =>
             {
-                var jwtKey = configuration[JwtSettings.JwtKey].SetEmptyIfNull();
+                var jwtKey = configuration[JwtSettings.JwtKey].ToEmptyIfNull();
                 var jwtIssuer = configuration[JwtSettings.JwtIssuer];
                 var jwtAudience = configuration[JwtSettings.JwtAudience];
 

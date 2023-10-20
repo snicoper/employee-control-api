@@ -37,9 +37,9 @@ public class IdentityEmailsService(
         // Send email.
         emailService.Subject = localizer[
             "Confirmación de correo electrónico en {0}.",
-            webApiSettings.Value.SiteName.SetEmptyIfNull()];
+            webApiSettings.Value.SiteName.ToEmptyIfNull()];
 
-        emailService.To.Add(model.Email.SetEmptyIfNull());
+        emailService.To.Add(model.Email.ToEmptyIfNull());
 
         await emailService.SendMailWithViewAsync(EmailViews.ValidateEmailRegistration, model);
     }
@@ -60,9 +60,9 @@ public class IdentityEmailsService(
         // Send email.
         emailService.Subject = localizer[
             "Confirmación de cambio de email en {0}.",
-            webApiSettings.Value.SiteName.SetEmptyIfNull()];
+            webApiSettings.Value.SiteName.ToEmptyIfNull()];
 
-        emailService.To.Add(user.Email.SetEmptyIfNull());
+        emailService.To.Add(user.Email.ToEmptyIfNull());
 
         await emailService.SendMailWithViewAsync(EmailViews.RecoveryPassword, recoveryPasswordViewModel);
     }

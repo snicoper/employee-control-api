@@ -11,7 +11,7 @@ public static class QueryableOrderByExtensions
 {
     public static IQueryable<TEntity> Ordering<TEntity>(this IQueryable<TEntity> source, RequestData request)
     {
-        var result = source;
+        IQueryable<TEntity> result;
 
         if (string.IsNullOrEmpty(request.Orders))
         {
@@ -70,7 +70,7 @@ public static class QueryableOrderByExtensions
         var resultExpression = Expression.Call(
             typeof(Queryable),
             command,
-            [type, property.PropertyType],
+            new[] { type, property.PropertyType },
             source.Expression,
             Expression.Quote(orderByExpression));
 
@@ -105,7 +105,7 @@ public static class QueryableOrderByExtensions
             _ => throw new NotImplementedException()
         };
 
-        source = source.OrderByCommand(fieldName.SetEmptyIfNull(), command);
+        source = source.OrderByCommand(fieldName.ToEmptyIfNull(), command);
         var result = (IOrderedQueryable<TEntity>)source;
 
         return result;
