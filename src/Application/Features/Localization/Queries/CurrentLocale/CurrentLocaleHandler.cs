@@ -12,9 +12,9 @@ internal class CurrentLocaleHandler(IHttpContextAccessor httpContextAccessor)
     {
         var culture = httpContextAccessor.HttpContext?.Features.Get<IRequestCultureFeature>();
         var locale = culture?.RequestCulture.Culture.ToString();
-        var result = new CurrentLocaleResponse(locale.ToEmptyIfNull());
-        var resultResponse = Task.FromResult(result);
 
-        return resultResponse;
+        var currentLocaleResponse = new CurrentLocaleResponse(locale.ToEmptyIfNull());
+
+        return Task.FromResult(currentLocaleResponse);
     }
 }

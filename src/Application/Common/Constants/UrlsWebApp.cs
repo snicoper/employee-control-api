@@ -1,6 +1,6 @@
 ﻿namespace EmployeeControl.Application.Common.Constants;
 
-public abstract class UrlsWebApp
+public static class UrlsWebApp
 {
     /// <summary>
     /// Url para la validación de Email del usuario.

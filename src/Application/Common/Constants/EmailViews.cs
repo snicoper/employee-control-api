@@ -3,7 +3,7 @@
 /// <summary>
 /// Nombres de las vistas (cshtml) para envío de Emails.
 /// </summary>
-public abstract class EmailViews
+public static class EmailViews
 {
     public const string ValidateEmailRegistration = nameof(ValidateEmailRegistration);
 

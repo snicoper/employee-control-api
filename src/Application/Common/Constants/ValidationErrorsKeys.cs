@@ -2,7 +2,7 @@
 
 public static class ValidationErrorsKeys
 {
-    public static readonly string NonFieldErrors = nameof(NonFieldErrors);
+    public const string NonFieldErrors = nameof(NonFieldErrors);
 
-    public static readonly string NotificationErrors = nameof(NotificationErrors);
+    public const string NotificationErrors = nameof(NotificationErrors);
 }

@@ -7,9 +7,13 @@ internal class SupportedLocalesHandler : IRequestHandler<SupportedLocalesQuery, 
 {
     public Task<SupportedLocalesResponse> Handle(SupportedLocalesQuery request, CancellationToken cancellationToken)
     {
-        var supportedCultures = AppCultures.GetAll().Select(cultureInfo => cultureInfo.Name).ToList();
-        var resultResponse = Task.FromResult(new SupportedLocalesResponse(supportedCultures));
+        var supportedCultures = AppCultures
+            .GetAll()
+            .Select(cultureInfo => cultureInfo.Name)
+            .ToList();
 
-        return resultResponse;
+        var supportedLocalesResponse = new SupportedLocalesResponse(supportedCultures);
+
+        return Task.FromResult(supportedLocalesResponse);
     }
 }
