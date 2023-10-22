@@ -3,7 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 
-namespace EmployeeControl.Application.Features.Localization.Queries.CurrentLocale;
+namespace EmployeeControl.Application.Features.Localizations.Queries.CurrentLocale;
 
 internal class CurrentLocaleHandler(IHttpContextAccessor httpContextAccessor)
     : IRequestHandler<CurrentLocaleQuery, CurrentLocaleResponse>

@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Constants;
 using MediatR;
 
-namespace EmployeeControl.Application.Features.Localization.Queries.SupportedLocales;
+namespace EmployeeControl.Application.Features.Localizations.Queries.SupportedLocales;
 
 internal class SupportedLocalesHandler : IRequestHandler<SupportedLocalesQuery, SupportedLocalesResponse>
 {
