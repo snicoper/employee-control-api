@@ -17,32 +17,32 @@ public class IdentityValidatorService(
         ILogger<IdentityService> logger)
     : IIdentityValidatorService
 {
-    public async Task UniqueEmailValidationAsync(ApplicationUser applicationUser, CancellationToken cancellationToken)
+    public async Task UniqueEmailValidationAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
-        var isRegistered = await userManager.Users.AnyAsync(au => au.Email == applicationUser.Email, cancellationToken);
+        var isRegistered = await userManager.Users.AnyAsync(au => au.Email == user.Email, cancellationToken);
 
         if (isRegistered)
         {
             var errorMessage = localizer["El email ya esta registrado."];
             logger.LogWarning("{message}", errorMessage);
-            validationFailureService.Add(nameof(applicationUser.Email), errorMessage);
+            validationFailureService.Add(nameof(user.Email), errorMessage);
         }
     }
 
-    public async Task UserValidationAsync(ApplicationUser applicationUser)
+    public async Task UserValidationAsync(ApplicationUser user)
     {
-        var validUser = await userValidator.ValidateAsync(userManager, applicationUser);
+        var validUser = await userValidator.ValidateAsync(userManager, user);
         if (!validUser.Succeeded)
         {
             var errorMessage = localizer["El usuario no es valido."];
             logger.LogWarning("{message}", errorMessage);
-            validationFailureService.Add(nameof(applicationUser.UserName), errorMessage);
+            validationFailureService.Add(nameof(user.UserName), errorMessage);
         }
     }
 
-    public async Task PasswordValidationAsync(ApplicationUser applicationUser, string password)
+    public async Task PasswordValidationAsync(ApplicationUser user, string password)
     {
-        var validPassword = await passwordValidator.ValidateAsync(userManager, applicationUser, password);
+        var validPassword = await passwordValidator.ValidateAsync(userManager, user, password);
         if (!validPassword.Succeeded)
         {
             var errorMessage = localizer["La contraseña no es valida."];
@@ -51,9 +51,9 @@ public class IdentityValidatorService(
         }
     }
 
-    public async Task CheckPasswordValidationAsync(ApplicationUser applicationUser, string password)
+    public async Task CheckPasswordValidationAsync(ApplicationUser user, string password)
     {
-        if (!await userManager.CheckPasswordAsync(applicationUser, password))
+        if (!await userManager.CheckPasswordAsync(user, password))
         {
             var errorMessage = localizer["La contraseña no parece valida."];
             logger.LogWarning("{message}", errorMessage);

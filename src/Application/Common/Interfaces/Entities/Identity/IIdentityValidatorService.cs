@@ -4,9 +4,9 @@ namespace EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 
 public interface IIdentityValidatorService
 {
-    Task UniqueEmailValidationAsync(ApplicationUser applicationUser, CancellationToken cancellationToken);
+    Task UniqueEmailValidationAsync(ApplicationUser user, CancellationToken cancellationToken);
 
-    Task UserValidationAsync(ApplicationUser applicationUser);
+    Task UserValidationAsync(ApplicationUser user);
 
-    Task PasswordValidationAsync(ApplicationUser applicationUser, string password);
+    Task PasswordValidationAsync(ApplicationUser user, string password);
 }

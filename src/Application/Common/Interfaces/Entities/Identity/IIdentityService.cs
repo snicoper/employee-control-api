@@ -12,10 +12,10 @@ public interface IIdentityService
     Task<bool> AuthorizeAsync(string userId, string policyName);
 
     Task<(Result Result, string Id)> CreateUserAsync(
-        ApplicationUser applicationUser,
+        ApplicationUser user,
         string password,
         IEnumerable<string> roles,
         CancellationToken cancellationToken);
 
-    Task<Result> DeleteUserAsync(ApplicationUser applicationUser);
+    Task<Result> DeleteUserAsync(ApplicationUser user);
 }

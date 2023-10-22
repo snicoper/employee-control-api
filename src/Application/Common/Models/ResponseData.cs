@@ -8,7 +8,7 @@ namespace EmployeeControl.Application.Common.Models;
 public class ResponseData<TResponse> : RequestData
     where TResponse : class
 {
-    public IEnumerable<TResponse> Items { get; private init; } = new HashSet<TResponse>();
+    public IEnumerable<TResponse> Items { get; private init; } = new List<TResponse>();
 
     public bool HasPreviousPage => PageNumber > 1;
 

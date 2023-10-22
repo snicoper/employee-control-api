@@ -48,32 +48,32 @@ public class IdentityService(
         return result.Succeeded;
     }
 
-    public async Task<Result> DeleteUserAsync(ApplicationUser applicationUser)
+    public async Task<Result> DeleteUserAsync(ApplicationUser user)
     {
-        var result = await userManager.DeleteAsync(applicationUser);
+        var result = await userManager.DeleteAsync(user);
 
         return result.ToApplicationResult();
     }
 
     public async Task<(Result Result, string Id)> CreateUserAsync(
-        ApplicationUser applicationUser,
+        ApplicationUser user,
         string password,
         IEnumerable<string> roles,
         CancellationToken cancellationToken)
     {
-        applicationUser.Active = true;
-        applicationUser.UserName = applicationUser.Email;
+        user.Active = true;
+        user.UserName = user.Email;
 
         // Validaciones.
-        await identityValidatorService.UserValidationAsync(applicationUser);
-        await identityValidatorService.PasswordValidationAsync(applicationUser, password);
-        await identityValidatorService.UniqueEmailValidationAsync(applicationUser, cancellationToken);
+        await identityValidatorService.UserValidationAsync(user);
+        await identityValidatorService.PasswordValidationAsync(user, password);
+        await identityValidatorService.UniqueEmailValidationAsync(user, cancellationToken);
         validationFailureService.RaiseExceptionIfExistsErrors();
 
-        var identityResult = await userManager.CreateAsync(applicationUser, password);
+        var identityResult = await userManager.CreateAsync(user, password);
 
-        await userManager.AddToRolesAsync(applicationUser, roles);
+        await userManager.AddToRolesAsync(user, roles);
 
-        return (identityResult.ToApplicationResult(), applicationUser.Id);
+        return (identityResult.ToApplicationResult(), user.Id);
     }
 }

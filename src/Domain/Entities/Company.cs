@@ -8,5 +8,5 @@ public class Company : BaseAuditableEntity
 
     public string? Name { get; set; }
 
-    public ICollection<ApplicationUser> ApplicationUsers { get; set; } = new HashSet<ApplicationUser>();
+    public ICollection<ApplicationUser> ApplicationUsers { get; set; } = new List<ApplicationUser>();
 }
