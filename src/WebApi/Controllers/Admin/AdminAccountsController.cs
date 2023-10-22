@@ -1,12 +1,12 @@
 ﻿using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Features.Admin.AdminIdentity.Queries.GetAdminIdentitiesPaginated;
+using EmployeeControl.Application.Features.Admin.AdminAccounts.Queries.GetAdminAccountsPaginated;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeControl.WebApi.Controllers.Admin;
 
-[Route("api/v{version:apiVersion}/admin/identity")]
-public class AdminIdentityController : ApiControllerBase
+[Route("api/v{version:apiVersion}/admin/accounts")]
+public class AdminAccountsController : ApiControllerBase
 {
     /// <summary>
     /// Obtener lista de usuarios paginados.
@@ -15,10 +15,10 @@ public class AdminIdentityController : ApiControllerBase
     /// <returns>Lista de usuarios paginados.</returns>
     [HttpGet("paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<ResponseData<GetAdminIdentitiesPaginatedResponse>>> GetAdminIdentitiesPaginated(
+    public async Task<ActionResult<ResponseData<GetAdminAccountsPaginatedResponse>>> GetAdminAccountsPaginated(
         [FromQuery] RequestData request)
     {
-        var result = await Sender.Send(new GetAdminIdentitiesPaginatedQuery(request));
+        var result = await Sender.Send(new GetAdminAccountsPaginatedQuery(request));
 
         return result;
     }
