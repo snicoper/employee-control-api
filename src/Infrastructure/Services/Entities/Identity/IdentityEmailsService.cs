@@ -28,10 +28,7 @@ public class IdentityEmailsService(
         // View model.
         var model = new ValidateEmailRegistrationViewModel
         {
-            CompanyName = company.Name,
-            Email = user.Email,
-            Callback = callback,
-            SiteName = webApiSettings.Value.SiteName
+            CompanyName = company.Name, Email = user.Email, Callback = callback, SiteName = webApiSettings.Value.SiteName
         };
 
         // Send email.
@@ -44,6 +41,25 @@ public class IdentityEmailsService(
         await emailService.SendMailWithViewAsync(EmailViews.ValidateEmailRegistration, model);
     }
 
+    public async Task SendInviteEmployeeAsync(ApplicationUser user, Domain.Entities.Company company, string code)
+    {
+        // Url validación.
+        var queryParams = new Dictionary<string, string> { ["userId"] = user.Id, ["code"] = code };
+        var callback = linkGeneratorService.GenerateWebApp(UrlsWebApp.InviteEmployee, queryParams);
+
+        // View model.
+        var model = new InviteEmployeeViewModel
+        {
+            CompanyName = company.Name, Callback = callback, SiteName = webApiSettings.Value.SiteName
+        };
+
+        // Send email.
+        emailService.Subject = localizer["Invitación de la empresa {0}.", company.Name.ToEmptyIfNull()];
+        emailService.To.Add(user.Email.ToEmptyIfNull());
+
+        await emailService.SendMailWithViewAsync(EmailViews.InviteEmployee, model);
+    }
+
     public async Task SendRecoveryPasswordAsync(ApplicationUser user, string code)
     {
         // Url validación.
@@ -53,8 +69,7 @@ public class IdentityEmailsService(
         // View model.
         var recoveryPasswordViewModel = new RecoveryPasswordViewModel
         {
-            SiteName = webApiSettings.Value.SiteName,
-            CallBack = callback
+            SiteName = webApiSettings.Value.SiteName, CallBack = callback
         };
 
         // Send email.

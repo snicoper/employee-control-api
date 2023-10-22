@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeControl.WebApi.Controllers;
 
-[Route("api/v{version:apiVersion}/employee")]
-public class EmployeeController : ApiControllerBase
+[Route("api/v{version:apiVersion}/employees")]
+public class EmployeesController : ApiControllerBase
 {
     /// <summary>
     /// Invitar a un empleado.
@@ -20,6 +20,6 @@ public class EmployeeController : ApiControllerBase
     {
         var result = await Sender.Send(command);
 
-        return result;
+        return ObjectResultWithStatusCode(result, StatusCodes.Status201Created);
     }
 }

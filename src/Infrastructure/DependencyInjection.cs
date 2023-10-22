@@ -68,7 +68,12 @@ public static class DependencyInjection
             options.Password.RequireUppercase = false;
             options.Password.RequiredLength = 6;
             options.Password.RequiredUniqueChars = 0;
+
+            // Default User settings.
             options.User.RequireUniqueEmail = true;
+
+            // Default SignIn settings.
+            options.SignIn.RequireConfirmedAccount = true;
         });
 
         services.AddAuthorization(options =>
