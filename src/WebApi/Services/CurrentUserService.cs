@@ -9,5 +9,5 @@ public class CurrentUserService(IHttpContextAccessor httpContextAccessor)
 {
     public string? Id => httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Sid);
 
-    public string? CompanyId => httpContextAccessor.HttpContext?.User.FindFirstValue(CustomClaims.CompanyId);
+    public int CompanyId => Convert.ToInt32(httpContextAccessor.HttpContext?.User.FindFirstValue(CustomClaims.CompanyId));
 }

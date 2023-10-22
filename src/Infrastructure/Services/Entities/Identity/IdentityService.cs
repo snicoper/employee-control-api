@@ -19,14 +19,21 @@ public class IdentityService(
 {
     public async Task<string?> GetUserNameAsync(string userId)
     {
-        var user = await userManager.Users.FirstAsync(u => u.Id == userId);
+        var user = await userManager
+            .Users
+            .AsNoTracking()
+            .FirstAsync(u => u.Id == userId);
 
         return user.UserName;
     }
 
     public async Task<bool> IsInRoleAsync(string userId, string role)
     {
-        var user = userManager.Users.SingleOrDefault(u => u.Id == userId);
+        var user = userManager
+            .Users
+            .AsNoTracking()
+            .SingleOrDefault(u => u.Id == userId);
+
         var result = user != null && await userManager.IsInRoleAsync(user, role);
 
         return result;
@@ -34,7 +41,9 @@ public class IdentityService(
 
     public async Task<bool> AuthorizeAsync(string userId, string policyName)
     {
-        var user = userManager.Users.SingleOrDefault(u => u.Id == userId);
+        var user = userManager
+            .Users.AsNoTracking()
+            .SingleOrDefault(u => u.Id == userId);
 
         if (user is null)
         {
@@ -75,5 +84,14 @@ public class IdentityService(
         var result = await userManager.DeleteAsync(user);
 
         return result.ToApplicationResult();
+    }
+
+    public IQueryable<ApplicationUser> GetAccountsByCompanyId(int companyId)
+    {
+        var users = userManager.Users
+            .AsNoTracking()
+            .Where(au => au.CompanyId == companyId);
+
+        return users;
     }
 }

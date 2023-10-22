@@ -18,4 +18,6 @@ public interface IIdentityService
         CancellationToken cancellationToken);
 
     Task<Result> DeleteAccountAsync(ApplicationUser user);
+
+    IQueryable<ApplicationUser> GetAccountsByCompanyId(int companyId);
 }

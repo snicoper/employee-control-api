@@ -4,5 +4,5 @@ public interface ICurrentUserService
 {
     string? Id { get; }
 
-    string? CompanyId { get; }
+    int CompanyId { get; }
 }
