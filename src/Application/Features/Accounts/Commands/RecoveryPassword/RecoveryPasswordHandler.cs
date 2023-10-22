@@ -4,7 +4,7 @@ using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
-namespace EmployeeControl.Application.Features.Identity.Commands.RecoveryPassword;
+namespace EmployeeControl.Application.Features.Accounts.Commands.RecoveryPassword;
 
 internal class RecoveryPasswordHandler(UserManager<ApplicationUser> userManager, IIdentityEmailsService identityEmailsService)
     : IRequestHandler<RecoveryPasswordCommand, Result>

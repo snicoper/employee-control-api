@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace EmployeeControl.Application.Features.Identity.Commands.EmailValidationForwarding;
+namespace EmployeeControl.Application.Features.Accounts.Commands.EmailValidationForwarding;
 
 public class EmailValidationForwardingValidator : AbstractValidator<EmailValidationForwardingCommand>
 {

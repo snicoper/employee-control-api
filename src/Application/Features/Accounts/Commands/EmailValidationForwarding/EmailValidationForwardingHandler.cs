@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
-namespace EmployeeControl.Application.Features.Identity.Commands.EmailValidationForwarding;
+namespace EmployeeControl.Application.Features.Accounts.Commands.EmailValidationForwarding;
 
 internal class EmailValidationForwardingHandler(
         UserManager<ApplicationUser> userManager,

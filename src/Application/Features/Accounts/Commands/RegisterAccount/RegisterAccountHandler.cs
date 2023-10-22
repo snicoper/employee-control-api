@@ -8,18 +8,18 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
-namespace EmployeeControl.Application.Features.Identity.Commands.RegisterIdentity;
+namespace EmployeeControl.Application.Features.Accounts.Commands.RegisterAccount;
 
-internal class RegisterIdentityHandler(
+internal class RegisterAccountHandler(
         UserManager<ApplicationUser> userManager,
         IIdentityService identityService,
         ICompanyService companyService,
         IApplicationDbContext context,
         IIdentityEmailsService identityEmailsService,
-        ILogger<RegisterIdentityHandler> logger)
-    : IRequestHandler<RegisterIdentityCommand, string>
+        ILogger<RegisterAccountHandler> logger)
+    : IRequestHandler<RegisterAccountCommand, string>
 {
-    public async Task<string> Handle(RegisterIdentityCommand request, CancellationToken cancellationToken)
+    public async Task<string> Handle(RegisterAccountCommand request, CancellationToken cancellationToken)
     {
         await using var transaction = await context.Database.BeginTransactionAsync(cancellationToken);
 
@@ -38,7 +38,7 @@ internal class RegisterIdentityHandler(
 
             // Roles para usuario y creación del usuario.
             var roles = new List<string> { new(Roles.EnterpriseAdministrator), new(Roles.HumanResources), new(Roles.Employee) };
-            var (_, userId) = await identityService.CreateUserAsync(user, password, roles, cancellationToken);
+            var (_, userId) = await identityService.CreateAccountAsync(user, password, roles, cancellationToken);
 
             // Generar code de validación.
             var code = await userManager.GenerateEmailConfirmationTokenAsync(user);

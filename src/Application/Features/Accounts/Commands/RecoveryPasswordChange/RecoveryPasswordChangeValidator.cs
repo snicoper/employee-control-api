@@ -2,7 +2,7 @@
 using FluentValidation;
 using Microsoft.Extensions.Localization;
 
-namespace EmployeeControl.Application.Features.Identity.Commands.RecoveryPasswordChange;
+namespace EmployeeControl.Application.Features.Accounts.Commands.RecoveryPasswordChange;
 
 public class RecoveryPasswordChangeValidator : AbstractValidator<RecoveryPasswordChangeCommand>
 {

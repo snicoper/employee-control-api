@@ -1,17 +1,17 @@
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Features.Identity.Commands.EmailValidationForwarding;
-using EmployeeControl.Application.Features.Identity.Commands.RecoveryPassword;
-using EmployeeControl.Application.Features.Identity.Commands.RecoveryPasswordChange;
-using EmployeeControl.Application.Features.Identity.Commands.RegisterIdentity;
-using EmployeeControl.Application.Features.Identity.Commands.RegisterValidateEmail;
+using EmployeeControl.Application.Features.Accounts.Commands.EmailValidationForwarding;
+using EmployeeControl.Application.Features.Accounts.Commands.RecoveryPassword;
+using EmployeeControl.Application.Features.Accounts.Commands.RecoveryPasswordChange;
+using EmployeeControl.Application.Features.Accounts.Commands.RegisterAccount;
+using EmployeeControl.Application.Features.Accounts.Commands.RegisterValidateEmail;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeControl.WebApi.Controllers;
 
-[Route("api/v{version:apiVersion}/identity")]
-public class IdentityController : ApiControllerBase
+[Route("api/v{version:apiVersion}/accounts")]
+public class AccountsController : ApiControllerBase
 {
     /// <summary>
     /// Creación de una cuenta por el usuario.
@@ -22,7 +22,7 @@ public class IdentityController : ApiControllerBase
     [HttpPost("register")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<string>> RegisterIdentity(RegisterIdentityCommand command)
+    public async Task<ActionResult<string>> RegisterAccount(RegisterAccountCommand command)
     {
         var result = await Sender.Send(command);
 

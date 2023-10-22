@@ -11,11 +11,11 @@ public interface IIdentityService
 
     Task<bool> AuthorizeAsync(string userId, string policyName);
 
-    Task<(Result Result, string Id)> CreateUserAsync(
+    Task<(Result Result, string Id)> CreateAccountAsync(
         ApplicationUser user,
         string password,
         IEnumerable<string> roles,
         CancellationToken cancellationToken);
 
-    Task<Result> DeleteUserAsync(ApplicationUser user);
+    Task<Result> DeleteAccountAsync(ApplicationUser user);
 }

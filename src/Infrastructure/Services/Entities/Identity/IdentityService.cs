@@ -48,14 +48,7 @@ public class IdentityService(
         return result.Succeeded;
     }
 
-    public async Task<Result> DeleteUserAsync(ApplicationUser user)
-    {
-        var result = await userManager.DeleteAsync(user);
-
-        return result.ToApplicationResult();
-    }
-
-    public async Task<(Result Result, string Id)> CreateUserAsync(
+    public async Task<(Result Result, string Id)> CreateAccountAsync(
         ApplicationUser user,
         string password,
         IEnumerable<string> roles,
@@ -75,5 +68,12 @@ public class IdentityService(
         await userManager.AddToRolesAsync(user, roles);
 
         return (identityResult.ToApplicationResult(), user.Id);
+    }
+
+    public async Task<Result> DeleteAccountAsync(ApplicationUser user)
+    {
+        var result = await userManager.DeleteAsync(user);
+
+        return result.ToApplicationResult();
     }
 }

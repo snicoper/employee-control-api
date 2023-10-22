@@ -10,7 +10,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Application.Features.Employee.Commands.InviteEmployee;
+namespace EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
 
 internal class InviteEmployeeHandler(
         IMapper mapper,
@@ -34,7 +34,7 @@ internal class InviteEmployeeHandler(
         var roles = new[] { Roles.Employee };
 
         // Crear nuevo usuario.
-        var (result, _) = await identityService.CreateUserAsync(user, password, roles, cancellationToken);
+        var (result, _) = await identityService.CreateAccountAsync(user, password, roles, cancellationToken);
 
         // Generar code de validación.
         var code = await userManager.GenerateEmailConfirmationTokenAsync(user);

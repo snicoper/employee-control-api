@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace EmployeeControl.Application.Features.Employee.Commands.InviteEmployee;
+namespace EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
 
 public class InviteEmployeeValidator : AbstractValidator<InviteEmployeeCommand>
 {

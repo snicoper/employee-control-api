@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace EmployeeControl.Application.Features.Identity.Commands.RegisterValidateEmail;
+namespace EmployeeControl.Application.Features.Accounts.Commands.RegisterValidateEmail;
 
 public class RegisterValidateEmailValidator : AbstractValidator<RegisterValidateEmailCommand>
 {

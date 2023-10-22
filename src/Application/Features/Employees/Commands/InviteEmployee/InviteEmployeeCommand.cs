@@ -5,13 +5,13 @@ using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 
-namespace EmployeeControl.Application.Features.Employee.Commands.InviteEmployee;
+namespace EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
 
 [Authorize(Roles = Roles.HumanResources)]
 public record InviteEmployeeCommand(string FirstName, string LastName, string Email, int CompanyId)
     : IRequest<Result>
 {
-    public class Mapping : Profile
+    internal class Mapping : Profile
     {
         public Mapping()
         {

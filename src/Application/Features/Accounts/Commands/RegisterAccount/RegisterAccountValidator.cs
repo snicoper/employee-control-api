@@ -2,11 +2,11 @@
 using FluentValidation;
 using Microsoft.Extensions.Localization;
 
-namespace EmployeeControl.Application.Features.Identity.Commands.RegisterIdentity;
+namespace EmployeeControl.Application.Features.Accounts.Commands.RegisterAccount;
 
-public class RegisterIdentityValidator : AbstractValidator<RegisterIdentityCommand>
+public class RegisterAccountValidator : AbstractValidator<RegisterAccountCommand>
 {
-    public RegisterIdentityValidator(IStringLocalizer<IdentityLocalizer> localizer)
+    public RegisterAccountValidator(IStringLocalizer<IdentityLocalizer> localizer)
     {
         RuleFor(r => r.FirstName)
             .NotEmpty();

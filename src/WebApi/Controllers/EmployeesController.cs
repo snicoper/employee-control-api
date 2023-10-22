@@ -1,5 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Features.Employee.Commands.InviteEmployee;
+using EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace EmployeeControl.Application.Features.Identity.Commands.RegisterIdentity;
+namespace EmployeeControl.Application.Features.Accounts.Commands.RegisterAccount;
 
-public record RegisterIdentityCommand(
+public record RegisterAccountCommand(
         string FirstName,
         string LastName,
         string Email,

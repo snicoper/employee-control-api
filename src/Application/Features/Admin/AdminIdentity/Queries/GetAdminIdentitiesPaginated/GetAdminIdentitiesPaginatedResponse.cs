@@ -5,7 +5,7 @@ namespace EmployeeControl.Application.Features.Admin.AdminIdentity.Queries.GetAd
 
 public record GetAdminIdentitiesPaginatedResponse(string Id, string FirstName, string LastName, string Email)
 {
-    public class Mapping : Profile
+    internal class Mapping : Profile
     {
         public Mapping()
         {

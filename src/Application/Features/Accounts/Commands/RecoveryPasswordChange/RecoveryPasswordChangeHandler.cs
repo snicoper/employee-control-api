@@ -9,7 +9,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
-namespace EmployeeControl.Application.Features.Identity.Commands.RecoveryPasswordChange;
+namespace EmployeeControl.Application.Features.Accounts.Commands.RecoveryPasswordChange;
 
 internal class RecoveryPasswordChangeHandler(
         UserManager<ApplicationUser> userManager,

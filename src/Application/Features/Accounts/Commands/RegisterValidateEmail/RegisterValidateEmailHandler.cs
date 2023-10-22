@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
-namespace EmployeeControl.Application.Features.Identity.Commands.RegisterValidateEmail;
+namespace EmployeeControl.Application.Features.Accounts.Commands.RegisterValidateEmail;
 
 internal class RegisterValidateEmailHandler(
         UserManager<ApplicationUser> userManager,
