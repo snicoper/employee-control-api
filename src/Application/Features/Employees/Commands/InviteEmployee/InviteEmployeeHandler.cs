@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Exceptions;
+using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging;
 
 namespace EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
 
@@ -17,12 +21,24 @@ internal class InviteEmployeeHandler(
         IApplicationDbContext context,
         IIdentityService identityService,
         IIdentityEmailsService identityEmailsService,
+        ICurrentUserService currentUserService,
+        IValidationFailureService validationFailureService,
+        IStringLocalizer<IdentityLocalizer> localizer,
+        ILogger<InviteEmployeeHandler> logger,
         UserManager<ApplicationUser> userManager)
     : IRequestHandler<InviteEmployeeCommand, Result>
 {
     public async Task<Result> Handle(InviteEmployeeCommand request, CancellationToken cancellationToken)
     {
-        var company = await context.Company.SingleOrDefaultAsync(c => c.Id == request.CompanyId, cancellationToken);
+        var companyId = currentUserService.CompanyId;
+        if (request.CompanyId != companyId)
+        {
+            var message = localizer["Ha ocurrido un error y no se puede invitar al empleado."];
+            logger.LogDebug("{message}: No coincide el CompanyId.", message);
+            validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NonFieldErrors, message);
+        }
+
+        var company = await context.Company.SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken);
 
         if (company is null)
         {

@@ -15,8 +15,7 @@ public class EmployeesController : ApiControllerBase
     /// <param name="request">RequestData.</param>
     /// <returns>Lista de empleados paginádos.</returns>
     [HttpPost("paginated")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<ResponseData<GetEmployeesPaginatedResponse>>> GetEmployeesPaginated(
         RequestData request)
     {
