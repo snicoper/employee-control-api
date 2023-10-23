@@ -1,5 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
+using EmployeeControl.Application.Features.Employees.Queries.GetEmployeeById;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeesPaginated;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,20 @@ public class EmployeesController : ApiControllerBase
         [FromQuery] RequestData request)
     {
         var result = await Sender.Send(new GetEmployeesPaginatedQuery(request));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Obtener empleado por su Id.
+    /// </summary>
+    /// <param name="id">Id empleado.</param>
+    /// <returns>Datos del empleado.</returns>
+    [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<GetEmployeeByIdResponse>> GetEmployeeById(string id)
+    {
+        var result = await Sender.Send(new GetEmployeeByIdQuery(id));
 
         return result;
     }
