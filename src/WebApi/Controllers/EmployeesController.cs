@@ -14,10 +14,10 @@ public class EmployeesController : ApiControllerBase
     /// </summary>
     /// <param name="request">RequestData.</param>
     /// <returns>Lista de empleados paginádos.</returns>
-    [HttpPost("paginated")]
+    [HttpGet("paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<ResponseData<GetEmployeesPaginatedResponse>>> GetEmployeesPaginated(
-        RequestData request)
+        [FromQuery] RequestData request)
     {
         var result = await Sender.Send(new GetEmployeesPaginatedQuery(request));
 

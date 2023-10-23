@@ -15,9 +15,11 @@ public static class QueryableFilterExtensions
             return source;
         }
 
+        var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
         var query = new StringBuilder();
-        var itemsFilter = JsonSerializer.Deserialize<List<RequestFilter>>(request.Filters)?.ToArray() ??
-                          Array.Empty<RequestFilter>();
+        var itemsFilter = JsonSerializer
+            .Deserialize<List<RequestFilter>>(request.Filters, options)?
+            .ToArray() ?? Array.Empty<RequestFilter>();
 
         if (itemsFilter.Length == 0)
         {

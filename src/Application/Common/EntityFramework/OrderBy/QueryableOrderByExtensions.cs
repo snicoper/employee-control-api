@@ -19,8 +19,10 @@ public static class QueryableOrderByExtensions
             return OrderByDefault(source);
         }
 
+        var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
+
         var requestItemOrderBy = JsonSerializer
-            .Deserialize<List<RequestOrderBy>>(request.Orders)?
+            .Deserialize<List<RequestOrderBy>>(request.Orders, options)?
             .OrderBy(o => o.Precedence)
             .ToArray() ?? Array.Empty<RequestOrderBy>();
 
