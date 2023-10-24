@@ -274,6 +274,9 @@ dotnet_diagnostic.SA1502.severity = error
 # Braces for multi-line statements should not share line.
 dotnet_diagnostic.SA1500.severity = error
 
+# Elements should be separated by blank line.
+dotnet_diagnostic.SA1516.severity = error
+
 # Single-line comments should not be followed by blank line.
 dotnet_diagnostic.SA1512.severity = suggestion
 
@@ -303,9 +306,6 @@ dotnet_diagnostic.SA1101.severity = none
 
 # Use trailing comma in multi-line initializers.
 dotnet_diagnostic.SA1413.severity = none
-
-# Elements should be separated by blank line.
-dotnet_diagnostic.SA1516.severity = none
 
 # Field names should not begin with underscore.
 dotnet_diagnostic.SA1309.severity = none
