@@ -1,4 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Features.Employees.Commands.ActivateEmployee;
+using EmployeeControl.Application.Features.Employees.Commands.DeactivateEmployee;
 using EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeeById;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeesPaginated;
@@ -52,5 +54,37 @@ public class EmployeesController : ApiControllerBase
         var result = await Sender.Send(command);
 
         return ObjectResultWithStatusCode(result, StatusCodes.Status201Created);
+    }
+
+    /// <summary>
+    /// Desactivar un empleado.
+    /// </summary>
+    /// <param name="command">Datos del empleado a desactivar.</param>
+    /// <returns>Result.</returns>
+    [HttpPost("deactivate")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Result>> DeactivateEmployee(DeactivateEmployeeCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Activar un empleado.
+    /// </summary>
+    /// <param name="command">Datos del empleado a activar.</param>
+    /// <returns>Result.</returns>
+    [HttpPost("activate")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Result>> ActivateEmployee(ActivateEmployeeCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
     }
 }
