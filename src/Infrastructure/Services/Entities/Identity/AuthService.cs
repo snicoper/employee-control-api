@@ -13,7 +13,7 @@ namespace EmployeeControl.Infrastructure.Services.Entities.Identity;
 public class AuthService(
         UserManager<ApplicationUser> userManager,
         IOptions<JwtSettings> jwtSettings,
-        IDateTimeService dateTimeService,
+        TimeProvider dateTime,
         ITokenService tokenService,
         IStringLocalizer<IdentityLocalizer> localizer,
         IValidationFailureService validationFailureService)
@@ -52,7 +52,7 @@ public class AuthService(
     {
         var user = userManager.Users.SingleOrDefault(au => au.RefreshToken == refreshToken);
 
-        if (user is null || user.RefreshTokenExpiryTime <= dateTimeService.UtcNow)
+        if (user is null || user.RefreshTokenExpiryTime <= dateTime.GetUtcNow())
         {
             throw new UnauthorizedAccessException();
         }
@@ -68,7 +68,7 @@ public class AuthService(
         var newRefreshToken = tokenService.GenerateRefreshToken();
 
         user.RefreshToken = newRefreshToken;
-        user.RefreshTokenExpiryTime = dateTimeService.UtcNow.AddDays(jwtSettings.Value.RefreshTokenLifeTimeDays);
+        user.RefreshTokenExpiryTime = dateTime.GetUtcNow().AddDays(jwtSettings.Value.RefreshTokenLifeTimeDays);
 
         await userManager.UpdateAsync(user);
 
