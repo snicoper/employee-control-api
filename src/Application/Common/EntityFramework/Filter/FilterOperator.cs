@@ -26,7 +26,7 @@ public static class FilterOperator
             NotEqualTo => " != ",
             GreaterThan => " > ",
             GreaterThanOrEqual => " >= ",
-            LessThan => "<",
+            LessThan => " < ",
             LessThanOrEqualTo => " <= ",
             Contains => ".ToLower().Contains(@{0}) ",
             StartsWith => ".ToLower().StartsWith(@{0}) ",

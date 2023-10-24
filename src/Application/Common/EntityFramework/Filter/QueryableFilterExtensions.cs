@@ -29,11 +29,12 @@ public static class QueryableFilterExtensions
         var values = itemsFilter
             .Select(filter => filter.RelationalOperator == FilterOperator.Contains
                 ? filter.Value?.ToLower()
-                : filter.Value);
+                : filter.Value)
+            .ToDynamicArray();
 
         for (var position = 0; position < itemsFilter.Length; position++)
         {
-            ComposeQuery(itemsFilter[position], query, position);
+            query = ComposeQuery(itemsFilter[position], query, position);
         }
 
         source = source.Where(query.ToString(), values);
@@ -41,7 +42,7 @@ public static class QueryableFilterExtensions
         return source;
     }
 
-    private static void ComposeQuery(RequestFilter filter, StringBuilder query, int valuePosition)
+    private static StringBuilder ComposeQuery(RequestFilter filter, StringBuilder query, int valuePosition)
     {
         var relationalOperator = FilterOperator.GetRelationalOperator(filter.RelationalOperator.ToEmptyIfNull());
         var logicalOperator = !string.IsNullOrEmpty(filter.LogicalOperator)
@@ -51,6 +52,8 @@ public static class QueryableFilterExtensions
         query.Append(
             filter.RelationalOperator != FilterOperator.Contains
                 ? $"{logicalOperator} {filter.PropertyName} {relationalOperator} @{valuePosition}"
-                : $"{logicalOperator} {string.Format(filter.PropertyName + relationalOperator, valuePosition)}");
+                : $"{logicalOperator} {string.Format(filter.PropertyName?.UpperCaseFirst() + relationalOperator, valuePosition)}");
+
+        return query;
     }
 }
