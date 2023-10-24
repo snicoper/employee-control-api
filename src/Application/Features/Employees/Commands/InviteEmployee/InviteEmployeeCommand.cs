@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
@@ -9,7 +8,7 @@ namespace EmployeeControl.Application.Features.Employees.Commands.InviteEmployee
 
 [Authorize(Roles = Roles.HumanResources)]
 public record InviteEmployeeCommand(string FirstName, string LastName, string Email, int CompanyId)
-    : IRequest<Result>
+    : IRequest<string>
 {
     internal class Mapping : Profile
     {

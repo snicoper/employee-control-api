@@ -280,21 +280,6 @@ dotnet_diagnostic.SA1512.severity = suggestion
 # A C# using directive is placed outside of a namespace element.
 dotnet_diagnostic.SA1200.severity = none
 
-# Using directives should be ordered alphabetically by namespace.
-dotnet_diagnostic.SA1210.severity = none
-
-# Keywords should be spaced correctly.
-dotnet_diagnostic.SA1000.severity = none
-
-# Parameter names should begin with lower-case letter.
-dotnet_diagnostic.SA1313.severity = none
-
-# Closing parenthesis should be spaced correctly.
-dotnet_diagnostic.SA1009.severity = none
-
-# Code should not contain empty statements.
-dotnet_diagnostic.SA1106.severity = none
-
 # Enumeration items should be documented.
 dotnet_diagnostic.SA1602.severity = none
 
@@ -324,3 +309,18 @@ dotnet_diagnostic.SA1516.severity = none
 
 # Field names should not begin with underscore.
 dotnet_diagnostic.SA1309.severity = none
+
+# Using directives should be ordered alphabetically by namespace.
+dotnet_diagnostic.SA1210.severity = none
+
+# Keywords should be spaced correctly.
+dotnet_diagnostic.SA1000.severity = none
+
+# Parameter names should begin with lower-case letter.
+dotnet_diagnostic.SA1313.severity = none
+
+# Closing parenthesis should be spaced correctly.
+dotnet_diagnostic.SA1009.severity = none
+
+# Code should not contain empty statements.
+dotnet_diagnostic.SA1106.severity = none

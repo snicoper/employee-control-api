@@ -4,7 +4,6 @@ using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
-using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
@@ -26,9 +25,9 @@ internal class InviteEmployeeHandler(
         IStringLocalizer<IdentityLocalizer> localizer,
         ILogger<InviteEmployeeHandler> logger,
         UserManager<ApplicationUser> userManager)
-    : IRequestHandler<InviteEmployeeCommand, Result>
+    : IRequestHandler<InviteEmployeeCommand, string>
 {
-    public async Task<Result> Handle(InviteEmployeeCommand request, CancellationToken cancellationToken)
+    public async Task<string> Handle(InviteEmployeeCommand request, CancellationToken cancellationToken)
     {
         var companyId = currentUserService.CompanyId;
         if (request.CompanyId != companyId)
@@ -50,7 +49,7 @@ internal class InviteEmployeeHandler(
         var roles = new[] { Roles.Employee };
 
         // Crear nuevo usuario.
-        var (result, _) = await identityService.CreateAccountAsync(user, password, roles, cancellationToken);
+        var (_, employeeId) = await identityService.CreateAccountAsync(user, password, roles, cancellationToken);
 
         // Generar code de validación.
         var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -58,6 +57,6 @@ internal class InviteEmployeeHandler(
         // Mandar email de verificación de Email.
         await identityEmailsService.SendInviteEmployeeAsync(user, company, code);
 
-        return result;
+        return employeeId;
     }
 }

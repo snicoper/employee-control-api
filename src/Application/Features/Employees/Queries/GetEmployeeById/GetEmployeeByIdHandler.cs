@@ -23,6 +23,7 @@ public class GetEmployeeByIdHandler(
         await ValidateForReadInformationAsync(employee);
 
         var result = mapper.Map<ApplicationUser, GetEmployeeByIdResponse>(employee!);
+        result.UserRoles = await userManager.GetRolesAsync(employee!);
 
         return result;
     }
