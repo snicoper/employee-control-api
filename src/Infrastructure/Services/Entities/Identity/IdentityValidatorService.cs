@@ -19,10 +19,12 @@ public class IdentityValidatorService(
 {
     public async Task UniqueEmailValidationAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
-        var isRegistered = await userManager.Users
-            .AnyAsync(au => au.Email == user.Email, cancellationToken);
+        // Si es un update, omitir el email actual del usuario.
+        var emailExists = string.IsNullOrEmpty(user.Id)
+            ? await userManager.Users.AnyAsync(au => au.Email == user.Email, cancellationToken)
+            : await userManager.Users.AnyAsync(au => au.Email == user.Email && au.Id != user.Id, cancellationToken);
 
-        if (isRegistered)
+        if (emailExists)
         {
             var errorMessage = localizer["El email ya esta registrado."];
             logger.LogWarning("{message}", errorMessage);

@@ -55,6 +55,15 @@ public class IdentityService(
         return result.Succeeded;
     }
 
+    public IQueryable<ApplicationUser> GetAccountsByCompanyId(int companyId)
+    {
+        var users = userManager
+            .Users
+            .Where(au => au.CompanyId == companyId);
+
+        return users;
+    }
+
     public async Task<(Result Result, string Id)> CreateAccountAsync(
         ApplicationUser user,
         string password,
@@ -77,19 +86,26 @@ public class IdentityService(
         return (identityResult.ToApplicationResult(), user.Id);
     }
 
+    public async Task<Result> UpdateAccountAsync(ApplicationUser user, CancellationToken cancellationToken)
+    {
+        // Validaciones.
+        await identityValidatorService.UserValidationAsync(user);
+        await identityValidatorService.UniqueEmailValidationAsync(user, cancellationToken);
+        validationFailureService.RaiseExceptionIfExistsErrors();
+
+        user.UserName = user.Email;
+
+        await userManager.UpdateNormalizedEmailAsync(user);
+        await userManager.UpdateNormalizedUserNameAsync(user);
+        var identityResult = await userManager.UpdateAsync(user);
+
+        return identityResult.ToApplicationResult();
+    }
+
     public async Task<Result> DeleteAccountAsync(ApplicationUser user)
     {
         var result = await userManager.DeleteAsync(user);
 
         return result.ToApplicationResult();
-    }
-
-    public IQueryable<ApplicationUser> GetAccountsByCompanyId(int companyId)
-    {
-        var users = userManager
-            .Users
-            .Where(au => au.CompanyId == companyId);
-
-        return users;
     }
 }
