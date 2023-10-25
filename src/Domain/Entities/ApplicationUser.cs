@@ -14,7 +14,7 @@ public class ApplicationUser : IdentityUser
 
     public bool Active { get; set; }
 
-    public DateTimeOffset RefreshTokenExpiryTime { get; set; }
+    public DateTimeOffset? RefreshTokenExpiryTime { get; set; }
 
     public Company? Company { get; set; }
 }

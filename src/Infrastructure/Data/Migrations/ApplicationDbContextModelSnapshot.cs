@@ -80,7 +80,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<DateTimeOffset>("RefreshTokenExpiryTime")
+                    b.Property<DateTimeOffset?>("RefreshTokenExpiryTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("SecurityStamp")

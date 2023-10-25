@@ -1,11 +1,10 @@
 using EmployeeControl.Domain.Entities;
-using EmployeeControl.Infrastructure.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EmployeeControl.Infrastructure.Data.Configurations;
 
-public class CompanyConfiguration : BaseAuditableEntityConfiguration<Company>, IEntityTypeConfiguration<Company>
+public class CompanyConfiguration : IEntityTypeConfiguration<Company>
 {
     public void Configure(EntityTypeBuilder<Company> builder)
     {
@@ -26,8 +25,5 @@ public class CompanyConfiguration : BaseAuditableEntityConfiguration<Company>, I
         builder.Property(c => c.Name)
             .HasMaxLength(50)
             .IsRequired();
-
-        // Auditable entities.
-        ConfigureAuditableEntities(builder);
     }
 }
