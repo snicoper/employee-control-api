@@ -24,14 +24,8 @@ internal class ActivateEmployeeHandler(
     public async Task<Result> Handle(ActivateEmployeeCommand request, CancellationToken cancellationToken)
     {
         var currentCompanyId = currentUserService.CompanyId;
-        var user = userManager
-            .Users
-            .SingleOrDefault(au => au.Id == request.EmployeeId && au.CompanyId == currentCompanyId);
-
-        if (user is null)
-        {
-            throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
-        }
+        var user = userManager.Users.SingleOrDefault(au => au.Id == request.EmployeeId && au.CompanyId == currentCompanyId)
+                   ?? throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
 
         // La cuenta del EnterpriseAdministrator, no se puede desactivar.
         var isEnterpriseAdministrator = await identityService.IsInRoleAsync(user.Id, Roles.EnterpriseAdministrator);

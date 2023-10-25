@@ -37,12 +37,8 @@ internal class InviteEmployeeHandler(
             validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NonFieldErrors, message);
         }
 
-        var company = await context.Company.SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken);
-
-        if (company is null)
-        {
-            throw new NotFoundException(nameof(Company), nameof(Company.Id));
-        }
+        var company = await context.Company.SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken)
+                      ?? throw new NotFoundException(nameof(Company), nameof(Company.Id));
 
         var user = mapper.Map<InviteEmployeeCommand, ApplicationUser>(request);
         var password = CommonUtils.GenerateRandomPassword(10);

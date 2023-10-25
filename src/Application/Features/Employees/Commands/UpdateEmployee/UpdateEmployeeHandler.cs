@@ -24,8 +24,8 @@ internal class UpdateEmployeeHandler(
 {
     public async Task<Result> Handle(UpdateEmployeeCommand request, CancellationToken cancellationToken)
     {
-        var user = await userManager.FindByIdAsync(request.Id);
-        user = user ?? throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
+        var user = await userManager.FindByIdAsync(request.Id)
+                   ?? throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
 
         // Un usuario no puede editarse asi mismo.
         if (currentUserService.Id == user.Id)
