@@ -47,14 +47,13 @@ public class ApplicationDbContextInitialize(
 
     private async Task CreateCompanies()
     {
-        if (context.Company.Any(c => c.Name == "Company test"))
+        var companies = new List<Company> { new() { Name = "Company test" }, new() { Name = "Test Company" } };
+
+        foreach (var company in companies.Where(company => !context.Company.Any(c => c.Name == company.Name)))
         {
-            return;
+            await context.Company.AddAsync(company);
         }
 
-        var company = new Company { Name = "Company test" };
-
-        await context.Company.AddAsync(company);
         await context.SaveChangesAsync(CancellationToken.None);
     }
 
@@ -64,8 +63,8 @@ public class ApplicationDbContextInitialize(
         var createRole = new List<IdentityRole>
         {
             new(Roles.Administrator),
-            new(Roles.EnterpriseAdministrator),
             new(Roles.Staff),
+            new(Roles.EnterpriseAdministrator),
             new(Roles.HumanResources),
             new(Roles.Employee)
         };
@@ -78,19 +77,12 @@ public class ApplicationDbContextInitialize(
 
     private async Task CreateUsers()
     {
-        var company = await context.Company
-            .AsNoTracking()
-            .SingleOrDefaultAsync(c => c.Name == "Company test");
+        var companies = context.Company.ToList();
 
-        if (company is null)
-        {
-            return;
-        }
-
-        // Default users.
+        // Administrator user.
         var user = new ApplicationUser
         {
-            CompanyId = company.Id,
+            CompanyId = companies[0].Id,
             UserName = "admin@localhost",
             FirstName = "Admin",
             LastName = "Admin1",
@@ -99,18 +91,35 @@ public class ApplicationDbContextInitialize(
             EmailConfirmed = true
         };
 
-        if (!await userManager.Users.AnyAsync(u => u.Email != user.Email))
+        if (!await userManager.Users.AnyAsync(u => u.Email == user.Email))
         {
             await userManager.CreateAsync(user, "Password4!");
 
             var rolesToAdd = new[]
             {
-                Roles.Administrator,
-                Roles.Employee,
-                Roles.Staff,
-                Roles.HumanResources,
-                Roles.EnterpriseAdministrator
+                Roles.Administrator, Roles.Staff, Roles.EnterpriseAdministrator, Roles.HumanResources, Roles.Employee
             };
+
+            await userManager.AddToRolesAsync(user, rolesToAdd);
+        }
+
+        // EnterpriseAdministrator user.
+        user = new ApplicationUser
+        {
+            CompanyId = companies[1].Id,
+            UserName = "snicoper@gmail.com",
+            FirstName = "Salvador",
+            LastName = "Nicolas",
+            Email = "snicoper@gmail.com",
+            Active = true,
+            EmailConfirmed = true
+        };
+
+        if (!await userManager.Users.AnyAsync(u => u.Email == user.Email))
+        {
+            await userManager.CreateAsync(user, "Password4!");
+
+            var rolesToAdd = new[] { Roles.EnterpriseAdministrator, Roles.HumanResources, Roles.Employee };
 
             await userManager.AddToRolesAsync(user, rolesToAdd);
         }
