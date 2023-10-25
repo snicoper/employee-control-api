@@ -21,16 +21,23 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
             .IsRequired();
 
         // Properties.
+        builder.Property(au => au.CompanyId)
+            .IsRequired();
+
+        builder.Property(au => au.Email)
+            .IsRequired()
+            .HasMaxLength(256);
+
         builder.Property(au => au.FirstName)
-            .HasMaxLength(50)
+            .HasMaxLength(256)
             .IsRequired();
 
         builder.Property(au => au.LastName)
-            .HasMaxLength(50)
+            .HasMaxLength(256)
             .IsRequired();
 
         builder.Property(au => au.RefreshToken)
-            .HasMaxLength(50);
+            .HasMaxLength(256);
 
         builder.Property(au => au.RefreshTokenExpiryTime);
     }

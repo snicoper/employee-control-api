@@ -2,6 +2,7 @@
 using EmployeeControl.Application.Features.Employees.Commands.ActivateEmployee;
 using EmployeeControl.Application.Features.Employees.Commands.DeactivateEmployee;
 using EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
+using EmployeeControl.Application.Features.Employees.Commands.UpdateEmployee;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeeById;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeesPaginated;
 using EmployeeControl.WebApi.Infrastructure;
@@ -82,6 +83,22 @@ public class EmployeesController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> ActivateEmployee(ActivateEmployeeCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Actualizar datos de empleado.
+    /// </summary>
+    /// <param name="command">Datos del empleado a actualizar.</param>
+    /// <returns>Result.</returns>
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Result>> UpdateEmployee(UpdateEmployeeCommand command)
     {
         var result = await Sender.Send(command);
 

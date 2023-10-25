@@ -23,7 +23,7 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
 
         // Properties.
         builder.Property(c => c.Name)
-            .HasMaxLength(50)
+            .HasMaxLength(256)
             .IsRequired();
     }
 }

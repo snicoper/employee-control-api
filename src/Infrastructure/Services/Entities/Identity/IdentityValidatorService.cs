@@ -19,7 +19,8 @@ public class IdentityValidatorService(
 {
     public async Task UniqueEmailValidationAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
-        var isRegistered = await userManager.Users.AnyAsync(au => au.Email == user.Email, cancellationToken);
+        var isRegistered = await userManager.Users
+            .AnyAsync(au => au.Email == user.Email, cancellationToken);
 
         if (isRegistered)
         {
@@ -46,16 +47,6 @@ public class IdentityValidatorService(
         if (!validPassword.Succeeded)
         {
             var errorMessage = localizer["La contraseña no es valida."];
-            logger.LogWarning("{message}", errorMessage);
-            validationFailureService.Add("Password", errorMessage);
-        }
-    }
-
-    public async Task CheckPasswordValidationAsync(ApplicationUser user, string password)
-    {
-        if (!await userManager.CheckPasswordAsync(user, password))
-        {
-            var errorMessage = localizer["La contraseña no parece valida."];
             logger.LogWarning("{message}", errorMessage);
             validationFailureService.Add("Password", errorMessage);
         }

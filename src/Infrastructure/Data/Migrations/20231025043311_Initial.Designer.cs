@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231025002643_Initial")]
+    [Migration("20231025043311_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -44,6 +44,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
@@ -52,13 +53,13 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");
@@ -84,8 +85,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("RefreshToken")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<DateTimeOffset?>("RefreshTokenExpiryTime")
                         .HasColumnType("timestamp with time zone");
@@ -142,8 +143,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
 

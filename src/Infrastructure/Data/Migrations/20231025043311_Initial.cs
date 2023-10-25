@@ -31,7 +31,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -69,14 +69,14 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
                     CompanyId = table.Column<int>(type: "integer", nullable: false),
-                    FirstName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    RefreshToken = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    FirstName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    LastName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    RefreshToken = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Active = table.Column<bool>(type: "boolean", nullable: false),
                     RefreshTokenExpiryTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
                     PasswordHash = table.Column<string>(type: "text", nullable: true),
