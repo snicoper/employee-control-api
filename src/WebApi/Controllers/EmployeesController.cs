@@ -5,6 +5,7 @@ using EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
 using EmployeeControl.Application.Features.Employees.Commands.UpdateEmployee;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeeById;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeesPaginated;
+using EmployeeControl.Application.Features.Employees.Queries.GetRolesByEmployeeId;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +39,20 @@ public class EmployeesController : ApiControllerBase
     public async Task<ActionResult<GetEmployeeByIdResponse>> GetEmployeeById(string id)
     {
         var result = await Sender.Send(new GetEmployeeByIdQuery(id));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Obtener roles de un empleado por su Id.
+    /// </summary>
+    /// <param name="id">Id empleado.</param>
+    /// <returns>Roles del empleado.</returns>
+    [HttpGet("{id}/roles")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<GetRolesByEmployeeIdResponse>> GetRolesByEmployeeId(string id)
+    {
+        var result = await Sender.Send(new GetRolesByEmployeeIdQuery(id));
 
         return result;
     }
