@@ -75,11 +75,27 @@ public class EmployeesController : ApiControllerBase
     }
 
     /// <summary>
+    /// Actualizar datos de empleado.
+    /// </summary>
+    /// <param name="command">Datos del empleado a actualizar.</param>
+    /// <returns>Result.</returns>
+    [HttpPut]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Result>> UpdateEmployee(UpdateEmployeeCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
     /// Desactivar un empleado.
     /// </summary>
     /// <param name="command">Datos del empleado a desactivar.</param>
     /// <returns>Result.</returns>
-    [HttpPost("deactivate")]
+    [HttpPut("{id}/deactivate")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -95,7 +111,7 @@ public class EmployeesController : ApiControllerBase
     /// </summary>
     /// <param name="command">Datos del empleado a activar.</param>
     /// <returns>Result.</returns>
-    [HttpPost("activate")]
+    [HttpPut("{id}/activate")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -111,7 +127,7 @@ public class EmployeesController : ApiControllerBase
     /// </summary>
     /// <param name="command">Id empleado.</param>
     /// <returns>Result.</returns>
-    [HttpPost("{id}/add-role-rrhh")]
+    [HttpPut("{id}/add-role-rrhh")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -127,27 +143,11 @@ public class EmployeesController : ApiControllerBase
     /// </summary>
     /// <param name="command">Id empleado.</param>
     /// <returns>Result.</returns>
-    [HttpPost("{id}/remove-role-rrhh")]
+    [HttpPut("{id}/remove-role-rrhh")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> RemoveRoleHumanResources(RemoveRoleHumanResourcesCommand command)
-    {
-        var result = await Sender.Send(command);
-
-        return result;
-    }
-
-    /// <summary>
-    /// Actualizar datos de empleado.
-    /// </summary>
-    /// <param name="command">Datos del empleado a actualizar.</param>
-    /// <returns>Result.</returns>
-    [HttpPut]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Result>> UpdateEmployee(UpdateEmployeeCommand command)
     {
         var result = await Sender.Send(command);
 
