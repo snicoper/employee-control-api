@@ -1,21 +1,29 @@
-﻿using EmployeeControl.Application.Common.Exceptions;
+﻿using AutoMapper;
+using EmployeeControl.Application.Common.Exceptions;
+using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeControl.Application.Features.Employees.Queries.GetRolesByEmployeeId;
 
-internal class GetRolesByEmployeeIdHandler(UserManager<ApplicationUser> userManager)
-    : IRequestHandler<GetRolesByEmployeeIdQuery, GetRolesByEmployeeIdResponse>
+internal class GetRolesByEmployeeIdHandler(
+        UserManager<ApplicationUser> userManager,
+        IIdentityRoleService identityRoleService,
+        IMapper mapper)
+    : IRequestHandler<GetRolesByEmployeeIdQuery, ICollection<GetRolesByEmployeeIdResponse>>
 {
-    public async Task<GetRolesByEmployeeIdResponse> Handle(GetRolesByEmployeeIdQuery request, CancellationToken cancellationToken)
+    public async Task<ICollection<GetRolesByEmployeeIdResponse>> Handle(
+        GetRolesByEmployeeIdQuery request,
+        CancellationToken cancellationToken)
     {
         var user = await userManager.FindByIdAsync(request.EmployeeId)
                    ?? throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
 
-        var userRoles = await userManager.GetRolesAsync(user) ??
-                        throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
+        var identityRoles = await identityRoleService.GetRolesByUseAsync(user);
 
-        throw new NotImplementedException();
+        var result = mapper.Map<List<IdentityRole>, ICollection<GetRolesByEmployeeIdResponse>>(identityRoles);
+
+        return result;
     }
 }

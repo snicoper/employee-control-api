@@ -44,17 +44,17 @@ public class EmployeesController : ApiControllerBase
     }
 
     /// <summary>
-    /// Obtener roles de un empleado por su Id.
+    /// Obtener roles de un empleado por el employeeId.
     /// </summary>
     /// <param name="id">Id empleado.</param>
     /// <returns>Roles del empleado.</returns>
     [HttpGet("{id}/roles")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<GetRolesByEmployeeIdResponse>> GetRolesByEmployeeId(string id)
+    public async Task<ActionResult<ICollection<GetRolesByEmployeeIdResponse>>> GetRolesByEmployeeId(string id)
     {
         var result = await Sender.Send(new GetRolesByEmployeeIdQuery(id));
 
-        return result;
+        return result.ToList();
     }
 
     /// <summary>
