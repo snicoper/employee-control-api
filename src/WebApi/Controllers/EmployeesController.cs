@@ -1,7 +1,9 @@
 ﻿using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.Employees.Commands.ActivateEmployee;
+using EmployeeControl.Application.Features.Employees.Commands.AddRoleHumanResources;
 using EmployeeControl.Application.Features.Employees.Commands.DeactivateEmployee;
 using EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
+using EmployeeControl.Application.Features.Employees.Commands.RemoveRoleHumanResources;
 using EmployeeControl.Application.Features.Employees.Commands.UpdateEmployee;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeeById;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeesPaginated;
@@ -98,6 +100,38 @@ public class EmployeesController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> ActivateEmployee(ActivateEmployeeCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Añadir rol de RRHH a un empleado.
+    /// </summary>
+    /// <param name="command">Id empleado.</param>
+    /// <returns>Result.</returns>
+    [HttpPost("{id}/add-role-rrhh")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Result>> AddRoleHumanResources(AddRoleHumanResourcesCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Eliminar rol de RRHH a un empleado.
+    /// </summary>
+    /// <param name="command">Id empleado.</param>
+    /// <returns>Result.</returns>
+    [HttpPost("{id}/remove-role-rrhh")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Result>> RemoveRoleHumanResources(RemoveRoleHumanResourcesCommand command)
     {
         var result = await Sender.Send(command);
 
