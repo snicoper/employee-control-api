@@ -29,5 +29,7 @@ public class CompanyTaskConfiguration : IEntityTypeConfiguration<CompanyTask>
         builder.Property(ct => ct.Name)
             .IsRequired()
             .HasMaxLength(256);
+
+        builder.Property(ct => ct.Active);
     }
 }

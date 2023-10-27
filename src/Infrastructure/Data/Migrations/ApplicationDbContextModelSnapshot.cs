@@ -160,6 +160,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("CompanyId")
                         .HasColumnType("integer");
 

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231027184419_Initial")]
+    [Migration("20231027203746_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -166,6 +166,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("integer");
