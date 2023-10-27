@@ -1,6 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.CompanyTasks.Commands.CreateCompanyTask;
 using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksById;
+using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksByIdAndCompanyId;
 using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksPaginated;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -37,6 +38,25 @@ public class CompanyTasksController : ApiControllerBase
     public async Task<ActionResult<GetCompanyTasksByIdResponse>> GetCompanyTasksById(int id)
     {
         var result = await Sender.Send(new GetCompanyTasksByIdQuery(id));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Obtener una tarea por su Id.
+    /// <para>Solo se obtiene la tarea si es de la misma compañía.</para>
+    /// </summary>
+    /// <param name="id">Id de la tarea.</param>
+    /// <param name="companyId">Id compañía.</param>
+    [HttpGet("{id}/companies/{companyId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<GetCompanyTasksByIdAndCompanyIdResponse>> GetCompanyTasksByIdAndCompanyId(
+        int id,
+        int companyId)
+    {
+        var result = await Sender.Send(new GetCompanyTasksByIdAndCompanyIdQuery(id, companyId));
 
         return result;
     }
