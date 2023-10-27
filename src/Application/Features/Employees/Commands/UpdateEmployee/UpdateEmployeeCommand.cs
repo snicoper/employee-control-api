@@ -8,7 +8,13 @@ using MediatR;
 namespace EmployeeControl.Application.Features.Employees.Commands.UpdateEmployee;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record UpdateEmployeeCommand(string Id, string FirstName, string LastName, string Email, string? PhoneNumber)
+public record UpdateEmployeeCommand(
+        string Id,
+        string FirstName,
+        string LastName,
+        string Email,
+        string? PhoneNumber,
+        DateTimeOffset? EntryDate)
     : IRequest<Result>
 {
     internal class Mapping : Profile
