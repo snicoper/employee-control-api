@@ -26,7 +26,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Company",
+                name: "Companies",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -39,7 +39,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Company", x => x.Id);
+                    table.PrimaryKey("PK_Companies", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,9 +94,33 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AspNetUsers_Company_CompanyId",
+                        name: "FK_AspNetUsers_Companies_CompanyId",
                         column: x => x.CompanyId,
-                        principalTable: "Company",
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CompanyTasks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    CompanyId = table.Column<int>(type: "integer", nullable: false),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "text", nullable: true),
+                    LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompanyTasks", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CompanyTasks_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -241,15 +265,26 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Company_Id",
-                table: "Company",
+                name: "IX_Companies_Id",
+                table: "Companies",
                 column: "Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Company_Name",
-                table: "Company",
+                name: "IX_Companies_Name",
+                table: "Companies",
                 column: "Name",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CompanyTasks_CompanyId_Name",
+                table: "CompanyTasks",
+                columns: new[] { "CompanyId", "Name" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CompanyTasks_Id",
+                table: "CompanyTasks",
+                column: "Id");
         }
 
         /// <inheritdoc />
@@ -271,13 +306,16 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CompanyTasks");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Company");
+                name: "Companies");
         }
     }
 }

@@ -6,7 +6,9 @@ namespace EmployeeControl.Application.Common.Interfaces.Data;
 
 public interface IApplicationDbContext
 {
-    DbSet<Company> Company { get; }
+    DbSet<Company> Companies { get; }
+
+    DbSet<CompanyTask> CompanyTasks { get; }
 
     DatabaseFacade Database { get; }
 

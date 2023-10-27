@@ -13,7 +13,7 @@ internal class GetCompanyByCurrentUserHandler(ICurrentUserService currentUserSer
     public Task<GetCompanyByCurrentUserResponse> Handle(GetCompanyByCurrentUserQuery request, CancellationToken cancellationToken)
     {
         var companyId = currentUserService.CompanyId;
-        var company = context.Company.SingleOrDefault(c => c.Id == companyId)
+        var company = context.Companies.SingleOrDefault(c => c.Id == companyId)
                       ?? throw new NotFoundException(nameof(Company), nameof(Company.Id));
 
         var result = new GetCompanyByCurrentUserResponse(company.Id, company.Name.ToEmptyIfNull());

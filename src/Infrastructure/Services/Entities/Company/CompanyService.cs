@@ -19,7 +19,7 @@ public class CompanyService(
         await companyValidatorService.UniqueNameValidationAsync(company.Name.ToEmptyIfNull(), cancellationToken);
         validationFailureService.RaiseExceptionIfExistsErrors();
 
-        await context.Company.AddAsync(company, cancellationToken);
+        await context.Companies.AddAsync(company, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
 
         return company;

@@ -149,7 +149,45 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Company");
+                    b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyTask", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("LastModified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("CompanyId", "Name")
+                        .IsUnique();
+
+                    b.ToTable("CompanyTasks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -295,6 +333,17 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyTask", b =>
+                {
+                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
+                        .WithMany("CompanyTasks")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -349,6 +398,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
             modelBuilder.Entity("EmployeeControl.Domain.Entities.Company", b =>
                 {
                     b.Navigation("ApplicationUsers");
+
+                    b.Navigation("CompanyTasks");
                 });
 #pragma warning restore 612, 618
         }

@@ -50,9 +50,9 @@ public class ApplicationDbContextInitialize(
     {
         var companies = new List<Company> { new() { Name = "Company test" }, new() { Name = "Test Company" } };
 
-        foreach (var company in companies.Where(company => !context.Company.Any(c => c.Name == company.Name)))
+        foreach (var company in companies.Where(company => !context.Companies.Any(c => c.Name == company.Name)))
         {
-            await context.Company.AddAsync(company);
+            await context.Companies.AddAsync(company);
         }
 
         await context.SaveChangesAsync(CancellationToken.None);
@@ -78,7 +78,7 @@ public class ApplicationDbContextInitialize(
 
     private async Task CreateUsers()
     {
-        var companies = context.Company.ToList();
+        var companies = context.Companies.ToList();
 
         // Administrator user.
         var user = new ApplicationUser

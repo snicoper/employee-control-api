@@ -17,10 +17,6 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.HasIndex(c => c.Name)
             .IsUnique();
 
-        // Relations.
-        builder.HasMany(c => c.ApplicationUsers)
-            .WithOne(au => au.Company);
-
         // Properties.
         builder.Property(c => c.Name)
             .HasMaxLength(256)

@@ -10,7 +10,9 @@ namespace EmployeeControl.Infrastructure.Data;
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
     : IdentityDbContext<ApplicationUser>(options), IApplicationDbContext
 {
-    public DbSet<Company> Company => Set<Company>();
+    public DbSet<Company> Companies => Set<Company>();
+
+    public DbSet<CompanyTask> CompanyTasks => Set<CompanyTask>();
 
     public new DatabaseFacade Database => base.Database;
 

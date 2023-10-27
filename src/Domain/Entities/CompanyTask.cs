@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Domain.Entities;
 
-public class Job : BaseAuditableEntity
+public class CompanyTask : BaseAuditableEntity
 {
     public int Id { get; set; }
 
