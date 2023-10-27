@@ -10,6 +10,7 @@ public record GetEmployeeByIdResponse(
     string LastName,
     string PhoneNumber,
     string Email,
+    DateTimeOffset? EntryDate,
     bool Active,
     bool EmailConfirmed)
 {

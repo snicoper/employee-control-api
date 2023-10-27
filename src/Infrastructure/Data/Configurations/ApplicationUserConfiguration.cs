@@ -40,5 +40,6 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
             .HasMaxLength(256);
 
         builder.Property(au => au.RefreshTokenExpiryTime);
+        builder.Property(au => au.EntryDate);
     }
 }

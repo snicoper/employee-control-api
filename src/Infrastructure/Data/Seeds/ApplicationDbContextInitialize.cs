@@ -9,6 +9,7 @@ namespace EmployeeControl.Infrastructure.Data.Seeds;
 public class ApplicationDbContextInitialize(
     ILogger<ApplicationDbContextInitialize> logger,
     ApplicationDbContext context,
+    TimeProvider timeProvider,
     UserManager<ApplicationUser> userManager,
     RoleManager<IdentityRole> roleManager)
 {
@@ -87,6 +88,7 @@ public class ApplicationDbContextInitialize(
             FirstName = "Admin",
             LastName = "Admin1",
             Email = "admin@localhost",
+            EntryDate = timeProvider.GetUtcNow(),
             Active = true,
             EmailConfirmed = true
         };
@@ -111,6 +113,7 @@ public class ApplicationDbContextInitialize(
             FirstName = "Salvador",
             LastName = "Nicolas",
             Email = "snicoper@gmail.com",
+            EntryDate = timeProvider.GetUtcNow(),
             Active = true,
             EmailConfirmed = true
         };

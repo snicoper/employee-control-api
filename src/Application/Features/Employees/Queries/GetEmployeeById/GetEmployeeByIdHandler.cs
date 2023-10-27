@@ -18,7 +18,8 @@ public class GetEmployeeByIdHandler(
 {
     public async Task<GetEmployeeByIdResponse> Handle(GetEmployeeByIdQuery request, CancellationToken cancellationToken)
     {
-        var employee = await userManager.FindByIdAsync(request.Id);
+        var employee = await userManager.FindByIdAsync(request.Id) ??
+                       throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
 
         await ValidateForReadInformationAsync(employee);
 
@@ -28,16 +29,11 @@ public class GetEmployeeByIdHandler(
         return result;
     }
 
-    private async Task ValidateForReadInformationAsync(ApplicationUser? employee)
+    private async Task ValidateForReadInformationAsync(ApplicationUser employee)
     {
-        if (employee is null)
-        {
-            throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
-        }
-
         var currentUserId = currentUserService.Id;
 
-        // Si al menos tiene un Role de Staff, devolver datos.
+        // Si al menos tiene un Role de Staff, devolver datos siempre.
         if (currentUserId is not null && await identityService.IsInRoleAsync(currentUserId, Roles.Staff))
         {
             return;
