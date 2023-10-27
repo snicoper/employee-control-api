@@ -1,5 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.CompanyTasks.Commands.CreateCompanyTask;
+using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksById;
 using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksPaginated;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -26,13 +27,28 @@ public class CompanyTasksController : ApiControllerBase
     }
 
     /// <summary>
+    /// Obtener una tarea por su Id.
+    /// </summary>
+    /// <param name="id">Id de la tarea.</param>
+    [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<GetCompanyTasksByIdResponse>> GetCompanyTasksById(int id)
+    {
+        var result = await Sender.Send(new GetCompanyTasksByIdQuery(id));
+
+        return result;
+    }
+
+    /// <summary>
     /// Crear una nueva tarea.
     /// </summary>
     /// <param name="command">Datos para la creación de la tarea.</param>
-    /// <returns>Result.</returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<int>> CreateCompanyTask(CreateCompanyTaskCommand command)
     {

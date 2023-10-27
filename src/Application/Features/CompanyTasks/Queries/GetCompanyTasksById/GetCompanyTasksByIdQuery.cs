@@ -1,0 +1,10 @@
+﻿using EmployeeControl.Application.Common.Security;
+using EmployeeControl.Domain.Constants;
+using MediatR;
+
+namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksById;
+
+[Authorize(Roles = Roles.Staff)]
+public record GetCompanyTasksByIdQuery(int Id) : IRequest<GetCompanyTasksByIdResponse>
+{
+}
