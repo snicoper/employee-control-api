@@ -16,8 +16,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0-rc.2.23480.1" />
     <PackageReference Include="Scrutor" Version="4.2.2" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Common\Interfaces\Entities\" />
-  </ItemGroup>
 </Project>
