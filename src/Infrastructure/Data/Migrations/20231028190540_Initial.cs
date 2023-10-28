@@ -211,6 +211,30 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "UserCompanyTasks",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    CompanyTaskId = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserCompanyTasks", x => new { x.UserId, x.CompanyTaskId });
+                    table.ForeignKey(
+                        name: "FK_UserCompanyTasks_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserCompanyTasks_CompanyTasks_CompanyTaskId",
+                        column: x => x.CompanyTaskId,
+                        principalTable: "CompanyTasks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -286,6 +310,17 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 name: "IX_CompanyTasks_Id",
                 table: "CompanyTasks",
                 column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserCompanyTasks_CompanyTaskId",
+                table: "UserCompanyTasks",
+                column: "CompanyTaskId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserCompanyTasks_UserId_CompanyTaskId",
+                table: "UserCompanyTasks",
+                columns: new[] { "UserId", "CompanyTaskId" },
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -307,13 +342,16 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CompanyTasks");
+                name: "UserCompanyTasks");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "CompanyTasks");
 
             migrationBuilder.DropTable(
                 name: "Companies");

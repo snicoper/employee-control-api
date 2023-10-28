@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231028084702_Initial")]
+    [Migration("20231028190540_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -206,6 +206,24 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.ToTable("CompanyTasks");
                 });
 
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.UserCompanyTask", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CompanyTaskId")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "CompanyTaskId");
+
+                    b.HasIndex("CompanyTaskId");
+
+                    b.HasIndex("UserId", "CompanyTaskId")
+                        .IsUnique();
+
+                    b.ToTable("UserCompanyTasks");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -360,6 +378,25 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.UserCompanyTask", b =>
+                {
+                    b.HasOne("EmployeeControl.Domain.Entities.CompanyTask", "CompanyTask")
+                        .WithMany("UserCompanyTasks")
+                        .HasForeignKey("CompanyTaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", "User")
+                        .WithMany("UserCompanyTasks")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CompanyTask");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -411,11 +448,21 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.ApplicationUser", b =>
+                {
+                    b.Navigation("UserCompanyTasks");
+                });
+
             modelBuilder.Entity("EmployeeControl.Domain.Entities.Company", b =>
                 {
                     b.Navigation("ApplicationUsers");
 
                     b.Navigation("CompanyTasks");
+                });
+
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyTask", b =>
+                {
+                    b.Navigation("UserCompanyTasks");
                 });
 #pragma warning restore 612, 618
         }

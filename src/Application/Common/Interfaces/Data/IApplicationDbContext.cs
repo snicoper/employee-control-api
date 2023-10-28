@@ -10,6 +10,8 @@ public interface IApplicationDbContext
 
     DbSet<CompanyTask> CompanyTasks { get; }
 
+    DbSet<UserCompanyTask> UserCompanyTasks { get; }
+
     DatabaseFacade Database { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);

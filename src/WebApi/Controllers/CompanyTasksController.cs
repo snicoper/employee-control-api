@@ -5,8 +5,8 @@ using EmployeeControl.Application.Features.CompanyTasks.Commands.DeactivateCompa
 using EmployeeControl.Application.Features.CompanyTasks.Commands.UpdateCompanyTask;
 using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksById;
 using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksPaginated;
+using EmployeeControl.Application.Features.CompanyTasks.Queries.GetUsersByCompanyTaskIdPaginated;
 using EmployeeControl.WebApi.Infrastructure;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeControl.WebApi.Controllers;
@@ -18,14 +18,30 @@ public class CompanyTasksController : ApiControllerBase
     /// Obtener lista de tareas de una compañía concreta.
     /// </summary>
     /// <param name="request">RequestData.</param>
-    /// <param name="companyId">Id compañía.</param>
+    /// <param name="id">Id compañía.</param>
     /// <returns>Lista de tareas de la compañía paginádos.</returns>
-    [HttpGet("company/{companyId}/paginated")]
+    [HttpGet("company/{id}/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<ResponseData<GetCompanyTasksPaginatedByCompanyIdResponse>>>
-        GetCompanyTasksPaginatedByCompanyId([FromQuery] RequestData request, string companyId)
+        GetCompanyTasksPaginatedByCompanyId([FromQuery] RequestData request, string id)
     {
-        var result = await Sender.Send(new GetCompanyTasksPaginatedByCompanyIdQuery(request, companyId));
+        var result = await Sender.Send(new GetCompanyTasksPaginatedByCompanyIdQuery(request, id));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Obtener lista de usuarios paginados que tengan la tarea aseignada.
+    /// </summary>
+    /// <param name="request">RequestData.</param>
+    /// <param name="id">Id tarea.</param>
+    /// <returns>Lista de usuarios paginádos.</returns>
+    [HttpGet("{id}/employees/paginated")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<ResponseData<GetUsersByCompanyTaskIdPaginatedResponse>>>
+        GetUsersByCompanyTaskIdPaginated([FromQuery] RequestData request, string id)
+    {
+        var result = await Sender.Send(new GetUsersByCompanyTaskIdPaginatedQuery(request, id));
 
         return result;
     }
@@ -65,11 +81,11 @@ public class CompanyTasksController : ApiControllerBase
     /// Actualizar una tarea.
     /// </summary>
     /// <param name="command">Datos a actualizar de la tarea.</param>
-    [HttpPut("{companyTaskId}")]
+    [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Unit>> UpdateCompanyTask(UpdateCompanyTaskCommand command)
+    public async Task<ActionResult<Result>> UpdateCompanyTask(UpdateCompanyTaskCommand command)
     {
         var result = await Sender.Send(command);
 
@@ -80,11 +96,11 @@ public class CompanyTasksController : ApiControllerBase
     /// Activar una tarea de compañía.
     /// </summary>
     /// <param name="command">Id tarea a activar.</param>
-    [HttpPut("{companyTaskId}/activate")]
+    [HttpPut("{id}/activate")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Unit>> ActivateCompanyTask(ActivateCompanyTaskCommand command)
+    public async Task<ActionResult<Result>> ActivateCompanyTask(ActivateCompanyTaskCommand command)
     {
         var result = await Sender.Send(command);
 
@@ -95,11 +111,11 @@ public class CompanyTasksController : ApiControllerBase
     /// Desactivar una tarea de compañía.
     /// </summary>
     /// <param name="command">Id tarea a activar.</param>
-    [HttpPut("{companyTaskId}/deactivate")]
+    [HttpPut("{id}/deactivate")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Unit>> DeactivateCompanyTask(DeactivateCompanyTaskCommand command)
+    public async Task<ActionResult<Result>> DeactivateCompanyTask(DeactivateCompanyTaskCommand command)
     {
         var result = await Sender.Send(command);
 

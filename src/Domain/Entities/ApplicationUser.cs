@@ -19,5 +19,7 @@ public class ApplicationUser : IdentityUser, ICompanyId
 
     public Company? Company { get; set; }
 
+    public ICollection<UserCompanyTask> UserCompanyTasks { get; set; } = new List<UserCompanyTask>();
+
     public string CompanyId { get; set; } = default!;
 }

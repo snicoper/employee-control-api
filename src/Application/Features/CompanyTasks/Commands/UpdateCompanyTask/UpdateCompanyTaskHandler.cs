@@ -2,6 +2,7 @@
 using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Entities;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +13,9 @@ internal class UpdateCompanyTaskHandler(
         IApplicationDbContext context,
         IEntityValidationService entityValidationService,
         IMapper mapper)
-    : IRequestHandler<UpdateCompanyTaskCommand, Unit>
+    : IRequestHandler<UpdateCompanyTaskCommand, Result>
 {
-    public async Task<Unit> Handle(UpdateCompanyTaskCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(UpdateCompanyTaskCommand request, CancellationToken cancellationToken)
     {
         var companyTask = await context
                               .CompanyTasks
@@ -29,6 +30,6 @@ internal class UpdateCompanyTaskHandler(
         context.CompanyTasks.Update(updatedCompanyTask);
         await context.SaveChangesAsync(cancellationToken);
 
-        return Unit.Value;
+        return Result.Success();
     }
 }

@@ -19,7 +19,7 @@ public class ResponseData<TResponse> : RequestData
         RequestData request,
         IMapper mapper,
         CancellationToken cancellationToken)
-        where TEntity : class
+        where TEntity : class?
     {
         var totalItems = await source
             .Filter(request)
@@ -31,7 +31,6 @@ public class ResponseData<TResponse> : RequestData
             .Ordering(request)
             .Skip((request.PageNumber - 1) * request.PageSize)
             .Take(request.PageSize)
-            .AsNoTracking()
             .ToListAsync(cancellationToken);
 
         var totalPages = (int)Math.Ceiling(totalItems / (double)request.PageSize);

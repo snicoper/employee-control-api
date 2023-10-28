@@ -1,6 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Entities;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.DeactivateCompanyTask;
 
 internal class DeactivateCompanyTaskHandler(IApplicationDbContext context, IEntityValidationService entityValidationService)
-    : IRequestHandler<DeactivateCompanyTaskCommand, Unit>
+    : IRequestHandler<DeactivateCompanyTaskCommand, Result>
 {
-    public async Task<Unit> Handle(DeactivateCompanyTaskCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(DeactivateCompanyTaskCommand request, CancellationToken cancellationToken)
     {
         var companyTask = await context
                               .CompanyTasks
@@ -25,6 +26,6 @@ internal class DeactivateCompanyTaskHandler(IApplicationDbContext context, IEnti
         context.CompanyTasks.Update(companyTask);
         await context.SaveChangesAsync(cancellationToken);
 
-        return Unit.Value;
+        return Result.Success();
     }
 }

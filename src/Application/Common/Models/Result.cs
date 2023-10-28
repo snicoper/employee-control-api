@@ -26,4 +26,9 @@ public class Result
     {
         return Failure(new[] { error });
     }
+
+    public static Result Failure()
+    {
+        return Failure(new[] { string.Empty });
+    }
 }
