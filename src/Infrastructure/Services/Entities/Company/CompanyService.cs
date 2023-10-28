@@ -1,5 +1,4 @@
-﻿using EmployeeControl.Application.Common.Extensions;
-using EmployeeControl.Application.Common.Interfaces.Common;
+﻿using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Entities.Company;
 using EmployeeControl.Infrastructure.Data;
 
@@ -16,7 +15,7 @@ public class CompanyService(
         CancellationToken cancellationToken)
     {
         // Validaciones.
-        await companyValidatorService.UniqueNameValidationAsync(company.Name.ToEmptyIfNull(), cancellationToken);
+        await companyValidatorService.UniqueNameValidationAsync(company.Name, cancellationToken);
         validationFailureService.RaiseExceptionIfExistsErrors();
 
         await context.Companies.AddAsync(company, cancellationToken);

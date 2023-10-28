@@ -1,7 +1,6 @@
 ﻿using System.Net;
 using System.Net.Mail;
 using System.Text;
-using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Emails;
 using EmployeeControl.Application.Common.Interfaces.Views;
 using EmployeeControl.Application.Common.Models.Settings;
@@ -74,7 +73,7 @@ public class EmailService : IEmailService
         mailMessage.Priority = MailPriority;
 
         using var client = new SmtpClient();
-        client.Host = _emailSenderSettings.Host.ToEmptyIfNull();
+        client.Host = _emailSenderSettings.Host ?? string.Empty;
         client.Port = _emailSenderSettings.Port;
         client.Credentials = new NetworkCredential(_emailSenderSettings.Username, _emailSenderSettings.Password);
         client.UseDefaultCredentials = false;

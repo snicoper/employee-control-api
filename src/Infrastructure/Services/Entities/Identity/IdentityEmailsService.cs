@@ -1,5 +1,4 @@
 ﻿using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Emails;
 using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
@@ -34,9 +33,9 @@ public class IdentityEmailsService(
         // Send email.
         emailService.Subject = localizer[
             "Confirmación de correo electrónico en {0}.",
-            webApiSettings.Value.SiteName.ToEmptyIfNull()];
+            webApiSettings.Value.SiteName ?? string.Empty];
 
-        emailService.To.Add(model.Email.ToEmptyIfNull());
+        emailService.To.Add(model.Email ?? string.Empty);
 
         await emailService.SendMailWithViewAsync(EmailViews.ValidateEmailRegistration, model);
     }
@@ -54,8 +53,8 @@ public class IdentityEmailsService(
         };
 
         // Send email.
-        emailService.Subject = localizer["Invitación de la empresa {0}.", company.Name.ToEmptyIfNull()];
-        emailService.To.Add(user.Email.ToEmptyIfNull());
+        emailService.Subject = localizer["Invitación de la empresa {0}.", company.Name];
+        emailService.To.Add(user.Email ?? string.Empty);
 
         await emailService.SendMailWithViewAsync(EmailViews.InviteEmployee, model);
     }
@@ -75,9 +74,9 @@ public class IdentityEmailsService(
         // Send email.
         emailService.Subject = localizer[
             "Confirmación de cambio de email en {0}.",
-            webApiSettings.Value.SiteName.ToEmptyIfNull()];
+            webApiSettings.Value.SiteName ?? string.Empty];
 
-        emailService.To.Add(user.Email.ToEmptyIfNull());
+        emailService.To.Add(user.Email ?? string.Empty);
 
         await emailService.SendMailWithViewAsync(EmailViews.RecoveryPassword, recoveryPasswordViewModel);
     }

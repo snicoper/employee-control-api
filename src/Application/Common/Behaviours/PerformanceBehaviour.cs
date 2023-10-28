@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 using MediatR;
@@ -35,7 +34,7 @@ public class PerformanceBehaviour<TRequest, TResponse>(
         }
 
         var requestName = typeof(TRequest).Name;
-        var userId = currentUserService.Id.ToEmptyIfNull();
+        var userId = currentUserService.Id;
         var userName = string.Empty;
 
         if (!string.IsNullOrEmpty(userId))

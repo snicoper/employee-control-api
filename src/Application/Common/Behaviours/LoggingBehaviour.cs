@@ -1,5 +1,4 @@
-﻿using EmployeeControl.Application.Common.Extensions;
-using EmployeeControl.Application.Common.Interfaces.Common;
+﻿using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 using MediatR.Pipeline;
 using Microsoft.Extensions.Logging;
@@ -16,7 +15,7 @@ public class LoggingBehaviour<TRequest>(
     public async Task Process(TRequest request, CancellationToken cancellationToken)
     {
         var requestName = typeof(TRequest).Name;
-        var userId = currentUserService.Id.ToEmptyIfNull();
+        var userId = currentUserService.Id;
         var userName = string.Empty;
 
         if (!string.IsNullOrEmpty(userId))

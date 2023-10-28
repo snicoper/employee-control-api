@@ -7,7 +7,7 @@ public static class EnumExtensions
     /// <summary>
     /// Obtiene el valor de [Display(Name = "")] en un Enum.
     /// </summary>
-    public static string EnumDisplayNameFor(this Enum value)
+    public static string? EnumDisplayNameFor(this Enum value)
     {
         var enumType = value.GetType();
         var enumValue = Enum.GetName(enumType, value);
@@ -26,6 +26,6 @@ public static class EnumExtensions
             outString = ((DisplayAttribute)attrs[0]).GetName();
         }
 
-        return outString.ToEmptyIfNull();
+        return outString;
     }
 }

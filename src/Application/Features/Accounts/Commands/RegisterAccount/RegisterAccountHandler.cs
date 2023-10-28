@@ -1,5 +1,4 @@
-﻿using EmployeeControl.Application.Common.Extensions;
-using EmployeeControl.Application.Common.Interfaces.Data;
+﻿using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Entities.Company;
 using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 using EmployeeControl.Domain.Constants;
@@ -34,7 +33,7 @@ internal class RegisterAccountHandler(
                 FirstName = request.FirstName, LastName = request.LastName, Email = request.Email, CompanyId = company.Id
             };
 
-            var password = request.Password.ToEmptyIfNull();
+            var password = request.Password;
 
             // Roles para usuario y creación del usuario.
             var roles = new List<string> { new(Roles.EnterpriseAdministrator), new(Roles.HumanResources), new(Roles.Employee) };

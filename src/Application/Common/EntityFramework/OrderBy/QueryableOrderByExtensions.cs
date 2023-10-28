@@ -94,7 +94,7 @@ public static class QueryableOrderByExtensions
         RequestOrderBy field,
         OrderByCommandType orderByCommandType = OrderByCommandType.ThenBy)
     {
-        var fieldName = field.PropertyName?.UpperCaseFirst();
+        var fieldName = field.PropertyName?.UpperCaseFirst() ?? string.Empty;
 
         var command = orderByCommandType switch
         {
@@ -107,7 +107,7 @@ public static class QueryableOrderByExtensions
             _ => throw new NotImplementedException()
         };
 
-        source = source.OrderByCommand(fieldName.ToEmptyIfNull(), command);
+        source = source.OrderByCommand(fieldName, command);
         var result = (IOrderedQueryable<TEntity>)source;
 
         return result;

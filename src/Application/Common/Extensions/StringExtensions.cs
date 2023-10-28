@@ -7,16 +7,6 @@ namespace EmployeeControl.Application.Common.Extensions;
 public static class StringExtensions
 {
     /// <summary>
-    /// Si un string es null, devolverá string.Empty.
-    /// </summary>
-    /// <param name="value">String a comprobar.</param>
-    /// <returns>Si el string es null devolverá string.Empty, en caso contrario el valor de value.</returns>
-    public static string ToEmptyIfNull(this string? value)
-    {
-        return value ?? string.Empty;
-    }
-
-    /// <summary>
     /// Comprueba si un string es null.
     /// </summary>
     /// <param name="value">String a comprobar.</param>

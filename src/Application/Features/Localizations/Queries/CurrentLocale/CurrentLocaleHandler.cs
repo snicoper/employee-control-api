@@ -1,5 +1,4 @@
-﻿using EmployeeControl.Application.Common.Extensions;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 
@@ -13,7 +12,7 @@ internal class CurrentLocaleHandler(IHttpContextAccessor httpContextAccessor)
         var culture = httpContextAccessor.HttpContext?.Features.Get<IRequestCultureFeature>();
         var locale = culture?.RequestCulture.Culture.ToString();
 
-        var currentLocaleResponse = new CurrentLocaleResponse(locale.ToEmptyIfNull());
+        var currentLocaleResponse = new CurrentLocaleResponse(locale);
 
         return Task.FromResult(currentLocaleResponse);
     }

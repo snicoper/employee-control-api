@@ -3,7 +3,6 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
 using EmployeeControl.Application.Common.Models.Settings;
 using EmployeeControl.Domain.Entities;
@@ -21,14 +20,14 @@ public class TokenService(IOptions<JwtSettings> jwtSettings, UserManager<Applica
         var claims = new List<Claim>
         {
             new(ClaimTypes.Sid, user.Id),
-            new(ClaimTypes.Name, user.UserName.ToEmptyIfNull()),
-            new(CustomClaims.CompanyId, user.CompanyId.ToString())
+            new(ClaimTypes.Name, user.UserName ?? string.Empty),
+            new(CustomClaims.CompanyId, user.CompanyId)
         };
         var roles = await userManager.GetRolesAsync(user);
 
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
 
-        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Value.Key.ToEmptyIfNull()));
+        var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Value.Key ?? string.Empty));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
 
         var tokenDescriptor = new JwtSecurityToken(
