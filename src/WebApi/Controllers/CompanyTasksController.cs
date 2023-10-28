@@ -2,6 +2,7 @@
 using EmployeeControl.Application.Features.CompanyTasks.Commands.ActivateCompanyTask;
 using EmployeeControl.Application.Features.CompanyTasks.Commands.CreateCompanyTask;
 using EmployeeControl.Application.Features.CompanyTasks.Commands.DeactivateCompanyTask;
+using EmployeeControl.Application.Features.CompanyTasks.Commands.UpdateCompanyTask;
 using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksById;
 using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksPaginated;
 using EmployeeControl.WebApi.Infrastructure;
@@ -58,6 +59,21 @@ public class CompanyTasksController : ApiControllerBase
         var result = await Sender.Send(command);
 
         return ObjectResultWithStatusCode(result, StatusCodes.Status201Created);
+    }
+
+    /// <summary>
+    /// Actualizar una tarea.
+    /// </summary>
+    /// <param name="command">Datos a actualizar de la tarea.</param>
+    [HttpPut("{companyTaskId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Unit>> UpdateCompanyTask(UpdateCompanyTaskCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
     }
 
     /// <summary>

@@ -52,7 +52,7 @@ public class AuthService(
     {
         var user = userManager.Users.SingleOrDefault(au => au.RefreshToken == refreshToken);
 
-        if (user is null || user.RefreshTokenExpiryTime <= timeProvider.GetUtcNow())
+        if (user is null || !user.Active || user.RefreshTokenExpiryTime <= timeProvider.GetUtcNow())
         {
             throw new UnauthorizedAccessException();
         }
