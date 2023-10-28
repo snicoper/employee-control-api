@@ -8,6 +8,8 @@ public record GetCompanyTasksPaginatedByCompanyIdResponse(
     string Name,
     string CompanyId,
     bool Active,
+    string Background,
+    string Color,
     DateTimeOffset Created)
 {
     internal class Mapper : Profile

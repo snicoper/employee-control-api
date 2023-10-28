@@ -12,5 +12,13 @@ public class CreateCompanyTaskValidator : AbstractValidator<CreateCompanyTaskCom
         RuleFor(r => r.Name)
             .NotEmpty()
             .MaximumLength(256);
+
+        RuleFor(r => r.Background)
+            .NotEmpty()
+            .Length(7);
+
+        RuleFor(r => r.Color)
+            .NotEmpty()
+            .Length(7);
     }
 }

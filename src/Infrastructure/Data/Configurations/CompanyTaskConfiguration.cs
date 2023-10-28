@@ -30,6 +30,14 @@ public class CompanyTaskConfiguration : IEntityTypeConfiguration<CompanyTask>
             .IsRequired()
             .HasMaxLength(256);
 
+        builder.Property(ct => ct.Background)
+            .IsRequired()
+            .HasMaxLength(7);
+
+        builder.Property(ct => ct.Color)
+            .IsRequired()
+            .HasMaxLength(7);
+
         builder.Property(ct => ct.Active);
     }
 }

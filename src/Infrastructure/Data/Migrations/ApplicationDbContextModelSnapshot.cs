@@ -158,6 +158,16 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("Background")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("character varying(7)");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("character varying(7)");
+
                     b.Property<string>("CompanyId")
                         .IsRequired()
                         .HasColumnType("text");

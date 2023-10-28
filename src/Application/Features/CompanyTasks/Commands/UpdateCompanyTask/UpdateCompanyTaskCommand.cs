@@ -7,7 +7,7 @@ using MediatR;
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.UpdateCompanyTask;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record UpdateCompanyTaskCommand(string Id, string Name, bool Active) : IRequest<Unit>
+public record UpdateCompanyTaskCommand(string Id, string Name, string Background, string Color, bool Active) : IRequest<Unit>
 {
     internal class Mapping : Profile
     {

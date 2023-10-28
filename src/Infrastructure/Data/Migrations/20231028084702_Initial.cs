@@ -107,6 +107,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     Id = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     Active = table.Column<bool>(type: "boolean", nullable: false),
+                    Background = table.Column<string>(type: "character varying(7)", maxLength: 7, nullable: false),
+                    Color = table.Column<string>(type: "character varying(7)", maxLength: 7, nullable: false),
                     CompanyId = table.Column<string>(type: "text", nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
