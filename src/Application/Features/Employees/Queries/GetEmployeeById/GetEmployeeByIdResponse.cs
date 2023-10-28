@@ -5,7 +5,7 @@ namespace EmployeeControl.Application.Features.Employees.Queries.GetEmployeeById
 
 public record GetEmployeeByIdResponse(
     string Id,
-    int CompanyId,
+    string CompanyId,
     string FirstName,
     string LastName,
     string PhoneNumber,

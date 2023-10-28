@@ -19,5 +19,5 @@ public class ApplicationUser : IdentityUser, ICompanyId
 
     public Company? Company { get; set; }
 
-    public int CompanyId { get; set; }
+    public string CompanyId { get; set; } = default!;
 }

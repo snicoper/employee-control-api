@@ -5,4 +5,4 @@ using MediatR;
 namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksById;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record GetCompanyTasksByIdQuery(int Id) : IRequest<GetCompanyTasksByIdResponse>;
+public record GetCompanyTasksByIdQuery(string Id) : IRequest<GetCompanyTasksByIdResponse>;

@@ -55,7 +55,7 @@ public class IdentityService(
         return result.Succeeded;
     }
 
-    public IQueryable<ApplicationUser> GetAccountsByCompanyId(int companyId)
+    public IQueryable<ApplicationUser> GetAccountsByCompanyId(string companyId)
     {
         var users = userManager
             .Users

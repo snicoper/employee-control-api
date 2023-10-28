@@ -11,7 +11,7 @@ public interface IIdentityService
 
     Task<bool> AuthorizeAsync(string userId, string policyName);
 
-    IQueryable<ApplicationUser> GetAccountsByCompanyId(int companyId);
+    IQueryable<ApplicationUser> GetAccountsByCompanyId(string companyId);
 
     Task<(Result Result, string Id)> CreateAccountAsync(
         ApplicationUser user,

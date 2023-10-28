@@ -29,8 +29,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("integer");
+                    b.Property<string>("CompanyId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -119,11 +120,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.Company", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("timestamp with time zone");
@@ -154,17 +152,15 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyTask", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
 
                     b.Property<bool>("Active")
                         .HasColumnType("boolean");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("integer");
+                    b.Property<string>("CompanyId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("timestamp with time zone");

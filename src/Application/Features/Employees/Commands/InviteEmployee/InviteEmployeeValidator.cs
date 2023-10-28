@@ -17,7 +17,6 @@ public class InviteEmployeeValidator : AbstractValidator<InviteEmployeeCommand>
             .EmailAddress();
 
         RuleFor(r => r.CompanyId)
-            .NotEmpty()
-            .GreaterThan(0);
+            .NotEmpty();
     }
 }

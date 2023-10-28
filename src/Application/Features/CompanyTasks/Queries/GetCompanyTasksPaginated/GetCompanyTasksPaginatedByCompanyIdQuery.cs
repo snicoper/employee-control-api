@@ -6,5 +6,5 @@ using MediatR;
 namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksPaginated;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record GetCompanyTasksPaginatedByCompanyIdQuery(RequestData RequestData, int CompanyId)
+public record GetCompanyTasksPaginatedByCompanyIdQuery(RequestData RequestData, string CompanyId)
     : IRequest<ResponseData<GetCompanyTasksPaginatedByCompanyIdResponse>>;

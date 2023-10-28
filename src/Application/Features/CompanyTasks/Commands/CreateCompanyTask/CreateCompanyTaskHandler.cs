@@ -10,9 +10,9 @@ internal class CreateCompanyTaskHandler(
         ICurrentUserService currentUserService,
         ICompanyTaskService companyTaskService,
         IMapper mapper)
-    : IRequestHandler<CreateCompanyTaskCommand, int>
+    : IRequestHandler<CreateCompanyTaskCommand, string>
 {
-    public async Task<int> Handle(CreateCompanyTaskCommand request, CancellationToken cancellationToken)
+    public async Task<string> Handle(CreateCompanyTaskCommand request, CancellationToken cancellationToken)
     {
         // Una tarea solo puede crearse para la propia compañía.
         if (currentUserService.CompanyId != request.CompanyId)

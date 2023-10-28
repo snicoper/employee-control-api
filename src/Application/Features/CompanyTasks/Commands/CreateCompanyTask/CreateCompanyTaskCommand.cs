@@ -7,7 +7,7 @@ using MediatR;
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.CreateCompanyTask;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record CreateCompanyTaskCommand(int CompanyId, string Name) : IRequest<int>
+public record CreateCompanyTaskCommand(string CompanyId, string Name) : IRequest<string>
 {
     internal class Mapping : Profile
     {

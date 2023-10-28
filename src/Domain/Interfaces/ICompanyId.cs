@@ -2,5 +2,5 @@
 
 public interface ICompanyId
 {
-    public int CompanyId { get; set; }
+    public string CompanyId { get; set; }
 }

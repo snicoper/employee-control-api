@@ -7,8 +7,7 @@ public class CreateCompanyTaskValidator : AbstractValidator<CreateCompanyTaskCom
     public CreateCompanyTaskValidator()
     {
         RuleFor(r => r.CompanyId)
-            .NotNull()
-            .GreaterThan(0);
+            .NotEmpty();
 
         RuleFor(r => r.Name)
             .NotEmpty()

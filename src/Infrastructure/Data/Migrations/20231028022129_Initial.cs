@@ -29,8 +29,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 name: "Companies",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Id = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
@@ -68,13 +67,13 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    CompanyId = table.Column<int>(type: "integer", nullable: false),
                     FirstName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     LastName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     RefreshToken = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Active = table.Column<bool>(type: "boolean", nullable: false),
                     RefreshTokenExpiryTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     EntryDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    CompanyId = table.Column<string>(type: "text", nullable: false),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
@@ -105,11 +104,10 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 name: "CompanyTasks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CompanyId = table.Column<int>(type: "integer", nullable: false),
+                    Id = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     Active = table.Column<bool>(type: "boolean", nullable: false),
+                    CompanyId = table.Column<string>(type: "text", nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
