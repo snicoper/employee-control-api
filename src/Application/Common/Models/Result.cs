@@ -2,7 +2,7 @@
 
 public class Result
 {
-    private Result(bool succeeded, IEnumerable<string> errors)
+    protected Result(bool succeeded, IEnumerable<string> errors)
     {
         Succeeded = succeeded;
         Errors = errors.ToArray();
