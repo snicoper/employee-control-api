@@ -16,8 +16,7 @@ internal class GetEmployeesPaginatedHandler(
         GetEmployeesPaginatedQuery request,
         CancellationToken cancellationToken)
     {
-        var companyId = currentUserService.CompanyId;
-        var users = identityService.GetAccountsByCompanyId(companyId);
+        var users = identityService.GetAccountsByCompanyId(currentUserService.CompanyId);
 
         var resultResponse = await ResponseData<GetEmployeesPaginatedResponse>.CreateAsync(
             users,

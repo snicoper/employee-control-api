@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using EmployeeControl.Domain.Interfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeControl.Domain.Entities;
 
-public class ApplicationUser : IdentityUser
+public class ApplicationUser : IdentityUser, ICompanyId
 {
-    public int CompanyId { get; set; }
-
     public string? FirstName { get; set; }
 
     public string? LastName { get; set; }
@@ -19,4 +18,6 @@ public class ApplicationUser : IdentityUser
     public DateTimeOffset? EntryDate { get; set; }
 
     public Company? Company { get; set; }
+
+    public int CompanyId { get; set; }
 }
