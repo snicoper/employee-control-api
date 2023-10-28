@@ -14,8 +14,6 @@ public record GetEmployeeByIdResponse(
     bool Active,
     bool EmailConfirmed)
 {
-    public ICollection<string> UserRoles { get; set; } = new List<string>();
-
     internal class Mapping : Profile
     {
         public Mapping()

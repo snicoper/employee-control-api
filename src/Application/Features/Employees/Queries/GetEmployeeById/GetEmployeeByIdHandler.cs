@@ -21,7 +21,6 @@ public class GetEmployeeByIdHandler(
         await entityValidationService.CheckEntityCompanyIsOwner(employee);
 
         var result = mapper.Map<ApplicationUser, GetEmployeeByIdResponse>(employee!);
-        result.UserRoles = await userManager.GetRolesAsync(employee!);
 
         return result;
     }
