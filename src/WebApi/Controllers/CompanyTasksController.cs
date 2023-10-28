@@ -1,8 +1,11 @@
 ﻿using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Features.CompanyTasks.Commands.ActivateCompanyTask;
 using EmployeeControl.Application.Features.CompanyTasks.Commands.CreateCompanyTask;
+using EmployeeControl.Application.Features.CompanyTasks.Commands.DeactivateCompanyTask;
 using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksById;
 using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksPaginated;
 using EmployeeControl.WebApi.Infrastructure;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeControl.WebApi.Controllers;
@@ -55,5 +58,35 @@ public class CompanyTasksController : ApiControllerBase
         var result = await Sender.Send(command);
 
         return ObjectResultWithStatusCode(result, StatusCodes.Status201Created);
+    }
+
+    /// <summary>
+    /// Activar una tarea de compañía.
+    /// </summary>
+    /// <param name="command">Id tarea a activar.</param>
+    [HttpPut("{companyTaskId}/activate")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Unit>> ActivateCompanyTask(ActivateCompanyTaskCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Desactivar una tarea de compañía.
+    /// </summary>
+    /// <param name="command">Id tarea a activar.</param>
+    [HttpPut("{companyTaskId}/deactivate")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Unit>> DeactivateCompanyTask(DeactivateCompanyTaskCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
     }
 }
