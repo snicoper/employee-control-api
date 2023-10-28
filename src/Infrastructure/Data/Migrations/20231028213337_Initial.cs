@@ -216,7 +216,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    CompanyTaskId = table.Column<string>(type: "text", nullable: false)
+                    CompanyTaskId = table.Column<string>(type: "text", nullable: false),
+                    CompanyId = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -312,15 +313,15 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 column: "Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserCompanyTasks_CompanyId_UserId_CompanyTaskId",
+                table: "UserCompanyTasks",
+                columns: new[] { "CompanyId", "UserId", "CompanyTaskId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserCompanyTasks_CompanyTaskId",
                 table: "UserCompanyTasks",
                 column: "CompanyTaskId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserCompanyTasks_UserId_CompanyTaskId",
-                table: "UserCompanyTasks",
-                columns: new[] { "UserId", "CompanyTaskId" },
-                unique: true);
         }
 
         /// <inheritdoc />

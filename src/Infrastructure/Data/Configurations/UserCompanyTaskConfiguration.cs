@@ -12,7 +12,7 @@ public class UserCompanyTaskConfiguration : IEntityTypeConfiguration<UserCompany
         builder.HasKey(uct => new { uct.UserId, uct.CompanyTaskId });
 
         // Indexes.
-        builder.HasIndex(uct => new { uct.UserId, uct.CompanyTaskId })
+        builder.HasIndex(uct => new { uct.CompanyId, uct.UserId, uct.CompanyTaskId })
             .IsUnique();
 
         // Relations.
