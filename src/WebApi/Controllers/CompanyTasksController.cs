@@ -3,8 +3,9 @@ using EmployeeControl.Application.Features.CompanyTasks.Commands.ActivateCompany
 using EmployeeControl.Application.Features.CompanyTasks.Commands.CreateCompanyTask;
 using EmployeeControl.Application.Features.CompanyTasks.Commands.DeactivateCompanyTask;
 using EmployeeControl.Application.Features.CompanyTasks.Commands.UpdateCompanyTask;
+using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksByCompanyIdPaginated;
+using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksByEmployeeIdPaginated;
 using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksById;
-using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksPaginated;
 using EmployeeControl.Application.Features.CompanyTasks.Queries.GetUsersByCompanyTaskIdPaginated;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -15,23 +16,23 @@ namespace EmployeeControl.WebApi.Controllers;
 public class CompanyTasksController : ApiControllerBase
 {
     /// <summary>
-    /// Obtener lista de tareas de una compañía concreta.
+    /// Obtener lista paginada de tareas por el Id de la compañía.
     /// </summary>
     /// <param name="request">RequestData.</param>
-    /// <param name="id">Id compañía.</param>
+    /// <param name="companyId">Id compañía.</param>
     /// <returns>Lista de tareas de la compañía paginádos.</returns>
-    [HttpGet("company/{id}/paginated")]
+    [HttpGet("companies/{companyId}/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<ResponseData<GetCompanyTasksPaginatedByCompanyIdResponse>>>
-        GetCompanyTasksPaginatedByCompanyId([FromQuery] RequestData request, string id)
+    public async Task<ActionResult<ResponseData<GetCompanyTasksByCompanyIdPaginatedResponse>>>
+        GetCompanyTasksByCompanyIdPaginated([FromQuery] RequestData request, string companyId)
     {
-        var result = await Sender.Send(new GetCompanyTasksPaginatedByCompanyIdQuery(request, id));
+        var result = await Sender.Send(new GetCompanyTasksByCompanyIdPaginatedQuery(request, companyId));
 
         return result;
     }
 
     /// <summary>
-    /// Obtener lista de usuarios paginados que tengan la tarea aseignada.
+    /// Obtener lista paginada de empleados por el Id de la tarea.
     /// </summary>
     /// <param name="request">RequestData.</param>
     /// <param name="id">Id tarea.</param>
@@ -42,6 +43,22 @@ public class CompanyTasksController : ApiControllerBase
         GetUsersByCompanyTaskIdPaginated([FromQuery] RequestData request, string id)
     {
         var result = await Sender.Send(new GetUsersByCompanyTaskIdPaginatedQuery(request, id));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Obtener lista paginada de tareas por el Id del empleado.
+    /// </summary>
+    /// <param name="request">RequestData.</param>
+    /// <param name="employeeId">Id empleado.</param>
+    /// <returns>Lista de tareas paginádas.</returns>
+    [HttpGet("employees/{employeeId}/paginated")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<ResponseData<GetCompanyTasksByEmployeeIdPaginatedResponse>>>
+        GetCompanyTasksByEmployeeIdPaginated([FromQuery] RequestData request, string employeeId)
+    {
+        var result = await Sender.Send(new GetCompanyTasksByEmployeeIdPaginatedQuery(request, employeeId));
 
         return result;
     }

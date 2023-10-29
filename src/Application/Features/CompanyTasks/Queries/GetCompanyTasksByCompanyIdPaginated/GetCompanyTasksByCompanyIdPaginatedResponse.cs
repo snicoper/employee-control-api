@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using EmployeeControl.Domain.Entities;
 
-namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksPaginated;
+namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksByCompanyIdPaginated;
 
-public record GetCompanyTasksPaginatedByCompanyIdResponse(
+public record GetCompanyTasksByCompanyIdPaginatedResponse(
     string Id,
     string Name,
     string CompanyId,
@@ -16,7 +16,7 @@ public record GetCompanyTasksPaginatedByCompanyIdResponse(
     {
         public Mapper()
         {
-            CreateMap<CompanyTask, GetCompanyTasksPaginatedByCompanyIdResponse>();
+            CreateMap<CompanyTask, GetCompanyTasksByCompanyIdPaginatedResponse>();
         }
     }
 }
