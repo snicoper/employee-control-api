@@ -69,7 +69,6 @@ public class CompanyTasksController : ApiControllerBase
     /// <param name="id">Id de la tarea.</param>
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<GetCompanyTasksByIdResponse>> GetCompanyTasksById(string id)
     {
@@ -85,7 +84,6 @@ public class CompanyTasksController : ApiControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<int>> CreateCompanyTask(CreateCompanyTaskCommand command)
     {
@@ -100,7 +98,6 @@ public class CompanyTasksController : ApiControllerBase
     /// <param name="command">Datos a actualizar de la tarea.</param>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> UpdateCompanyTask(UpdateCompanyTaskCommand command)
     {
@@ -115,7 +112,6 @@ public class CompanyTasksController : ApiControllerBase
     /// <param name="command">Id tarea a activar.</param>
     [HttpPut("{id}/activate")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> ActivateCompanyTask(ActivateCompanyTaskCommand command)
     {
@@ -130,7 +126,6 @@ public class CompanyTasksController : ApiControllerBase
     /// <param name="command">Id tarea a activar.</param>
     [HttpPut("{id}/deactivate")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> DeactivateCompanyTask(DeactivateCompanyTaskCommand command)
     {

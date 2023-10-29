@@ -18,7 +18,6 @@ public class AuthController : ApiControllerBase
     [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<LoginResponse>> Login(LoginCommand command)
     {
         var result = await Sender.Send(command);
@@ -35,7 +34,6 @@ public class AuthController : ApiControllerBase
     [HttpPost("refresh-token")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<RefreshTokenResponse>> RefreshToken(RefreshTokenCommand command)
     {
         var result = await Sender.Send(command);

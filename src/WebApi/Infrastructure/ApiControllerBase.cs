@@ -7,6 +7,7 @@ namespace EmployeeControl.WebApi.Infrastructure;
 [ApiController]
 [Authorize]
 [Produces("application/json")]
+[ProducesResponseType(StatusCodes.Status401Unauthorized)]
 public class ApiControllerBase : ControllerBase
 {
     private ISender? _sender;
@@ -22,14 +23,5 @@ public class ApiControllerBase : ControllerBase
     protected ObjectResult ObjectResultWithStatusCode<TResult>(TResult result, int statusCode)
     {
         return new ObjectResult(result) { StatusCode = statusCode };
-    }
-
-    /// <summary>
-    /// Devolver un StatusCode concreto con un valor vacío.
-    /// </summary>
-    /// <param name="statusCode">StatusCode a devolver.</param>
-    protected ObjectResult ObjectResultWithStatusCode(int statusCode)
-    {
-        return new ObjectResult(null) { StatusCode = statusCode };
     }
 }

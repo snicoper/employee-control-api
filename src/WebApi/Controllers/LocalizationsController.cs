@@ -10,9 +10,9 @@ namespace EmployeeControl.WebApi.Controllers;
 public class LocalizationsController : ApiControllerBase
 {
     /// <summary>
-    /// Obtener cultura actual.
+    /// Obtener el locale actual.
     /// </summary>
-    /// <returns>Cultura actual.</returns>
+    /// <returns>Locale actual.</returns>
     [AllowAnonymous]
     [HttpGet("current-locale")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -24,9 +24,9 @@ public class LocalizationsController : ApiControllerBase
     }
 
     /// <summary>
-    /// Obtener culturas soportadas.
+    /// Obtener locales soportados.
     /// </summary>
-    /// <returns>Lista de culturas soportadas.</returns>
+    /// <returns>Lista de locales soportadas.</returns>
     [AllowAnonymous]
     [HttpGet("supported-locales")]
     [ProducesResponseType(StatusCodes.Status200OK)]
