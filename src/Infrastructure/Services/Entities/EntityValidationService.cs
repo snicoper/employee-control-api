@@ -16,7 +16,7 @@ public class EntityValidationService(ICurrentUserService currentUserService, IId
         var currentUserId = currentUserService.Id;
 
         // Si al menos tiene un Role de Staff Ok.
-        if (currentUserId is not null && await identityService.IsInRoleAsync(currentUserId, Roles.Staff))
+        if (await identityService.IsInRoleAsync(currentUserId, Roles.Staff))
         {
             return;
         }

@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
-namespace EmployeeControl.Application.Features.Accounts.Commands.EmailValidationForwarding;
+namespace EmployeeControl.Application.Features.Accounts.Commands.ResendEmailValidation;
 
-internal class EmailValidationForwardingHandler(
+internal class ResendEmailValidationHandler(
         UserManager<ApplicationUser> userManager,
         IIdentityEmailsService identityEmailsService,
         IStringLocalizer<IdentityLocalizer> localizer)
-    : IRequestHandler<EmailValidationForwardingCommand, Result>
+    : IRequestHandler<ResendEmailValidationCommand, Result>
 {
-    public async Task<Result> Handle(EmailValidationForwardingCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(ResendEmailValidationCommand request, CancellationToken cancellationToken)
     {
         var user = await userManager.Users
             .Include(au => au.Company)

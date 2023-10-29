@@ -1,9 +1,9 @@
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Features.Accounts.Commands.EmailValidationForwarding;
 using EmployeeControl.Application.Features.Accounts.Commands.RecoveryPassword;
 using EmployeeControl.Application.Features.Accounts.Commands.RecoveryPasswordChange;
 using EmployeeControl.Application.Features.Accounts.Commands.RegisterAccount;
 using EmployeeControl.Application.Features.Accounts.Commands.RegisterValidateEmail;
+using EmployeeControl.Application.Features.Accounts.Commands.ResendEmailValidation;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -51,10 +51,10 @@ public class AccountsController : ApiControllerBase
     /// <param name="command">Datos del UserId del usuario a validar.</param>
     /// <returns>Result.</returns>
     [AllowAnonymous]
-    [HttpPost("email-validation-forwarding")]
+    [HttpPost("resend-email-validation")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Result>> EmailValidationForwarding(EmailValidationForwardingCommand command)
+    public async Task<ActionResult<Result>> ResendEmailValidation(ResendEmailValidationCommand command)
     {
         var result = await Sender.Send(command);
 
