@@ -10,4 +10,6 @@ public static class EmailViews
     public const string InviteEmployee = nameof(InviteEmployee);
 
     public const string RecoveryPassword = nameof(RecoveryPassword);
+
+    public const string SendEmployeeAssignTask = nameof(SendEmployeeAssignTask);
 }

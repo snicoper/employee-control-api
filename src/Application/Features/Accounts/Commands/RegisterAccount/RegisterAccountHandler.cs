@@ -1,6 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Entities.Company;
-using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
+using EmployeeControl.Application.Common.Interfaces.Features.Company;
+using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using MediatR;

@@ -3,7 +3,7 @@ using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
+using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;

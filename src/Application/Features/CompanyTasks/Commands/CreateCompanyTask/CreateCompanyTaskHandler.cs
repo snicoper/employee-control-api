@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Common;
-using EmployeeControl.Application.Common.Interfaces.Entities.CompanyTask;
+using EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 

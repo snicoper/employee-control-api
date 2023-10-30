@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
+using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;

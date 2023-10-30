@@ -1,6 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Entities;
+using EmployeeControl.Application.Common.Interfaces.Features;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using MediatR;

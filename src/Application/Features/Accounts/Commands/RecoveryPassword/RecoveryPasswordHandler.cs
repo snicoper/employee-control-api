@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
+﻿using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using MediatR;

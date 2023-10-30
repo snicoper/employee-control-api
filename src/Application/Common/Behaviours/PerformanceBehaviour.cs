@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 using EmployeeControl.Application.Common.Interfaces.Common;
-using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
+using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using MediatR;
 using Microsoft.Extensions.Logging;
 

@@ -1,6 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Entities;
+using EmployeeControl.Application.Common.Interfaces.Features;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -29,7 +29,7 @@ internal class GetEmployeesUnassignedTaskByCompanyTaskIdHandler(
                               .SingleOrDefaultAsync(ct => ct.Id == request.Id, cancellationToken) ??
                           throw new NotFoundException(nameof(CompanyTask), nameof(CompanyTask.Id));
 
-        // Obtener las Ids de los empleados que ya tienen asignada la tarea.
+        // Filtrar los Ids de los empleados que ya tienen asignada la tarea.
         var userIdsInTask = companyTask
             .UserCompanyTasks
             .Select(uct => uct.User)
