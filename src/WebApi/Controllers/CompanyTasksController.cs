@@ -1,5 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.CompanyTasks.Commands.ActivateCompanyTask;
+using EmployeeControl.Application.Features.CompanyTasks.Commands.AssignEmployeesToTask;
 using EmployeeControl.Application.Features.CompanyTasks.Commands.CreateCompanyTask;
 using EmployeeControl.Application.Features.CompanyTasks.Commands.DeactivateCompanyTask;
 using EmployeeControl.Application.Features.CompanyTasks.Commands.UpdateCompanyTask;
@@ -102,6 +103,21 @@ public class CompanyTasksController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<int>> CreateCompanyTask(CreateCompanyTaskCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return ObjectResultWithStatusCode(result, StatusCodes.Status201Created);
+    }
+
+    /// <summary>
+    /// Asignar empleados a una tarea concreta.
+    /// </summary>
+    /// <param name="command">Lista de Ids de empleado a asignar y la Id de la tarea.</param>
+    [HttpPost("{id}/employees/assign")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Result>> AssignEmployeesToTask(AssignEmployeesToTaskCommand command)
     {
         var result = await Sender.Send(command);
 

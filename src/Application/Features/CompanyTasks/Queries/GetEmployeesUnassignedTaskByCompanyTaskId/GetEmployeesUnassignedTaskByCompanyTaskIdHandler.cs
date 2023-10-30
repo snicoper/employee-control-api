@@ -1,16 +1,17 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Common;
+﻿using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Entities.Identity;
-using EmployeeControl.Domain.Constants;
+using EmployeeControl.Application.Common.Interfaces.Entities;
+using EmployeeControl.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetEmployeesUnassignedTaskByCompanyTaskId;
 
 internal class GetEmployeesUnassignedTaskByCompanyTaskIdHandler(
         IApplicationDbContext context,
-        IIdentityService identityService,
-        ICurrentUserService currentUserService)
+        UserManager<ApplicationUser> userManager,
+        IEntityValidationService entityValidationService)
     : IRequestHandler<
         GetEmployeesUnassignedTaskByCompanyTaskIdQuery,
         ICollection<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>>
@@ -19,22 +20,44 @@ internal class GetEmployeesUnassignedTaskByCompanyTaskIdHandler(
         GetEmployeesUnassignedTaskByCompanyTaskIdQuery request,
         CancellationToken cancellationToken)
     {
-        var userCompanyTasks = context
-            .UserCompanyTasks
-            .Include(uct => uct.User)
-            .AsNoTracking()
-            .Where(uct => uct.CompanyTaskId != request.Id);
+        // Obtener la tarea por su Id.
+        var companyTask = await context
+                              .CompanyTasks
+                              .AsNoTracking()
+                              .Include(ct => ct.UserCompanyTasks)
+                              .ThenInclude(uct => uct.User)
+                              .SingleOrDefaultAsync(ct => ct.Id == request.Id, cancellationToken) ??
+                          throw new NotFoundException(nameof(CompanyTask), nameof(CompanyTask.Id));
 
-        if (!await identityService.IsInRoleAsync(currentUserService.Id, Roles.Staff))
+        // Obtener las Ids de los empleados que ya tienen asignada la tarea.
+        var userIdsInTask = companyTask
+            .UserCompanyTasks
+            .Select(uct => uct.User)
+            .Where(au => au != null)
+            .Select(au => au!.Id)
+            .ToList();
+
+        // Obtener los empleados de la empresa excluyendo los empleados que ya tienen la tarea asignada.
+        var users = userManager
+            .Users
+            .AsNoTracking()
+            .Include(au => au
+                .UserCompanyTasks
+                .Where(uct => uct.CompanyTaskId == request.Id && uct.CompanyTaskId == companyTask.Id))
+            .Where(au => !userIdsInTask.Contains(au.Id) && au.CompanyId == companyTask.CompanyId);
+
+        if (!users.Any())
         {
-            userCompanyTasks = userCompanyTasks.Where(uct => uct.CompanyId == currentUserService.CompanyId);
+            return new List<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>();
         }
 
-        var resultResponse = userCompanyTasks
-            .Where(uct => uct.User != null)
+        await entityValidationService.CheckEntityCompanyIsOwner(users.First());
+
+        // Preparar la respuesta.
+        var resultResponse = users
             .Select(uct => new GetEmployeesUnassignedTaskByCompanyTaskIdResponse(
-                uct.User!.Id,
-                $"{uct.User.FirstName} {uct.User.LastName} <{uct.User.Email}>"))
+                uct!.Id,
+                $"{uct.FirstName} {uct.LastName} <{uct.Email}>"))
             .ToList();
 
         return resultResponse;
