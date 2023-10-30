@@ -6,7 +6,8 @@ using EmployeeControl.Application.Features.CompanyTasks.Commands.UpdateCompanyTa
 using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksByCompanyIdPaginated;
 using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksByEmployeeIdPaginated;
 using EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksById;
-using EmployeeControl.Application.Features.CompanyTasks.Queries.GetUsersByCompanyTaskIdPaginated;
+using EmployeeControl.Application.Features.CompanyTasks.Queries.GetEmployeesByCompanyTaskIdPaginated;
+using EmployeeControl.Application.Features.CompanyTasks.Queries.GetEmployeesUnassignedTaskByCompanyTaskId;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,10 +40,10 @@ public class CompanyTasksController : ApiControllerBase
     /// <returns>Lista de usuarios paginádos.</returns>
     [HttpGet("{id}/employees/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<ResponseData<GetUsersByCompanyTaskIdPaginatedResponse>>>
-        GetUsersByCompanyTaskIdPaginated([FromQuery] RequestData request, string id)
+    public async Task<ActionResult<ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>>>
+        GetEmployeesByCompanyTaskIdPaginated([FromQuery] RequestData request, string id)
     {
-        var result = await Sender.Send(new GetUsersByCompanyTaskIdPaginatedQuery(request, id));
+        var result = await Sender.Send(new GetEmployeesByCompanyTaskIdPaginatedQuery(request, id));
 
         return result;
     }
@@ -59,6 +60,21 @@ public class CompanyTasksController : ApiControllerBase
         GetCompanyTasksByEmployeeIdPaginated([FromQuery] RequestData request, string employeeId)
     {
         var result = await Sender.Send(new GetCompanyTasksByEmployeeIdPaginatedQuery(request, employeeId));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Obtener lista de todos los empleados que no tengan asignada una tarea concreta.
+    /// </summary>
+    /// <param name="id">Id tarea.</param>
+    /// <returns>Lista empleados que no pertenecen a una tarea concreta.</returns>
+    [HttpGet("{id}/employees/unassigned")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ICollection<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>> GetEmployeesUnassignedTaskByCompanyTaskId(
+        string id)
+    {
+        var result = await Sender.Send(new GetEmployeesUnassignedTaskByCompanyTaskIdQuery(id));
 
         return result;
     }

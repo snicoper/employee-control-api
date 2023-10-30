@@ -7,17 +7,17 @@ using EmployeeControl.Domain.Constants;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetUsersByCompanyTaskIdPaginated;
+namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetEmployeesByCompanyTaskIdPaginated;
 
-internal class GetUsersByCompanyTaskIdPaginatedHandler(
+internal class GetEmployeesByCompanyTaskIdPaginatedHandler(
         IApplicationDbContext context,
         ICurrentUserService currentUserService,
         IMapper mapper,
         IIdentityService identityService)
-    : IRequestHandler<GetUsersByCompanyTaskIdPaginatedQuery, ResponseData<GetUsersByCompanyTaskIdPaginatedResponse>>
+    : IRequestHandler<GetEmployeesByCompanyTaskIdPaginatedQuery, ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>>
 {
-    public async Task<ResponseData<GetUsersByCompanyTaskIdPaginatedResponse>> Handle(
-        GetUsersByCompanyTaskIdPaginatedQuery request,
+    public async Task<ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>> Handle(
+        GetEmployeesByCompanyTaskIdPaginatedQuery request,
         CancellationToken cancellationToken)
     {
         var userCompanyTasks = context
@@ -35,7 +35,7 @@ internal class GetUsersByCompanyTaskIdPaginatedHandler(
             .AsNoTracking()
             .Select(uct => uct.User);
 
-        var resultResponse = await ResponseData<GetUsersByCompanyTaskIdPaginatedResponse>.CreateAsync(
+        var resultResponse = await ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>.CreateAsync(
             users,
             request.RequestData,
             mapper,
