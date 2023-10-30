@@ -19,5 +19,5 @@ public interface IEntityValidationService
     /// <typeparam name="TEntity">Entidad.</typeparam>
     /// <exception cref="NotFoundException">Si no tiene permisos para leer los datos.</exception>
     Task CheckEntityCompanyIsOwner<TEntity>(TEntity entity)
-        where TEntity : ICompanyId;
+        where TEntity : ICompany;
 }

@@ -17,7 +17,7 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
 
         // Relations.
         builder.HasOne(au => au.Company)
-            .WithMany(c => c.ApplicationUsers)
+            .WithMany(c => c.Users)
             .HasForeignKey(au => au.CompanyId);
 
         // Properties.

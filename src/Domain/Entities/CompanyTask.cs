@@ -3,7 +3,7 @@ using EmployeeControl.Domain.Interfaces;
 
 namespace EmployeeControl.Domain.Entities;
 
-public class CompanyTask : BaseAuditableEntity, ICompanyId
+public class CompanyTask : BaseAuditableEntity, ICompany
 {
     public string? Name { get; set; }
 
@@ -13,9 +13,9 @@ public class CompanyTask : BaseAuditableEntity, ICompanyId
 
     public string? Color { get; set; }
 
-    public Company? Company { get; set; }
-
     public ICollection<UserCompanyTask> UserCompanyTasks { get; set; } = new List<UserCompanyTask>();
+
+    public Company? Company { get; set; }
 
     public string CompanyId { get; set; } = default!;
 }

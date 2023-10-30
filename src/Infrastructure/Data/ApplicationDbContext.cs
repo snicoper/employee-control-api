@@ -14,6 +14,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public DbSet<CompanyTask> CompanyTasks => Set<CompanyTask>();
 
+    public DbSet<TimeControl> TimeControls => Set<TimeControl>();
+
     public DbSet<UserCompanyTask> UserCompanyTasks => Set<UserCompanyTask>();
 
     public new DatabaseFacade Database => base.Database;

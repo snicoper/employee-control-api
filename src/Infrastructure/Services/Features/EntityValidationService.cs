@@ -11,7 +11,7 @@ public class EntityValidationService(ICurrentUserService currentUserService, IId
     : IEntityValidationService
 {
     public async Task CheckEntityCompanyIsOwner<TEntity>(TEntity entity)
-        where TEntity : ICompanyId
+        where TEntity : ICompany
     {
         var currentUserId = currentUserService.Id;
 
