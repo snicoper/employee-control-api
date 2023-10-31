@@ -1,4 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Features.TimeControl.Commands.FinishTimeControl;
 using EmployeeControl.Application.Features.TimeControl.Commands.StartTimeControl;
 using EmployeeControl.Application.Features.TimeControl.Queries.GetCurrentStateTimeControl;
 using EmployeeControl.Domain.Entities;
@@ -37,6 +38,22 @@ public class TimeControlController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> StartTimeControl(StartTimeControlCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Finalizar un TimeControl.
+    /// </summary>
+    /// <param name="command">Employee Id.</param>
+    /// <returns>Result con el estado del proceso.</returns>
+    [HttpPost("finish")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Result>> FinishTimeControl(FinishTimeControlCommand command)
     {
         var result = await Sender.Send(command);
 
