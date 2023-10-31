@@ -18,7 +18,9 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
         // Relations.
         builder.HasOne(au => au.Company)
             .WithMany(c => c.Users)
-            .HasForeignKey(au => au.CompanyId);
+            .HasForeignKey(au => au.CompanyId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
 
         // Properties.
         builder.Property(au => au.CompanyId)

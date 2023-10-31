@@ -18,10 +18,14 @@ public class UserCompanyTaskConfiguration : IEntityTypeConfiguration<UserCompany
         // Relations.
         builder.HasOne(uct => uct.User)
             .WithMany(au => au.UserCompanyTasks)
-            .HasForeignKey(uct => uct.UserId);
+            .HasForeignKey(uct => uct.UserId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
 
         builder.HasOne(uct => uct.CompanyTask)
             .WithMany(ct => ct.UserCompanyTasks)
-            .HasForeignKey(uct => uct.CompanyTaskId);
+            .HasForeignKey(uct => uct.CompanyTaskId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
     }
 }

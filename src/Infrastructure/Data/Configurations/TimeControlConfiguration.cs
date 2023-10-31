@@ -17,7 +17,9 @@ public class TimeControlConfiguration : IEntityTypeConfiguration<TimeControl>
         // Relations.
         builder.HasOne(tc => tc.User)
             .WithMany(au => au.TimeControls)
-            .HasForeignKey(tc => tc.UserId);
+            .HasForeignKey(tc => tc.UserId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
 
         // Properties
         builder.Property(tc => tc.Start)

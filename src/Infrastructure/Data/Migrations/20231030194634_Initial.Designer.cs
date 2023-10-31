@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231028213337_Initial")]
+    [Migration("20231030194634_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -206,6 +206,48 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.ToTable("CompanyTasks");
                 });
 
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.TimeControl", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CompanyId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("Finish")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset>("LastModified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("Start")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TimeControls");
+                });
+
             modelBuilder.Entity("EmployeeControl.Domain.Entities.UserCompanyTask", b =>
                 {
                     b.Property<string>("UserId")
@@ -363,7 +405,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
             modelBuilder.Entity("EmployeeControl.Domain.Entities.ApplicationUser", b =>
                 {
                     b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
-                        .WithMany("ApplicationUsers")
+                        .WithMany("Users")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -382,8 +424,33 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.TimeControl", b =>
+                {
+                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", "User")
+                        .WithMany("TimeControls")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("EmployeeControl.Domain.Entities.UserCompanyTask", b =>
                 {
+                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EmployeeControl.Domain.Entities.CompanyTask", "CompanyTask")
                         .WithMany("UserCompanyTasks")
                         .HasForeignKey("CompanyTaskId")
@@ -395,6 +462,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Company");
 
                     b.Navigation("CompanyTask");
 
@@ -454,14 +523,16 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.ApplicationUser", b =>
                 {
+                    b.Navigation("TimeControls");
+
                     b.Navigation("UserCompanyTasks");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.Company", b =>
                 {
-                    b.Navigation("ApplicationUsers");
-
                     b.Navigation("CompanyTasks");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyTask", b =>

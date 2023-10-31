@@ -20,7 +20,9 @@ public class CompanyTaskConfiguration : IEntityTypeConfiguration<CompanyTask>
         // Relations.
         builder.HasOne(ct => ct.Company)
             .WithMany(c => c.CompanyTasks)
-            .HasForeignKey(ct => ct.CompanyId);
+            .HasForeignKey(ct => ct.CompanyId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
 
         // Properties.
         builder.Property(ct => ct.CompanyId)

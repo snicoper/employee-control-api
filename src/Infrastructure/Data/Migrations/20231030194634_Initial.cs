@@ -212,6 +212,37 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TimeControls",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Start = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    Finish = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    CompanyId = table.Column<string>(type: "text", nullable: false),
+                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "text", nullable: true),
+                    LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TimeControls", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TimeControls_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TimeControls_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "UserCompanyTasks",
                 columns: table => new
                 {
@@ -226,6 +257,12 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         name: "FK_UserCompanyTasks_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserCompanyTasks_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -313,6 +350,21 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 column: "Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TimeControls_CompanyId",
+                table: "TimeControls",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TimeControls_Id",
+                table: "TimeControls",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TimeControls_UserId",
+                table: "TimeControls",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserCompanyTasks_CompanyId_UserId_CompanyTaskId",
                 table: "UserCompanyTasks",
                 columns: new[] { "CompanyId", "UserId", "CompanyTaskId" },
@@ -341,6 +393,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "TimeControls");
 
             migrationBuilder.DropTable(
                 name: "UserCompanyTasks");
