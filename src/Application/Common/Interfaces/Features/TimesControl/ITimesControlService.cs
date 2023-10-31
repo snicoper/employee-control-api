@@ -17,11 +17,19 @@ public interface ITimesControlService
     /// <param name="to">Fecha final.</param>
     /// <param name="cancellationToken">Cancelation token.</param>
     /// <returns>Grupo por días de <see cref="TimeControl" />.</returns>
-    Task<IEnumerable<IGrouping<int, TimeControl>>> GetTimeControlRangeByEmployeeIdAsync(
+    Task<IEnumerable<IGrouping<int, TimeControl>>> GetRangeByEmployeeIdAsync(
         string employeeId,
         DateTimeOffset from,
         DateTimeOffset to,
         CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Obtener si el empleado tiene algún <see cref="TimeControl" /> inicializado.
+    /// </summary>
+    /// <param name="employeeId">Id empleado.</param>
+    /// <param name="cancellationToken">CancellationToken.</param>
+    /// <returns>true si tiene el <see cref="TimeControl" /> inicializado, false en caso contrario.</returns>
+    Task<bool> GetCurrentStateByEmployeeIdAsync(string employeeId, CancellationToken cancellationToken);
 
     /// <summary>
     /// Inicializar un <see cref="TimeControl" />.

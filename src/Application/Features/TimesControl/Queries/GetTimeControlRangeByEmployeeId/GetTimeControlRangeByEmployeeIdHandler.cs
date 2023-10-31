@@ -13,7 +13,7 @@ internal class GetTimeControlRangeByEmployeeIdHandler(TimeProvider timeProvider,
         CancellationToken cancellationToken)
     {
         // Si algún tiempo Finish no esta cerrado, pone el tiempo actual y lo suma al total.
-        var timesControlGroup = await timesControlService.GetTimeControlRangeByEmployeeIdAsync(
+        var timesControlGroup = await timesControlService.GetRangeByEmployeeIdAsync(
             request.EmployeeId,
             request.From,
             request.To,
@@ -28,11 +28,8 @@ internal class GetTimeControlRangeByEmployeeIdHandler(TimeProvider timeProvider,
 
     private GetTimeControlRangeByEmployeeIdResponse TimesControlMap(IGrouping<int, TimeControl> timesControlGroup)
     {
-        const int dayMinutes = 60 * 24;
+        const int minutesInDay = 60 * 24;
         var timeControlResponse = new GetTimeControlRangeByEmployeeIdResponse();
-
-        // TODO: Falta comprobar si el tiempo ha superado las 00:00:00, el sistema debería cerrarlo.
-        // Establecer la hora actual, si no tiene un tiempo cerrado y sumar el grupo.
         var totalMinutes = TimeSpan.Zero;
 
         foreach (var control in timesControlGroup)
@@ -40,17 +37,18 @@ internal class GetTimeControlRangeByEmployeeIdHandler(TimeProvider timeProvider,
             var unclosed = control.ClosedBy == ClosedBy.Unclosed;
             var timeFinish = unclosed ? timeProvider.GetUtcNow() : control.Finish;
             var diff = timeFinish - control.Start;
-            var percent = (int)Math.Floor(diff.TotalMinutes / dayMinutes * 100);
-
-            totalMinutes += diff;
+            var percent = (int)Math.Floor(diff.TotalMinutes / minutesInDay * 100);
+            var minutes = (int)Math.Floor(diff.TotalMinutes);
 
             timeControlResponse.Times.Add(new GetTimeControlRangeByEmployeeIdResponse.TimeControlResponse(
                 control.Id,
                 control.Start,
                 control.Finish,
                 unclosed,
-                (int)Math.Floor(diff.TotalMinutes),
+                minutes,
                 percent));
+
+            totalMinutes += diff;
         }
 
         timeControlResponse.TotalMinutes = (int)Math.Floor(totalMinutes.TotalMinutes);

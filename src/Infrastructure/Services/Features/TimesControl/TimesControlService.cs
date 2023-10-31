@@ -23,7 +23,7 @@ public class TimesControlService(
         IStringLocalizer<TimeControlLocalizer> localizer)
     : ITimesControlService
 {
-    public async Task<IEnumerable<IGrouping<int, TimeControl>>> GetTimeControlRangeByEmployeeIdAsync(
+    public async Task<IEnumerable<IGrouping<int, TimeControl>>> GetRangeByEmployeeIdAsync(
         string employeeId,
         DateTimeOffset from,
         DateTimeOffset to,
@@ -47,6 +47,23 @@ public class TimesControlService(
         await entityValidationService.CheckEntityCompanyIsOwner(firstTimeControl);
 
         return timeControlGroups;
+    }
+
+    public async Task<bool> GetCurrentStateByEmployeeIdAsync(string employeeId, CancellationToken cancellationToken)
+    {
+        var timeControl = await context
+            .TimeControls
+            .AsNoTracking()
+            .SingleOrDefaultAsync(ct => ct.ClosedBy == ClosedBy.Unclosed && ct.UserId == employeeId, cancellationToken);
+
+        if (timeControl is null)
+        {
+            return true;
+        }
+
+        await entityValidationService.CheckEntityCompanyIsOwner(timeControl);
+
+        return timeControl.ClosedBy == ClosedBy.Unclosed;
     }
 
     public async Task<(Result Result, TimeControl TimeControl)> StartAsync(string employeeId, CancellationToken cancellationToken)
