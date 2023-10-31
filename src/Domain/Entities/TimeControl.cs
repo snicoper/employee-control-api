@@ -1,13 +1,21 @@
 ﻿using EmployeeControl.Domain.Common;
+using EmployeeControl.Domain.Enums;
 using EmployeeControl.Domain.Interfaces;
 
 namespace EmployeeControl.Domain.Entities;
 
 public class TimeControl : BaseAuditableEntity, ICompany
 {
+    public TimeControl()
+    {
+        ClosedBy = ClosedBy.Unclosed;
+    }
+
     public DateTimeOffset Start { get; set; }
 
-    public DateTimeOffset? Finish { get; set; }
+    public DateTimeOffset Finish { get; set; }
+
+    public ClosedBy ClosedBy { get; set; }
 
     public ApplicationUser? User { get; set; }
 

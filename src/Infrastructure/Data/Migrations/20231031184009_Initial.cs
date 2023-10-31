@@ -217,7 +217,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
                     Start = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    Finish = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    Finish = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    ClosedBy = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     CompanyId = table.Column<string>(type: "text", nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),

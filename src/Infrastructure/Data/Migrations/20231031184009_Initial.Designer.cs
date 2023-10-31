@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231030194634_Initial")]
+    [Migration("20231031184009_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -211,6 +211,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<int>("ClosedBy")
+                        .HasColumnType("integer");
+
                     b.Property<string>("CompanyId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -221,7 +224,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
 
-                    b.Property<DateTimeOffset?>("Finish")
+                    b.Property<DateTimeOffset>("Finish")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("LastModified")

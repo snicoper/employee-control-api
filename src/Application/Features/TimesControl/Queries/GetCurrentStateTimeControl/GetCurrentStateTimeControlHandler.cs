@@ -1,5 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features;
+using EmployeeControl.Domain.Enums;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,7 @@ internal class GetCurrentStateTimeControlHandler(IApplicationDbContext context, 
         var timeControl = await context
             .TimeControls
             .AsNoTracking()
-            .SingleOrDefaultAsync(ct => ct.Finish == null, cancellationToken);
+            .SingleOrDefaultAsync(ct => ct.ClosedBy == ClosedBy.Unclosed, cancellationToken);
 
         var isOpen = timeControl is not null;
 

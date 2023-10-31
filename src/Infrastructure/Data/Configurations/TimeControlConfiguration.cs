@@ -25,7 +25,11 @@ public class TimeControlConfiguration : IEntityTypeConfiguration<TimeControl>
         builder.Property(tc => tc.Start)
             .IsRequired();
 
-        builder.Property(tc => tc.Finish);
+        builder.Property(tc => tc.Finish)
+            .IsRequired();
+
+        builder.Property(tc => tc.ClosedBy)
+            .IsRequired();
 
         builder.Property(tc => tc.CompanyId)
             .IsRequired();
