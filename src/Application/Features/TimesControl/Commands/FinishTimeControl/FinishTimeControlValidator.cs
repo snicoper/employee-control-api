@@ -1,7 +1,7 @@
-﻿using EmployeeControl.Application.Features.TimeControl.Commands.StartTimeControl;
+﻿using EmployeeControl.Application.Features.TimesControl.Commands.StartTimeControl;
 using FluentValidation;
 
-namespace EmployeeControl.Application.Features.TimeControl.Commands.FinishTimeControl;
+namespace EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeControl;
 
 public class FinishTimeControlValidator : AbstractValidator<StartTimeControlCommand>
 {

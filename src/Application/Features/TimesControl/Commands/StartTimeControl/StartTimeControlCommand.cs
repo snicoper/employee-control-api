@@ -3,7 +3,7 @@ using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Constants;
 using MediatR;
 
-namespace EmployeeControl.Application.Features.TimeControl.Commands.StartTimeControl;
+namespace EmployeeControl.Application.Features.TimesControl.Commands.StartTimeControl;
 
 [Authorize(Roles = Roles.Employee)]
 public record StartTimeControlCommand(string EmployeeId) : IRequest<Result>;

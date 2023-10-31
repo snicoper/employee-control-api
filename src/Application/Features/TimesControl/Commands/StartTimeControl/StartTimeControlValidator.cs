@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace EmployeeControl.Application.Features.TimeControl.Commands.StartTimeControl;
+namespace EmployeeControl.Application.Features.TimesControl.Commands.StartTimeControl;
 
 public class StartTimeControlValidator : AbstractValidator<StartTimeControlCommand>
 {

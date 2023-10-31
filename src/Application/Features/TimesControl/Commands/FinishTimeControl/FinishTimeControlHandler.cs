@@ -11,40 +11,39 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
-namespace EmployeeControl.Application.Features.TimeControl.Commands.StartTimeControl;
+namespace EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeControl;
 
-internal class StartTimeControlHandler(
+internal class FinishTimeControlHandler(
         UserManager<ApplicationUser> userManager,
         IApplicationDbContext context,
         TimeProvider timeProvider,
         IValidationFailureService validationFailureService,
         IEntityValidationService entityValidationService,
         IStringLocalizer<TimeControlLocalizer> localizer)
-    : IRequestHandler<StartTimeControlCommand, Result>
+    : IRequestHandler<FinishTimeControlCommand, Result>
 {
-    public async Task<Result> Handle(StartTimeControlCommand request, CancellationToken cancellationToken)
+    public async Task<Result> Handle(FinishTimeControlCommand request, CancellationToken cancellationToken)
     {
-        var employee = await userManager.FindByIdAsync(request.EmployeeId) ??
-                       throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
+        _ = await userManager.FindByIdAsync(request.EmployeeId) ??
+            throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
 
-        var timeControlInitialized = await context
+        var timesControl = await context
             .TimeControls
             .AsNoTracking()
             .SingleOrDefaultAsync(tc => tc.Finish == null, cancellationToken);
 
-        if (timeControlInitialized is not null)
+        if (timesControl is null)
         {
-            var message = localizer["Ya hay un tiempo inicializado y no es posible comenzar otro."];
+            var message = localizer["No hay un tiempo inicializado."];
             validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NotificationErrors, message);
+
+            return Result.Failure();
         }
 
-        var timeControl = new Domain.Entities.TimeControl
-        {
-            UserId = request.EmployeeId, Start = timeProvider.GetUtcNow(), CompanyId = employee.CompanyId
-        };
+        timesControl.Finish = timeProvider.GetUtcNow();
 
-        await entityValidationService.CheckEntityCompanyIsOwner(timeControl);
-        await context.TimeControls.AddAsync(timeControl, cancellationToken);
+        await entityValidationService.CheckEntityCompanyIsOwner(timesControl);
+        context.TimeControls.Update(timesControl);
         await context.SaveChangesAsync(cancellationToken);
 
         return Result.Success();

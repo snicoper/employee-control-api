@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace EmployeeControl.Application.Features.TimeControl.Queries.GetCurrentStateTimeControl;
+namespace EmployeeControl.Application.Features.TimesControl.Queries.GetCurrentStateTimeControl;
 
 public class GetCurrentStateTimeControlValidator : AbstractValidator<GetCurrentStateTimeControlQuery>
 {

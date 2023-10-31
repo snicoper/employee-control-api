@@ -3,7 +3,7 @@ using EmployeeControl.Application.Common.Interfaces.Features;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Application.Features.TimeControl.Queries.GetCurrentStateTimeControl;
+namespace EmployeeControl.Application.Features.TimesControl.Queries.GetCurrentStateTimeControl;
 
 internal class GetCurrentStateTimeControlHandler(IApplicationDbContext context, IEntityValidationService entityValidationService)
     : IRequestHandler<GetCurrentStateTimeControlQuery, GetCurrentStateTimeControlResponse>
