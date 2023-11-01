@@ -229,6 +229,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("Start")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<int>("TimeState")
+                        .HasColumnType("integer");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("text");

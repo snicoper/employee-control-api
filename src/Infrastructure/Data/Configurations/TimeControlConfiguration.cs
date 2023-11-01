@@ -31,6 +31,9 @@ public class TimeControlConfiguration : IEntityTypeConfiguration<TimeControl>
         builder.Property(tc => tc.ClosedBy)
             .IsRequired();
 
+        builder.Property(tc => tc.TimeState)
+            .IsRequired();
+
         builder.Property(tc => tc.CompanyId)
             .IsRequired();
 

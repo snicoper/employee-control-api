@@ -1,8 +1,8 @@
 ﻿using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Commands.StartTimeControl;
-using EmployeeControl.Application.Features.TimesControl.Queries.GetCurrentStateTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlRangeByEmployeeId;
+using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeStateByEmployeeId;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -33,18 +33,18 @@ public class TimesControlController : ApiControllerBase
     }
 
     /// <summary>
-    /// Obtener el estado actual.
+    /// Obtener el estado actual de un empleado por su Id.
     /// <para>Si tiene inicializado un <see cref="TimeControl" />, el estado es true.</para>
     /// </summary>
-    /// <param name="employeeId">Id empleado a comprobar.</param>
+    /// <param name="employeeId">Id empleado.</param>
     /// <returns>IsOpen, true si tiene abierto un tiempo, false en caso contrario.</returns>
-    [HttpGet("employees/{employeeId}/state")]
+    [HttpGet("employees/{employeeId}/time-state")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetCurrentStateTimeControlResponse>> GetCurrentStateTimeControl(string employeeId)
+    public async Task<ActionResult<GetTimeStateByEmployeeIdResponse>> GetTimeStateByEmployeeId(string employeeId)
     {
-        var result = await Sender.Send(new GetCurrentStateTimeControlQuery(employeeId));
+        var result = await Sender.Send(new GetTimeStateByEmployeeIdQuery(employeeId));
 
         return result;
     }

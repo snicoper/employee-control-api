@@ -1,5 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Exceptions;
+using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features;
@@ -54,16 +55,23 @@ public class TimesControlService(
         var timeControl = await context
             .TimeControls
             .AsNoTracking()
-            .SingleOrDefaultAsync(ct => ct.ClosedBy == ClosedBy.Unclosed && ct.UserId == employeeId, cancellationToken);
+            .SingleOrDefaultAsync(ct => ct.TimeState == TimeState.Open && ct.UserId == employeeId, cancellationToken);
 
         if (timeControl is null)
         {
-            return true;
+            return false;
+        }
+
+        // Si el tiempo ha superado las 23:59:59 respecto al día que se inicializó,
+        // el sistema lo cierra y lo reporta como alerta.
+        if (timeControl.Start.Day != timeProvider.GetUtcNow().Day)
+        {
+            await FinishAsync(employeeId, ClosedBy.System, cancellationToken);
         }
 
         await entityValidationService.CheckEntityCompanyIsOwner(timeControl);
 
-        return timeControl.ClosedBy == ClosedBy.Unclosed;
+        return timeControl.TimeState == TimeState.Open;
     }
 
     public async Task<(Result Result, TimeControl TimeControl)> StartAsync(string employeeId, CancellationToken cancellationToken)
@@ -74,7 +82,7 @@ public class TimesControlService(
         var timeControlInitialized = await context
             .TimeControls
             .AsNoTracking()
-            .SingleOrDefaultAsync(tc => tc.ClosedBy == ClosedBy.Unclosed && tc.UserId == employeeId, cancellationToken);
+            .SingleOrDefaultAsync(tc => tc.TimeState == TimeState.Open && tc.UserId == employeeId, cancellationToken);
 
         if (timeControlInitialized is not null)
         {
@@ -93,13 +101,14 @@ public class TimesControlService(
     }
 
     public async Task<(Result Result, TimeControl? TimeControl)> FinishAsync(
+        string employeeId,
         ClosedBy closedBy,
         CancellationToken cancellationToken)
     {
         var timeControl = await context
             .TimeControls
             .AsNoTracking()
-            .SingleOrDefaultAsync(tc => tc.ClosedBy == ClosedBy.Unclosed, cancellationToken);
+            .SingleOrDefaultAsync(tc => tc.TimeState == TimeState.Open && tc.UserId == employeeId, cancellationToken);
 
         if (timeControl?.ClosedBy is null)
         {
@@ -109,8 +118,10 @@ public class TimesControlService(
             return (Result.Failure(message), timeControl);
         }
 
-        timeControl.Finish = timeProvider.GetUtcNow();
+        // Si es cerrado por el sistema, de momento solo hay un motivo que es, tiempo superado.
+        timeControl.Finish = closedBy == ClosedBy.System ? timeControl.Finish.EndOfDay(timeProvider) : timeProvider.GetUtcNow();
         timeControl.ClosedBy = closedBy;
+        timeControl.TimeState = TimeState.Close;
 
         await entityValidationService.CheckEntityCompanyIsOwner(timeControl);
         context.TimeControls.Update(timeControl);

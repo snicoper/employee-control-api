@@ -45,8 +45,12 @@ public interface ITimesControlService
     /// Inicia un TimeControl.
     /// <para>Lanza un <see cref="IValidationFailureService" /> en caso de error.</para>
     /// </summary>
+    /// <param name="employeeId">Id empleado.</param>
     /// <param name="closedBy"><see cref="ClosedBy" />, quien finaliza el tiempo.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns>Result.Success en caso de exito, <see cref="IValidationFailureService" /> en caso contrario.</returns>
-    Task<(Result Result, TimeControl? TimeControl)> FinishAsync(ClosedBy closedBy, CancellationToken cancellationToken);
+    Task<(Result Result, TimeControl? TimeControl)> FinishAsync(
+        string employeeId,
+        ClosedBy closedBy,
+        CancellationToken cancellationToken);
 }

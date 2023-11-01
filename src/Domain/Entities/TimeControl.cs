@@ -9,6 +9,7 @@ public class TimeControl : BaseAuditableEntity, ICompany
     public TimeControl()
     {
         ClosedBy = ClosedBy.Unclosed;
+        TimeState = TimeState.Open;
     }
 
     public DateTimeOffset Start { get; set; }
@@ -16,6 +17,8 @@ public class TimeControl : BaseAuditableEntity, ICompany
     public DateTimeOffset Finish { get; set; }
 
     public ClosedBy ClosedBy { get; set; }
+
+    public TimeState TimeState { get; set; }
 
     public ApplicationUser? User { get; set; }
 

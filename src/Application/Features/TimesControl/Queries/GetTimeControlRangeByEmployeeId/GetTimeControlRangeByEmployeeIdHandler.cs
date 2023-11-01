@@ -20,13 +20,14 @@ internal class GetTimeControlRangeByEmployeeIdHandler(TimeProvider timeProvider,
             cancellationToken);
 
         var resultResponse = timesControlGroup
-            .Select(TimesControlMap)
+            .Select(MapTo)
+            .OrderBy(group => group.Day)
             .ToList();
 
         return resultResponse;
     }
 
-    private GetTimeControlRangeByEmployeeIdResponse TimesControlMap(IGrouping<int, TimeControl> timesControlGroup)
+    private GetTimeControlRangeByEmployeeIdResponse MapTo(IGrouping<int, TimeControl> timesControlGroup)
     {
         const int minutesInDay = 60 * 24;
         var timeControlResponse = new GetTimeControlRangeByEmployeeIdResponse();
@@ -34,8 +35,7 @@ internal class GetTimeControlRangeByEmployeeIdHandler(TimeProvider timeProvider,
 
         foreach (var control in timesControlGroup)
         {
-            var unclosed = control.ClosedBy == ClosedBy.Unclosed;
-            var timeFinish = unclosed ? timeProvider.GetUtcNow() : control.Finish;
+            var timeFinish = control.ClosedBy == ClosedBy.Unclosed ? timeProvider.GetUtcNow() : control.Finish;
             var diff = timeFinish - control.Start;
             var percent = (int)Math.Floor(diff.TotalMinutes / minutesInDay * 100);
             var minutes = (int)Math.Floor(diff.TotalMinutes);
@@ -43,8 +43,9 @@ internal class GetTimeControlRangeByEmployeeIdHandler(TimeProvider timeProvider,
             timeControlResponse.Times.Add(new GetTimeControlRangeByEmployeeIdResponse.TimeControlResponse(
                 control.Id,
                 control.Start,
-                control.Finish,
-                unclosed,
+                timeFinish,
+                control.TimeState,
+                control.ClosedBy,
                 minutes,
                 percent));
 
@@ -53,6 +54,12 @@ internal class GetTimeControlRangeByEmployeeIdHandler(TimeProvider timeProvider,
 
         timeControlResponse.TotalMinutes = (int)Math.Floor(totalMinutes.TotalMinutes);
         timeControlResponse.Day = timesControlGroup.Key;
+
+        if (timeControlResponse.Times.Count > 0)
+        {
+            timeControlResponse.DayTitle = timeControlResponse
+                .Times.First().Start.UtcDateTime.ToString("yyyy-MM-dd");
+        }
 
         return timeControlResponse;
     }
