@@ -1,3 +1,5 @@
-﻿namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimeStateByEmployeeId;
+﻿using EmployeeControl.Domain.Enums;
 
-public record GetTimeStateByEmployeeIdResponse(bool TimeState);
+namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimeStateByEmployeeId;
+
+public record GetTimeStateByEmployeeIdResponse(TimeState TimeState);

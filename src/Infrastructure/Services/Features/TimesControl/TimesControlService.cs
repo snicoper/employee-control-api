@@ -50,7 +50,7 @@ public class TimesControlService(
         return timeControlGroups;
     }
 
-    public async Task<bool> GetCurrentStateByEmployeeIdAsync(string employeeId, CancellationToken cancellationToken)
+    public async Task<TimeState> GetCurrentStateByEmployeeIdAsync(string employeeId, CancellationToken cancellationToken)
     {
         var timeControl = await context
             .TimeControls
@@ -59,7 +59,7 @@ public class TimesControlService(
 
         if (timeControl is null)
         {
-            return false;
+            return TimeState.Close;
         }
 
         // Si el tiempo ha superado las 23:59:59 respecto al día que se inicializó,
@@ -71,7 +71,7 @@ public class TimesControlService(
 
         await entityValidationService.CheckEntityCompanyIsOwner(timeControl);
 
-        return timeControl.TimeState == TimeState.Open;
+        return timeControl.TimeState;
     }
 
     public async Task<(Result Result, TimeControl TimeControl)> StartAsync(string employeeId, CancellationToken cancellationToken)
