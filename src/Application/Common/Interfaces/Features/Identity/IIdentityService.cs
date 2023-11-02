@@ -11,15 +11,15 @@ public interface IIdentityService
 
     Task<bool> AuthorizeAsync(string userId, string policyName);
 
-    IQueryable<ApplicationUser> GetAccountsByCompanyId(string companyId);
+    IQueryable<ApplicationUser> GetByCompanyId(string companyId);
 
-    Task<(Result Result, string Id)> CreateAccountAsync(
+    Task<(Result Result, string Id)> CreateAsync(
         ApplicationUser user,
         string password,
         IEnumerable<string> roles,
         CancellationToken cancellationToken);
 
-    Task<Result> UpdateAccountAsync(ApplicationUser user, CancellationToken cancellationToken);
+    Task<Result> UpdateAsync(ApplicationUser user, CancellationToken cancellationToken);
 
-    Task<Result> DeleteAccountAsync(ApplicationUser user);
+    Task<Result> DeleteAsync(ApplicationUser user);
 }

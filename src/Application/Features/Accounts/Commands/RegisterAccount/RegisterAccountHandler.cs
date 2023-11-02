@@ -24,20 +24,19 @@ internal class RegisterAccountHandler(
 
         try
         {
-            // Crear compañía en una transaction.
+            // Crear compañía, al crear la compañía creara su CompanySettings.
             var newCompany = new Company { Name = request.CompanyName };
-            var company = await companyService.CreateCompanyAsync(newCompany, cancellationToken);
+            var company = await companyService.CreateAsync(newCompany, cancellationToken);
 
+            // Crear usuario.
             var user = new ApplicationUser
             {
                 FirstName = request.FirstName, LastName = request.LastName, Email = request.Email, CompanyId = company.Id
             };
 
-            var password = request.Password;
-
             // Roles para usuario y creación del usuario.
             var roles = new List<string> { new(Roles.EnterpriseAdministrator), new(Roles.HumanResources), new(Roles.Employee) };
-            var (_, userId) = await identityService.CreateAccountAsync(user, password, roles, cancellationToken);
+            var (_, userId) = await identityService.CreateAsync(user, request.Password, roles, cancellationToken);
 
             // Generar code de validación.
             var code = await userManager.GenerateEmailConfirmationTokenAsync(user);

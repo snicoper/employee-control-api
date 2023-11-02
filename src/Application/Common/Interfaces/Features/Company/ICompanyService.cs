@@ -2,5 +2,11 @@
 
 public interface ICompanyService
 {
-    Task<Domain.Entities.Company> CreateCompanyAsync(Domain.Entities.Company company, CancellationToken cancellationToken);
+    /// <summary>
+    /// Crea una companía.
+    /// </summary>
+    /// <param name="company">Datos de la compañía.</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
+    /// <returns>La entidad <see cref="Domain.Entities.Company" /> creada.</returns>
+    Task<Domain.Entities.Company> CreateAsync(Domain.Entities.Company company, CancellationToken cancellationToken);
 }

@@ -45,7 +45,7 @@ internal class UpdateEmployeeHandler(
 
         // Update employee.
         var userUpdate = mapper.Map(request, user);
-        var result = await identityService.UpdateAccountAsync(userUpdate, cancellationToken);
+        var result = await identityService.UpdateAsync(userUpdate, cancellationToken);
 
         return result;
     }

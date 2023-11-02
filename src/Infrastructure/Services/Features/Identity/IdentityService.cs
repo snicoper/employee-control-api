@@ -55,7 +55,7 @@ public class IdentityService(
         return result.Succeeded;
     }
 
-    public IQueryable<ApplicationUser> GetAccountsByCompanyId(string companyId)
+    public IQueryable<ApplicationUser> GetByCompanyId(string companyId)
     {
         var users = userManager
             .Users
@@ -64,7 +64,7 @@ public class IdentityService(
         return users;
     }
 
-    public async Task<(Result Result, string Id)> CreateAccountAsync(
+    public async Task<(Result Result, string Id)> CreateAsync(
         ApplicationUser user,
         string password,
         IEnumerable<string> roles,
@@ -86,7 +86,7 @@ public class IdentityService(
         return (identityResult.ToApplicationResult(), user.Id);
     }
 
-    public async Task<Result> UpdateAccountAsync(ApplicationUser user, CancellationToken cancellationToken)
+    public async Task<Result> UpdateAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
         // Validaciones.
         await identityValidatorService.UserValidationAsync(user);
@@ -102,7 +102,7 @@ public class IdentityService(
         return identityResult.ToApplicationResult();
     }
 
-    public async Task<Result> DeleteAccountAsync(ApplicationUser user)
+    public async Task<Result> DeleteAsync(ApplicationUser user)
     {
         var result = await userManager.DeleteAsync(user);
 

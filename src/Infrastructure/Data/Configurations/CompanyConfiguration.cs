@@ -13,6 +13,8 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
 
         // Indexes.
         builder.HasIndex(c => c.Id);
+        builder.HasIndex(c => c.CompanySettingsId)
+            .IsUnique();
 
         builder.HasIndex(c => c.Name)
             .IsUnique();

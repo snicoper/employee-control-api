@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using EmployeeControl.Domain.Interfaces;
 
 namespace EmployeeControl.Domain.Common;
 
-public abstract class BaseEntity
+public abstract class BaseEntity : IEntityDomainEvent
 {
     private readonly List<BaseEvent> _domainEvents = new();
 

@@ -50,7 +50,7 @@ public class TimesControlService(
         return timeControlGroups;
     }
 
-    public async Task<TimeState> GetCurrentStateByEmployeeIdAsync(string employeeId, CancellationToken cancellationToken)
+    public async Task<TimeState> GetTimeStateByEmployeeIAsync(string employeeId, CancellationToken cancellationToken)
     {
         var timeControl = await context
             .TimeControls

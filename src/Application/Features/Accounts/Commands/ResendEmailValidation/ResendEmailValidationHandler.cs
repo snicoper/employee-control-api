@@ -42,9 +42,8 @@ internal class ResendEmailValidationHandler(
             return Result.Failure(message);
         }
 
-        // Generar code de validación.
+        // Generar code de validación y enviar email.
         var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
-
         await identityEmailsService.SendValidateEmailAsync(user, user.Company, code);
 
         return Result.Success();

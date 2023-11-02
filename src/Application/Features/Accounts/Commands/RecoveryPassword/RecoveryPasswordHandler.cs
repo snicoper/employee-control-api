@@ -1,4 +1,5 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+﻿using EmployeeControl.Application.Common.Exceptions;
+using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using MediatR;
@@ -11,15 +12,16 @@ internal class RecoveryPasswordHandler(UserManager<ApplicationUser> userManager,
 {
     public async Task<Result> Handle(RecoveryPasswordCommand request, CancellationToken cancellationToken)
     {
-        var user = await userManager.FindByEmailAsync(request.Email);
+        var user = await userManager.FindByEmailAsync(request.Email) ??
+                   throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Email));
 
         // Para restablecer contraseña, el usuario ha debido confirmar el email.
-        if (user is null || !user.EmailConfirmed)
+        if (!user.EmailConfirmed)
         {
-            return Result.Failure(string.Empty);
+            return Result.Failure("Correo electrónico no confirmado.");
         }
 
-        // Generar code de validación.
+        // Generar code de validación y enviar correo electrónico.
         var code = await userManager.GeneratePasswordResetTokenAsync(user);
         await identityEmailsService.SendRecoveryPasswordAsync(user, code);
 

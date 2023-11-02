@@ -1,4 +1,5 @@
-﻿using EmployeeControl.Domain.Constants;
+﻿using EmployeeControl.Application.Common.Interfaces.Features.Company;
+using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ public class ApplicationDbContextInitialize(
     ILogger<ApplicationDbContextInitialize> logger,
     ApplicationDbContext context,
     TimeProvider timeProvider,
+    ICompanyService companyService,
     UserManager<ApplicationUser> userManager,
     RoleManager<IdentityRole> roleManager)
 {
@@ -52,10 +54,8 @@ public class ApplicationDbContextInitialize(
 
         foreach (var company in companies.Where(company => !context.Companies.Any(c => c.Name == company.Name)))
         {
-            await context.Companies.AddAsync(company);
+            await companyService.CreateAsync(company, CancellationToken.None);
         }
-
-        await context.SaveChangesAsync(CancellationToken.None);
     }
 
     private async Task CreateRoles()

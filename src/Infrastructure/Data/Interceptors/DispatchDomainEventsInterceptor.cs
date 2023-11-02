@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Domain.Common;
+﻿using EmployeeControl.Domain.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -32,11 +32,11 @@ public class DispatchDomainEventsInterceptor(IMediator mediator) : SaveChangesIn
         }
 
         var entities = context.ChangeTracker
-            .Entries<BaseEntity>()
+            .Entries<IEntityDomainEvent>()
             .Where(e => e.Entity.DomainEvents.Count != 0)
             .Select(e => e.Entity);
 
-        var baseEntities = entities as BaseEntity[] ?? entities.ToArray();
+        var baseEntities = entities as IEntityDomainEvent[] ?? entities.ToArray();
 
         var domainEvents = baseEntities
             .SelectMany(e => e.DomainEvents)

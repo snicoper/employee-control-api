@@ -12,6 +12,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 {
     public DbSet<Company> Companies => Set<Company>();
 
+    public DbSet<CompanySettings> CompanySettings => Set<CompanySettings>();
+
     public DbSet<CompanyTask> CompanyTasks => Set<CompanyTask>();
 
     public DbSet<TimeControl> TimeControls => Set<TimeControl>();

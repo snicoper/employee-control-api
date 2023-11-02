@@ -26,7 +26,7 @@ internal class RegisterValidateEmailHandler(
 
         if (user is null)
         {
-            message = localizer["El usuario no ha sido encontrado."];
+            message = localizer["El usuario no se ha encontrado."];
             logger.LogDebug("{message}", message);
 
             return Result.Failure(message);

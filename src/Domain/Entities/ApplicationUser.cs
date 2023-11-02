@@ -1,10 +1,21 @@
-﻿using EmployeeControl.Domain.Interfaces;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using EmployeeControl.Domain.Common;
+using EmployeeControl.Domain.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeControl.Domain.Entities;
 
-public class ApplicationUser : IdentityUser, ICompany
+public class ApplicationUser : IdentityUser, ICompany, IEntityDomainEvent
 {
+    private readonly List<BaseEvent> _domainEvents;
+
+    public ApplicationUser()
+    {
+        _domainEvents = new List<BaseEvent>();
+        UserCompanyTasks = new List<UserCompanyTask>();
+        TimeControls = new List<TimeControl>();
+    }
+
     public string? FirstName { get; set; }
 
     public string? LastName { get; set; }
@@ -17,11 +28,29 @@ public class ApplicationUser : IdentityUser, ICompany
 
     public DateTimeOffset? EntryDate { get; set; }
 
-    public ICollection<UserCompanyTask> UserCompanyTasks { get; set; } = new List<UserCompanyTask>();
+    public ICollection<UserCompanyTask> UserCompanyTasks { get; set; }
 
-    public ICollection<TimeControl> TimeControls { get; set; } = new List<TimeControl>();
+    public ICollection<TimeControl> TimeControls { get; set; }
 
     public Company? Company { get; set; }
 
     public string CompanyId { get; set; } = default!;
+
+    [NotMapped]
+    public IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();
+
+    public void AddDomainEvent(BaseEvent domainEvent)
+    {
+        _domainEvents.Add(domainEvent);
+    }
+
+    public void RemoveDomainEvent(BaseEvent domainEvent)
+    {
+        _domainEvents.Remove(domainEvent);
+    }
+
+    public void ClearDomainEvents()
+    {
+        _domainEvents.Clear();
+    }
 }

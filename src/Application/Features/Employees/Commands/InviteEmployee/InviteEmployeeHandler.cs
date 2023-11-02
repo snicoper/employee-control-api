@@ -45,7 +45,7 @@ internal class InviteEmployeeHandler(
         var roles = new[] { Roles.Employee };
 
         // Crear nuevo usuario.
-        var (_, employeeId) = await identityService.CreateAccountAsync(user, password, roles, cancellationToken);
+        var (_, employeeId) = await identityService.CreateAsync(user, password, roles, cancellationToken);
 
         // Generar code de validación.
         var code = await userManager.GenerateEmailConfirmationTokenAsync(user);

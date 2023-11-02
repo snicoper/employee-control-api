@@ -123,6 +123,10 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<string>("CompanySettingsId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("timestamp with time zone");
 
@@ -142,12 +146,50 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanySettingsId")
+                        .IsUnique();
+
                     b.HasIndex("Id");
 
                     b.HasIndex("Name")
                         .IsUnique();
 
                     b.ToTable("Companies");
+                });
+
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanySettings", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CompanyId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("LastModified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Timezone")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId")
+                        .IsUnique();
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("CompanySettings");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyTask", b =>
@@ -412,6 +454,17 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.Company", b =>
+                {
+                    b.HasOne("EmployeeControl.Domain.Entities.CompanySettings", "CompanySettings")
+                        .WithOne("Company")
+                        .HasForeignKey("EmployeeControl.Domain.Entities.Company", "CompanySettingsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CompanySettings");
+                });
+
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyTask", b =>
                 {
                     b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
@@ -532,6 +585,11 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Navigation("CompanyTasks");
 
                     b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanySettings", b =>
+                {
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyTask", b =>

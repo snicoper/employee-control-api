@@ -29,7 +29,7 @@ public interface ITimesControlService
     /// <param name="employeeId">Id empleado.</param>
     /// <param name="cancellationToken">CancellationToken.</param>
     /// <returns>true si tiene el <see cref="TimeControl" /> inicializado, false en caso contrario.</returns>
-    Task<TimeState> GetCurrentStateByEmployeeIdAsync(string employeeId, CancellationToken cancellationToken);
+    Task<TimeState> GetTimeStateByEmployeeIAsync(string employeeId, CancellationToken cancellationToken);
 
     /// <summary>
     /// Inicializar un <see cref="TimeControl" />.

@@ -27,18 +27,18 @@ internal class RecoveryPasswordChangeHandler(
 
         if (user is null)
         {
-            var message = localizer["El usuario no ha sido encontrado."];
+            var message = localizer["El usuario no existe."];
             logger.LogDebug("{message}", message);
             validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NonFieldErrors, message);
         }
 
         if (!user!.EmailConfirmed)
         {
-            var message = localizer["La cuenta ha de confirmar el email primero."];
+            var message = localizer["El email no ha sido confirmado."];
             validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NonFieldErrors, message);
         }
 
-        var resetResult = await userManager.ResetPasswordAsync(user!, code, request.Password);
+        var resetResult = await userManager.ResetPasswordAsync(user, code, request.Password);
         var result = !resetResult.Succeeded ? Result.Failure(localizer["Error al cambiar la contraseña"]) : Result.Success();
 
         return result;

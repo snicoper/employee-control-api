@@ -1,11 +1,14 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
+using EmployeeControl.Application.Localizations;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 
 namespace EmployeeControl.Infrastructure.Services.Features.CompanyTask;
 
 public class CompanyTaskService(
-        ICompanyTaskValidatorService companyTaskValidatorService,
+        IStringLocalizer<CompanyTaskLocalizer> localizer,
         IValidationFailureService validationFailureService,
         IApplicationDbContext context)
     : ICompanyTaskService
@@ -14,9 +17,16 @@ public class CompanyTaskService(
         Domain.Entities.CompanyTask newCompanyTask,
         CancellationToken cancellationToken)
     {
-        companyTaskValidatorService.ValidateCompanyName(newCompanyTask);
+        var companyTaskExists = context
+            .CompanyTasks
+            .AsNoTracking()
+            .Where(ct => ct.CompanyId == newCompanyTask.CompanyId && ct.Name == newCompanyTask.Name);
 
-        validationFailureService.RaiseExceptionIfExistsErrors();
+        if (companyTaskExists.Any())
+        {
+            var message = localizer["El nombre de compañía ya existe."];
+            validationFailureService.AddAndRaiseException(nameof(Domain.Entities.CompanyTask.Name), message);
+        }
 
         newCompanyTask.Active = true;
 

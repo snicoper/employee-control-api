@@ -9,10 +9,12 @@ public class RegisterAccountValidator : AbstractValidator<RegisterAccountCommand
     public RegisterAccountValidator(IStringLocalizer<IdentityLocalizer> localizer)
     {
         RuleFor(r => r.FirstName)
-            .NotEmpty();
+            .NotEmpty()
+            .MaximumLength(256);
 
         RuleFor(r => r.LastName)
-            .NotEmpty();
+            .NotEmpty()
+            .MaximumLength(256);
 
         RuleFor(r => r.Email)
             .NotEmpty()

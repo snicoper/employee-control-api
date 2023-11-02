@@ -8,6 +8,8 @@ public interface IApplicationDbContext
 {
     DbSet<Company> Companies { get; }
 
+    DbSet<CompanySettings> CompanySettings { get; }
+
     DbSet<CompanyTask> CompanyTasks { get; }
 
     DbSet<TimeControl> TimeControls { get; }
