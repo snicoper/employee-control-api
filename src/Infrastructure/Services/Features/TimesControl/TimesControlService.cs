@@ -1,6 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features;
@@ -16,7 +15,7 @@ using Microsoft.Extensions.Localization;
 namespace EmployeeControl.Infrastructure.Services.Features.TimesControl;
 
 public class TimesControlService(
-        TimeProvider timeProvider,
+        IDateTimeService dateTimeService,
         IEntityValidationService entityValidationService,
         IValidationFailureService validationFailureService,
         IApplicationDbContext context,
@@ -64,7 +63,9 @@ public class TimesControlService(
 
         // Si el tiempo ha superado las 23:59:59 respecto al día que se inicializó,
         // el sistema lo cierra y lo reporta como alerta.
-        if (timeControl.Start.Day != timeProvider.GetUtcNow().Day)
+        // El tiempo es en base al timezone de la compañía.
+        var datetimeZone = dateTimeService.ConvertToTimezoneCompany(dateTimeService.EndOfDay(dateTimeService.UtcNow));
+        if (timeControl.Start.Day != datetimeZone.Day)
         {
             await FinishAsync(employeeId, ClosedBy.System, cancellationToken);
         }
@@ -90,8 +91,13 @@ public class TimesControlService(
             validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NotificationErrors, message);
         }
 
-        var now = timeProvider.GetUtcNow();
-        var timeControl = new TimeControl { UserId = employeeId, Start = now, Finish = now, CompanyId = employee.CompanyId };
+        var timeControl = new TimeControl
+        {
+            UserId = employeeId,
+            Start = dateTimeService.UtcNow,
+            Finish = dateTimeService.UtcNow,
+            CompanyId = employee.CompanyId
+        };
 
         await entityValidationService.CheckEntityCompanyIsOwner(timeControl);
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
@@ -119,7 +125,10 @@ public class TimesControlService(
         }
 
         // Si es cerrado por el sistema, de momento solo hay un motivo que es, tiempo superado.
-        timeControl.Finish = closedBy == ClosedBy.System ? timeControl.Finish.EndOfDay(timeProvider) : timeProvider.GetUtcNow();
+        timeControl.Finish = closedBy == ClosedBy.System
+            ? dateTimeService.EndOfDay(timeControl.Finish)
+            : dateTimeService.UtcNow;
+
         timeControl.ClosedBy = closedBy;
         timeControl.TimeState = TimeState.Close;
 

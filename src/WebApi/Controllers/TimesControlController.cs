@@ -20,7 +20,7 @@ public class TimesControlController : ApiControllerBase
     /// <param name="from">Fecha inicial.</param>
     /// <param name="to">Fecha final.</param>
     /// <returns>IsOpen, true si tiene abierto un tiempo, false en caso contrario.</returns>
-    [HttpGet("employees/{employeeId}/from/{from}/to{to}")]
+    [HttpGet("employees/{employeeId}/from/{from}/to/{to}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
