@@ -26,7 +26,7 @@ internal class RegisterAccountHandler(
         {
             // Crear compañía, al crear la compañía creara su CompanySettings.
             var newCompany = new Company { Name = request.CompanyName };
-            var company = await companyService.CreateAsync(newCompany, cancellationToken);
+            var company = await companyService.CreateAsync(newCompany, request.Timezone, cancellationToken);
 
             // Crear usuario.
             var user = new ApplicationUser

@@ -128,7 +128,7 @@ public class TimesControlService(
             return (Result.Failure(message), timeControl);
         }
 
-        // Si es cerrado por el sistema, de momento solo hay un motivo que es, tiempo superado.
+        // Si es cerrado por el sistema, de momento solo hay un motivo que es tiempo superado 23:59:00.
         timeControl.Finish = closedBy == ClosedBy.System
             ? dateTimeService.EndOfDay(timeControl.Finish)
             : dateTimeService.UtcNow;

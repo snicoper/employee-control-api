@@ -8,5 +8,6 @@ public record RegisterAccountCommand(
         string Email,
         string Password,
         string ConfirmPassword,
-        string CompanyName)
+        string CompanyName,
+        string Timezone)
     : IRequest<string>;

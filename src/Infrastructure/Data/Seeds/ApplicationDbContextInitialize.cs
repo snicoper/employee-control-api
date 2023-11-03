@@ -55,7 +55,7 @@ public class ApplicationDbContextInitialize(
 
         foreach (var company in companies.Where(company => !context.Companies.Any(c => c.Name == company.Name)))
         {
-            await companyService.CreateAsync(company, CancellationToken.None);
+            await companyService.CreateAsync(company, "Europe/Madrid", CancellationToken.None);
         }
     }
 

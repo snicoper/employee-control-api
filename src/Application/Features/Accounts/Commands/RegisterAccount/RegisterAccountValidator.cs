@@ -35,5 +35,8 @@ public class RegisterAccountValidator : AbstractValidator<RegisterAccountCommand
         RuleFor(r => r.CompanyName)
             .NotEmpty()
             .MaximumLength(50);
+
+        RuleFor(r => r.Timezone)
+            .NotEmpty();
     }
 }
