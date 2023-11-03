@@ -3,7 +3,9 @@ using EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeContr
 using EmployeeControl.Application.Features.TimesControl.Commands.StartTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlRangeByEmployeeId;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeStateByEmployeeId;
+using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeStateOpenByEmployeeId;
 using EmployeeControl.Domain.Entities;
+using EmployeeControl.Domain.Enums;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
@@ -45,6 +47,25 @@ public class TimesControlController : ApiControllerBase
     public async Task<ActionResult<GetTimeStateByEmployeeIdResponse>> GetTimeStateByEmployeeId(string employeeId)
     {
         var result = await Sender.Send(new GetTimeStateByEmployeeIdQuery(employeeId));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Obtener un <see cref="TimeControl" /> abierto por el Id de empleado.
+    /// <para>
+    /// Si no tiene abierto un <see cref="TimeControl" />, el valor de <see cref="TimeControl.TimeState" /> será
+    /// <see cref="TimeState.Close" /> y el tiempo de <see cref="TimeControl.Start" /> null.
+    /// </para>
+    /// </summary>
+    /// <param name="employeeId">Id empleado.</param>
+    /// <returns>El estado de <see cref="TimeControl.TimeState" /> y <see cref="TimeControl.Start" />.</returns>
+    [HttpGet("employees/{employeeId}/time-state-open")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<GetTimeStateOpenByEmployeeIdResponse>> GetTimeStateOpenByEmployeeId(string employeeId)
+    {
+        var result = await Sender.Send(new GetTimeStateOpenByEmployeeIdQuery(employeeId));
 
         return result;
     }
