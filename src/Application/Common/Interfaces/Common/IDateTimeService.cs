@@ -18,6 +18,20 @@ public interface IDateTimeService
     DateTimeOffset UtcNow { get; }
 
     /// <summary>
+    /// Alias de <see cref="TimeZoneInfo.TryConvertWindowsIdToIanaId(string,string?,out string?)" />.
+    /// </summary>
+    /// <param name="windowsId">Timezone Windows.</param>
+    /// <returns>Timezone Iana.</returns>
+    string TryConvertWindowsIdToIanaId(string windowsId);
+
+    /// <summary>
+    /// Alias de <see cref="TimeZoneInfo.TryConvertIanaIdToWindowsId" />.
+    /// </summary>
+    /// <param name="ianaId">Timezone Iana.</param>
+    /// <returns>Timezone Windows.</returns>
+    string TryConvertIanaIdToWindowsId(string ianaId);
+
+    /// <summary>
     /// Convierte un <see cref="DateTimeOffset" /> con la zona horaria de la compañía.
     /// </summary>
     /// <param name="datetime">Datetime a convertir.</param>
