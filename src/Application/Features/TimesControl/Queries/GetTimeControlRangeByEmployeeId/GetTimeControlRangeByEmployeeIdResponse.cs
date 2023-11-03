@@ -19,5 +19,5 @@ public record GetTimeControlRangeByEmployeeIdResponse
         TimeState TimeState,
         ClosedBy ClosedBy,
         int Minutes,
-        int DayPercent);
+        double DayPercent);
 }

@@ -38,7 +38,7 @@ internal class GetTimeControlRangeByEmployeeIdHandler(IDateTimeService dateTimeS
         {
             var timeFinish = control.ClosedBy == ClosedBy.Unclosed ? dateTimeService.UtcNow : control.Finish;
             var diff = timeFinish - control.Start;
-            var percent = (int)Math.Floor(diff.TotalMinutes / minutesInDay * 100);
+            var percent = Math.Round(diff.TotalMinutes / minutesInDay * 100, 2);
             var minutes = (int)Math.Floor(diff.TotalMinutes);
 
             timeControlResponse.Times.Add(new GetTimeControlRangeByEmployeeIdResponse.TimeControlResponse(
@@ -58,8 +58,7 @@ internal class GetTimeControlRangeByEmployeeIdHandler(IDateTimeService dateTimeS
 
         if (timeControlResponse.Times.Count > 0)
         {
-            timeControlResponse.DayTitle = timeControlResponse
-                .Times.First().Start.UtcDateTime.ToString("yyyy-MM-dd");
+            timeControlResponse.DayTitle = timeControlResponse.Times.First().Start.UtcDateTime.ToString("yyyy-MM-dd");
         }
 
         return timeControlResponse;
