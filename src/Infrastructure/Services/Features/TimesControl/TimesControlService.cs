@@ -104,6 +104,7 @@ public class TimesControlService(
         };
 
         await entityValidationService.CheckEntityCompanyIsOwner(timeControl);
+
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
 
@@ -137,6 +138,7 @@ public class TimesControlService(
         timeControl.TimeState = TimeState.Close;
 
         await entityValidationService.CheckEntityCompanyIsOwner(timeControl);
+
         context.TimeControls.Update(timeControl);
         await context.SaveChangesAsync(cancellationToken);
 
