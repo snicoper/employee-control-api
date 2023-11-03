@@ -8,11 +8,6 @@ public interface IDateTimeService
     TimeProvider TimeProvider { get; }
 
     /// <summary>
-    /// Obtener el Timezone de la configuración de la compañía.
-    /// </summary>
-    string CompanyTimezone { get; }
-
-    /// <summary>
     /// Alias de TimeProvider.GetUtcNow().
     /// </summary>
     DateTimeOffset UtcNow { get; }
@@ -30,13 +25,6 @@ public interface IDateTimeService
     /// <param name="ianaId">Timezone Iana.</param>
     /// <returns>Timezone Windows.</returns>
     string TryConvertIanaIdToWindowsId(string ianaId);
-
-    /// <summary>
-    /// Convierte un <see cref="DateTimeOffset" /> con la zona horaria de la compañía.
-    /// </summary>
-    /// <param name="datetime">Datetime a convertir.</param>
-    /// <returns>Un <see cref="DateTimeOffset" /> con el offset en base al Timezone de la compañía.</returns>
-    DateTimeOffset ConvertToTimezoneCompany(DateTimeOffset datetime);
 
     /// <summary>
     /// A una fecha dada, establece la hora al final del día de la fecha.

@@ -3,6 +3,7 @@ using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features;
+using EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Localizations;
@@ -19,6 +20,7 @@ public class TimesControlService(
         IEntityValidationService entityValidationService,
         IValidationFailureService validationFailureService,
         IApplicationDbContext context,
+        ICompanySettingsService companySettingsService,
         UserManager<ApplicationUser> userManager,
         IStringLocalizer<TimeControlLocalizer> localizer)
     : ITimesControlService
@@ -61,10 +63,12 @@ public class TimesControlService(
             return TimeState.Close;
         }
 
-        // Si el tiempo ha superado las 23:59:59 respecto al día que se inicializó,
-        // el sistema lo cierra y lo reporta como alerta.
+        // Si el tiempo ha superado las 23:59:59 respecto al día que se inicializó el sistema lo cierra y lo reporta como alerta.
         // El tiempo es en base al timezone de la compañía.
-        var datetimeZone = dateTimeService.ConvertToTimezoneCompany(dateTimeService.EndOfDay(dateTimeService.UtcNow));
+        var datetimeZone = await companySettingsService.ConvertToTimezoneCurrentCompanyAsync(
+            dateTimeService.EndOfDay(dateTimeService.UtcNow),
+            cancellationToken);
+
         if (timeControl.Start.Day != datetimeZone.Day)
         {
             await FinishAsync(employeeId, ClosedBy.System, cancellationToken);

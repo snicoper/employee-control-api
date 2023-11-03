@@ -3,7 +3,7 @@
 public interface ICompanyService
 {
     /// <summary>
-    /// Crea una companía.
+    /// Crea una compañía.
     /// </summary>
     /// <param name="company">Datos de la compañía.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
