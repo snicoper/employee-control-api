@@ -156,6 +156,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     Id = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Active = table.Column<bool>(type: "boolean", nullable: false),
+                    Background = table.Column<string>(type: "character varying(7)", maxLength: 7, nullable: false),
+                    Color = table.Column<string>(type: "character varying(7)", maxLength: 7, nullable: false),
                     CompanyId = table.Column<string>(type: "text", nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
@@ -470,13 +472,17 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_Id",
                 table: "Departments",
-                column: "Id",
-                unique: true);
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_Name",
                 table: "Departments",
-                column: "Name",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Departments_Name_CompanyId",
+                table: "Departments",
+                columns: new[] { "Name", "CompanyId" },
                 unique: true);
 
             migrationBuilder.CreateIndex(

@@ -9,6 +9,10 @@ public class Department : BaseAuditableEntity, ICompany
 
     public bool Active { get; set; }
 
+    public string Background { get; set; } = default!;
+
+    public string Color { get; set; } = default!;
+
     public ICollection<UserDepartment> UserDepartments { get; set; } = new List<UserDepartment>();
 
     public string CompanyId { get; set; } = default!;

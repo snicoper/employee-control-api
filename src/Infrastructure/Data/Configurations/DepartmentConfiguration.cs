@@ -14,11 +14,12 @@ public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
         builder.HasKey(d => d.Id);
 
         // Indexes.
-        builder.HasIndex(d => d.Id)
+        builder.HasIndex(d => d.Id);
+
+        builder.HasIndex(d => new { d.Name, d.CompanyId })
             .IsUnique();
 
-        builder.HasIndex(d => d.Name)
-            .IsUnique();
+        builder.HasIndex(d => d.Name);
 
         // Properties.
         builder.Property(d => d.Name)
@@ -27,5 +28,13 @@ public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
 
         builder.Property(d => d.CompanyId)
             .IsRequired();
+
+        builder.Property(d => d.Background)
+            .IsRequired()
+            .HasMaxLength(7);
+
+        builder.Property(d => d.Color)
+            .IsRequired()
+            .HasMaxLength(7);
     }
 }

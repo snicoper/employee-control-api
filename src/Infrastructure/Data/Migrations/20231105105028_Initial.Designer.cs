@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231105085857_Initial")]
+    [Migration("20231105105028_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -154,7 +154,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanySettings", b =>
@@ -190,7 +190,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasIndex("Id");
 
-                    b.ToTable("CompanySettings");
+                    b.ToTable("CompanySettings", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyTask", b =>
@@ -239,7 +239,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasIndex("CompanyId", "Name")
                         .IsUnique();
 
-                    b.ToTable("CompanyTasks");
+                    b.ToTable("CompanyTasks", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.Department", b =>
@@ -249,6 +249,16 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.Property<bool>("Active")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("Background")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("character varying(7)");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("character varying(7)");
 
                     b.Property<string>("CompanyId")
                         .IsRequired()
@@ -275,13 +285,14 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("Id")
+                    b.HasIndex("Id");
+
+                    b.HasIndex("Name");
+
+                    b.HasIndex("Name", "CompanyId")
                         .IsUnique();
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.TimeControl", b =>
@@ -329,7 +340,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("TimeControls");
+                    b.ToTable("TimeControls", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.UserCompanyTask", b =>
@@ -351,7 +362,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasIndex("CompanyId", "UserId", "CompanyTaskId")
                         .IsUnique();
 
-                    b.ToTable("UserCompanyTasks");
+                    b.ToTable("UserCompanyTasks", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.UserDepartment", b =>
@@ -374,7 +385,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasIndex("UserId", "DepartmentId", "CompanyId");
 
-                    b.ToTable("UserDepartments");
+                    b.ToTable("UserDepartments", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.UserSettings", b =>
@@ -405,7 +416,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("UserSettings");
+                    b.ToTable("UserSettings", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
