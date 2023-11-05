@@ -9,17 +9,19 @@ using Microsoft.Extensions.Logging;
 namespace EmployeeControl.Infrastructure.Services.Features.Company;
 
 public class CompanyValidatorService(
-        IApplicationDbContext context,
-        IValidationFailureService validationFailureService,
-        ILogger<CompanyValidatorService> logger,
-        IStringLocalizer<CompanyLocalizer> localizer)
+    IApplicationDbContext context,
+    IValidationFailureService validationFailureService,
+    ILogger<CompanyValidatorService> logger,
+    IStringLocalizer<CompanyLocalizer> localizer)
     : ICompanyValidatorService
 {
     public async Task UniqueNameValidationAsync(string name, CancellationToken cancellationToken)
     {
-        var company = await context.Companies.SingleOrDefaultAsync(c => c.Name == name, cancellationToken);
+        var company = await context.Companies
+            .AsNoTracking()
+            .AnyAsync(c => c.Name.ToLower().Equals(name), cancellationToken);
 
-        if (company is not null)
+        if (!company)
         {
             var message = localizer["El nombre de compañía ya existe."];
             logger.LogDebug("{message}", message);
