@@ -14,7 +14,7 @@ public class UpdateCompanySettingsHandler(
 {
     public async Task<Result> Handle(UpdateCompanySettingsCommand request, CancellationToken cancellationToken)
     {
-        var companySettings = await companySettingsService.GatById(request.Id, cancellationToken);
+        var companySettings = await companySettingsService.GatByIdAsync(request.Id, cancellationToken);
 
         await entityValidationService.CheckEntityCompanyIsOwner(companySettings);
 

@@ -1,30 +1,28 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Common;
-using EmployeeControl.Application.Common.Interfaces.Data;
+using EmployeeControl.Application.Common.Interfaces.Features.Company;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
 namespace EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
 
 internal class InviteEmployeeHandler(
-        IMapper mapper,
-        IApplicationDbContext context,
-        IIdentityService identityService,
-        IIdentityEmailsService identityEmailsService,
-        ICurrentUserService currentUserService,
-        IValidationFailureService validationFailureService,
-        IStringLocalizer<IdentityLocalizer> localizer,
-        ILogger<InviteEmployeeHandler> logger,
-        UserManager<ApplicationUser> userManager)
+    IMapper mapper,
+    IIdentityService identityService,
+    IIdentityEmailsService identityEmailsService,
+    ICompanyService companyService,
+    ICurrentUserService currentUserService,
+    IValidationFailureService validationFailureService,
+    IStringLocalizer<IdentityLocalizer> localizer,
+    ILogger<InviteEmployeeHandler> logger,
+    UserManager<ApplicationUser> userManager)
     : IRequestHandler<InviteEmployeeCommand, string>
 {
     public async Task<string> Handle(InviteEmployeeCommand request, CancellationToken cancellationToken)
@@ -37,9 +35,7 @@ internal class InviteEmployeeHandler(
             validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NonFieldErrors, message);
         }
 
-        var company = await context.Companies.SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken)
-                      ?? throw new NotFoundException(nameof(Company), nameof(Company.Id));
-
+        var company = await companyService.GetByIdAsync(companyId, cancellationToken);
         var user = mapper.Map<InviteEmployeeCommand, ApplicationUser>(request);
         var password = CommonUtils.GenerateRandomPassword(10);
         var roles = new[] { Roles.Employee };

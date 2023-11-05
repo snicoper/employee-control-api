@@ -1,4 +1,5 @@
-﻿using EmployeeControl.Domain.Entities;
+﻿using EmployeeControl.Application.Common.Exceptions;
+using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
 
@@ -7,16 +8,18 @@ public interface ICompanySettingsService
     /// <summary>
     /// Obtener un <see cref="CompanySettings" /> por su Id.
     /// </summary>
-    /// <param name="id">Id <see cref="CompanySettings" />.</param>
+    /// <param name="companySettingsId">Id <see cref="CompanySettings" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
+    /// <exception cref="NotFoundException">Si no encuentra la <see cref="CompanySettings" />.</exception>
     /// <returns><see cref="CompanySettings" />.</returns>
-    Task<CompanySettings> GatById(string id, CancellationToken cancellationToken);
+    Task<CompanySettings> GatByIdAsync(string companySettingsId, CancellationToken cancellationToken);
 
     /// <summary>
     /// Obtener <see cref="CompanySettings" /> por el Id de compañía.
     /// </summary>
     /// <param name="companyId">Id compañía.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
+    /// <exception cref="NotFoundException">Si no encuentra la <see cref="CompanySettings" />.</exception>
     /// <returns><see cref="CompanySettings" /> object.</returns>
     Task<CompanySettings> GetByCompanyIdAsync(string companyId, CancellationToken cancellationToken);
 

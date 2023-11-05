@@ -1,4 +1,5 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Common;
+﻿using EmployeeControl.Application.Common.Exceptions;
+using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
 using EmployeeControl.Application.Localizations;
@@ -8,11 +9,22 @@ using Microsoft.Extensions.Localization;
 namespace EmployeeControl.Infrastructure.Services.Features.CompanyTask;
 
 public class CompanyTaskService(
-        IStringLocalizer<CompanyTaskLocalizer> localizer,
-        IValidationFailureService validationFailureService,
-        IApplicationDbContext context)
+    IStringLocalizer<CompanyTaskLocalizer> localizer,
+    IValidationFailureService validationFailureService,
+    IApplicationDbContext context)
     : ICompanyTaskService
 {
+    public async Task<Domain.Entities.CompanyTask> GetByIdAsync(string companyTaskId, CancellationToken cancellationToken)
+    {
+        var result = await context
+                         .CompanyTasks
+                         .AsNoTracking()
+                         .SingleOrDefaultAsync(cs => cs.Id == companyTaskId, cancellationToken) ??
+                     throw new NotFoundException(nameof(Domain.Entities.CompanyTask), nameof(Domain.Entities.CompanyTask.Id));
+
+        return result;
+    }
+
     public async Task<Domain.Entities.CompanyTask> CreateAsync(
         Domain.Entities.CompanyTask newCompanyTask,
         CancellationToken cancellationToken)

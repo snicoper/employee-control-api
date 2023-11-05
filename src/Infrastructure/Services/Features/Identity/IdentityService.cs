@@ -1,4 +1,5 @@
-﻿using EmployeeControl.Application.Common.Extensions;
+﻿using EmployeeControl.Application.Common.Exceptions;
+using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
@@ -10,11 +11,11 @@ using Microsoft.EntityFrameworkCore;
 namespace EmployeeControl.Infrastructure.Services.Features.Identity;
 
 public class IdentityService(
-        UserManager<ApplicationUser> userManager,
-        IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
-        IAuthorizationService authorizationService,
-        IIdentityValidatorService identityValidatorService,
-        IValidationFailureService validationFailureService)
+    UserManager<ApplicationUser> userManager,
+    IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
+    IAuthorizationService authorizationService,
+    IIdentityValidatorService identityValidatorService,
+    IValidationFailureService validationFailureService)
     : IIdentityService
 {
     public async Task<string?> GetUserNameAsync(string userId)
@@ -24,6 +25,18 @@ public class IdentityService(
             .FirstAsync(u => u.Id == userId);
 
         return user.UserName;
+    }
+
+    public async Task<ApplicationUser> GetByIdAsync(string userId)
+    {
+        return await userManager.FindByIdAsync(userId) ??
+               throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Email));
+    }
+
+    public async Task<ApplicationUser> GetByEmailAsync(string email)
+    {
+        return await userManager.FindByEmailAsync(email) ??
+               throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Email));
     }
 
     public async Task<bool> IsInRoleAsync(string userId, string role)

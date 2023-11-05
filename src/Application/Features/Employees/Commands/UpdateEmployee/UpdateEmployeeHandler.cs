@@ -1,31 +1,26 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Constants;
-using EmployeeControl.Domain.Entities;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 
 namespace EmployeeControl.Application.Features.Employees.Commands.UpdateEmployee;
 
 internal class UpdateEmployeeHandler(
-        IIdentityService identityService,
-        UserManager<ApplicationUser> userManager,
-        IMapper mapper,
-        ICurrentUserService currentUserService,
-        IValidationFailureService validationFailureService,
-        IStringLocalizer<IdentityLocalizer> localizer)
+    IIdentityService identityService,
+    IMapper mapper,
+    ICurrentUserService currentUserService,
+    IValidationFailureService validationFailureService,
+    IStringLocalizer<IdentityLocalizer> localizer)
     : IRequestHandler<UpdateEmployeeCommand, Result>
 {
     public async Task<Result> Handle(UpdateEmployeeCommand request, CancellationToken cancellationToken)
     {
-        var user = await userManager.FindByIdAsync(request.Id)
-                   ?? throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
+        var user = await identityService.GetByIdAsync(request.Id);
 
         // Un usuario no puede editarse asi mismo.
         if (currentUserService.Id == user.Id)

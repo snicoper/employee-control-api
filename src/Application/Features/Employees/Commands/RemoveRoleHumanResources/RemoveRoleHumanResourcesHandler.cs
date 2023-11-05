@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Common.Exceptions;
+﻿using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.Employees.Commands.AddRoleHumanResources;
 using EmployeeControl.Domain.Constants;
@@ -10,15 +10,14 @@ using Microsoft.Extensions.Logging;
 namespace EmployeeControl.Application.Features.Employees.Commands.RemoveRoleHumanResources;
 
 internal class RemoveRoleHumanResourcesHandler(
-        UserManager<ApplicationUser> userManager,
-        ILogger<AddRoleHumanResourcesHandler> logger)
+    UserManager<ApplicationUser> userManager,
+    IIdentityService identityService,
+    ILogger<AddRoleHumanResourcesHandler> logger)
     : IRequestHandler<RemoveRoleHumanResourcesCommand, Result>
 {
     public async Task<Result> Handle(RemoveRoleHumanResourcesCommand request, CancellationToken cancellationToken)
     {
-        var employee = await userManager.FindByIdAsync(request.EmployeeId)
-                       ?? throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
-
+        var employee = await identityService.GetByIdAsync(request.EmployeeId);
         var identityResult = await userManager.RemoveFromRoleAsync(employee, Roles.HumanResources);
 
         if (identityResult.Succeeded)

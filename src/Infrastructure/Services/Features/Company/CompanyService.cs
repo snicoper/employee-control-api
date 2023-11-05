@@ -1,7 +1,9 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Common;
+﻿using EmployeeControl.Application.Common.Exceptions;
+using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Company;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Infrastructure.Services.Features.Company;
 
@@ -11,6 +13,14 @@ public class CompanyService(
     IValidationFailureService validationFailureService)
     : ICompanyService
 {
+    public async Task<Domain.Entities.Company> GetByIdAsync(string companyId, CancellationToken cancellationToken)
+    {
+        var result = await context.Companies.AsNoTracking().SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken)
+                     ?? throw new NotFoundException(nameof(Domain.Entities.Company), nameof(Domain.Entities.Company));
+
+        return result;
+    }
+
     public async Task<Domain.Entities.Company> CreateAsync(
         Domain.Entities.Company company,
         string timezone,

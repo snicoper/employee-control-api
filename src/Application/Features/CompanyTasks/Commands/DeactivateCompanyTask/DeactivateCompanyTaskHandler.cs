@@ -1,23 +1,20 @@
-﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Data;
+﻿using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features;
+using EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.DeactivateCompanyTask;
 
-internal class DeactivateCompanyTaskHandler(IApplicationDbContext context, IEntityValidationService entityValidationService)
+internal class DeactivateCompanyTaskHandler(
+    IApplicationDbContext context,
+    ICompanyTaskService companyTaskService,
+    IEntityValidationService entityValidationService)
     : IRequestHandler<DeactivateCompanyTaskCommand, Result>
 {
     public async Task<Result> Handle(DeactivateCompanyTaskCommand request, CancellationToken cancellationToken)
     {
-        var companyTask = await context
-                              .CompanyTasks
-                              .AsNoTracking()
-                              .SingleOrDefaultAsync(ct => ct.Id == request.CompanyTaskId, cancellationToken) ??
-                          throw new NotFoundException(nameof(CompanyTask), nameof(CompanyTask.Id));
+        var companyTask = await companyTaskService.GetByIdAsync(request.CompanyTaskId, cancellationToken);
 
         await entityValidationService.CheckEntityCompanyIsOwner(companyTask);
 

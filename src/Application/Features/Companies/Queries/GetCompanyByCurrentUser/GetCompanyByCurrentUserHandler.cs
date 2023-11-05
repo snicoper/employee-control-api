@@ -1,22 +1,19 @@
-﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Common;
-using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Domain.Entities;
+﻿using EmployeeControl.Application.Common.Interfaces.Common;
+using EmployeeControl.Application.Common.Interfaces.Features.Company;
 using MediatR;
 
 namespace EmployeeControl.Application.Features.Companies.Queries.GetCompanyByCurrentUser;
 
-internal class GetCompanyByCurrentUserHandler(ICurrentUserService currentUserService, IApplicationDbContext context)
+internal class GetCompanyByCurrentUserHandler(ICompanyService companyService, ICurrentUserService currentUserService)
     : IRequestHandler<GetCompanyByCurrentUserQuery, GetCompanyByCurrentUserResponse>
 {
-    public Task<GetCompanyByCurrentUserResponse> Handle(GetCompanyByCurrentUserQuery request, CancellationToken cancellationToken)
+    public async Task<GetCompanyByCurrentUserResponse> Handle(
+        GetCompanyByCurrentUserQuery request,
+        CancellationToken cancellationToken)
     {
-        var companyId = currentUserService.CompanyId;
-        var company = context.Companies.SingleOrDefault(c => c.Id == companyId)
-                      ?? throw new NotFoundException(nameof(Company), nameof(Company.Id));
-
+        var company = await companyService.GetByIdAsync(currentUserService.CompanyId, cancellationToken);
         var result = new GetCompanyByCurrentUserResponse(company.Id, company.Name);
 
-        return Task.FromResult(result);
+        return result;
     }
 }

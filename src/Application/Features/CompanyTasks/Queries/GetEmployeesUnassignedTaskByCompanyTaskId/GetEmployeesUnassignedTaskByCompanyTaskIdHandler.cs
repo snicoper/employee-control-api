@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetEmployeesUnassignedTaskByCompanyTaskId;
 
 internal class GetEmployeesUnassignedTaskByCompanyTaskIdHandler(
-        IApplicationDbContext context,
-        UserManager<ApplicationUser> userManager,
-        IEntityValidationService entityValidationService)
+    IApplicationDbContext context,
+    UserManager<ApplicationUser> userManager,
+    IEntityValidationService entityValidationService)
     : IRequestHandler<
         GetEmployeesUnassignedTaskByCompanyTaskIdQuery,
         ICollection<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>>
@@ -33,7 +33,6 @@ internal class GetEmployeesUnassignedTaskByCompanyTaskIdHandler(
         var userIdsInTask = companyTask
             .UserCompanyTasks
             .Select(uct => uct.User)
-            .Where(au => au != null)
             .Select(au => au!.Id)
             .ToList();
 

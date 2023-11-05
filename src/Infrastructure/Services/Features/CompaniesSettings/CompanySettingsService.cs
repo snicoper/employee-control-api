@@ -14,12 +14,12 @@ public class CompanySettingsService(
     IDateTimeService dateTimeService)
     : ICompanySettingsService
 {
-    public async Task<CompanySettings> GatById(string id, CancellationToken cancellationToken)
+    public async Task<CompanySettings> GatByIdAsync(string companySettingsId, CancellationToken cancellationToken)
     {
         var result = await context
                          .CompanySettings
                          .AsNoTracking()
-                         .SingleOrDefaultAsync(cs => cs.Id == id, cancellationToken) ??
+                         .SingleOrDefaultAsync(cs => cs.Id == companySettingsId, cancellationToken) ??
                      throw new NotFoundException(nameof(CompanySettings), nameof(CompanySettings.CompanyId));
 
         return result;

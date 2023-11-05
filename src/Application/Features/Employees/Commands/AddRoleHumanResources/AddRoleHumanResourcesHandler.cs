@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Common.Exceptions;
+﻿using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
@@ -9,15 +9,14 @@ using Microsoft.Extensions.Logging;
 namespace EmployeeControl.Application.Features.Employees.Commands.AddRoleHumanResources;
 
 internal class AddRoleHumanResourcesHandler(
-        UserManager<ApplicationUser> userManager,
-        ILogger<AddRoleHumanResourcesHandler> logger)
+    UserManager<ApplicationUser> userManager,
+    IIdentityService identityService,
+    ILogger<AddRoleHumanResourcesHandler> logger)
     : IRequestHandler<AddRoleHumanResourcesCommand, Result>
 {
     public async Task<Result> Handle(AddRoleHumanResourcesCommand request, CancellationToken cancellationToken)
     {
-        var employee = await userManager.FindByIdAsync(request.EmployeeId)
-                       ?? throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
-
+        var employee = await identityService.GetByIdAsync(request.EmployeeId);
         var identityResult = await userManager.AddToRoleAsync(employee, Roles.HumanResources);
 
         if (identityResult.Succeeded)

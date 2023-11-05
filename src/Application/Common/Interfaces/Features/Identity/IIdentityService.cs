@@ -7,6 +7,10 @@ public interface IIdentityService
 {
     Task<string?> GetUserNameAsync(string userId);
 
+    Task<ApplicationUser> GetByIdAsync(string userId);
+
+    Task<ApplicationUser> GetByEmailAsync(string email);
+
     Task<bool> IsInRoleAsync(string userId, string role);
 
     Task<bool> AuthorizeAsync(string userId, string policyName);
