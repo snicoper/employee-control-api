@@ -5,9 +5,9 @@ namespace EmployeeControl.Domain.Entities;
 
 public class CompanySettings : BaseAuditableEntity, ICompany
 {
-    public string? Timezone { get; set; }
+    public string Timezone { get; set; } = default!;
 
     public string CompanyId { get; set; } = default!;
 
-    public Company? Company { get; set; }
+    public Company Company { get; set; } = null!;
 }

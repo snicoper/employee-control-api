@@ -13,11 +13,16 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
 
         // Indexes.
         builder.HasIndex(c => c.Id);
-        builder.HasIndex(c => c.CompanySettingsId)
-            .IsUnique();
 
         builder.HasIndex(c => c.Name)
             .IsUnique();
+
+        // Relations.
+        builder.HasOne(c => c.CompanySettings)
+            .WithOne(cs => cs.Company)
+            .HasForeignKey<CompanySettings>(cs => cs.CompanyId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
 
         // Properties.
         builder.Property(c => c.Name)

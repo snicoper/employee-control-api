@@ -6,5 +6,5 @@ public interface ICompany
 {
     string CompanyId { get; set; }
 
-    Company? Company { get; set; }
+    Company Company { get; set; }
 }

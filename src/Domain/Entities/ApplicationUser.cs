@@ -32,7 +32,9 @@ public class ApplicationUser : IdentityUser, ICompany, IEntityDomainEvent
 
     public ICollection<TimeControl> TimeControls { get; set; }
 
-    public Company? Company { get; set; }
+    public UserSettings UserSettings { get; set; } = null!;
+
+    public Company Company { get; set; } = null!;
 
     public string CompanyId { get; set; } = default!;
 

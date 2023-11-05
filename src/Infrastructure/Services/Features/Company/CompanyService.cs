@@ -1,13 +1,14 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Company;
+using EmployeeControl.Domain.Entities;
 using EmployeeControl.Infrastructure.Data;
 
 namespace EmployeeControl.Infrastructure.Services.Features.Company;
 
 public class CompanyService(
-        ApplicationDbContext context,
-        ICompanyValidatorService companyValidatorService,
-        IValidationFailureService validationFailureService)
+    ApplicationDbContext context,
+    ICompanyValidatorService companyValidatorService,
+    IValidationFailureService validationFailureService)
     : ICompanyService
 {
     public async Task<Domain.Entities.Company> CreateAsync(
@@ -20,8 +21,7 @@ public class CompanyService(
         validationFailureService.RaiseExceptionIfExistsErrors();
 
         // Crear Company y establecer valores de CompanySettings.
-        company.CompanySettings.CompanyId = company.Id;
-        company.CompanySettings.Timezone = timezone;
+        company.CompanySettings = new CompanySettings { CompanyId = company.Id, Timezone = timezone };
 
         await context.Companies.AddAsync(company, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);

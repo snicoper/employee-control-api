@@ -123,10 +123,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("CompanySettingsId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("timestamp with time zone");
 
@@ -145,9 +141,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanySettingsId")
-                        .IsUnique();
 
                     b.HasIndex("Id");
 
@@ -179,6 +172,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Timezone")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
@@ -309,6 +303,37 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("UserCompanyTasks");
+                });
+
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.UserSettings", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("LastModified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("UserSettings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -454,15 +479,15 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("EmployeeControl.Domain.Entities.Company", b =>
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanySettings", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.CompanySettings", "CompanySettings")
-                        .WithOne("Company")
-                        .HasForeignKey("EmployeeControl.Domain.Entities.Company", "CompanySettingsId")
+                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
+                        .WithOne("CompanySettings")
+                        .HasForeignKey("EmployeeControl.Domain.Entities.CompanySettings", "CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CompanySettings");
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyTask", b =>
@@ -518,6 +543,17 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("CompanyTask");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.UserSettings", b =>
+                {
+                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", "User")
+                        .WithOne("UserSettings")
+                        .HasForeignKey("EmployeeControl.Domain.Entities.UserSettings", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -578,18 +614,19 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Navigation("TimeControls");
 
                     b.Navigation("UserCompanyTasks");
+
+                    b.Navigation("UserSettings")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.Company", b =>
                 {
+                    b.Navigation("CompanySettings")
+                        .IsRequired();
+
                     b.Navigation("CompanyTasks");
 
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanySettings", b =>
-                {
-                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyTask", b =>

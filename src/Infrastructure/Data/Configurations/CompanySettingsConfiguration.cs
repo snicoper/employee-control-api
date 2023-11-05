@@ -17,10 +17,6 @@ public class CompanySettingsConfiguration : IEntityTypeConfiguration<CompanySett
             .IsUnique();
 
         // Relations.
-        builder.HasOne(cs => cs.Company)
-            .WithOne(c => c.CompanySettings)
-            .HasForeignKey<Company>(c => c.CompanySettingsId)
-            .IsRequired();
 
         // Properties.
         builder.Property(cs => cs.Timezone)

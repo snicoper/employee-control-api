@@ -5,11 +5,6 @@ namespace EmployeeControl.Domain.Entities;
 
 public class CompanyTask : BaseAuditableEntity, ICompany
 {
-    public CompanyTask()
-    {
-        UserCompanyTasks = new List<UserCompanyTask>();
-    }
-
     public string? Name { get; set; }
 
     public bool Active { get; set; }
@@ -18,9 +13,9 @@ public class CompanyTask : BaseAuditableEntity, ICompany
 
     public string? Color { get; set; }
 
-    public ICollection<UserCompanyTask> UserCompanyTasks { get; set; }
+    public ICollection<UserCompanyTask> UserCompanyTasks { get; set; } = new List<UserCompanyTask>();
 
-    public Company? Company { get; set; }
+    public Company Company { get; set; } = null!;
 
     public string CompanyId { get; set; } = default!;
 }
