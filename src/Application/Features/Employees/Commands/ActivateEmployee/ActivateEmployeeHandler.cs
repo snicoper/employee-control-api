@@ -14,11 +14,11 @@ using Microsoft.Extensions.Localization;
 namespace EmployeeControl.Application.Features.Employees.Commands.ActivateEmployee;
 
 internal class ActivateEmployeeHandler(
-        UserManager<ApplicationUser> userManager,
-        ICurrentUserService currentUserService,
-        IIdentityService identityService,
-        IValidationFailureService validationFailureService,
-        IStringLocalizer<IdentityLocalizer> localizer)
+    UserManager<ApplicationUser> userManager,
+    ICurrentUserService currentUserService,
+    IIdentityService identityService,
+    IValidationFailureService validationFailureService,
+    IStringLocalizer<IdentityLocalizer> localizer)
     : IRequestHandler<ActivateEmployeeCommand, Result>
 {
     public async Task<Result> Handle(ActivateEmployeeCommand request, CancellationToken cancellationToken)
@@ -28,7 +28,7 @@ internal class ActivateEmployeeHandler(
                    ?? throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
 
         // La cuenta del EnterpriseAdministrator, no se puede desactivar.
-        var isEnterpriseAdministrator = await identityService.IsInRoleAsync(user.Id, Roles.EnterpriseAdministrator);
+        var isEnterpriseAdministrator = await identityService.IsInRoleAsync(user.Id, Roles.EnterpriseAdmin);
 
         if (isEnterpriseAdministrator)
         {

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Interfaces.Features;
+using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
 using MediatR;
 
@@ -17,7 +17,7 @@ internal class GetCompanySettingsByCompanyIdHandler(
     {
         var companySettings = await companySettingsService.GetByCompanyIdAsync(request.CompanyId, cancellationToken);
 
-        await entityValidationService.CheckEntityCompanyIsOwner(companySettings);
+        await entityValidationService.CheckEntityCompanyIsOwnerAsync(companySettings);
         var responseResult = mapper.Map<GetCompanySettingsByCompanyIdResponse>(companySettings);
 
         return responseResult;

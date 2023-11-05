@@ -7,13 +7,14 @@ using MediatR;
 namespace EmployeeControl.Application.Features.Departments.Commands.CreateDepartment;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record CreateDepartmentCommand(string CompanyId, string Name) : IRequest<CreateDepartmentResponse>
+public record CreateDepartmentCommand(string CompanyId, string Name, string Background, string Color)
+    : IRequest<CreateDepartmentResponse>
 {
     internal class Mapping : Profile
     {
         public Mapping()
         {
-            CreateMap<Department, CreateDepartmentCommand>();
+            CreateMap<CreateDepartmentCommand, Department>();
         }
     }
 }

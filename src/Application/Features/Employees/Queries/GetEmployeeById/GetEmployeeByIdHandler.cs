@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Interfaces.Features;
+using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Domain.Entities;
 using MediatR;
@@ -15,7 +15,7 @@ public class GetEmployeeByIdHandler(
     public async Task<GetEmployeeByIdResponse> Handle(GetEmployeeByIdQuery request, CancellationToken cancellationToken)
     {
         var employee = await identityService.GetByIdAsync(request.Id);
-        await entityValidationService.CheckEntityCompanyIsOwner(employee);
+        await entityValidationService.CheckEntityCompanyIsOwnerAsync(employee);
 
         var result = mapper.Map<ApplicationUser, GetEmployeeByIdResponse>(employee!);
 

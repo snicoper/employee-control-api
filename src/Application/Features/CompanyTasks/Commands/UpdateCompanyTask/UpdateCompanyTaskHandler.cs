@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
 using EmployeeControl.Application.Common.Models;
 using MediatR;
@@ -18,7 +17,7 @@ internal class UpdateCompanyTaskHandler(
     {
         var companyTask = await companyTaskService.GetByIdAsync(request.Id, cancellationToken);
 
-        await entityValidationService.CheckEntityCompanyIsOwner(companyTask);
+        await entityValidationService.CheckEntityCompanyIsOwnerAsync(companyTask);
 
         var updatedCompanyTask = mapper.Map(request, companyTask);
 

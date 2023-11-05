@@ -10,10 +10,10 @@ using Microsoft.EntityFrameworkCore;
 namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetEmployeesByCompanyTaskIdPaginated;
 
 internal class GetEmployeesByCompanyTaskIdPaginatedHandler(
-        IApplicationDbContext context,
-        ICurrentUserService currentUserService,
-        IMapper mapper,
-        IIdentityService identityService)
+    IApplicationDbContext context,
+    ICurrentUserService currentUserService,
+    IMapper mapper,
+    IIdentityService identityService)
     : IRequestHandler<GetEmployeesByCompanyTaskIdPaginatedQuery, ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>>
 {
     public async Task<ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>> Handle(
@@ -26,7 +26,7 @@ internal class GetEmployeesByCompanyTaskIdPaginatedHandler(
             .Where(uct => uct.CompanyTaskId == request.CompanyTaskId);
 
         // Si Role no es al menos Staff, filtrar solo por tareas de la compañía del usuario actual.
-        if (!await identityService.IsInRoleAsync(currentUserService.Id, Roles.Staff))
+        if (!await identityService.IsInRoleAsync(currentUserService.Id, Roles.SiteStaff))
         {
             userCompanyTasks = userCompanyTasks.Where(uct => uct.CompanyId == currentUserService.CompanyId);
         }

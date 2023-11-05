@@ -3,6 +3,7 @@
     "Ansi",
     "Automapper",
     "Behaviour",
+    "dotnet",
     "Hsts",
     "HSTS",
     "initialise",
@@ -10,6 +11,7 @@
     "initialising",
     "Mediat",
     "Npgsql",
+    "postgres",
     "RRHH",
     "Scrutor",
     "Serilog"

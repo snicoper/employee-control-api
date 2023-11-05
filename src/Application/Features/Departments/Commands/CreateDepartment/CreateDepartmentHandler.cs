@@ -11,6 +11,7 @@ internal class CreateDepartmentHandler(IDepartmentService departmentService, IMa
     public async Task<CreateDepartmentResponse> Handle(CreateDepartmentCommand request, CancellationToken cancellationToken)
     {
         var department = mapper.Map<Department>(request);
+        department.Active = true;
 
         department = await departmentService.CreateAsync(department, cancellationToken);
 

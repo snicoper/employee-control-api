@@ -2,7 +2,6 @@
 using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features;
 using EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
 using EmployeeControl.Application.Common.Models;
@@ -46,7 +45,7 @@ public class TimesControlService(
             return new List<IGrouping<int, TimeControl>>();
         }
 
-        await entityValidationService.CheckEntityCompanyIsOwner(firstTimeControl);
+        await entityValidationService.CheckEntityCompanyIsOwnerAsync(firstTimeControl);
 
         return timeControlGroups;
     }
@@ -75,7 +74,7 @@ public class TimesControlService(
             await FinishAsync(employeeId, ClosedBy.System, cancellationToken);
         }
 
-        await entityValidationService.CheckEntityCompanyIsOwner(timeControl);
+        await entityValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
 
         return timeControl.TimeState;
     }
@@ -104,7 +103,7 @@ public class TimesControlService(
             CompanyId = employee.CompanyId
         };
 
-        await entityValidationService.CheckEntityCompanyIsOwner(timeControl);
+        await entityValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
 
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
@@ -138,7 +137,7 @@ public class TimesControlService(
         timeControl.ClosedBy = closedBy;
         timeControl.TimeState = TimeState.Close;
 
-        await entityValidationService.CheckEntityCompanyIsOwner(timeControl);
+        await entityValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
 
         context.TimeControls.Update(timeControl);
         await context.SaveChangesAsync(cancellationToken);

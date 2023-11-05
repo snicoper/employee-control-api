@@ -1,6 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
@@ -11,10 +10,10 @@ using Microsoft.EntityFrameworkCore;
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.AssignEmployeesToTask;
 
 internal class AssignEmployeesToTaskHandler(
-        IApplicationDbContext context,
-        UserManager<ApplicationUser> userManager,
-        IEntityValidationService entityValidationService,
-        ICompanyTaskEmailsService companyTaskEmailsService)
+    IApplicationDbContext context,
+    UserManager<ApplicationUser> userManager,
+    IEntityValidationService entityValidationService,
+    ICompanyTaskEmailsService companyTaskEmailsService)
     : IRequestHandler<AssignEmployeesToTaskCommand, Result>
 {
     public async Task<Result> Handle(AssignEmployeesToTaskCommand request, CancellationToken cancellationToken)
@@ -30,7 +29,7 @@ internal class AssignEmployeesToTaskHandler(
             throw new NotFoundException(nameof(CompanyTask), nameof(CompanyTask.Id));
         }
 
-        await entityValidationService.CheckEntityCompanyIsOwner(companyTask);
+        await entityValidationService.CheckEntityCompanyIsOwnerAsync(companyTask);
 
         var employees = userManager
             .Users

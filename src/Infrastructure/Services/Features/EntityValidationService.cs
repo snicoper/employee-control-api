@@ -1,22 +1,32 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Common;
-using EmployeeControl.Application.Common.Interfaces.Features;
+using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace EmployeeControl.Infrastructure.Services.Features;
 
-public class EntityValidationService(ICurrentUserService currentUserService, IIdentityService identityService)
+public class EntityValidationService(
+    ICurrentUserService currentUserService,
+    IIdentityService identityService,
+    ILogger<EntityValidationService> logger)
     : IEntityValidationService
 {
-    public async Task CheckEntityCompanyIsOwner<TEntity>(TEntity entity)
+    public async Task CheckEntityCompanyIsOwnerAsync<TEntity>(TEntity entity)
+        where TEntity : ICompany
+    {
+        await CheckEntityCompanyIsOwnerAsync(entity, Roles.SiteStaff);
+    }
+
+    public async Task CheckEntityCompanyIsOwnerAsync<TEntity>(TEntity entity, string requiredRole)
         where TEntity : ICompany
     {
         var currentUserId = currentUserService.Id;
 
-        // Si al menos tiene un Role de Staff Ok.
-        if (await identityService.IsInRoleAsync(currentUserId, Roles.Staff))
+        // Si al menos tiene un Role requireRole.
+        if (await identityService.IsInRoleAsync(currentUserId, requiredRole))
         {
             return;
         }
@@ -27,6 +37,7 @@ public class EntityValidationService(ICurrentUserService currentUserService, IId
             return;
         }
 
-        throw new NotFoundException(nameof(entity), "Id");
+        logger.LogWarning("Usuario {user}: Error al leer los datos {entity}", currentUserService.Id, entity.GetType().Name);
+        throw new NotFoundException(entity.GetType().Name, "Id");
     }
 }

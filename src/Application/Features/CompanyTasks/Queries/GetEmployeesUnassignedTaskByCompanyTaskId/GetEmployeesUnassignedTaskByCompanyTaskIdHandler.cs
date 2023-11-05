@@ -1,6 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -50,7 +49,7 @@ internal class GetEmployeesUnassignedTaskByCompanyTaskIdHandler(
             return new List<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>();
         }
 
-        await entityValidationService.CheckEntityCompanyIsOwner(users.First());
+        await entityValidationService.CheckEntityCompanyIsOwnerAsync(users.First());
 
         // Preparar la respuesta.
         var resultResponse = users

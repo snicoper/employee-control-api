@@ -10,12 +10,12 @@ using Microsoft.Extensions.Logging;
 namespace EmployeeControl.Application.Features.Accounts.Commands.RegisterAccount;
 
 internal class RegisterAccountHandler(
-        UserManager<ApplicationUser> userManager,
-        IIdentityService identityService,
-        ICompanyService companyService,
-        IApplicationDbContext context,
-        IIdentityEmailsService identityEmailsService,
-        ILogger<RegisterAccountHandler> logger)
+    UserManager<ApplicationUser> userManager,
+    IIdentityService identityService,
+    ICompanyService companyService,
+    IApplicationDbContext context,
+    IIdentityEmailsService identityEmailsService,
+    ILogger<RegisterAccountHandler> logger)
     : IRequestHandler<RegisterAccountCommand, string>
 {
     public async Task<string> Handle(RegisterAccountCommand request, CancellationToken cancellationToken)
@@ -31,11 +31,18 @@ internal class RegisterAccountHandler(
             // Crear usuario.
             var user = new ApplicationUser
             {
-                FirstName = request.FirstName, LastName = request.LastName, Email = request.Email, CompanyId = company.Id
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email,
+                CompanyId = company.Id
             };
 
             // Roles para usuario y creación del usuario.
-            var roles = new List<string> { new(Roles.EnterpriseAdministrator), new(Roles.HumanResources), new(Roles.Employee) };
+            var roles = new List<string>
+            {
+                new(Roles.EnterpriseAdmin), new(Roles.EnterpriseStaff), new(Roles.HumanResources), new(Roles.Employee)
+            };
+
             var (_, userId) = await identityService.CreateAsync(user, request.Password, roles, cancellationToken);
 
             // Generar code de validación.

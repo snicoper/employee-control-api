@@ -19,12 +19,12 @@ public class DepartmentValidatorService(
         var company = await context
             .Departments
             .AsNoTracking()
-            .SingleOrDefaultAsync(
+            .AnyAsync(
                 d => d.CompanyId == department.CompanyId &&
-                     string.Equals(d.Name.ToLower(), department.Name.ToLower(), StringComparison.Ordinal),
+                     d.Name.ToLower().Equals(department.Name.ToLower()),
                 cancellationToken);
 
-        if (company is null)
+        if (!company)
         {
             return;
         }
@@ -38,13 +38,13 @@ public class DepartmentValidatorService(
         var company = await context
             .Departments
             .AsNoTracking()
-            .SingleOrDefaultAsync(
+            .AnyAsync(
                 d => d.CompanyId == department.CompanyId &&
-                     string.Equals(d.Background.ToLower(), department.Background.ToLower(), StringComparison.Ordinal) &&
-                     string.Equals(d.Color.ToLower(), department.Color.ToLower(), StringComparison.Ordinal),
+                     d.Background.ToLower().Equals(department.Background.ToLower()) &&
+                     d.Color.ToLower().Equals(department.Color.ToLower()),
                 cancellationToken);
 
-        if (company is null)
+        if (!company)
         {
             return;
         }

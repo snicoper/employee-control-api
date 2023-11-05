@@ -64,9 +64,10 @@ public class ApplicationDbContextInitialize(
         // Default roles.
         var createRole = new List<IdentityRole>
         {
-            new(Roles.Administrator),
-            new(Roles.Staff),
-            new(Roles.EnterpriseAdministrator),
+            new(Roles.SiteAdmin),
+            new(Roles.SiteStaff),
+            new(Roles.EnterpriseAdmin),
+            new(Roles.EnterpriseStaff),
             new(Roles.HumanResources),
             new(Roles.Employee)
         };
@@ -100,7 +101,8 @@ public class ApplicationDbContextInitialize(
 
             var rolesToAdd = new[]
             {
-                Roles.Administrator, Roles.Staff, Roles.EnterpriseAdministrator, Roles.HumanResources, Roles.Employee
+                Roles.SiteAdmin, Roles.SiteStaff, Roles.EnterpriseAdmin, Roles.EnterpriseStaff, Roles.HumanResources,
+                Roles.Employee
             };
 
             await userManager.AddToRolesAsync(user, rolesToAdd);
@@ -123,7 +125,7 @@ public class ApplicationDbContextInitialize(
         {
             await userManager.CreateAsync(user, "Password4!");
 
-            var rolesToAdd = new[] { Roles.EnterpriseAdministrator, Roles.HumanResources, Roles.Employee };
+            var rolesToAdd = new[] { Roles.EnterpriseAdmin, Roles.EnterpriseStaff, Roles.HumanResources, Roles.Employee };
 
             await userManager.AddToRolesAsync(user, rolesToAdd);
         }
