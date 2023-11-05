@@ -5,6 +5,14 @@ namespace EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettin
 public interface ICompanySettingsService
 {
     /// <summary>
+    /// Obtener un <see cref="CompanySettings" /> por su Id.
+    /// </summary>
+    /// <param name="id">Id <see cref="CompanySettings" />.</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
+    /// <returns><see cref="CompanySettings" />.</returns>
+    Task<CompanySettings> GatById(string id, CancellationToken cancellationToken);
+
+    /// <summary>
     /// Obtener <see cref="CompanySettings" /> por el Id de compañía.
     /// </summary>
     /// <param name="companyId">Id compañía.</param>
@@ -38,4 +46,12 @@ public interface ICompanySettingsService
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns><see cref="CompanySettings" /> creado.</returns>
     Task<CompanySettings> CreateAsync(CompanySettings companySettings, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Actualizar configuración de una compañía.
+    /// </summary>
+    /// <param name="companySettings">Datos de <see cref="CompanySettings" />.</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
+    /// <returns>El <see cref="CancellationToken" /> actualizado en caso de éxito.</returns>
+    Task<CompanySettings> UpdateAsync(CompanySettings companySettings, CancellationToken cancellationToken);
 }

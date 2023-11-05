@@ -9,11 +9,22 @@ using Microsoft.EntityFrameworkCore;
 namespace EmployeeControl.Infrastructure.Services.Features.CompaniesSettings;
 
 public class CompanySettingsService(
-        IApplicationDbContext context,
-        ICurrentUserService currentUserService,
-        IDateTimeService dateTimeService)
+    IApplicationDbContext context,
+    ICurrentUserService currentUserService,
+    IDateTimeService dateTimeService)
     : ICompanySettingsService
 {
+    public async Task<CompanySettings> GatById(string id, CancellationToken cancellationToken)
+    {
+        var result = await context
+                         .CompanySettings
+                         .AsNoTracking()
+                         .SingleOrDefaultAsync(cs => cs.Id == id, cancellationToken) ??
+                     throw new NotFoundException(nameof(CompanySettings), nameof(CompanySettings.CompanyId));
+
+        return result;
+    }
+
     public async Task<CompanySettings> GetByCompanyIdAsync(string companyId, CancellationToken cancellationToken)
     {
         var result = await context
@@ -28,6 +39,14 @@ public class CompanySettingsService(
     public async Task<CompanySettings> CreateAsync(CompanySettings companySettings, CancellationToken cancellationToken)
     {
         await context.CompanySettings.AddAsync(companySettings, cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
+
+        return companySettings;
+    }
+
+    public async Task<CompanySettings> UpdateAsync(CompanySettings companySettings, CancellationToken cancellationToken)
+    {
+        context.CompanySettings.Update(companySettings);
         await context.SaveChangesAsync(cancellationToken);
 
         return companySettings;
