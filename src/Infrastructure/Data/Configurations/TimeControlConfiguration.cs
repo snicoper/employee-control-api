@@ -8,6 +8,8 @@ public class TimeControlConfiguration : IEntityTypeConfiguration<TimeControl>
 {
     public void Configure(EntityTypeBuilder<TimeControl> builder)
     {
+        builder.ToTable("TimeControls");
+
         // Key.
         builder.HasKey(tc => tc.Id);
 

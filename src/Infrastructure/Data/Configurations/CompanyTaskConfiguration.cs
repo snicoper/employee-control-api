@@ -8,6 +8,8 @@ public class CompanyTaskConfiguration : IEntityTypeConfiguration<CompanyTask>
 {
     public void Configure(EntityTypeBuilder<CompanyTask> builder)
     {
+        builder.ToTable("CompanyTasks");
+
         // Primary key.
         builder.HasKey(ct => ct.Id);
 

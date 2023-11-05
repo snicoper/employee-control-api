@@ -8,6 +8,8 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
 {
     public void Configure(EntityTypeBuilder<Company> builder)
     {
+        builder.ToTable("Companies");
+
         // Primary key.
         builder.HasKey(c => c.Id);
 
@@ -21,6 +23,12 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.HasOne(c => c.CompanySettings)
             .WithOne(cs => cs.Company)
             .HasForeignKey<CompanySettings>(cs => cs.CompanyId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
+
+        builder.HasMany(c => c.Departaments)
+            .WithOne(d => d.Company)
+            .HasForeignKey(c => c.CompanyId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
 

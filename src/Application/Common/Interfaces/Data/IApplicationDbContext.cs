@@ -12,9 +12,15 @@ public interface IApplicationDbContext
 
     DbSet<CompanyTask> CompanyTasks { get; }
 
+    DbSet<Department> Departments { get; }
+
     DbSet<TimeControl> TimeControls { get; }
 
     DbSet<UserCompanyTask> UserCompanyTasks { get; }
+
+    DbSet<UserDepartment> UserDepartments { get; }
+
+    DbSet<UserSettings> UserSettings { get; }
 
     DatabaseFacade Database { get; }
 

@@ -8,6 +8,8 @@ public class UserCompanyTaskConfiguration : IEntityTypeConfiguration<UserCompany
 {
     public void Configure(EntityTypeBuilder<UserCompanyTask> builder)
     {
+        builder.ToTable("UserCompanyTasks");
+
         // Key.
         builder.HasKey(uct => new { uct.UserId, uct.CompanyTaskId });
 

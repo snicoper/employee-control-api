@@ -8,6 +8,8 @@ public class UserSettingsConfiguration : IEntityTypeConfiguration<UserSettings>
 {
     public void Configure(EntityTypeBuilder<UserSettings> builder)
     {
+        builder.ToTable("UserSettings");
+
         // Key.
         builder.HasIndex(us => us.Id);
 

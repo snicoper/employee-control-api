@@ -235,6 +235,48 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.ToTable("CompanyTasks");
                 });
 
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.Department", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("CompanyId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("LastModified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Departments");
+                });
+
             modelBuilder.Entity("EmployeeControl.Domain.Entities.TimeControl", b =>
                 {
                     b.Property<string>("Id")
@@ -303,6 +345,29 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("UserCompanyTasks");
+                });
+
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.UserDepartment", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("DepartmentId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CompanyId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "DepartmentId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("UserId", "DepartmentId", "CompanyId");
+
+                    b.ToTable("UserDepartments");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.UserSettings", b =>
@@ -501,6 +566,17 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.Department", b =>
+                {
+                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
+                        .WithMany("Departaments")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("EmployeeControl.Domain.Entities.TimeControl", b =>
                 {
                     b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
@@ -543,6 +619,33 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("CompanyTask");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.UserDepartment", b =>
+                {
+                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EmployeeControl.Domain.Entities.Department", "Department")
+                        .WithMany("UserDepartments")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", "User")
+                        .WithMany("UserDepartments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Department");
 
                     b.Navigation("User");
                 });
@@ -615,6 +718,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.Navigation("UserCompanyTasks");
 
+                    b.Navigation("UserDepartments");
+
                     b.Navigation("UserSettings")
                         .IsRequired();
                 });
@@ -626,12 +731,19 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.Navigation("CompanyTasks");
 
+                    b.Navigation("Departaments");
+
                     b.Navigation("Users");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyTask", b =>
                 {
                     b.Navigation("UserCompanyTasks");
+                });
+
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.Department", b =>
+                {
+                    b.Navigation("UserDepartments");
                 });
 #pragma warning restore 612, 618
         }
