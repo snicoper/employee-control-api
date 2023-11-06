@@ -21,7 +21,8 @@ public class DepartmentValidatorService(
             .AsNoTracking()
             .AnyAsync(
                 d => d.CompanyId == department.CompanyId &&
-                     d.Name.ToLower().Equals(department.Name.ToLower()),
+                     d.Name.ToLower().Equals(department.Name.ToLower()) &&
+                     d.Id != department.Id,
                 cancellationToken);
 
         if (!company)
@@ -41,7 +42,8 @@ public class DepartmentValidatorService(
             .AnyAsync(
                 d => d.CompanyId == department.CompanyId &&
                      d.Background.ToLower().Equals(department.Background.ToLower()) &&
-                     d.Color.ToLower().Equals(department.Color.ToLower()),
+                     d.Color.ToLower().Equals(department.Color.ToLower()) &&
+                     d.Id != department.Id,
                 cancellationToken);
 
         if (!company)

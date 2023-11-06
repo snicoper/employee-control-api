@@ -2,6 +2,7 @@
 using EmployeeControl.Application.Features.Departments.Commands.ActivateDepartment;
 using EmployeeControl.Application.Features.Departments.Commands.CreateDepartment;
 using EmployeeControl.Application.Features.Departments.Commands.DeactivateDepartment;
+using EmployeeControl.Application.Features.Departments.Commands.UpdateDepartment;
 using EmployeeControl.Application.Features.Departments.Queries.GetDepartmentById;
 using EmployeeControl.Application.Features.Departments.Queries.GetDepartmentsByCompanyIdPaginated;
 using EmployeeControl.Domain.Entities;
@@ -45,9 +46,9 @@ public class DepartmentsController : ApiControllerBase
     }
 
     /// <summary>
-    /// Crear nuevo <see cref="Department" />.
+    /// Crear un nuevo <see cref="Department" />.
     /// </summary>
-    /// <param name="command">Datos del departamento.</param>
+    /// <param name="command">Datos del <see cref="Department" />.</param>
     /// <returns>Id del departamento creado en caso de éxito.</returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -57,6 +58,22 @@ public class DepartmentsController : ApiControllerBase
         var result = await Sender.Send(command);
 
         return ObjectResultWithStatusCode(result, StatusCodes.Status201Created);
+    }
+
+    /// <summary>
+    /// Actualiza un nuevo <see cref="Department" />.
+    /// </summary>
+    /// <param name="id">Id del <see cref="Department" />.</param>
+    /// <param name="command">Datos del <see cref="Department" />.</param>
+    /// <returns><see cref="Result" />.</returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Result>> UpdateDepartment(string id, UpdateDepartmentCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
     }
 
     /// <summary>
