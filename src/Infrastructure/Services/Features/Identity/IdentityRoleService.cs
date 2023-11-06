@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeControl.Infrastructure.Services.Features.Identity;
 
-public class IdentityRoleService(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+public class IdentityRoleService(RoleManager<ApplicationRole> roleManager, UserManager<ApplicationUser> userManager)
     : IIdentityRoleService
 {
-    public async Task<List<IdentityRole>> GetRolesByUseAsync(ApplicationUser user)
+    public async Task<List<ApplicationRole>> GetRolesByUseAsync(ApplicationUser user)
     {
-        var identityRoles = new List<IdentityRole>();
+        var identityRoles = new List<ApplicationRole>();
         var userRoles = await userManager.GetRolesAsync(user);
 
         if (userRoles.Count == 0)

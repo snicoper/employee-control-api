@@ -14,7 +14,7 @@ public class ApplicationDbContextInitialize(
     IDateTimeService dateTimeService,
     ICompanyService companyService,
     UserManager<ApplicationUser> userManager,
-    RoleManager<IdentityRole> roleManager)
+    RoleManager<ApplicationRole> roleManager)
 {
     public async Task InitialiseAsync()
     {
@@ -62,7 +62,7 @@ public class ApplicationDbContextInitialize(
     private async Task CreateRoles()
     {
         // Default roles.
-        var createRole = new List<IdentityRole>
+        var createRole = new List<ApplicationRole>
         {
             new(Roles.SiteAdmin),
             new(Roles.SiteStaff),

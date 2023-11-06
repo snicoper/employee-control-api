@@ -64,7 +64,7 @@ public static class DependencyInjection
         // Identity.
         services
             .AddIdentityCore<ApplicationUser>()
-            .AddRoles<IdentityRole>()
+            .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddClaimsPrincipalFactory<CustomClaimsPrincipalFactory>()
             .AddDefaultTokenProviders();

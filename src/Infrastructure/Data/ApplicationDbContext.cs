@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 namespace EmployeeControl.Infrastructure.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-    : IdentityDbContext<ApplicationUser>(options), IApplicationDbContext
+    : IdentityDbContext<ApplicationUser, ApplicationRole, string>(options), IApplicationDbContext
 {
     public DbSet<Company> Companies => Set<Company>();
 

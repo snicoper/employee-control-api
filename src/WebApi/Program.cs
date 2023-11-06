@@ -1,5 +1,4 @@
 using EmployeeControl.Application;
-using EmployeeControl.Domain;
 using EmployeeControl.Infrastructure;
 using EmployeeControl.Infrastructure.Data.Seeds;
 using EmployeeControl.WebApi;
@@ -10,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddApplicationServices(builder.Configuration)
-    .AddDomainServices()
     .AddInfrastructureServices(builder.Configuration, builder.Environment)
     .AddWebApiServices();
 

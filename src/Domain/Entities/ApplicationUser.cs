@@ -15,6 +15,7 @@ public class ApplicationUser : IdentityUser, ICompany, IEntityDomainEvent
         UserCompanyTasks = new List<UserCompanyTask>();
         TimeControls = new List<TimeControl>();
         UserDepartments = new List<UserDepartment>();
+        UserRoles = new List<IdentityUserRole<string>>();
     }
 
     public string? FirstName { get; set; }
@@ -36,6 +37,8 @@ public class ApplicationUser : IdentityUser, ICompany, IEntityDomainEvent
     public ICollection<TimeControl> TimeControls { get; set; }
 
     public ICollection<UserDepartment> UserDepartments { get; set; }
+
+    public ICollection<IdentityUserRole<string>> UserRoles { get; set; }
 
     public Company Company { get; set; } = null!;
 

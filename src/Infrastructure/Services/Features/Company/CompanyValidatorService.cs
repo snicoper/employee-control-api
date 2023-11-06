@@ -23,9 +23,11 @@ public class CompanyValidatorService(
 
         if (!company)
         {
-            var message = localizer["El nombre de compañía ya existe."];
-            logger.LogDebug("{message}", message);
-            validationFailureService.Add("CompanyName", message);
+            return;
         }
+
+        var message = localizer["El nombre de compañía ya existe."];
+        logger.LogDebug("{message}", message);
+        validationFailureService.Add("CompanyName", message);
     }
 }

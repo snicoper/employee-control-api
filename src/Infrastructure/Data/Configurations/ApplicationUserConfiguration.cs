@@ -16,6 +16,11 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
             .IsUnique();
 
         // Relations.
+        builder.HasMany(e => e.UserRoles)
+            .WithOne()
+            .HasForeignKey(uc => uc.UserId)
+            .IsRequired();
+
         builder.HasOne(au => au.Company)
             .WithMany(c => c.Users)
             .HasForeignKey(au => au.CompanyId)

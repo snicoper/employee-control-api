@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+using EmployeeControl.Domain.Entities;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeControl.Application.Features.Employees.Queries.GetRolesByEmployeeId;
 
@@ -17,7 +17,7 @@ internal class GetRolesByEmployeeIdHandler(
     {
         var user = await identityService.GetByIdAsync(request.EmployeeId);
         var identityRoles = await identityRoleService.GetRolesByUseAsync(user);
-        var result = mapper.Map<List<IdentityRole>, ICollection<GetRolesByEmployeeIdResponse>>(identityRoles);
+        var result = mapper.Map<List<ApplicationRole>, ICollection<GetRolesByEmployeeIdResponse>>(identityRoles);
 
         return result;
     }
