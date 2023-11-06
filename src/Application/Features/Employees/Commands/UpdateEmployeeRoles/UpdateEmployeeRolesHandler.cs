@@ -12,16 +12,16 @@ internal class UpdateEmployeeRolesHandler(IIdentityService identityService, IEnt
     public async Task<Result> Handle(UpdateEmployeeRolesCommand request, CancellationToken cancellationToken)
     {
         // Si el rol de Employee no existe, lo añade.
-        if (!request.Roles.Any(r => r.Equals(Roles.Employee)))
+        if (!request.RolesToAdd.Any(r => r.Equals(Roles.Employee)))
         {
-            request.Roles.Add(Roles.Employee);
+            request.RolesToAdd.Add(Roles.Employee);
         }
 
         var user = await identityService.GetByIdAsync(request.EmployeeId);
 
         await entityValidationService.CheckEntityCompanyIsOwnerAsync(user);
 
-        var resultResponse = await identityService.UpdateRolesByUserIdAsync(user, request.Roles, cancellationToken);
+        var resultResponse = await identityService.UpdateRolesByUserIdAsync(user, request.RolesToAdd, cancellationToken);
 
         return resultResponse;
     }

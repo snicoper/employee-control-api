@@ -1,14 +1,17 @@
-﻿using EmployeeControl.Application.Common.Exceptions;
+﻿using EmployeeControl.Application.Common.Constants;
+using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
 namespace EmployeeControl.Infrastructure.Services.Features.Identity;
@@ -21,6 +24,7 @@ public class IdentityService(
     IIdentityValidatorService identityValidatorService,
     IValidationFailureService validationFailureService,
     ICurrentUserService currentUserService,
+    IStringLocalizer<IdentityLocalizer> localizer,
     ILogger<IdentityService> logger)
     : IIdentityService
 {
@@ -153,10 +157,13 @@ public class IdentityService(
             // Obtener todos los roles y eliminarlos del usuario.
             var userRoles = await userManager.GetRolesAsync(user);
 
-            // Roles.SiteAdmin no es editable.
-            if (userRoles.Any(r => r.Equals(Roles.SiteAdmin)))
+            // Roles.SiteAdmin o Roles.EnterpriseAdmin no son editables.
+            if (userRoles.Any(r => r.Equals(Roles.SiteAdmin) || r.Equals(Roles.EnterpriseAdmin)))
             {
-                return Result.Failure("Role no editable.");
+                var errorMessage = localizer["Roles de empleado no editables."];
+                validationFailureService.AddAndRaiseException(
+                    ValidationErrorsKeys.NotificationErrors,
+                    errorMessage);
             }
 
             var removeRolesResult = await userManager.RemoveFromRolesAsync(user, userRoles);
