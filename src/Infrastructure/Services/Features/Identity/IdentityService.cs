@@ -20,7 +20,6 @@ public class IdentityService(
     IAuthorizationService authorizationService,
     IIdentityValidatorService identityValidatorService,
     IValidationFailureService validationFailureService,
-    ICurrentUserService currentUserService,
     IDateTimeService dateTimeService,
     ILogger<IdentityService> logger)
     : IIdentityService
@@ -73,19 +72,6 @@ public class IdentityService(
         var result = await authorizationService.AuthorizeAsync(principal, policyName);
 
         return result.Succeeded;
-    }
-
-    public bool ItsFromTheCompany(string companyId)
-    {
-        // Roles de administración, se excluyen.
-        if (currentUserService.Roles.Contains(Roles.SiteStaff))
-        {
-            return true;
-        }
-
-        var result = currentUserService.CompanyId.Equals(companyId, StringComparison.OrdinalIgnoreCase);
-
-        return result;
     }
 
     public IQueryable<ApplicationUser> GetByCompanyId(string companyId)

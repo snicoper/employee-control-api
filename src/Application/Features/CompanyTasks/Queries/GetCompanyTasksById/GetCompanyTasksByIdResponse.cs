@@ -12,9 +12,9 @@ public record GetCompanyTasksByIdResponse(
     bool Active,
     DateTimeOffset Created)
 {
-    internal class Mapper : Profile
+    internal class Mapping : Profile
     {
-        public Mapper()
+        public Mapping()
         {
             CreateMap<CompanyTask, GetCompanyTasksByIdResponse>();
         }

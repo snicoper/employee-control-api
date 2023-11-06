@@ -1,4 +1,5 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Common;
+﻿using EmployeeControl.Application.Common.Exceptions;
+using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Departments;
 using EmployeeControl.Domain.Entities;
@@ -20,6 +21,17 @@ public class DepartmentService(
             .Where(d => d.CompanyId == companyId);
 
         return departments;
+    }
+
+    public async Task<Department> GetByIdAsync(string departmentId, CancellationToken cancellationToken)
+    {
+        var department = await context
+                             .Departments
+                             .AsNoTracking()
+                             .SingleOrDefaultAsync(d => d.Id == departmentId, cancellationToken) ??
+                         throw new NotFoundException(nameof(Department), nameof(Department.Id));
+
+        return department;
     }
 
     public async Task<Department> CreateAsync(Department department, CancellationToken cancellationToken)

@@ -40,4 +40,17 @@ public class EntityValidationService(
         logger.LogWarning("Usuario {user}: Error al leer los datos {entity}", currentUserService.Id, entity.GetType().Name);
         throw new NotFoundException(entity.GetType().Name, "Id");
     }
+
+    public bool ItsFromTheCompany(string companyId)
+    {
+        // Roles de administración, se excluyen.
+        if (currentUserService.Roles.Contains(Roles.SiteStaff))
+        {
+            return true;
+        }
+
+        var result = currentUserService.CompanyId.Equals(companyId, StringComparison.OrdinalIgnoreCase);
+
+        return result;
+    }
 }

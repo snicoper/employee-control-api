@@ -40,4 +40,12 @@ public interface IEntityValidationService
     /// <exception cref="NotFoundException">Si no tiene permisos para leer los datos.</exception>
     Task CheckEntityCompanyIsOwnerAsync<TEntity>(TEntity entity, string requiredRole)
         where TEntity : ICompany;
+
+    /// <summary>
+    /// Comprueba si un usuario pertenece a una compañía por la Id de la compañía.
+    /// <para>Similar a CheckEntityCompanyIsOwnerAsync, pero no requiere de Entidad.</para>
+    /// </summary>
+    /// <param name="companyId">Id compañía.</param>
+    /// <returns>True si pertenece, false en caso contrario.</returns>
+    bool ItsFromTheCompany(string companyId);
 }

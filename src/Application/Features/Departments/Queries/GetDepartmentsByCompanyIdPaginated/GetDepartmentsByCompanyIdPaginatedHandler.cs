@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
+using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Departments;
-using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
 using MediatR;
 
 namespace EmployeeControl.Application.Features.Departments.Queries.GetDepartmentsByCompanyIdPaginated;
 
 internal class GetDepartmentsByCompanyIdPaginatedHandler(
-    IIdentityService identityService,
+    IEntityValidationService entityValidationService,
     IDepartmentService departmentService,
     IMapper mapper)
     : IRequestHandler<GetDepartmentsByCompanyIdPaginatedQuery, ResponseData<GetDepartmentsByCompanyIdPaginatedResponse>>
@@ -16,7 +16,7 @@ internal class GetDepartmentsByCompanyIdPaginatedHandler(
         GetDepartmentsByCompanyIdPaginatedQuery request,
         CancellationToken cancellationToken)
     {
-        var permissions = identityService.ItsFromTheCompany(request.CompanyId);
+        var permissions = entityValidationService.ItsFromTheCompany(request.CompanyId);
 
         if (!permissions)
         {

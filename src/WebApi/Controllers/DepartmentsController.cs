@@ -1,5 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.Departments.Commands.CreateDepartment;
+using EmployeeControl.Application.Features.Departments.Queries.GetDepartmentById;
 using EmployeeControl.Application.Features.Departments.Queries.GetDepartmentsByCompanyIdPaginated;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.WebApi.Infrastructure;
@@ -23,6 +24,20 @@ public class DepartmentsController : ApiControllerBase
         [FromQuery] RequestData request)
     {
         var result = await Sender.Send(new GetDepartmentsByCompanyIdPaginatedQuery(companyId, request));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Obtener un <see cref="Department" /> por su Id.
+    /// </summary>
+    /// <param name="id">Id del departamento.</param>
+    [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<GetDepartmentByIdResponse>> GetDepartmentById(string id)
+    {
+        var result = await Sender.Send(new GetDepartmentByIdQuery(id));
 
         return result;
     }

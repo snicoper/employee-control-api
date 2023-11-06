@@ -37,13 +37,6 @@ public interface IIdentityService
     Task<bool> AuthorizeAsync(string userId, string policyName);
 
     /// <summary>
-    /// Comprueba si un usuario pertenece a una compañía por la Id de la compañía.
-    /// </summary>
-    /// <param name="companyId">Id compañía.</param>
-    /// <returns>True si pertenece, false en caso contrario.</returns>
-    bool ItsFromTheCompany(string companyId);
-
-    /// <summary>
     /// Obtener un <see cref="IQueryable" /> de <see cref="ApplicationUser" /> por el Id de compañía.
     /// </summary>
     /// <param name="companyId">Id compañía.</param>
