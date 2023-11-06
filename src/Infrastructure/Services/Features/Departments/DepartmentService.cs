@@ -2,6 +2,7 @@
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Departments;
 using EmployeeControl.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Infrastructure.Services.Features.Departments;
 
@@ -11,6 +12,16 @@ public class DepartmentService(
     IValidationFailureService validationFailureService)
     : IDepartmentService
 {
+    public IQueryable<Department> GetAllByCompanyId(string companyId)
+    {
+        var departments = context
+            .Departments
+            .AsNoTracking()
+            .Where(d => d.CompanyId == companyId);
+
+        return departments;
+    }
+
     public async Task<Department> CreateAsync(Department department, CancellationToken cancellationToken)
     {
         // Validaciones.

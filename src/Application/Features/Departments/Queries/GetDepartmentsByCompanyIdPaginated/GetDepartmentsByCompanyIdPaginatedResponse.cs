@@ -1,0 +1,3 @@
+﻿namespace EmployeeControl.Application.Features.Departments.Queries.GetDepartmentsByCompanyIdPaginated;
+
+public record GetDepartmentsByCompanyIdPaginatedResponse(string Id);

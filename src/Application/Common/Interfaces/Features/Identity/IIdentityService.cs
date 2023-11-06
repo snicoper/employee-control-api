@@ -15,6 +15,8 @@ public interface IIdentityService
 
     Task<bool> AuthorizeAsync(string userId, string policyName);
 
+    bool ItsFromTheCompany(string companyId);
+
     IQueryable<ApplicationUser> GetByCompanyId(string companyId);
 
     Task<(Result Result, string Id)> CreateAsync(

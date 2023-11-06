@@ -3,6 +3,7 @@ using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,7 +16,8 @@ public class IdentityService(
     IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
     IAuthorizationService authorizationService,
     IIdentityValidatorService identityValidatorService,
-    IValidationFailureService validationFailureService)
+    IValidationFailureService validationFailureService,
+    ICurrentUserService currentUserService)
     : IIdentityService
 {
     public async Task<string?> GetUserNameAsync(string userId)
@@ -66,6 +68,19 @@ public class IdentityService(
         var result = await authorizationService.AuthorizeAsync(principal, policyName);
 
         return result.Succeeded;
+    }
+
+    public bool ItsFromTheCompany(string companyId)
+    {
+        // Roles de administración, se excluyen.
+        if (currentUserService.Roles.Contains(Roles.SiteStaff))
+        {
+            return true;
+        }
+
+        var result = currentUserService.CompanyId.Equals(companyId, StringComparison.OrdinalIgnoreCase);
+
+        return result;
     }
 
     public IQueryable<ApplicationUser> GetByCompanyId(string companyId)
