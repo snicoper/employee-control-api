@@ -47,4 +47,12 @@ public class DepartmentService(
 
         return department;
     }
+
+    public async Task<Department> UpdateAsync(Department department, CancellationToken cancellationToken)
+    {
+        context.Departments.Update(department);
+        await context.SaveChangesAsync(cancellationToken);
+
+        return department;
+    }
 }

@@ -1,5 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Features.Departments.Commands.ActivateDepartment;
 using EmployeeControl.Application.Features.Departments.Commands.CreateDepartment;
+using EmployeeControl.Application.Features.Departments.Commands.DeactivateDepartment;
 using EmployeeControl.Application.Features.Departments.Queries.GetDepartmentById;
 using EmployeeControl.Application.Features.Departments.Queries.GetDepartmentsByCompanyIdPaginated;
 using EmployeeControl.Domain.Entities;
@@ -55,5 +57,35 @@ public class DepartmentsController : ApiControllerBase
         var result = await Sender.Send(command);
 
         return ObjectResultWithStatusCode(result, StatusCodes.Status201Created);
+    }
+
+    /// <summary>
+    /// Activa un <see cref="Department" />.
+    /// </summary>
+    /// <param name="command">Id del <see cref="Department" />.</param>
+    /// <returns><see cref="Result" />.</returns>
+    [HttpPut("activate")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Result>> ActivateDepartment(ActivateDepartmentCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Desactiva un <see cref="Department" />.
+    /// </summary>
+    /// <param name="command">Id del <see cref="Department" />.</param>
+    /// <returns><see cref="Result" />.</returns>
+    [HttpPut("deactivate")]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Result>> DeactivateDepartment(DeactivateDepartmentCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
     }
 }

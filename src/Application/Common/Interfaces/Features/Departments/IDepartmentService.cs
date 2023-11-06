@@ -28,4 +28,12 @@ public interface IDepartmentService
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns><see cref="Department" /> creado.</returns>
     Task<Department> CreateAsync(Department department, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Actualizar un <see cref="Department" />.
+    /// </summary>
+    /// <param name="department"><see cref="Department" />.</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
+    /// <returns><see cref="Department" /> creado.</returns>
+    Task<Department> UpdateAsync(Department department, CancellationToken cancellationToken);
 }
