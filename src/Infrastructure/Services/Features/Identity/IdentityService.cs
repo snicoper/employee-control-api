@@ -1,6 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Common;
+using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Constants;
@@ -8,16 +9,19 @@ using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace EmployeeControl.Infrastructure.Services.Features.Identity;
 
 public class IdentityService(
     UserManager<ApplicationUser> userManager,
+    IApplicationDbContext context,
     IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
     IAuthorizationService authorizationService,
     IIdentityValidatorService identityValidatorService,
     IValidationFailureService validationFailureService,
-    ICurrentUserService currentUserService)
+    ICurrentUserService currentUserService,
+    ILogger<IdentityService> logger)
     : IIdentityService
 {
     public async Task<string?> GetUserNameAsync(string userId)
@@ -135,5 +139,54 @@ public class IdentityService(
         var result = await userManager.DeleteAsync(user);
 
         return result.ToApplicationResult();
+    }
+
+    public async Task<Result> UpdateRolesByUserIdAsync(
+        ApplicationUser user,
+        IEnumerable<string> rolesToAdd,
+        CancellationToken cancellationToken)
+    {
+        await using var transaction = await context.Database.BeginTransactionAsync(cancellationToken);
+
+        try
+        {
+            // Obtener todos los roles y eliminarlos del usuario.
+            var userRoles = await userManager.GetRolesAsync(user);
+
+            // Roles.SiteAdmin no es editable.
+            if (userRoles.Any(r => r.Equals(Roles.SiteAdmin)))
+            {
+                return Result.Failure("Role no editable.");
+            }
+
+            var removeRolesResult = await userManager.RemoveFromRolesAsync(user, userRoles);
+
+            if (!removeRolesResult.Succeeded)
+            {
+                await transaction.RollbackAsync(cancellationToken);
+
+                return removeRolesResult.ToApplicationResult();
+            }
+
+            // Añade los nuevos roles al usuario.
+            var addRolesResult = await userManager.AddToRolesAsync(user, rolesToAdd);
+
+            if (!addRolesResult.Succeeded)
+            {
+                await transaction.RollbackAsync(cancellationToken);
+
+                return addRolesResult.ToApplicationResult();
+            }
+
+            await transaction.CommitAsync(cancellationToken);
+
+            return Result.Success();
+        }
+        catch (Exception ex)
+        {
+            logger.LogDebug("{message}", ex.Message);
+            await transaction.RollbackAsync(cancellationToken);
+            throw;
+        }
     }
 }

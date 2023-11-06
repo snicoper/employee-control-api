@@ -16,7 +16,12 @@ internal class GetDepartmentsByCompanyIdPaginatedHandler(
         GetDepartmentsByCompanyIdPaginatedQuery request,
         CancellationToken cancellationToken)
     {
-        identityService.ItsFromTheCompany(request.CompanyId);
+        var permissions = identityService.ItsFromTheCompany(request.CompanyId);
+
+        if (!permissions)
+        {
+            return new ResponseData<GetDepartmentsByCompanyIdPaginatedResponse>();
+        }
 
         var departments = departmentService.GetAllByCompanyId(request.CompanyId);
 

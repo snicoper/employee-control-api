@@ -5,6 +5,7 @@ using EmployeeControl.Application.Features.Employees.Commands.DeactivateEmployee
 using EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
 using EmployeeControl.Application.Features.Employees.Commands.RemoveRoleHumanResources;
 using EmployeeControl.Application.Features.Employees.Commands.UpdateEmployee;
+using EmployeeControl.Application.Features.Employees.Commands.UpdateEmployeeRoles;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeeById;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeesPaginated;
 using EmployeeControl.Application.Features.Employees.Queries.GetRolesByEmployeeId;
@@ -84,6 +85,21 @@ public class EmployeesController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> UpdateEmployee(UpdateEmployeeCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Actualizar los roles de un emepleado.
+    /// </summary>
+    /// <param name="command">Lista de roles a asignar.</param>
+    /// <returns>Roles del empleado.</returns>
+    [HttpPut("{id}/roles")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Result>> UpdateEmployeeRoles(UpdateEmployeeRolesCommand command)
     {
         var result = await Sender.Send(command);
 
