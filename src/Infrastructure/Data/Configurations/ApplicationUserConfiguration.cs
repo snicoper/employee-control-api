@@ -52,7 +52,9 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
         builder.Property(au => au.RefreshToken)
             .HasMaxLength(256);
 
+        builder.Property(au => au.EntryDate)
+            .IsRequired();
+
         builder.Property(au => au.RefreshTokenExpiryTime);
-        builder.Property(au => au.EntryDate);
     }
 }

@@ -91,6 +91,6 @@ public interface IIdentityService
     /// <returns><see cref="Result" />.</returns>
     Task<Result> UpdateRolesByUserIdAsync(
         ApplicationUser user,
-        IEnumerable<string> rolesToAdd,
+        List<string> rolesToAdd,
         CancellationToken cancellationToken);
 }

@@ -28,4 +28,11 @@ public interface IIdentityValidatorService
     /// <param name="user">Usuario a validar.</param>
     /// <param name="password">Password a validar.</param>
     Task PasswordValidationAsync(ApplicationUser user, string password);
+
+    /// <summary>
+    /// Validaciones para asignar roles a un <see cref="ApplicationUser" />.
+    /// </summary>
+    /// <param name="user"><see cref="ApplicationUser" />.</param>
+    /// <param name="userRoles">Roles a asigna al <see cref="ApplicationUser" />.</param>
+    void ValidateUpdateEmployeeRoles(ApplicationUser user, IEnumerable<string> userRoles);
 }

@@ -28,7 +28,7 @@ public class ApplicationUser : IdentityUser, ICompany, IEntityDomainEvent
 
     public DateTimeOffset? RefreshTokenExpiryTime { get; set; }
 
-    public DateTimeOffset? EntryDate { get; set; }
+    public DateTimeOffset EntryDate { get; set; }
 
     public UserSettings UserSettings { get; set; } = null!;
 

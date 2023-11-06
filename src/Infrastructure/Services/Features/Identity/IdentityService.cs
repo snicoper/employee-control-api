@@ -1,17 +1,14 @@
-﻿using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Exceptions;
+﻿using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
 namespace EmployeeControl.Infrastructure.Services.Features.Identity;
@@ -24,7 +21,7 @@ public class IdentityService(
     IIdentityValidatorService identityValidatorService,
     IValidationFailureService validationFailureService,
     ICurrentUserService currentUserService,
-    IStringLocalizer<IdentityLocalizer> localizer,
+    IDateTimeService dateTimeService,
     ILogger<IdentityService> logger)
     : IIdentityService
 {
@@ -108,6 +105,7 @@ public class IdentityService(
     {
         user.Active = true;
         user.UserName = user.Email;
+        user.EntryDate = dateTimeService.UtcNow;
 
         // Validaciones.
         await identityValidatorService.UserValidationAsync(user);
@@ -147,7 +145,7 @@ public class IdentityService(
 
     public async Task<Result> UpdateRolesByUserIdAsync(
         ApplicationUser user,
-        IEnumerable<string> rolesToAdd,
+        List<string> rolesToAdd,
         CancellationToken cancellationToken)
     {
         await using var transaction = await context.Database.BeginTransactionAsync(cancellationToken);
@@ -157,13 +155,13 @@ public class IdentityService(
             // Obtener todos los roles y eliminarlos del usuario.
             var userRoles = await userManager.GetRolesAsync(user);
 
-            // Roles.SiteAdmin o Roles.EnterpriseAdmin no son editables.
-            if (userRoles.Any(r => r.Equals(Roles.SiteAdmin) || r.Equals(Roles.EnterpriseAdmin)))
+            identityValidatorService.ValidateUpdateEmployeeRoles(user, userRoles);
+            validationFailureService.RaiseExceptionIfExistsErrors();
+
+            // El rol de Employee es requerido.
+            if (!rolesToAdd.Any(r => r.Equals(Roles.Employee)))
             {
-                var errorMessage = localizer["Roles de empleado no editables."];
-                validationFailureService.AddAndRaiseException(
-                    ValidationErrorsKeys.NotificationErrors,
-                    errorMessage);
+                rolesToAdd.Add(Roles.Employee);
             }
 
             var removeRolesResult = await userManager.RemoveFromRolesAsync(user, userRoles);
