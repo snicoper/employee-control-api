@@ -16,7 +16,8 @@ internal class FinishTimeControlHandler(UserManager<ApplicationUser> userManager
         _ = await userManager.FindByIdAsync(request.EmployeeId) ??
             throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
 
-        var (result, _) = await timesControlService.FinishAsync(request.EmployeeId, ClosedBy.Employee, cancellationToken);
+        var (result, _) = await timesControlService
+            .FinishAsync(request.EmployeeId, request.DeviceType, ClosedBy.Employee, cancellationToken);
 
         return result;
     }

@@ -37,20 +37,26 @@ public interface ITimesControlService
     /// <para>Lanza un <see cref="IValidationFailureService" /> si ya tenía un tiempo inicializado.</para>
     /// </summary>
     /// <param name="employeeId">Id del empleado.</param>
+    /// <param name="deviceType">Dispositivo utilizado.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>Result con la respuesta y <see cref="TimeControl" /> creado.</returns>
-    Task<(Result Result, TimeControl TimeControl)> StartAsync(string employeeId, CancellationToken cancellationToken);
+    Task<(Result Result, TimeControl TimeControl)> StartAsync(
+        string employeeId,
+        DeviceType deviceType,
+        CancellationToken cancellationToken);
 
     /// <summary>
     /// Inicia un TimeControl.
     /// <para>Lanza un <see cref="IValidationFailureService" /> en caso de error.</para>
     /// </summary>
     /// <param name="employeeId">Id empleado.</param>
+    /// <param name="deviceType">Dispositivo utilizado.</param>
     /// <param name="closedBy"><see cref="ClosedBy" />, quien finaliza el tiempo.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns>Result.Success en caso de exito, <see cref="IValidationFailureService" /> en caso contrario.</returns>
     Task<(Result Result, TimeControl? TimeControl)> FinishAsync(
         string employeeId,
+        DeviceType deviceType,
         ClosedBy closedBy,
         CancellationToken cancellationToken);
 }

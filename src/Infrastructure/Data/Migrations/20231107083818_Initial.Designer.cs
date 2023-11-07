@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231106063200_Initial")]
+    [Migration("20231107083818_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -78,7 +78,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTimeOffset?>("EntryDate")
+                    b.Property<DateTimeOffset>("EntryDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("FirstName")
@@ -338,6 +338,12 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
+
+                    b.Property<int?>("DeviceTypeFinish")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DeviceTypeStart")
+                        .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("Finish")
                         .HasColumnType("timestamp with time zone");

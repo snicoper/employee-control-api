@@ -16,6 +16,10 @@ public class TimeControl : BaseAuditableEntity, ICompany
 
     public TimeState TimeState { get; set; } = TimeState.Open;
 
+    public DeviceType DeviceTypeStart { get; set; } = DeviceType.Unknown;
+
+    public DeviceType? DeviceTypeFinish { get; set; }
+
     public ApplicationUser User { get; set; } = null!;
 
     public string CompanyId { get; set; } = default!;

@@ -9,7 +9,7 @@ internal class StartTimeControlHandler(ITimesControlService timesControlService)
 {
     public async Task<Result> Handle(StartTimeControlCommand request, CancellationToken cancellationToken)
     {
-        var (result, _) = await timesControlService.StartAsync(request.EmployeeId, cancellationToken);
+        var (result, _) = await timesControlService.StartAsync(request.EmployeeId, request.DeviceType, cancellationToken);
 
         return result;
     }

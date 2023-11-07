@@ -36,6 +36,11 @@ public class TimeControlConfiguration : IEntityTypeConfiguration<TimeControl>
         builder.Property(tc => tc.TimeState)
             .IsRequired();
 
+        builder.Property(tc => tc.DeviceTypeStart)
+            .IsRequired();
+
+        builder.Property(tc => tc.DeviceTypeFinish);
+
         builder.Property(tc => tc.CompanyId)
             .IsRequired();
 
