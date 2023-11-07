@@ -12,4 +12,6 @@ public static class EmailViews
     public const string RecoveryPassword = nameof(RecoveryPassword);
 
     public const string SendEmployeeAssignTask = nameof(SendEmployeeAssignTask);
+
+    public const string SendEmployeeAssignDepartment = nameof(SendEmployeeAssignDepartment);
 }
