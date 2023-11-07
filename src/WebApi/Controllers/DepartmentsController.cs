@@ -6,6 +6,7 @@ using EmployeeControl.Application.Features.Departments.Commands.DeactivateDepart
 using EmployeeControl.Application.Features.Departments.Commands.UpdateDepartment;
 using EmployeeControl.Application.Features.Departments.Queries.GetDepartmentById;
 using EmployeeControl.Application.Features.Departments.Queries.GetDepartmentsByCompanyIdPaginated;
+using EmployeeControl.Application.Features.Departments.Queries.GetDepartmentsByEmployeeIdPaginated;
 using EmployeeControl.Application.Features.Departments.Queries.GetEmployeesByDepartmentIdPaginated;
 using EmployeeControl.Application.Features.Departments.Queries.GetEmployeesUnassignedDepartmentByDepartmentId;
 using EmployeeControl.Domain.Entities;
@@ -35,7 +36,7 @@ public class DepartmentsController : ApiControllerBase
     }
 
     /// <summary>
-    /// Obtener lista paginada de empleados por el Id del <see cref="Department" />.
+    /// Obtener lista paginada de <see cref="ApplicationUser" /> por el Id del <see cref="Department" />.
     /// </summary>
     /// <param name="request"><see cref="RequestData" />.</param>
     /// <param name="id">Id del <see cref="Department" />.</param>
@@ -46,6 +47,22 @@ public class DepartmentsController : ApiControllerBase
         GetEmployeesByDepartmentIdPaginated([FromQuery] RequestData request, string id)
     {
         var result = await Sender.Send(new GetEmployeesByDepartmentIdPaginatedQuery(id, request));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Obtener lista paginada de <see cref="Department" /> por el Id de <see cref="ApplicationUser" />.
+    /// </summary>
+    /// <param name="request"><see cref="RequestData" />.</param>
+    /// <param name="employeeId">Id del <see cref="Department" />.</param>
+    /// <returns>Lista de usuarios paginádos.</returns>
+    [HttpGet("employees/{employeeId}/paginated")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<ResponseData<GetDepartmentsByEmployeeIdPaginatedResponse>>>
+        GetDepartmentsByEmployeeIdPaginated([FromQuery] RequestData request, string employeeId)
+    {
+        var result = await Sender.Send(new GetDepartmentsByEmployeeIdPaginatedQuery(employeeId, request));
 
         return result;
     }

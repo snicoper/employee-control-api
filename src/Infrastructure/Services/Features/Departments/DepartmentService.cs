@@ -22,6 +22,17 @@ public class DepartmentService(
         return departments;
     }
 
+    public IQueryable<Department> GetAllByEmployeeId(string employeeId)
+    {
+        var departments = context
+            .UserDepartments
+            .Include(ud => ud.Department)
+            .Where(ud => ud.UserId == employeeId)
+            .Select(ud => ud.Department);
+
+        return departments;
+    }
+
     public async Task<Department> GetByIdAsync(string departmentId, CancellationToken cancellationToken)
     {
         var department = await context

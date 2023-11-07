@@ -13,6 +13,13 @@ public interface IDepartmentService
     IQueryable<Department> GetAllByCompanyId(string companyId);
 
     /// <summary>
+    /// Obtener departamentos por el Id del <see cref="ApplicationUser" />.
+    /// </summary>
+    /// <param name="employeeId">Id empleado.</param>
+    /// <returns><see cref="IQueryable{T}" /> de la consulta.</returns>
+    IQueryable<Department> GetAllByEmployeeId(string employeeId);
+
+    /// <summary>
     /// Obtener un <see cref="Department" /> por su Id.
     /// </summary>
     /// <param name="departmentId">Id departamento.</param>
