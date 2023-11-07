@@ -5,9 +5,9 @@ namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetEmployees
 
 public record GetEmployeesByCompanyTaskIdPaginatedResponse(string Id, string FirstName, string LastName, string Email)
 {
-    internal class Mapper : Profile
+    internal class Mapping : Profile
     {
-        public Mapper()
+        public Mapping()
         {
             CreateMap<ApplicationUser, GetEmployeesByCompanyTaskIdPaginatedResponse>();
         }

@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Departments;
+using EmployeeControl.Application.Common.Security;
 using MediatR;
 
 namespace EmployeeControl.Application.Features.Departments.Queries.GetDepartmentById;
 
 internal class GetDepartmentByIdHandler(
     IDepartmentService departmentService,
-    IEntityValidationService entityValidationService,
+    IPermissionsValidationService permissionsValidationService,
     IMapper mapper)
     : IRequestHandler<GetDepartmentByIdQuery, GetDepartmentByIdResponse>
 {
@@ -15,7 +15,7 @@ internal class GetDepartmentByIdHandler(
     {
         var department = await departmentService.GetByIdAsync(request.DepartmentId, cancellationToken);
 
-        await entityValidationService.CheckEntityCompanyIsOwnerAsync(department);
+        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(department);
 
         var resultResponse = mapper.Map<GetDepartmentByIdResponse>(department);
 

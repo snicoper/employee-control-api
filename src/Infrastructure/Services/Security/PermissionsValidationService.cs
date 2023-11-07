@@ -1,18 +1,18 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Common;
-using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace EmployeeControl.Infrastructure.Services.Features;
+namespace EmployeeControl.Infrastructure.Services.Security;
 
-public class EntityValidationService(
+public class PermissionsValidationService(
     ICurrentUserService currentUserService,
     IIdentityService identityService,
-    ILogger<EntityValidationService> logger)
-    : IEntityValidationService
+    ILogger<PermissionsValidationService> logger)
+    : IPermissionsValidationService
 {
     public async Task CheckEntityCompanyIsOwnerAsync<TEntity>(TEntity entity)
         where TEntity : ICompany

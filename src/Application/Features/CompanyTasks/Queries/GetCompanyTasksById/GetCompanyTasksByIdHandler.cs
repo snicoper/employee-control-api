@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
+using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 
@@ -9,14 +9,14 @@ namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTa
 internal class GetCompanyTasksByIdHandler(
     ICompanyTaskService companyTaskService,
     IMapper mapper,
-    IEntityValidationService entityValidationService)
+    IPermissionsValidationService permissionsValidationService)
     : IRequestHandler<GetCompanyTasksByIdQuery, GetCompanyTasksByIdResponse>
 {
     public async Task<GetCompanyTasksByIdResponse> Handle(GetCompanyTasksByIdQuery request, CancellationToken cancellationToken)
     {
         var companyTask = await companyTaskService.GetByIdAsync(request.Id, cancellationToken);
 
-        await entityValidationService.CheckEntityCompanyIsOwnerAsync(companyTask);
+        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(companyTask);
 
         var result = mapper.Map<CompanyTask, GetCompanyTasksByIdResponse>(companyTask);
 

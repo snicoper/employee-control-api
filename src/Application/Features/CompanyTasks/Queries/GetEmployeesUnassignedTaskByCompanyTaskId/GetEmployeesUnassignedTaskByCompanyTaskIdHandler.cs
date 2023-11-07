@@ -1,5 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Data;
+using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +11,7 @@ namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetEmployees
 internal class GetEmployeesUnassignedTaskByCompanyTaskIdHandler(
     IApplicationDbContext context,
     UserManager<ApplicationUser> userManager,
-    IEntityValidationService entityValidationService)
+    IPermissionsValidationService permissionsValidationService)
     : IRequestHandler<
         GetEmployeesUnassignedTaskByCompanyTaskIdQuery,
         ICollection<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>>
@@ -49,7 +50,7 @@ internal class GetEmployeesUnassignedTaskByCompanyTaskIdHandler(
             return new List<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>();
         }
 
-        await entityValidationService.CheckEntityCompanyIsOwnerAsync(users.First());
+        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(users.First());
 
         // Preparar la respuesta.
         var resultResponse = users

@@ -1,6 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Common.Security;
 using MediatR;
 
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.ActivateCompanyTask;
@@ -8,14 +9,14 @@ namespace EmployeeControl.Application.Features.CompanyTasks.Commands.ActivateCom
 internal class ActivateCompanyTaskHandler(
     IApplicationDbContext context,
     ICompanyTaskService companyTaskService,
-    IEntityValidationService entityValidationService)
+    IPermissionsValidationService permissionsValidationService)
     : IRequestHandler<ActivateCompanyTaskCommand, Result>
 {
     public async Task<Result> Handle(ActivateCompanyTaskCommand request, CancellationToken cancellationToken)
     {
         var companyTask = await companyTaskService.GetByIdAsync(request.CompanyTaskId, cancellationToken);
 
-        await entityValidationService.CheckEntityCompanyIsOwnerAsync(companyTask);
+        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(companyTask);
 
         companyTask.Active = true;
 

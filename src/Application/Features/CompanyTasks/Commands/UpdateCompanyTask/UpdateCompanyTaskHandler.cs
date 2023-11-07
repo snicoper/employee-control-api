@@ -2,6 +2,7 @@
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Common.Security;
 using MediatR;
 
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.UpdateCompanyTask;
@@ -9,7 +10,7 @@ namespace EmployeeControl.Application.Features.CompanyTasks.Commands.UpdateCompa
 internal class UpdateCompanyTaskHandler(
     IApplicationDbContext context,
     ICompanyTaskService companyTaskService,
-    IEntityValidationService entityValidationService,
+    IPermissionsValidationService permissionsValidationService,
     IMapper mapper)
     : IRequestHandler<UpdateCompanyTaskCommand, Result>
 {
@@ -17,7 +18,7 @@ internal class UpdateCompanyTaskHandler(
     {
         var companyTask = await companyTaskService.GetByIdAsync(request.Id, cancellationToken);
 
-        await entityValidationService.CheckEntityCompanyIsOwnerAsync(companyTask);
+        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(companyTask);
 
         var updatedCompanyTask = mapper.Map(request, companyTask);
 

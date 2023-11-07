@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
+using EmployeeControl.Application.Common.Security;
 using MediatR;
 
 namespace EmployeeControl.Application.Features.CompanySettings.Queries.GetCompanySettingsByCompanyId;
 
 internal class GetCompanySettingsByCompanyIdHandler(
     ICompanySettingsService companySettingsService,
-    IEntityValidationService entityValidationService,
+    IPermissionsValidationService permissionsValidationService,
     IMapper mapper)
     : IRequestHandler<GetCompanySettingsByCompanyIdQuery, GetCompanySettingsByCompanyIdResponse>
 {
@@ -17,7 +17,7 @@ internal class GetCompanySettingsByCompanyIdHandler(
     {
         var companySettings = await companySettingsService.GetByCompanyIdAsync(request.CompanyId, cancellationToken);
 
-        await entityValidationService.CheckEntityCompanyIsOwnerAsync(companySettings);
+        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(companySettings);
         var responseResult = mapper.Map<GetCompanySettingsByCompanyIdResponse>(companySettings);
 
         return responseResult;

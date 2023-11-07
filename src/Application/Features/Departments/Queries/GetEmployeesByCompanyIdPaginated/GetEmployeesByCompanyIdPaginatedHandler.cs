@@ -5,16 +5,16 @@ using EmployeeControl.Application.Common.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksByCompanyIdPaginated;
+namespace EmployeeControl.Application.Features.Departments.Queries.GetEmployeesByCompanyIdPaginated;
 
-internal class GetCompanyTasksByCompanyIdPaginatedHandler(
+internal class GetEmployeesByCompanyIdPaginatedHandler(
     IApplicationDbContext context,
-    IMapper mapper,
-    IPermissionsValidationService permissionsValidationService)
-    : IRequestHandler<GetCompanyTasksByCompanyIdPaginatedQuery, ResponseData<GetCompanyTasksByCompanyIdPaginatedResponse>>
+    IPermissionsValidationService permissionsValidationService,
+    IMapper mapper)
+    : IRequestHandler<GetEmployeesByCompanyIdPaginatedQuery, ResponseData<GetEmployeesByCompanyIdPaginatedResponse>>
 {
-    public async Task<ResponseData<GetCompanyTasksByCompanyIdPaginatedResponse>> Handle(
-        GetCompanyTasksByCompanyIdPaginatedQuery request,
+    public async Task<ResponseData<GetEmployeesByCompanyIdPaginatedResponse>> Handle(
+        GetEmployeesByCompanyIdPaginatedQuery request,
         CancellationToken cancellationToken)
     {
         // Cada compañía solo puede ser sus tareas.
@@ -25,7 +25,7 @@ internal class GetCompanyTasksByCompanyIdPaginatedHandler(
             .Where(c => c.CompanyId == request.CompanyId)
             .AsNoTracking();
 
-        var resultResponse = await ResponseData<GetCompanyTasksByCompanyIdPaginatedResponse>.CreateAsync(
+        var resultResponse = await ResponseData<GetEmployeesByCompanyIdPaginatedResponse>.CreateAsync(
             tasks,
             request.RequestData,
             mapper,

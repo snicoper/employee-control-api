@@ -3,9 +3,9 @@ using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Interfaces;
 
-namespace EmployeeControl.Application.Common.Interfaces.Data;
+namespace EmployeeControl.Application.Common.Security;
 
-public interface IEntityValidationService
+public interface IPermissionsValidationService
 {
     /// <summary>
     /// Comprueba si <see cref="ICompany.CompanyId" /> es igual a <see cref="ICurrentUserService" />.

@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Common.Security;
 using MediatR;
 
 namespace EmployeeControl.Application.Features.CompanySettings.Commands.UpdateCompanySettings;
 
 public class UpdateCompanySettingsHandler(
     ICompanySettingsService companySettingsService,
-    IEntityValidationService entityValidationService,
+    IPermissionsValidationService permissionsValidationService,
     IMapper mapper)
     : IRequestHandler<UpdateCompanySettingsCommand, Result>
 {
@@ -16,7 +16,7 @@ public class UpdateCompanySettingsHandler(
     {
         var companySettings = await companySettingsService.GatByIdAsync(request.Id, cancellationToken);
 
-        await entityValidationService.CheckEntityCompanyIsOwnerAsync(companySettings);
+        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(companySettings);
 
         var companySettingsUpdated = mapper.Map(request, companySettings);
 

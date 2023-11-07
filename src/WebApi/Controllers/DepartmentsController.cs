@@ -5,6 +5,7 @@ using EmployeeControl.Application.Features.Departments.Commands.DeactivateDepart
 using EmployeeControl.Application.Features.Departments.Commands.UpdateDepartment;
 using EmployeeControl.Application.Features.Departments.Queries.GetDepartmentById;
 using EmployeeControl.Application.Features.Departments.Queries.GetDepartmentsByCompanyIdPaginated;
+using EmployeeControl.Application.Features.Departments.Queries.GetEmployeesByCompanyIdPaginated;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,22 @@ public class DepartmentsController : ApiControllerBase
         [FromQuery] RequestData request)
     {
         var result = await Sender.Send(new GetDepartmentsByCompanyIdPaginatedQuery(companyId, request));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Obtener lista paginada de empleados por el Id del <see cref="Department" />.
+    /// </summary>
+    /// <param name="request"><see cref="RequestData" />.</param>
+    /// <param name="id">Id del <see cref="Department" />.</param>
+    /// <returns>Lista de usuarios paginádos.</returns>
+    [HttpGet("{id}/employees/paginated")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<ResponseData<GetEmployeesByCompanyIdPaginatedResponse>>>
+        GetEmployeesByCompanyIdPaginated([FromQuery] RequestData request, string id)
+    {
+        var result = await Sender.Send(new GetEmployeesByCompanyIdPaginatedQuery(request, id));
 
         return result;
     }
