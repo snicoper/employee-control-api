@@ -3,5 +3,5 @@ using MediatR;
 
 namespace EmployeeControl.Application.Features.Departments.Queries.GetEmployeesByDepartmentIdPaginated;
 
-public record GetEmployeesByDepartmentIdPaginatedQuery(RequestData RequestData, string DepartmentId)
+public record GetEmployeesByDepartmentIdPaginatedQuery(string DepartmentId, RequestData RequestData)
     : IRequest<ResponseData<GetEmployeesByDepartmentIdPaginatedResponse>>;

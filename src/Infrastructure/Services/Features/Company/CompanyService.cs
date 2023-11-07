@@ -15,7 +15,7 @@ public class CompanyService(
 {
     public async Task<Domain.Entities.Company> GetByIdAsync(string companyId, CancellationToken cancellationToken)
     {
-        var result = await context.Companies.AsNoTracking().SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken)
+        var result = await context.Companies.SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken)
                      ?? throw new NotFoundException(nameof(Domain.Entities.Company), nameof(Domain.Entities.Company));
 
         return result;

@@ -17,7 +17,6 @@ public class DepartmentService(
     {
         var departments = context
             .Departments
-            .AsNoTracking()
             .Where(d => d.CompanyId == companyId);
 
         return departments;
@@ -27,7 +26,6 @@ public class DepartmentService(
     {
         var department = await context
                              .Departments
-                             .AsNoTracking()
                              .SingleOrDefaultAsync(d => d.Id == departmentId, cancellationToken) ??
                          throw new NotFoundException(nameof(Department), nameof(Department.Id));
 

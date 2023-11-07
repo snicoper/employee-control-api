@@ -45,7 +45,7 @@ public class DepartmentsController : ApiControllerBase
     public async Task<ActionResult<ResponseData<GetEmployeesByDepartmentIdPaginatedResponse>>>
         GetEmployeesByDepartmentIdPaginated([FromQuery] RequestData request, string id)
     {
-        var result = await Sender.Send(new GetEmployeesByDepartmentIdPaginatedQuery(request, id));
+        var result = await Sender.Send(new GetEmployeesByDepartmentIdPaginatedQuery(id, request));
 
         return result;
     }

@@ -18,7 +18,6 @@ public class DepartmentValidatorService(
     {
         var company = await context
             .Departments
-            .AsNoTracking()
             .AnyAsync(
                 d => d.CompanyId == department.CompanyId &&
                      d.Name.ToLower().Equals(department.Name.ToLower()) &&
@@ -38,7 +37,6 @@ public class DepartmentValidatorService(
     {
         var company = await context
             .Departments
-            .AsNoTracking()
             .AnyAsync(
                 d => d.CompanyId == department.CompanyId &&
                      d.Background.ToLower().Equals(department.Background.ToLower()) &&

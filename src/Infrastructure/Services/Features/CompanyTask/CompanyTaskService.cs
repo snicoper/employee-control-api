@@ -18,7 +18,6 @@ public class CompanyTaskService(
     {
         var result = await context
                          .CompanyTasks
-                         .AsNoTracking()
                          .SingleOrDefaultAsync(cs => cs.Id == companyTaskId, cancellationToken) ??
                      throw new NotFoundException(nameof(Domain.Entities.CompanyTask), nameof(Domain.Entities.CompanyTask.Id));
 
@@ -31,7 +30,6 @@ public class CompanyTaskService(
     {
         var companyTaskExists = context
             .CompanyTasks
-            .AsNoTracking()
             .Where(ct => ct.CompanyId == newCompanyTask.CompanyId && ct.Name == newCompanyTask.Name);
 
         if (companyTaskExists.Any())

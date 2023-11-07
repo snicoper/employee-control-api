@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Domain.Constants;
+using EmployeeControl.Application.Common.Security;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,29 +9,26 @@ namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetEmployees
 
 internal class GetEmployeesByCompanyTaskIdPaginatedHandler(
     IApplicationDbContext context,
-    ICurrentUserService currentUserService,
-    IMapper mapper,
-    IIdentityService identityService)
+    IPermissionsValidationService permissionsValidationService,
+    IMapper mapper)
     : IRequestHandler<GetEmployeesByCompanyTaskIdPaginatedQuery, ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>>
 {
     public async Task<ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>> Handle(
         GetEmployeesByCompanyTaskIdPaginatedQuery request,
         CancellationToken cancellationToken)
     {
-        var userCompanyTasks = context
+        var users = context
             .UserCompanyTasks
             .Include(uct => uct.User)
-            .Where(uct => uct.CompanyTaskId == request.CompanyTaskId);
-
-        // Si Role no es al menos Staff, filtrar solo por tareas de la compañía del usuario actual.
-        if (!await identityService.IsInRoleAsync(currentUserService.Id, Roles.SiteStaff))
-        {
-            userCompanyTasks = userCompanyTasks.Where(uct => uct.CompanyId == currentUserService.CompanyId);
-        }
-
-        var users = userCompanyTasks
-            .AsNoTracking()
+            .Where(uct => uct.CompanyTaskId == request.CompanyTaskId)
             .Select(uct => uct.User);
+
+        // Validar permisos de lectura.
+        if (users.Any())
+        {
+            var firstUser = await users.FirstAsync(cancellationToken);
+            await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(firstUser);
+        }
 
         var resultResponse = await ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>.CreateAsync(
             users,

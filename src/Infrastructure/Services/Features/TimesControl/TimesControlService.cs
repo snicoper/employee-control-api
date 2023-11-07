@@ -33,7 +33,6 @@ public class TimesControlService(
     {
         var timeControlGroups = await context
             .TimeControls
-            .AsNoTracking()
             .Where(tc => tc.UserId == employeeId && tc.Start >= from && tc.Finish <= to)
             .GroupBy(tc => tc.Start.Day)
             .ToListAsync(cancellationToken);
@@ -55,7 +54,6 @@ public class TimesControlService(
     {
         var timeControl = await context
             .TimeControls
-            .AsNoTracking()
             .SingleOrDefaultAsync(ct => ct.TimeState == TimeState.Open && ct.UserId == employeeId, cancellationToken);
 
         if (timeControl is null)
@@ -87,7 +85,6 @@ public class TimesControlService(
 
         var timeControlInitialized = await context
             .TimeControls
-            .AsNoTracking()
             .SingleOrDefaultAsync(tc => tc.TimeState == TimeState.Open && tc.UserId == employeeId, cancellationToken);
 
         if (timeControlInitialized is not null)
@@ -119,7 +116,6 @@ public class TimesControlService(
     {
         var timeControl = await context
             .TimeControls
-            .AsNoTracking()
             .SingleOrDefaultAsync(tc => tc.TimeState == TimeState.Open && tc.UserId == employeeId, cancellationToken);
 
         if (timeControl?.ClosedBy is null)

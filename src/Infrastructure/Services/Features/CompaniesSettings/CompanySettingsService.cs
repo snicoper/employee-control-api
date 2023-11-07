@@ -18,7 +18,6 @@ public class CompanySettingsService(
     {
         var result = await context
                          .CompanySettings
-                         .AsNoTracking()
                          .SingleOrDefaultAsync(cs => cs.Id == companySettingsId, cancellationToken) ??
                      throw new NotFoundException(nameof(CompanySettings), nameof(CompanySettings.CompanyId));
 
@@ -29,7 +28,6 @@ public class CompanySettingsService(
     {
         var result = await context
                          .CompanySettings
-                         .AsNoTracking()
                          .SingleOrDefaultAsync(cs => cs.CompanyId == companyId, cancellationToken) ??
                      throw new NotFoundException(nameof(CompanySettings), nameof(CompanySettings.CompanyId));
 

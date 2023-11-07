@@ -3,7 +3,6 @@ using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Common.Security;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksByCompanyIdPaginated;
 
@@ -22,8 +21,7 @@ internal class GetCompanyTasksByCompanyIdPaginatedHandler(
 
         var tasks = context
             .CompanyTasks
-            .Where(c => c.CompanyId == request.CompanyId)
-            .AsNoTracking();
+            .Where(c => c.CompanyId == request.CompanyId);
 
         var resultResponse = await ResponseData<GetCompanyTasksByCompanyIdPaginatedResponse>.CreateAsync(
             tasks,

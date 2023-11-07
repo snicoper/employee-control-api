@@ -18,7 +18,6 @@ public class CompanyValidatorService(
     public async Task UniqueNameValidationAsync(string name, CancellationToken cancellationToken)
     {
         var company = await context.Companies
-            .AsNoTracking()
             .AnyAsync(c => c.Name.ToLower().Equals(name), cancellationToken);
 
         if (!company)

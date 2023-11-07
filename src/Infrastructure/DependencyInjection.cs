@@ -51,6 +51,7 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationDbContext>((provider, options) =>
         {
             options.AddInterceptors(provider.GetServices<ISaveChangesInterceptor>());
+            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             options.UseNpgsql(connectionString);
 
             if (!environment.IsProduction())

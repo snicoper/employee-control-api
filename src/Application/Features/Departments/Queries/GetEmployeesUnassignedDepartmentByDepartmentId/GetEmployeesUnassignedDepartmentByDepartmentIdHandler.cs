@@ -23,7 +23,6 @@ internal class GetEmployeesUnassignedDepartmentByDepartmentIdHandler(
         // Obtener el departamento por su Id.
         var department = await context
                              .Departments
-                             .AsNoTracking()
                              .Include(ct => ct.UserDepartments)
                              .ThenInclude(uct => uct.User)
                              .SingleOrDefaultAsync(ct => ct.Id == request.Id, cancellationToken) ??
@@ -39,7 +38,6 @@ internal class GetEmployeesUnassignedDepartmentByDepartmentIdHandler(
         // Obtener los empleados de la empresa excluyendo los empleados que ya tienen el departamento asignada.
         var users = userManager
             .Users
-            .AsNoTracking()
             .Include(au => au
                 .UserCompanyTasks
                 .Where(uct => uct.CompanyTaskId == request.Id && uct.CompanyTaskId == department.Id))

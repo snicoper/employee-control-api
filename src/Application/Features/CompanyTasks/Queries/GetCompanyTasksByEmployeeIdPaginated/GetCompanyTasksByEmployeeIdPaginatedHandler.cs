@@ -23,7 +23,6 @@ internal class GetCompanyTasksByEmployeeIdPaginatedHandler(
         var userCompanyTasks = context
             .UserCompanyTasks
             .Include(uct => uct.CompanyTask)
-            .AsNoTracking()
             .Where(uct => uct.UserId == request.EmployeeId);
 
         // Si no es Staff, asegurarse que solo obtiene tareas de su compañía.

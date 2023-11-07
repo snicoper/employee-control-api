@@ -21,7 +21,6 @@ internal class AssignEmployeesToTaskHandler(
     {
         var companyTask = await context
             .CompanyTasks
-            .AsNoTracking()
             .Include(ct => ct.Company)
             .SingleOrDefaultAsync(ct => ct.Id == request.Id, cancellationToken);
 
@@ -34,7 +33,6 @@ internal class AssignEmployeesToTaskHandler(
 
         var employees = userManager
             .Users
-            .AsNoTracking()
             .Where(au => request.EmployeeIds.Contains(au.Id) && au.CompanyId == companyTask.CompanyId)
             .ToList();
 

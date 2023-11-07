@@ -23,7 +23,6 @@ internal class GetEmployeesUnassignedTaskByCompanyTaskIdHandler(
         // Obtener la tarea por su Id.
         var companyTask = await context
                               .CompanyTasks
-                              .AsNoTracking()
                               .Include(ct => ct.UserCompanyTasks)
                               .ThenInclude(uct => uct.User)
                               .SingleOrDefaultAsync(ct => ct.Id == request.Id, cancellationToken) ??
@@ -39,7 +38,6 @@ internal class GetEmployeesUnassignedTaskByCompanyTaskIdHandler(
         // Obtener los empleados de la empresa excluyendo los empleados que ya tienen la tarea asignada.
         var users = userManager
             .Users
-            .AsNoTracking()
             .Include(au => au
                 .UserCompanyTasks
                 .Where(uct => uct.CompanyTaskId == request.Id && uct.CompanyTaskId == companyTask.Id))

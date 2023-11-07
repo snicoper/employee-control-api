@@ -15,7 +15,6 @@ internal class GetTimeStateOpenByEmployeeIdHandler(IApplicationDbContext context
     {
         var timeControl = await context
                               .TimeControls
-                              .AsNoTracking()
                               .SingleOrDefaultAsync(
                                   ct => ct.UserId == request.EmployeeId && ct.TimeState == TimeState.Open, cancellationToken) ??
                           new TimeControl { TimeState = TimeState.Close };

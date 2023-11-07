@@ -3,7 +3,6 @@ using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Application.Features.Admin.AdminAccounts.Queries.GetAdminAccountsPaginated;
 
@@ -14,7 +13,7 @@ internal class GetAdminAccountsPaginatedHandler(UserManager<ApplicationUser> use
         GetAdminAccountsPaginatedQuery request,
         CancellationToken cancellationToken)
     {
-        var users = userManager.Users.AsNoTracking();
+        var users = userManager.Users;
 
         var resultResponse = await ResponseData<GetAdminAccountsPaginatedResponse>.CreateAsync(
             users,
