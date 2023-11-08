@@ -51,24 +51,24 @@ public interface ITimesControlService
     /// <summary>
     /// Obtener si el empleado tiene algún <see cref="TimeControl" /> inicializado.
     /// </summary>
-    /// <param name="employeeId">Id empleado.</param>
+    /// <param name="user"><see cref="ApplicationUser" />.</param>
     /// <param name="cancellationToken">CancellationToken.</param>
     /// <returns>true si tiene el <see cref="TimeControl" /> inicializado, false en caso contrario.</returns>
-    Task<TimeState> GetTimeStateByEmployeeIAsync(string employeeId, CancellationToken cancellationToken);
+    Task<TimeState> GetTimeStateByEmployeeIAsync(ApplicationUser user, CancellationToken cancellationToken);
 
     /// <summary>
     /// Inicializar un <see cref="TimeControl" />.
     /// <para>Lanza un <see cref="NotFoundException" /> si el empleado no existe.</para>
     /// <para>Lanza un <see cref="IValidationFailureService" /> si ya tenía un tiempo inicializado.</para>
     /// </summary>
-    /// <param name="employeeId">Id del empleado.</param>
+    /// <param name="user"><see cref="ApplicationUser" />.</param>
     /// <param name="deviceType">Dispositivo utilizado.</param>
     /// <param name="latitude">Longitud del empleado.</param>
     /// <param name="longitude">Latitud del empleado.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>Result con la respuesta y <see cref="TimeControl" /> creado.</returns>
     Task<(Result Result, TimeControl TimeControl)> StartAsync(
-        string employeeId,
+        ApplicationUser user,
         DeviceType deviceType,
         double? latitude,
         double? longitude,
@@ -78,7 +78,7 @@ public interface ITimesControlService
     /// Inicia un TimeControl.
     /// <para>Lanza un <see cref="IValidationFailureService" /> en caso de error.</para>
     /// </summary>
-    /// <param name="employeeId">Id empleado.</param>
+    /// <param name="user"><see cref="ApplicationUser" />.</param>
     /// <param name="deviceType">Dispositivo utilizado.</param>
     /// <param name="closedBy"><see cref="ClosedBy" />, quien finaliza el tiempo.</param>
     /// <param name="latitude">Longitud del empleado.</param>
@@ -86,7 +86,7 @@ public interface ITimesControlService
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns>Result.Success en caso de exito, <see cref="IValidationFailureService" /> en caso contrario.</returns>
     Task<(Result Result, TimeControl? TimeControl)> FinishAsync(
-        string employeeId,
+        ApplicationUser user,
         DeviceType deviceType,
         ClosedBy closedBy,
         double? latitude,

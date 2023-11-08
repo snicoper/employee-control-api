@@ -9,7 +9,6 @@ using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
@@ -22,7 +21,6 @@ public class TimesControlService(
     IValidationFailureService validationFailureService,
     IApplicationDbContext context,
     ICompanySettingsService companySettingsService,
-    UserManager<ApplicationUser> userManager,
     IStringLocalizer<TimeControlLocalizer> localizer)
     : ITimesControlService
 {
@@ -81,11 +79,11 @@ public class TimesControlService(
         return timesControl;
     }
 
-    public async Task<TimeState> GetTimeStateByEmployeeIAsync(string employeeId, CancellationToken cancellationToken)
+    public async Task<TimeState> GetTimeStateByEmployeeIAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
         var timeControl = await context
             .TimeControls
-            .SingleOrDefaultAsync(ct => ct.TimeState == TimeState.Open && ct.UserId == employeeId, cancellationToken);
+            .SingleOrDefaultAsync(ct => ct.TimeState == TimeState.Open && ct.UserId == user.Id, cancellationToken);
 
         if (timeControl is null)
         {
@@ -101,7 +99,7 @@ public class TimesControlService(
 
         if (timeControl.Start.Day != datetimeZone.Day)
         {
-            await FinishAsync(employeeId, DeviceType.System, ClosedBy.System, null, null, cancellationToken);
+            await FinishAsync(user, DeviceType.System, ClosedBy.System, null, null, cancellationToken);
         }
 
         await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
@@ -110,31 +108,18 @@ public class TimesControlService(
     }
 
     public async Task<(Result Result, TimeControl TimeControl)> StartAsync(
-        string employeeId,
+        ApplicationUser user,
         DeviceType deviceType,
         double? latitude,
         double? longitude,
         CancellationToken cancellationToken)
     {
-        var employee = await userManager.FindByIdAsync(employeeId) ??
-                       throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
-
-        var timeControlInitialized = await context
-            .TimeControls
-            .SingleOrDefaultAsync(tc => tc.TimeState == TimeState.Open && tc.UserId == employeeId, cancellationToken);
-
-        if (timeControlInitialized is not null)
-        {
-            var message = localizer["Ya hay un tiempo inicializado y no es posible comenzar otro."];
-            validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NotificationErrors, message);
-        }
-
         var timeControl = new TimeControl
         {
-            UserId = employeeId,
+            UserId = user.Id,
             Start = dateTimeService.UtcNow,
             Finish = dateTimeService.UtcNow,
-            CompanyId = employee.CompanyId,
+            CompanyId = user.CompanyId,
             DeviceTypeStart = deviceType,
             LatitudeStart = latitude,
             LongitudeStart = longitude
@@ -152,8 +137,21 @@ public class TimesControlService(
         return (Result.Success(), timeControl);
     }
 
+    public async Task<TimeControl> UpdateAsync(TimeControl timeControl, CancellationToken cancellationToken)
+    {
+        await timesControlValidatorService.ValidateUpdateAsync(timeControl, cancellationToken);
+        validationFailureService.RaiseExceptionIfExistsErrors();
+
+        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
+
+        context.TimeControls.Update(timeControl);
+        await context.SaveChangesAsync(cancellationToken);
+
+        return timeControl;
+    }
+
     public async Task<(Result Result, TimeControl? TimeControl)> FinishAsync(
-        string employeeId,
+        ApplicationUser user,
         DeviceType deviceType,
         ClosedBy closedBy,
         double? latitude,
@@ -162,7 +160,7 @@ public class TimesControlService(
     {
         var timeControl = await context
             .TimeControls
-            .SingleOrDefaultAsync(tc => tc.TimeState == TimeState.Open && tc.UserId == employeeId, cancellationToken);
+            .SingleOrDefaultAsync(tc => tc.TimeState == TimeState.Open && tc.UserId == user.Id, cancellationToken);
 
         if (timeControl?.ClosedBy is null)
         {
@@ -186,18 +184,5 @@ public class TimesControlService(
         await UpdateAsync(timeControl, cancellationToken);
 
         return (Result.Success(), timeControl);
-    }
-
-    public async Task<TimeControl> UpdateAsync(TimeControl timeControl, CancellationToken cancellationToken)
-    {
-        await timesControlValidatorService.ValidateUpdateAsync(timeControl, cancellationToken);
-        validationFailureService.RaiseExceptionIfExistsErrors();
-
-        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
-
-        context.TimeControls.Update(timeControl);
-        await context.SaveChangesAsync(cancellationToken);
-
-        return timeControl;
     }
 }

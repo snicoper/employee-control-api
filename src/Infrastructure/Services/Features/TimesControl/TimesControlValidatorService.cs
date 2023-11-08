@@ -47,8 +47,9 @@ public class TimesControlValidatorService(
             return;
         }
 
-        var message = localizer["El tiempo coincide con algún tiempo abierto y no es posible iniciar el tiempo."];
-        validationFailureService.Add(ValidationErrorsKeys.NotificationErrors, message);
+        validationFailureService.Add(
+            ValidationErrorsKeys.NotificationErrors,
+            localizer["El tiempo coincide con algún tiempo abierto y no es posible iniciar el tiempo."]);
     }
 
     public async Task ValidateUpdateAsync(TimeControl timeControl, CancellationToken cancellationToken)
@@ -88,7 +89,8 @@ public class TimesControlValidatorService(
             return;
         }
 
-        var message = localizer["El tiempo coincide con algún tiempo abierto y no es posible actualizar el tiempo."];
-        validationFailureService.Add(ValidationErrorsKeys.NotificationErrors, message);
+        validationFailureService.Add(
+            ValidationErrorsKeys.NotificationErrors,
+            localizer["El tiempo coincide con algún tiempo abierto y no es posible actualizar el tiempo."]);
     }
 }
