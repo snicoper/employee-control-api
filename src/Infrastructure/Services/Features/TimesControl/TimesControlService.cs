@@ -137,19 +137,6 @@ public class TimesControlService(
         return (Result.Success(), timeControl);
     }
 
-    public async Task<TimeControl> UpdateAsync(TimeControl timeControl, CancellationToken cancellationToken)
-    {
-        await timesControlValidatorService.ValidateUpdateAsync(timeControl, cancellationToken);
-        validationFailureService.RaiseExceptionIfExistsErrors();
-
-        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
-
-        context.TimeControls.Update(timeControl);
-        await context.SaveChangesAsync(cancellationToken);
-
-        return timeControl;
-    }
-
     public async Task<(Result Result, TimeControl? TimeControl)> FinishAsync(
         ApplicationUser user,
         DeviceType deviceType,
@@ -184,5 +171,18 @@ public class TimesControlService(
         await UpdateAsync(timeControl, cancellationToken);
 
         return (Result.Success(), timeControl);
+    }
+
+    public async Task<TimeControl> UpdateAsync(TimeControl timeControl, CancellationToken cancellationToken)
+    {
+        await timesControlValidatorService.ValidateUpdateAsync(timeControl, cancellationToken);
+        validationFailureService.RaiseExceptionIfExistsErrors();
+
+        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
+
+        context.TimeControls.Update(timeControl);
+        await context.SaveChangesAsync(cancellationToken);
+
+        return timeControl;
     }
 }
