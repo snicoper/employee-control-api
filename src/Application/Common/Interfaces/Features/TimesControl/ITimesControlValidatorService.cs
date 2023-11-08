@@ -13,7 +13,7 @@ public interface ITimesControlValidatorService
     /// </summary>
     /// <param name="timeControl"><see cref="TimeControl" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-    Task ValidateForCreateAsync(TimeControl timeControl, CancellationToken cancellationToken);
+    Task ValidateCreateAsync(TimeControl timeControl, CancellationToken cancellationToken);
 
     /// <summary>
     /// Reglas de validación de un <see cref="TimeControl" /> en la actualización.
@@ -24,5 +24,5 @@ public interface ITimesControlValidatorService
     /// </summary>
     /// <param name="timeControl"><see cref="TimeControl" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-    Task ValidateForUpdateAsync(TimeControl timeControl, CancellationToken cancellationToken);
+    Task ValidateUpdateAsync(TimeControl timeControl, CancellationToken cancellationToken);
 }

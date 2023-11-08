@@ -141,7 +141,7 @@ public class TimesControlService(
         };
 
         // Validaciones.
-        await timesControlValidatorService.ValidateForCreateAsync(timeControl, cancellationToken);
+        await timesControlValidatorService.ValidateCreateAsync(timeControl, cancellationToken);
         validationFailureService.RaiseExceptionIfExistsErrors();
 
         await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
@@ -190,7 +190,7 @@ public class TimesControlService(
 
     public async Task<TimeControl> UpdateAsync(TimeControl timeControl, CancellationToken cancellationToken)
     {
-        await timesControlValidatorService.ValidateForUpdateAsync(timeControl, cancellationToken);
+        await timesControlValidatorService.ValidateUpdateAsync(timeControl, cancellationToken);
         validationFailureService.RaiseExceptionIfExistsErrors();
 
         await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);

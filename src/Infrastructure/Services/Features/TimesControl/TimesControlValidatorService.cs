@@ -16,7 +16,7 @@ public class TimesControlValidatorService(
     IDateTimeService dateTimeService)
     : ITimesControlValidatorService
 {
-    public async Task ValidateForCreateAsync(TimeControl timeControl, CancellationToken cancellationToken)
+    public async Task ValidateCreateAsync(TimeControl timeControl, CancellationToken cancellationToken)
     {
         // Comprueba si existe algún tiempo en el rango del tiempo a crear.
         var checkTime = await context
@@ -51,7 +51,7 @@ public class TimesControlValidatorService(
         validationFailureService.Add(ValidationErrorsKeys.NotificationErrors, message);
     }
 
-    public async Task ValidateForUpdateAsync(TimeControl timeControl, CancellationToken cancellationToken)
+    public async Task ValidateUpdateAsync(TimeControl timeControl, CancellationToken cancellationToken)
     {
         // Comprueba si existe algún tiempo en el rango del tiempo a actualizar.
         var checkTime = await context
