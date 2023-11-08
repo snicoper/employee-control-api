@@ -18,6 +18,7 @@ namespace EmployeeControl.Infrastructure.Services.Features.TimesControl;
 public class TimesControlService(
     IDateTimeService dateTimeService,
     IPermissionsValidationService permissionsValidationService,
+    ITimesControlValidatorService timesControlValidatorService,
     IValidationFailureService validationFailureService,
     IApplicationDbContext context,
     ICompanySettingsService companySettingsService,
@@ -25,6 +26,16 @@ public class TimesControlService(
     IStringLocalizer<TimeControlLocalizer> localizer)
     : ITimesControlService
 {
+    public async Task<TimeControl> GetById(string id, CancellationToken cancellationToken)
+    {
+        var result = await context
+                         .TimeControls
+                         .SingleOrDefaultAsync(tc => tc.Id.Equals(id), cancellationToken) ??
+                     throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.Id));
+
+        return result;
+    }
+
     public async Task<IEnumerable<IGrouping<int, TimeControl>>> GetRangeByEmployeeIdAsync(
         string employeeId,
         DateTimeOffset from,
@@ -129,6 +140,10 @@ public class TimesControlService(
             LongitudeStart = longitude
         };
 
+        // Validaciones.
+        await timesControlValidatorService.ValidateForCreateAsync(timeControl, cancellationToken);
+        validationFailureService.RaiseExceptionIfExistsErrors();
+
         await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
 
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
@@ -168,11 +183,21 @@ public class TimesControlService(
         timeControl.LatitudeFinish = latitude;
         timeControl.LongitudeFinish = longitude;
 
+        await UpdateAsync(timeControl, cancellationToken);
+
+        return (Result.Success(), timeControl);
+    }
+
+    public async Task<TimeControl> UpdateAsync(TimeControl timeControl, CancellationToken cancellationToken)
+    {
+        await timesControlValidatorService.ValidateForUpdateAsync(timeControl, cancellationToken);
+        validationFailureService.RaiseExceptionIfExistsErrors();
+
         await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
 
         context.TimeControls.Update(timeControl);
         await context.SaveChangesAsync(cancellationToken);
 
-        return (Result.Success(), timeControl);
+        return timeControl;
     }
 }

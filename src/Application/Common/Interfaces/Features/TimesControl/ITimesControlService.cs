@@ -9,6 +9,15 @@ namespace EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
 public interface ITimesControlService
 {
     /// <summary>
+    /// Obtener un <see cref="TimeControl" /> por su Id.
+    /// </summary>
+    /// <param name="id">Id del <see cref="TimeControl" />.</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
+    /// <exception cref="NotFoundException">En caso de no encontrar el <see cref="TimeControl" />.</exception>
+    /// <returns><see cref="TimeControl" />.</returns>
+    Task<TimeControl> GetById(string id, CancellationToken cancellationToken);
+
+    /// <summary>
     /// Obtener un grupos por días de <see cref="TimeControl" /> en un rango de fechas de un
     /// empleado concreto por su Id.
     /// </summary>
@@ -83,4 +92,12 @@ public interface ITimesControlService
         double? latitude,
         double? longitude,
         CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Actualiza un <see cref="TimeControl" />.
+    /// </summary>
+    /// <param name="timeControl"><see cref="TimeControl" /> a actualizar.</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
+    /// <returns><see cref="TimeControl" /> actualizado.</returns>
+    Task<TimeControl> UpdateAsync(TimeControl timeControl, CancellationToken cancellationToken);
 }

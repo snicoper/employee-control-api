@@ -1,6 +1,8 @@
 ﻿using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Commands.StartTimeControl;
+using EmployeeControl.Application.Features.TimesControl.Commands.UpdateTimeControl;
+using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlById;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlRangeByEmployeeId;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlByCompanyIdPaginated;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlByEmployeeIdPaginated;
@@ -54,6 +56,22 @@ public class TimesControlController : ApiControllerBase
             [FromQuery] RequestData requestData)
     {
         var result = await Sender.Send(new GetTimesControlByEmployeeIdPaginatedQuery(employeeId, from, to, requestData));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Obtener un <see cref="TimeControl" /> por su Id.
+    /// </summary>
+    /// <param name="id">Id del <see cref="TimeControl" />.</param>
+    /// <returns><see cref="TimeControl" />.</returns>
+    [HttpGet("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<GetTimeControlByIdResponse>> GetTimeControlById(string id)
+    {
+        var result = await Sender.Send(new GetTimeControlByIdQuery(id));
 
         return result;
     }
@@ -115,7 +133,7 @@ public class TimesControlController : ApiControllerBase
     }
 
     /// <summary>
-    /// Inicializa un TimeControl.
+    /// Inicializa un <see cref="TimeControl" />.
     /// </summary>
     /// <param name="command">Employee Id.</param>
     /// <returns>Result con el estado del proceso.</returns>
@@ -131,7 +149,7 @@ public class TimesControlController : ApiControllerBase
     }
 
     /// <summary>
-    /// Finalizar un TimeControl.
+    /// Finalizar un <see cref="TimeControl" />.
     /// </summary>
     /// <param name="command">Employee Id.</param>
     /// <returns>Result con el estado del proceso.</returns>
@@ -140,6 +158,23 @@ public class TimesControlController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> FinishTimeControl(FinishTimeControlCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Actualiza un <see cref="TimeControl" />.
+    /// <para>Solo actualiza el Start y Finish.</para>
+    /// </summary>
+    /// <param name="command">Datos del <see cref="TimeControl" />.</param>
+    /// <returns>Result con el estado del proceso.</returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Result>> UpdateTimeControl(UpdateTimeControlCommand command)
     {
         var result = await Sender.Send(command);
 
