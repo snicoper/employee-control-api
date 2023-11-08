@@ -70,9 +70,39 @@ public class TimesControlService(
         return timesControl;
     }
 
+    public async Task<TimeState> GetTimeStateByEmployeeIAsync(string employeeId, CancellationToken cancellationToken)
+    {
+        var timeControl = await context
+            .TimeControls
+            .SingleOrDefaultAsync(ct => ct.TimeState == TimeState.Open && ct.UserId == employeeId, cancellationToken);
+
+        if (timeControl is null)
+        {
+            return TimeState.Close;
+        }
+
+        // Si el tiempo ha superado las 23:59:59 respecto al día que se inicializó el sistema lo cierra y lo reporta como alerta.
+        // El tiempo es en base al timezone de la compañía.
+        // FIXME: Mover esta parte a un método reutilizable.
+        var datetimeZone = await companySettingsService.ConvertToTimezoneCurrentCompanyAsync(
+            dateTimeService.EndOfDay(dateTimeService.UtcNow),
+            cancellationToken);
+
+        if (timeControl.Start.Day != datetimeZone.Day)
+        {
+            await FinishAsync(employeeId, DeviceType.System, ClosedBy.System, null, null, cancellationToken);
+        }
+
+        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
+
+        return timeControl.TimeState;
+    }
+
     public async Task<(Result Result, TimeControl TimeControl)> StartAsync(
         string employeeId,
         DeviceType deviceType,
+        double? latitude,
+        double? longitude,
         CancellationToken cancellationToken)
     {
         var employee = await userManager.FindByIdAsync(employeeId) ??
@@ -94,7 +124,9 @@ public class TimesControlService(
             Start = dateTimeService.UtcNow,
             Finish = dateTimeService.UtcNow,
             CompanyId = employee.CompanyId,
-            DeviceTypeStart = deviceType
+            DeviceTypeStart = deviceType,
+            Latitude = latitude,
+            Longitude = longitude
         };
 
         await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
@@ -109,6 +141,8 @@ public class TimesControlService(
         string employeeId,
         DeviceType deviceType,
         ClosedBy closedBy,
+        double? latitude,
+        double? longitude,
         CancellationToken cancellationToken)
     {
         var timeControl = await context
@@ -131,6 +165,8 @@ public class TimesControlService(
         timeControl.ClosedBy = closedBy;
         timeControl.TimeState = TimeState.Close;
         timeControl.DeviceTypeFinish = deviceType;
+        timeControl.Latitude = latitude;
+        timeControl.Longitude = longitude;
 
         await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
 
@@ -138,33 +174,5 @@ public class TimesControlService(
         await context.SaveChangesAsync(cancellationToken);
 
         return (Result.Success(), timeControl);
-    }
-
-    public async Task<TimeState> GetTimeStateByEmployeeIAsync(string employeeId, CancellationToken cancellationToken)
-    {
-        var timeControl = await context
-            .TimeControls
-            .SingleOrDefaultAsync(ct => ct.TimeState == TimeState.Open && ct.UserId == employeeId, cancellationToken);
-
-        if (timeControl is null)
-        {
-            return TimeState.Close;
-        }
-
-        // Si el tiempo ha superado las 23:59:59 respecto al día que se inicializó el sistema lo cierra y lo reporta como alerta.
-        // El tiempo es en base al timezone de la compañía.
-        // FIXME: Mover esta parte a un método reutilizable.
-        var datetimeZone = await companySettingsService.ConvertToTimezoneCurrentCompanyAsync(
-            dateTimeService.EndOfDay(dateTimeService.UtcNow),
-            cancellationToken);
-
-        if (timeControl.Start.Day != datetimeZone.Day)
-        {
-            await FinishAsync(employeeId, DeviceType.System, ClosedBy.System, cancellationToken);
-        }
-
-        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
-
-        return timeControl.TimeState;
     }
 }

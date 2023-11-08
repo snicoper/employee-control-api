@@ -54,11 +54,15 @@ public interface ITimesControlService
     /// </summary>
     /// <param name="employeeId">Id del empleado.</param>
     /// <param name="deviceType">Dispositivo utilizado.</param>
+    /// <param name="latitude">Longitud del empleado.</param>
+    /// <param name="longitude">Latitud del empleado.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>Result con la respuesta y <see cref="TimeControl" /> creado.</returns>
     Task<(Result Result, TimeControl TimeControl)> StartAsync(
         string employeeId,
         DeviceType deviceType,
+        double? latitude,
+        double? longitude,
         CancellationToken cancellationToken);
 
     /// <summary>
@@ -68,11 +72,15 @@ public interface ITimesControlService
     /// <param name="employeeId">Id empleado.</param>
     /// <param name="deviceType">Dispositivo utilizado.</param>
     /// <param name="closedBy"><see cref="ClosedBy" />, quien finaliza el tiempo.</param>
+    /// <param name="latitude">Longitud del empleado.</param>
+    /// <param name="longitude">Latitud del empleado.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns>Result.Success en caso de exito, <see cref="IValidationFailureService" /> en caso contrario.</returns>
     Task<(Result Result, TimeControl? TimeControl)> FinishAsync(
         string employeeId,
         DeviceType deviceType,
         ClosedBy closedBy,
+        double? latitude,
+        double? longitude,
         CancellationToken cancellationToken);
 }

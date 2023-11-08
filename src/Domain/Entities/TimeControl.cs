@@ -20,9 +20,9 @@ public class TimeControl : BaseAuditableEntity, ICompany
 
     public DeviceType? DeviceTypeFinish { get; set; }
 
-    public double Latitude { get; set; }
+    public double? Latitude { get; set; }
 
-    public double Longitude { get; set; }
+    public double? Longitude { get; set; }
 
     public ApplicationUser User { get; set; } = null!;
 
