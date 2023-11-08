@@ -24,6 +24,22 @@ public interface ITimesControlService
         CancellationToken cancellationToken);
 
     /// <summary>
+    /// Obtener los <see cref="TimeControl" /> por el Id de <see cref="Company" />.
+    /// <para>Incluye los <see cref="ApplicationUser" />.</para>
+    /// </summary>
+    /// <param name="companyId">Id <see cref="Company" />.</param>
+    /// <returns><see cref="IQueryable{T}" /> con los <see cref="TimeControl" />.</returns>
+    IQueryable<TimeControl> GetWithUserByCompanyId(string companyId);
+
+    /// <summary>
+    /// Obtener los <see cref="TimeControl" /> por el Id de <see cref="ApplicationUser" />.
+    /// <para>Incluye los <see cref="ApplicationUser" />.</para>
+    /// </summary>
+    /// <param name="employeeId">Id <see cref="ApplicationUser" />.</param>
+    /// <returns><see cref="IQueryable{T}" /> con los <see cref="TimeControl" />.</returns>
+    IQueryable<TimeControl> GetWithUserByEmployeeId(string employeeId);
+
+    /// <summary>
     /// Obtener si el empleado tiene algún <see cref="TimeControl" /> inicializado.
     /// </summary>
     /// <param name="employeeId">Id empleado.</param>

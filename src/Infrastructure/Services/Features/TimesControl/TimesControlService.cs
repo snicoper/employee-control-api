@@ -50,6 +50,26 @@ public class TimesControlService(
         return timeControlGroups;
     }
 
+    public IQueryable<TimeControl> GetWithUserByCompanyId(string companyId)
+    {
+        var timesControl = context
+            .TimeControls
+            .Include(tc => tc.User)
+            .Where(tc => tc.CompanyId == companyId);
+
+        return timesControl;
+    }
+
+    public IQueryable<TimeControl> GetWithUserByEmployeeId(string employeeId)
+    {
+        var timesControl = context
+            .TimeControls
+            .Include(tc => tc.User)
+            .Where(tc => tc.UserId == employeeId);
+
+        return timesControl;
+    }
+
     public async Task<(Result Result, TimeControl TimeControl)> StartAsync(
         string employeeId,
         DeviceType deviceType,
@@ -110,6 +130,7 @@ public class TimesControlService(
 
         timeControl.ClosedBy = closedBy;
         timeControl.TimeState = TimeState.Close;
+        timeControl.DeviceTypeFinish = deviceType;
 
         await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
 

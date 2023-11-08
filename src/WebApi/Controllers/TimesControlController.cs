@@ -2,6 +2,8 @@
 using EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Commands.StartTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlRangeByEmployeeId;
+using EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlByCompanyIdPaginated;
+using EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlByEmployeeIdPaginated;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeStateByEmployeeId;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeStateOpenByEmployeeId;
 using EmployeeControl.Domain.Entities;
@@ -14,6 +16,48 @@ namespace EmployeeControl.WebApi.Controllers;
 [Route("api/v{version:apiVersion}/times-control")]
 public class TimesControlController : ApiControllerBase
 {
+    /// <summary>
+    /// Obtener registros de <see cref="TimeControl" /> de el Id de una <see cref="Company" />.
+    /// </summary>
+    /// <param name="companyId">Id compañía.</param>
+    /// <param name="from">Filtro: día o inicio de rango.</param>
+    /// <param name="to">Filtro: final de un rango.</param>
+    /// <param name="requestData"><see cref="ResponseData{TResponse}" />.</param>
+    /// <returns><see cref="ResponseData{TResponse}" /> con los filtros aplicados.</returns>
+    [HttpGet("companies/{companyId}/from/{from}/to/{to}/paginated")]
+    public async Task<ActionResult<ResponseData<GetTimesControlByCompanyIdPaginatedResponse>>>
+        GetTimesControlByCompanyIdPaginated(
+            string companyId,
+            DateTimeOffset from,
+            DateTimeOffset to,
+            [FromQuery] RequestData requestData)
+    {
+        var result = await Sender.Send(new GetTimesControlByCompanyIdPaginatedQuery(companyId, from, to, requestData));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Obtener registros de <see cref="TimeControl" /> de el Id de una <see cref="ApplicationUser" />.
+    /// </summary>
+    /// <param name="employeeId">Id empleado.</param>
+    /// <param name="from">Filtro: día o inicio de rango.</param>
+    /// <param name="to">Filtro: final de un rango.</param>
+    /// <param name="requestData"><see cref="ResponseData{TResponse}" />.</param>
+    /// <returns><see cref="ResponseData{TResponse}" /> con los filtros aplicados.</returns>
+    [HttpGet("employees/{employeeId}/from/{from}/to/{to}/paginated")]
+    public async Task<ActionResult<ResponseData<GetTimesControlByEmployeeIdPaginatedResponse>>>
+        GetTimesControlByEmployeeIdPaginated(
+            string employeeId,
+            DateTimeOffset from,
+            DateTimeOffset to,
+            [FromQuery] RequestData requestData)
+    {
+        var result = await Sender.Send(new GetTimesControlByEmployeeIdPaginatedQuery(employeeId, from, to, requestData));
+
+        return result;
+    }
+
     /// <summary>
     /// Obtener una lista de <see cref="TimeControl" /> de un empleado concreto
     /// en un rango de fechas.
