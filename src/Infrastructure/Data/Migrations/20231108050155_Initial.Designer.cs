@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231107083818_Initial")]
+    [Migration("20231108050155_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -353,6 +353,12 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("text");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("double precision");
 
                     b.Property<DateTimeOffset>("Start")
                         .HasColumnType("timestamp with time zone");

@@ -278,6 +278,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     TimeState = table.Column<int>(type: "integer", nullable: false),
                     DeviceTypeStart = table.Column<int>(type: "integer", nullable: false),
                     DeviceTypeFinish = table.Column<int>(type: "integer", nullable: true),
+                    Latitude = table.Column<double>(type: "double precision", nullable: false),
+                    Longitude = table.Column<double>(type: "double precision", nullable: false),
                     CompanyId = table.Column<string>(type: "text", nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
