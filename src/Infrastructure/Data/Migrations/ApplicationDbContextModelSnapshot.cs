@@ -347,10 +347,16 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("text");
 
-                    b.Property<double>("Latitude")
+                    b.Property<double?>("LatitudeFinish")
                         .HasColumnType("double precision");
 
-                    b.Property<double>("Longitude")
+                    b.Property<double?>("LatitudeStart")
+                        .HasColumnType("double precision");
+
+                    b.Property<double?>("LongitudeFinish")
+                        .HasColumnType("double precision");
+
+                    b.Property<double?>("LongitudeStart")
                         .HasColumnType("double precision");
 
                     b.Property<DateTimeOffset>("Start")

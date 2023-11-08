@@ -125,8 +125,8 @@ public class TimesControlService(
             Finish = dateTimeService.UtcNow,
             CompanyId = employee.CompanyId,
             DeviceTypeStart = deviceType,
-            Latitude = latitude,
-            Longitude = longitude
+            LatitudeStart = latitude,
+            LongitudeStart = longitude
         };
 
         await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
@@ -165,8 +165,8 @@ public class TimesControlService(
         timeControl.ClosedBy = closedBy;
         timeControl.TimeState = TimeState.Close;
         timeControl.DeviceTypeFinish = deviceType;
-        timeControl.Latitude = latitude;
-        timeControl.Longitude = longitude;
+        timeControl.LatitudeFinish = latitude;
+        timeControl.LongitudeFinish = longitude;
 
         await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
 

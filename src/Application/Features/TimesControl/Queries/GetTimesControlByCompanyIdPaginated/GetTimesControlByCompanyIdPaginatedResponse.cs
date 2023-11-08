@@ -26,6 +26,14 @@ public record GetTimesControlByCompanyIdPaginatedResponse
 
     public DeviceType DeviceTypeFinish { get; set; }
 
+    public double? LatitudeStart { get; set; }
+
+    public double? LongitudeStart { get; set; }
+
+    public double? LatitudeFinish { get; set; }
+
+    public double? LongitudeFinish { get; set; }
+
     public int Duration { get; set; }
 
     internal class Mapping : Profile

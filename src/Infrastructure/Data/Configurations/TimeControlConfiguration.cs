@@ -41,9 +41,13 @@ public class TimeControlConfiguration : IEntityTypeConfiguration<TimeControl>
 
         builder.Property(tc => tc.DeviceTypeFinish);
 
-        builder.Property(tc => tc.Latitude);
+        builder.Property(tc => tc.LatitudeStart);
 
-        builder.Property(tc => tc.Longitude);
+        builder.Property(tc => tc.LongitudeStart);
+
+        builder.Property(tc => tc.LatitudeFinish);
+
+        builder.Property(tc => tc.LongitudeFinish);
 
         builder.Property(tc => tc.CompanyId)
             .IsRequired();
