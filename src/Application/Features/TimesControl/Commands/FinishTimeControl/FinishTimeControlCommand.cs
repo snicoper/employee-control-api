@@ -7,5 +7,5 @@ using MediatR;
 namespace EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeControl;
 
 [Authorize(Roles = Roles.Employee)]
-public record FinishTimeControlCommand(string EmployeeId, DeviceType DeviceType, double? Latitude, double Longitude)
+public record FinishTimeControlCommand(string EmployeeId, DeviceType DeviceType, double? Latitude, double? Longitude)
     : IRequest<Result>;

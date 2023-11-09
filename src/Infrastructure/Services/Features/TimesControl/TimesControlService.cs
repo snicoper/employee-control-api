@@ -92,7 +92,7 @@ public class TimesControlService(
 
         // Si el tiempo ha superado las 23:59:59 respecto al día que se inicializó el sistema lo cierra y lo reporta como alerta.
         // El tiempo es en base al timezone de la compañía.
-        // FIXME: Mover esta parte a un método reutilizable.
+        // FIXME: Mover esta parte a un método reutilizable, ahora este método no se utiliza.
         var datetimeZone = await companySettingsService.ConvertToTimezoneCurrentCompanyAsync(
             dateTimeService.EndOfDay(dateTimeService.UtcNow),
             cancellationToken);

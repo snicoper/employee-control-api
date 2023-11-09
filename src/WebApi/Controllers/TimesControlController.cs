@@ -1,5 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeControl;
+using EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeControlByStaff;
 using EmployeeControl.Application.Features.TimesControl.Commands.StartTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Commands.UpdateTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlById;
@@ -8,6 +9,7 @@ using EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlB
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlByEmployeeIdPaginated;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeStateByEmployeeId;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeStateOpenByEmployeeId;
+using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
 using EmployeeControl.WebApi.Infrastructure;
@@ -158,6 +160,22 @@ public class TimesControlController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> FinishTimeControl(FinishTimeControlCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Finalizar un <see cref="TimeControl" /> por un role mínimo de <see cref="Roles.HumanResources" />.
+    /// </summary>
+    /// <param name="command">Employee Id.</param>
+    /// <returns>Result con el estado del proceso.</returns>
+    [HttpPost("finish/staff")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Result>> FinishTimeControlByStaff(FinishTimeControlByStaffCommand command)
     {
         var result = await Sender.Send(command);
 

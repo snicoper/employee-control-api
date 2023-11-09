@@ -18,11 +18,24 @@ public class TimesControlValidatorService(
 {
     public async Task ValidateCreateAsync(TimeControl timeControl, CancellationToken cancellationToken)
     {
-        // Comprueba si existe algún tiempo en el rango del tiempo a crear.
+        // El Finish no puede ser menor al Start.
+        if (timeControl.Finish < timeControl.Start)
+        {
+            validationFailureService.Add(
+                ValidationErrorsKeys.NotificationErrors,
+                localizer["El tiempo final no puede ser antes que el tiempo de inicio."]);
+
+            return;
+        }
+
+        // Comprueba si existe algún tiempo cerrado en el rango del tiempo a crear.
         var checkTime = await context
             .TimeControls
             .AnyAsync(
-                tc => tc.UserId == timeControl.UserId && timeControl.Start >= tc.Start && timeControl.Start <= tc.Finish,
+                tc => tc.UserId == timeControl.UserId &&
+                      tc.TimeState == TimeState.Close &&
+                      timeControl.Start >= tc.Start &&
+                      timeControl.Start <= tc.Finish,
                 cancellationToken);
 
         if (checkTime)
@@ -54,14 +67,36 @@ public class TimesControlValidatorService(
 
     public async Task ValidateUpdateAsync(TimeControl timeControl, CancellationToken cancellationToken)
     {
+        // Los tiempos iniciados, no se pueden editar.
+        if (timeControl.TimeState == TimeState.Open)
+        {
+            validationFailureService.Add(
+                ValidationErrorsKeys.NotificationErrors,
+                localizer["El tiempo esta actualmente iniciado."]);
+
+            return;
+        }
+
+        // El Finish no puede ser menor al Start.
+        if (timeControl.Finish < timeControl.Start)
+        {
+            validationFailureService.Add(
+                ValidationErrorsKeys.NotificationErrors,
+                localizer["El tiempo final no puede ser antes que el tiempo de inicio."]);
+
+            return;
+        }
+
         // Comprueba si existe algún tiempo en el rango del tiempo a actualizar.
         var checkTime = await context
             .TimeControls
             .AnyAsync(
                 tc =>
-                    tc.UserId == timeControl.UserId && tc.Id != timeControl.Id &&
-                    timeControl.Start >= tc.Start && timeControl.Start <= tc.Finish &&
-                    timeControl.Finish >= tc.Start && timeControl.Finish <= tc.Finish,
+                    tc.Id != timeControl.Id &&
+                    tc.UserId == timeControl.UserId &&
+                    tc.TimeState == TimeState.Close &&
+                    ((timeControl.Start >= tc.Start && timeControl.Start <= tc.Finish) ||
+                     (timeControl.Finish >= tc.Start && timeControl.Finish <= tc.Finish)),
                 cancellationToken);
 
         if (checkTime)
