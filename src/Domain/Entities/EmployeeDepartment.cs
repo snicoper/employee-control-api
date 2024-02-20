@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Domain.Entities;
 
-public class UserDepartment : ICompany
+public class EmployeeDepartment : ICompany
 {
     public string DepartmentId { get; set; } = default!;
 

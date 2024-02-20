@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EmployeeControl.Infrastructure.Data.Configurations;
 
-public class UserCompanyTaskConfiguration : IEntityTypeConfiguration<UserCompanyTask>
+public class EmployeeCompanyTaskConfiguration : IEntityTypeConfiguration<EmployeeCompanyTask>
 {
-    public void Configure(EntityTypeBuilder<UserCompanyTask> builder)
+    public void Configure(EntityTypeBuilder<EmployeeCompanyTask> builder)
     {
-        builder.ToTable("UserCompanyTasks");
+        builder.ToTable("EmployeeCompanyTasks");
 
         // Key.
         builder.HasKey(uct => new { uct.UserId, uct.CompanyTaskId });

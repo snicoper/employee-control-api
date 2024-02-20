@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EmployeeControl.Infrastructure.Data.Configurations;
 
-public class UserSettingsConfiguration : IEntityTypeConfiguration<UserSettings>
+public class EmployeeSettingsConfiguration : IEntityTypeConfiguration<EmployeeSettings>
 {
-    public void Configure(EntityTypeBuilder<UserSettings> builder)
+    public void Configure(EntityTypeBuilder<EmployeeSettings> builder)
     {
-        builder.ToTable("UserSettings");
+        builder.ToTable("EmployeeSettings");
 
         // Key.
         builder.HasIndex(us => us.Id);

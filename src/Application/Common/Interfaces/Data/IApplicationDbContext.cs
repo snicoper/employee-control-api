@@ -16,11 +16,11 @@ public interface IApplicationDbContext
 
     DbSet<TimeControl> TimeControls { get; }
 
-    DbSet<UserCompanyTask> UserCompanyTasks { get; }
+    DbSet<EmployeeCompanyTask> UserCompanyTasks { get; }
 
-    DbSet<UserDepartment> UserDepartments { get; }
+    DbSet<EmployeeDepartment> UserDepartments { get; }
 
-    DbSet<UserSettings> UserSettings { get; }
+    DbSet<EmployeeSettings> UserSettings { get; }
 
     DatabaseFacade Database { get; }
 

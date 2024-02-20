@@ -36,14 +36,15 @@ internal class AssignEmployeesToTaskHandler(
             .Where(au => request.EmployeeIds.Contains(au.Id) && au.CompanyId == companyTask.CompanyId)
             .ToList();
 
-        var userCompanyTasks = new List<UserCompanyTask>();
+        var userCompanyTasks = new List<EmployeeCompanyTask>();
 
         foreach (var employee in employees)
         {
-            userCompanyTasks.Add(new UserCompanyTask
-            {
-                CompanyId = companyTask.CompanyId, UserId = employee.Id, CompanyTaskId = companyTask.Id
-            });
+            userCompanyTasks.Add(
+                new EmployeeCompanyTask
+                {
+                    CompanyId = companyTask.CompanyId, UserId = employee.Id, CompanyTaskId = companyTask.Id
+                });
         }
 
         await context.UserCompanyTasks.AddRangeAsync(userCompanyTasks, cancellationToken);

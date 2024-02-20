@@ -20,11 +20,11 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public DbSet<TimeControl> TimeControls => Set<TimeControl>();
 
-    public DbSet<UserCompanyTask> UserCompanyTasks => Set<UserCompanyTask>();
+    public DbSet<EmployeeCompanyTask> UserCompanyTasks => Set<EmployeeCompanyTask>();
 
-    public DbSet<UserDepartment> UserDepartments => Set<UserDepartment>();
+    public DbSet<EmployeeDepartment> UserDepartments => Set<EmployeeDepartment>();
 
-    public DbSet<UserSettings> UserSettings => Set<UserSettings>();
+    public DbSet<EmployeeSettings> UserSettings => Set<EmployeeSettings>();
 
     public new DatabaseFacade Database => base.Database;
 

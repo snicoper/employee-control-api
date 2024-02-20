@@ -36,14 +36,12 @@ internal class AssignEmployeesToDepartmentHandler(
             .Where(au => request.EmployeeIds.Contains(au.Id) && au.CompanyId == department.CompanyId)
             .ToList();
 
-        var employeesToAdd = new List<UserDepartment>();
+        var employeesToAdd = new List<EmployeeDepartment>();
 
         foreach (var employee in employees)
         {
-            employeesToAdd.Add(new UserDepartment
-            {
-                CompanyId = department.CompanyId, UserId = employee.Id, DepartmentId = department.Id
-            });
+            employeesToAdd.Add(
+                new EmployeeDepartment { CompanyId = department.CompanyId, UserId = employee.Id, DepartmentId = department.Id });
         }
 
         await context.UserDepartments.AddRangeAsync(employeesToAdd, cancellationToken);

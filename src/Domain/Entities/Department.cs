@@ -13,7 +13,7 @@ public class Department : BaseAuditableEntity, ICompany
 
     public string Color { get; set; } = default!;
 
-    public ICollection<UserDepartment> UserDepartments { get; set; } = new List<UserDepartment>();
+    public ICollection<EmployeeDepartment> UserDepartments { get; set; } = new List<EmployeeDepartment>();
 
     public string CompanyId { get; set; } = default!;
 

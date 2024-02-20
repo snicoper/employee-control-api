@@ -12,9 +12,9 @@ public class ApplicationUser : IdentityUser, ICompany, IEntityDomainEvent
     public ApplicationUser()
     {
         _domainEvents = new List<BaseEvent>();
-        UserCompanyTasks = new List<UserCompanyTask>();
+        UserCompanyTasks = new List<EmployeeCompanyTask>();
         TimeControls = new List<TimeControl>();
-        UserDepartments = new List<UserDepartment>();
+        UserDepartments = new List<EmployeeDepartment>();
         UserRoles = new List<IdentityUserRole<string>>();
     }
 
@@ -30,13 +30,13 @@ public class ApplicationUser : IdentityUser, ICompany, IEntityDomainEvent
 
     public DateTimeOffset EntryDate { get; set; }
 
-    public UserSettings UserSettings { get; set; } = null!;
+    public EmployeeSettings EmployeeSettings { get; set; } = null!;
 
-    public ICollection<UserCompanyTask> UserCompanyTasks { get; set; }
+    public ICollection<EmployeeCompanyTask> UserCompanyTasks { get; set; }
 
     public ICollection<TimeControl> TimeControls { get; set; }
 
-    public ICollection<UserDepartment> UserDepartments { get; set; }
+    public ICollection<EmployeeDepartment> UserDepartments { get; set; }
 
     public ICollection<IdentityUserRole<string>> UserRoles { get; set; }
 

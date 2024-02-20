@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Domain.Entities;
 
-public class UserCompanyTask : ICompany
+public class EmployeeCompanyTask : ICompany
 {
     public string UserId { get; set; } = default!;
 

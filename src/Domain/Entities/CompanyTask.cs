@@ -13,7 +13,7 @@ public class CompanyTask : BaseAuditableEntity, ICompany
 
     public string? Color { get; set; }
 
-    public ICollection<UserCompanyTask> UserCompanyTasks { get; set; } = new List<UserCompanyTask>();
+    public ICollection<EmployeeCompanyTask> UserCompanyTasks { get; set; } = new List<EmployeeCompanyTask>();
 
     public Company Company { get; set; } = null!;
 

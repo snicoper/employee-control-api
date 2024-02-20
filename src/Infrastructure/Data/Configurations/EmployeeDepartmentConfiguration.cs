@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EmployeeControl.Infrastructure.Data.Configurations;
 
-public class UserDepartmentConfiguration : IEntityTypeConfiguration<UserDepartment>
+public class EmployeeDepartmentConfiguration : IEntityTypeConfiguration<EmployeeDepartment>
 {
-    public void Configure(EntityTypeBuilder<UserDepartment> builder)
+    public void Configure(EntityTypeBuilder<EmployeeDepartment> builder)
     {
-        builder.ToTable("UserDepartments");
+        builder.ToTable("EmployeeDepartments");
 
         // Key.
         builder.HasKey(ud => new { ud.UserId, ud.DepartmentId });

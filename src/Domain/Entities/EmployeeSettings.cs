@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Domain.Entities;
 
-public class UserSettings : BaseAuditableEntity
+public class EmployeeSettings : BaseAuditableEntity
 {
     public string UserId { get; set; } = default!;
 
