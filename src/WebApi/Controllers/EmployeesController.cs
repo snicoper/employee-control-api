@@ -6,6 +6,7 @@ using EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
 using EmployeeControl.Application.Features.Employees.Commands.RemoveRoleHumanResources;
 using EmployeeControl.Application.Features.Employees.Commands.UpdateEmployee;
 using EmployeeControl.Application.Features.Employees.Commands.UpdateEmployeeRoles;
+using EmployeeControl.Application.Features.Employees.Queries.GetCurrentEmployeeSettings;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeeById;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeesPaginated;
 using EmployeeControl.Application.Features.Employees.Queries.GetRolesByEmployeeId;
@@ -39,6 +40,7 @@ public class EmployeesController : ApiControllerBase
     /// <returns>Datos del empleado.</returns>
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<GetEmployeeByIdResponse>> GetEmployeeById(string id)
     {
         var result = await Sender.Send(new GetEmployeeByIdQuery(id));
@@ -58,6 +60,20 @@ public class EmployeesController : ApiControllerBase
         var result = await Sender.Send(new GetRolesByEmployeeIdQuery(id));
 
         return result.ToList();
+    }
+
+    /// <summary>
+    /// Obtener configuración del empleado actual.
+    /// </summary>
+    /// <returns>Configuración del empleado.</returns>
+    [HttpGet("settings")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<GetCurrentEmployeeSettingsResponse>> GetCurrentEmployeeSettings()
+    {
+        var result = await Sender.Send(new GetCurrentEmployeeSettingsQuery());
+
+        return result;
     }
 
     /// <summary>
