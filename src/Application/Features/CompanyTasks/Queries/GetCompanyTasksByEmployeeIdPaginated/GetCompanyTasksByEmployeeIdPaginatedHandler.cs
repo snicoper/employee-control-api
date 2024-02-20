@@ -21,7 +21,7 @@ internal class GetCompanyTasksByEmployeeIdPaginatedHandler(
         CancellationToken cancellationToken)
     {
         var userCompanyTasks = context
-            .UserCompanyTasks
+            .EmployeeCompanyTasks
             .Include(uct => uct.CompanyTask)
             .Where(uct => uct.UserId == request.EmployeeId);
 

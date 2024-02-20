@@ -44,7 +44,7 @@ internal class AssignEmployeesToDepartmentHandler(
                 new EmployeeDepartment { CompanyId = department.CompanyId, UserId = employee.Id, DepartmentId = department.Id });
         }
 
-        await context.UserDepartments.AddRangeAsync(employeesToAdd, cancellationToken);
+        await context.EmployeeDepartments.AddRangeAsync(employeesToAdd, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
 
         // Enviar email a los empleados asignados a la tarea.

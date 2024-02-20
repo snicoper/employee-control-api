@@ -18,7 +18,7 @@ internal class GetEmployeesByDepartmentIdPaginatedHandler(
         CancellationToken cancellationToken)
     {
         var users = context
-            .UserDepartments
+            .EmployeeDepartments
             .Include(uct => uct.User)
             .Where(uct => uct.DepartmentId == request.DepartmentId)
             .Select(uct => uct.User);

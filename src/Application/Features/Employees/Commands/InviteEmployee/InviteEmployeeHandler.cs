@@ -22,7 +22,8 @@ internal class InviteEmployeeHandler(
     IValidationFailureService validationFailureService,
     IStringLocalizer<IdentityLocalizer> localizer,
     ILogger<InviteEmployeeHandler> logger,
-    UserManager<ApplicationUser> userManager)
+    UserManager<ApplicationUser> userManager,
+    IEmployeeSettingsService employeeSettingsService)
     : IRequestHandler<InviteEmployeeCommand, string>
 {
     public async Task<string> Handle(InviteEmployeeCommand request, CancellationToken cancellationToken)
@@ -42,6 +43,10 @@ internal class InviteEmployeeHandler(
 
         // Crear nuevo usuario.
         var (_, employeeId) = await identityService.CreateAsync(user, password, roles, cancellationToken);
+
+        // Configuración de empleado.
+        var employeeSettings = new EmployeeSettings { UserId = user.Id, Timezone = request.TimeZone };
+        await employeeSettingsService.CreateAsync(employeeSettings, cancellationToken);
 
         // Generar code de validación.
         var code = await userManager.GenerateEmailConfirmationTokenAsync(user);

@@ -99,6 +99,7 @@ public class ApplicationDbContextInitialize(
         {
             await userManager.CreateAsync(user, "Password4!");
 
+            // Roles.
             var rolesToAdd = new[]
             {
                 Roles.SiteAdmin, Roles.SiteStaff, Roles.EnterpriseAdmin, Roles.EnterpriseStaff, Roles.HumanResources,
@@ -106,6 +107,10 @@ public class ApplicationDbContextInitialize(
             };
 
             await userManager.AddToRolesAsync(user, rolesToAdd);
+
+            // Settings.
+            var settings = new EmployeeSettings { UserId = user.Id, Timezone = "Europe/Madrid" };
+            context.EmployeeSettings.Add(settings);
         }
 
         // EnterpriseAdministrator user.
@@ -125,9 +130,16 @@ public class ApplicationDbContextInitialize(
         {
             await userManager.CreateAsync(user, "Password4!");
 
+            // Roles de usuario.
             var rolesToAdd = new[] { Roles.EnterpriseAdmin, Roles.EnterpriseStaff, Roles.HumanResources, Roles.Employee };
 
             await userManager.AddToRolesAsync(user, rolesToAdd);
+
+            // Settings.
+            var settings = new EmployeeSettings { UserId = user.Id, Timezone = "Europe/Madrid" };
+            context.EmployeeSettings.Add(settings);
         }
+
+        await context.SaveChangesAsync(CancellationToken.None);
     }
 }

@@ -18,13 +18,13 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public DbSet<Department> Departments => Set<Department>();
 
+    public DbSet<EmployeeCompanyTask> EmployeeCompanyTasks => Set<EmployeeCompanyTask>();
+
+    public DbSet<EmployeeDepartment> EmployeeDepartments => Set<EmployeeDepartment>();
+
+    public DbSet<EmployeeSettings> EmployeeSettings => Set<EmployeeSettings>();
+
     public DbSet<TimeControl> TimeControls => Set<TimeControl>();
-
-    public DbSet<EmployeeCompanyTask> UserCompanyTasks => Set<EmployeeCompanyTask>();
-
-    public DbSet<EmployeeDepartment> UserDepartments => Set<EmployeeDepartment>();
-
-    public DbSet<EmployeeSettings> UserSettings => Set<EmployeeSettings>();
 
     public new DatabaseFacade Database => base.Database;
 

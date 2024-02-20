@@ -15,6 +15,7 @@ internal class RegisterAccountHandler(
     ICompanyService companyService,
     IApplicationDbContext context,
     IIdentityEmailsService identityEmailsService,
+    IEmployeeSettingsService employeeSettingsService,
     ILogger<RegisterAccountHandler> logger)
     : IRequestHandler<RegisterAccountCommand, string>
 {
@@ -31,10 +32,7 @@ internal class RegisterAccountHandler(
             // Crear usuario.
             var user = new ApplicationUser
             {
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-                Email = request.Email,
-                CompanyId = company.Id
+                FirstName = request.FirstName, LastName = request.LastName, Email = request.Email, CompanyId = company.Id
             };
 
             // Roles para usuario y creación del usuario.
@@ -44,6 +42,10 @@ internal class RegisterAccountHandler(
             };
 
             var (_, userId) = await identityService.CreateAsync(user, request.Password, roles, cancellationToken);
+
+            // Employee settings.
+            var settings = new EmployeeSettings { UserId = userId, Timezone = request.Timezone };
+            await employeeSettingsService.CreateAsync(settings, cancellationToken);
 
             // Generar code de validación.
             var code = await userManager.GenerateEmailConfirmationTokenAsync(user);

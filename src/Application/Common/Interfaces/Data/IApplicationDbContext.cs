@@ -14,13 +14,13 @@ public interface IApplicationDbContext
 
     DbSet<Department> Departments { get; }
 
+    DbSet<EmployeeCompanyTask> EmployeeCompanyTasks { get; }
+
+    DbSet<EmployeeDepartment> EmployeeDepartments { get; }
+
+    DbSet<EmployeeSettings> EmployeeSettings { get; }
+
     DbSet<TimeControl> TimeControls { get; }
-
-    DbSet<EmployeeCompanyTask> UserCompanyTasks { get; }
-
-    DbSet<EmployeeDepartment> UserDepartments { get; }
-
-    DbSet<EmployeeSettings> UserSettings { get; }
 
     DatabaseFacade Database { get; }
 

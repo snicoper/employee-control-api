@@ -47,7 +47,7 @@ internal class AssignEmployeesToTaskHandler(
                 });
         }
 
-        await context.UserCompanyTasks.AddRangeAsync(userCompanyTasks, cancellationToken);
+        await context.EmployeeCompanyTasks.AddRangeAsync(userCompanyTasks, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
 
         // Enviar email a los empleados asignados a la tarea.

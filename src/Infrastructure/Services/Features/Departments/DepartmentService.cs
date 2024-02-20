@@ -25,7 +25,7 @@ public class DepartmentService(
     public IQueryable<Department> GetAllByEmployeeId(string employeeId)
     {
         var departments = context
-            .UserDepartments
+            .EmployeeDepartments
             .Include(ud => ud.Department)
             .Where(ud => ud.UserId == employeeId)
             .Select(ud => ud.Department);
