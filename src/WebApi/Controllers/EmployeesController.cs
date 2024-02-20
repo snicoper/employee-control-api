@@ -6,10 +6,12 @@ using EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
 using EmployeeControl.Application.Features.Employees.Commands.RemoveRoleHumanResources;
 using EmployeeControl.Application.Features.Employees.Commands.UpdateEmployee;
 using EmployeeControl.Application.Features.Employees.Commands.UpdateEmployeeRoles;
+using EmployeeControl.Application.Features.Employees.Commands.UpdateEmployeeSettings;
 using EmployeeControl.Application.Features.Employees.Queries.GetCurrentEmployeeSettings;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeeById;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeesPaginated;
 using EmployeeControl.Application.Features.Employees.Queries.GetRolesByEmployeeId;
+using EmployeeControl.Domain.Entities;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 
@@ -180,6 +182,22 @@ public class EmployeesController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> RemoveRoleHumanResources(RemoveRoleHumanResourcesCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Actualizar configuración de empleado.
+    /// </summary>
+    /// <param name="command">Datos a actualizar.</param>
+    /// <returns><see cref="EmployeeSettings" /> con los datos actualizados.</returns>
+    [HttpPut("{id}/employee-settings")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<EmployeeSettings>> UpdateEmployeeSettings(UpdateEmployeeSettingsCommand command)
     {
         var result = await Sender.Send(command);
 

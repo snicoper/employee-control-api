@@ -20,4 +20,13 @@ public class EmployeeSettingsService(IApplicationDbContext context) : IEmployeeS
 
         return await context.SaveChangesAsync(cancellationToken);
     }
+
+    public async Task<EmployeeSettings> UpdateAsync(EmployeeSettings employeeSettings, CancellationToken cancellationToken)
+    {
+        context.EmployeeSettings.Update(employeeSettings);
+
+        await context.SaveChangesAsync(cancellationToken);
+
+        return employeeSettings;
+    }
 }

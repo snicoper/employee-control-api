@@ -18,4 +18,12 @@ public interface IEmployeeSettingsService
     /// <param name="employeeSettings"><see cref="EmployeeSettings" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     Task<int> CreateAsync(EmployeeSettings employeeSettings, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Actualizar un <see cref="EmployeeSettings" />.
+    /// </summary>
+    /// <param name="employeeSettings"><see cref="EmployeeSettings" />.</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
+    /// <returns>El item actualizado de <see cref="EmployeeSettings" />.</returns>
+    Task<EmployeeSettings> UpdateAsync(EmployeeSettings employeeSettings, CancellationToken cancellationToken);
 }

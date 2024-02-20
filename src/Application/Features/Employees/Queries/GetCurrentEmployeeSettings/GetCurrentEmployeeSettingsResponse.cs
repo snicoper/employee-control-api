@@ -3,7 +3,7 @@ using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Features.Employees.Queries.GetCurrentEmployeeSettings;
 
-public record GetCurrentEmployeeSettingsResponse(string Id, string TimeZone)
+public record GetCurrentEmployeeSettingsResponse(string Id, string UserId, string Timezone)
 {
     internal class Mapping : Profile
     {
