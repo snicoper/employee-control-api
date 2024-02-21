@@ -23,8 +23,8 @@ internal class CreateTimeControlHandler(
         timeControl.DeviceTypeStart = request.DeviceType;
         timeControl.DeviceTypeFinish = request.DeviceType;
 
-        var result = await timesControlService.CreateAsync(timeControl, cancellationToken);
+        var resultResponse = await timesControlService.CreateAsync(timeControl, cancellationToken);
 
-        return result;
+        return resultResponse;
     }
 }

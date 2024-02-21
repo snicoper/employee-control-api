@@ -54,7 +54,7 @@ public interface ITimesControlService
     /// <param name="user"><see cref="ApplicationUser" />.</param>
     /// <param name="cancellationToken">CancellationToken.</param>
     /// <returns>true si tiene el <see cref="TimeControl" /> inicializado, false en caso contrario.</returns>
-    Task<TimeState> GetTimeStateByEmployeeIAsync(ApplicationUser user, CancellationToken cancellationToken);
+    Task<TimeState> GetTimeStateByEmployeeAsync(ApplicationUser user, CancellationToken cancellationToken);
 
     /// <summary>
     /// Crea un <see cref="TimeControl" /> con su hora de inicio y final.

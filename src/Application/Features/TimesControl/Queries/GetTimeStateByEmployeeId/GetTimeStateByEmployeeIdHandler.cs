@@ -12,7 +12,7 @@ internal class GetTimeStateByEmployeeIdHandler(ITimesControlService timesControl
         CancellationToken cancellationToken)
     {
         var employee = await identityService.GetByIdAsync(request.EmployeeId);
-        var timeState = await timesControlService.GetTimeStateByEmployeeIAsync(employee, cancellationToken);
+        var timeState = await timesControlService.GetTimeStateByEmployeeAsync(employee, cancellationToken);
         var resultResponse = new GetTimeStateByEmployeeIdResponse(timeState);
 
         return resultResponse;

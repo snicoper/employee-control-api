@@ -79,7 +79,7 @@ public class TimesControlService(
         return timesControl;
     }
 
-    public async Task<TimeState> GetTimeStateByEmployeeIAsync(ApplicationUser user, CancellationToken cancellationToken)
+    public async Task<TimeState> GetTimeStateByEmployeeAsync(ApplicationUser user, CancellationToken cancellationToken)
     {
         var timeControl = await context
             .TimeControls
@@ -92,7 +92,6 @@ public class TimesControlService(
 
         // Si el tiempo ha superado las 23:59:59 respecto al día que se inicializó el sistema lo cierra y lo reporta como alerta.
         // El tiempo es en base al timezone de la compañía.
-        // FIXME: Mover esta parte a un método reutilizable, ahora este método no se utiliza.
         var datetimeZone = await companySettingsService.ConvertToTimezoneCurrentCompanyAsync(
             dateTimeService.EndOfDay(dateTimeService.UtcNow),
             cancellationToken);
@@ -109,9 +108,10 @@ public class TimesControlService(
 
     public async Task<TimeControl> CreateAsync(TimeControl timeControl, CancellationToken cancellationToken)
     {
-        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
         await timesControlValidatorService.ValidateUpdateAsync(timeControl, cancellationToken);
         validationFailureService.RaiseExceptionIfExistsErrors();
+
+        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
 
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
