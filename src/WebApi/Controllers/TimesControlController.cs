@@ -1,4 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Features.TimesControl.Commands.CreateTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeControlByStaff;
 using EmployeeControl.Application.Features.TimesControl.Commands.StartTimeControl;
@@ -132,6 +133,20 @@ public class TimesControlController : ApiControllerBase
         var result = await Sender.Send(new GetTimeStateOpenByEmployeeIdQuery(employeeId));
 
         return result;
+    }
+
+    /// <summary>
+    /// Crear un <see cref="TimeControl" /> con hora de inicio y final de un empleado concreto.
+    /// </summary>
+    /// <returns><see cref="TimeControl" /> creado.</returns>
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<TimeControl>> CreateTimeControl(CreateTimeControlCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return ObjectResultWithStatusCode(result, StatusCodes.Status201Created);
     }
 
     /// <summary>

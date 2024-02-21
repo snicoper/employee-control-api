@@ -1,6 +1,5 @@
 ﻿namespace EmployeeControl.Application.Common.Exceptions;
 
-[Serializable]
 public class NotFoundException : Exception
 {
     public NotFoundException()

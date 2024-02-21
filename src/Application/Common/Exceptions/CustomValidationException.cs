@@ -3,7 +3,6 @@ using FluentValidation.Results;
 
 namespace EmployeeControl.Application.Common.Exceptions;
 
-[Serializable]
 public class CustomValidationException() : Exception("One or more validation failures have occurred.")
 {
     public CustomValidationException(IReadOnlyCollection<ValidationFailure> failures)

@@ -107,6 +107,18 @@ public class TimesControlService(
         return timeControl.TimeState;
     }
 
+    public async Task<TimeControl> CreateAsync(TimeControl timeControl, CancellationToken cancellationToken)
+    {
+        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
+        await timesControlValidatorService.ValidateUpdateAsync(timeControl, cancellationToken);
+        validationFailureService.RaiseExceptionIfExistsErrors();
+
+        await context.TimeControls.AddAsync(timeControl, cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
+
+        return timeControl;
+    }
+
     public async Task<(Result Result, TimeControl TimeControl)> StartAsync(
         ApplicationUser user,
         DeviceType deviceType,

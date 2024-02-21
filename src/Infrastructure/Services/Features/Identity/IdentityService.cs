@@ -145,7 +145,7 @@ public class IdentityService(
             validationFailureService.RaiseExceptionIfExistsErrors();
 
             // El rol de Employee es requerido.
-            if (!rolesToAdd.Any(r => r.Equals(Roles.Employee)))
+            if (!rolesToAdd.Exists(r => r.Equals(Roles.Employee)))
             {
                 rolesToAdd.Add(Roles.Employee);
             }

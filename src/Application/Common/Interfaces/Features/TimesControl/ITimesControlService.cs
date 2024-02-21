@@ -57,6 +57,14 @@ public interface ITimesControlService
     Task<TimeState> GetTimeStateByEmployeeIAsync(ApplicationUser user, CancellationToken cancellationToken);
 
     /// <summary>
+    /// Crea un <see cref="TimeControl" /> con su hora de inicio y final.
+    /// </summary>
+    /// <param name="timeControl"><see cref="TimeControl" /> a crear.</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
+    /// <returns><see cref="TimeControl" /> creado.</returns>
+    Task<TimeControl> CreateAsync(TimeControl timeControl, CancellationToken cancellationToken);
+
+    /// <summary>
     /// Inicializar un <see cref="TimeControl" />.
     /// <para>Lanza un <see cref="NotFoundException" /> si el empleado no existe.</para>
     /// <para>Lanza un <see cref="IValidationFailureService" /> si ya tenía un tiempo inicializado.</para>

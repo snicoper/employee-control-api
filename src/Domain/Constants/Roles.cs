@@ -1,5 +1,8 @@
 ﻿namespace EmployeeControl.Domain.Constants;
 
+/// <summary>
+/// Los roles son jerárquicos, siempre se tiene desde el asignado hasta el mas bajo.
+/// </summary>
 public abstract class Roles
 {
     /// <summary>
