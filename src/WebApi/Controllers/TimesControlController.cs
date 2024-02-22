@@ -1,5 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.TimesControl.Commands.CreateTimeControl;
+using EmployeeControl.Application.Features.TimesControl.Commands.DeleteTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeControlByStaff;
 using EmployeeControl.Application.Features.TimesControl.Commands.StartTimeControl;
@@ -210,6 +211,22 @@ public class TimesControlController : ApiControllerBase
     public async Task<ActionResult<Result>> UpdateTimeControl(UpdateTimeControlCommand command)
     {
         var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Eliminar un <see cref="TimeControl" />.
+    /// </summary>
+    /// <param name="id">Id del <see cref="TimeControl" /> a eliminar.</param>
+    /// <returns>Result con el estado del proceso.</returns>
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Result>> DeleteTimeControl(string id)
+    {
+        var result = await Sender.Send(new DeleteTimeControlCommand(id));
 
         return result;
     }
