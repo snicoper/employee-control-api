@@ -32,6 +32,12 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
 
+        builder.HasMany(c => c.CategoryAbsences)
+            .WithOne(d => d.Company)
+            .HasForeignKey(c => c.CompanyId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
+
         // Properties.
         builder.Property(c => c.Name)
             .HasMaxLength(256)

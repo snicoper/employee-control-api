@@ -13,4 +13,6 @@ public class Company : BaseAuditableEntity
     public ICollection<ApplicationUser> Users { get; set; } = new List<ApplicationUser>();
 
     public ICollection<CompanyTask> CompanyTasks { get; set; } = new List<CompanyTask>();
+
+    public ICollection<CategoryAbsence> CategoryAbsences { get; set; } = new List<CategoryAbsence>();
 }

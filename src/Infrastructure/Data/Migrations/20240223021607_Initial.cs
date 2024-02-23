@@ -101,6 +101,31 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CategoryAbsence",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    Background = table.Column<string>(type: "character varying(7)", maxLength: 7, nullable: false),
+                    Color = table.Column<string>(type: "character varying(7)", maxLength: 7, nullable: false),
+                    CompanyId = table.Column<string>(type: "text", nullable: false),
+                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "text", nullable: true),
+                    LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoryAbsence", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CategoryAbsence_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CompanySettings",
                 columns: table => new
                 {
@@ -450,6 +475,22 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_CategoryAbsence_CompanyId",
+                table: "CategoryAbsence",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CategoryAbsence_Description_CompanyId",
+                table: "CategoryAbsence",
+                columns: new[] { "Description", "CompanyId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CategoryAbsence_Id",
+                table: "CategoryAbsence",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Companies_Id",
                 table: "Companies",
                 column: "Id");
@@ -573,6 +614,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "CategoryAbsence");
 
             migrationBuilder.DropTable(
                 name: "CompanySettings");

@@ -10,6 +10,8 @@ namespace EmployeeControl.Infrastructure.Data;
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
     : IdentityDbContext<ApplicationUser, ApplicationRole, string>(options), IApplicationDbContext
 {
+    public DbSet<CategoryAbsence> CategoryAbsences => Set<CategoryAbsence>();
+
     public DbSet<Company> Companies => Set<Company>();
 
     public DbSet<CompanySettings> CompanySettings => Set<CompanySettings>();

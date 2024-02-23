@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240220153520_Initial")]
+    [Migration("20240223021607_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -145,6 +145,54 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.CategoryAbsence", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Background")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("character varying(7)");
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasMaxLength(7)
+                        .HasColumnType("character varying(7)");
+
+                    b.Property<string>("CompanyId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<DateTimeOffset>("LastModified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("Description", "CompanyId")
+                        .IsUnique();
+
+                    b.ToTable("CategoryAbsence", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.Company", b =>
@@ -586,6 +634,17 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.CategoryAbsence", b =>
+                {
+                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
+                        .WithMany("CategoryAbsences")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanySettings", b =>
                 {
                     b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
@@ -774,6 +833,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.Company", b =>
                 {
+                    b.Navigation("CategoryAbsences");
+
                     b.Navigation("CompanySettings")
                         .IsRequired();
 

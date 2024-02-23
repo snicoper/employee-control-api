@@ -6,6 +6,8 @@ namespace EmployeeControl.Application.Common.Interfaces.Data;
 
 public interface IApplicationDbContext
 {
+    DbSet<CategoryAbsence> CategoryAbsences { get; }
+
     DbSet<Company> Companies { get; }
 
     DbSet<CompanySettings> CompanySettings { get; }
