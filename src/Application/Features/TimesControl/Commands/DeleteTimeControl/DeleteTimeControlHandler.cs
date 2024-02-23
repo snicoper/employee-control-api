@@ -14,7 +14,7 @@ internal class DeleteTimeControlHandler(
 {
     public async Task<Result> Handle(DeleteTimeControlCommand request, CancellationToken cancellationToken)
     {
-        var timeControl = await timesControlService.GetById(request.Id, cancellationToken);
+        var timeControl = await timesControlService.GetByIdAsync(request.Id, cancellationToken);
         await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
 
         context.TimeControls.Remove(timeControl);

@@ -5,25 +5,30 @@ namespace EmployeeControl.Domain.Common;
 
 public abstract class BaseEntity : IEntityDomainEvent
 {
-    private readonly List<BaseEvent> _domainEvents = new();
+    private readonly List<BaseEvent> domainEvents;
+
+    protected BaseEntity()
+    {
+        domainEvents = new List<BaseEvent>();
+    }
 
     public string Id { get; private set; } = Guid.NewGuid().ToString();
 
     [NotMapped]
-    public IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();
+    public IReadOnlyCollection<BaseEvent> DomainEvents => domainEvents.AsReadOnly();
 
     public void AddDomainEvent(BaseEvent domainEvent)
     {
-        _domainEvents.Add(domainEvent);
+        domainEvents.Add(domainEvent);
     }
 
     public void RemoveDomainEvent(BaseEvent domainEvent)
     {
-        _domainEvents.Remove(domainEvent);
+        domainEvents.Remove(domainEvent);
     }
 
     public void ClearDomainEvents()
     {
-        _domainEvents.Clear();
+        domainEvents.Clear();
     }
 }

@@ -24,7 +24,7 @@ public class TimesControlService(
     IStringLocalizer<TimeControlLocalizer> localizer)
     : ITimesControlService
 {
-    public async Task<TimeControl> GetById(string id, CancellationToken cancellationToken)
+    public async Task<TimeControl> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         var result = await context
                          .TimeControls

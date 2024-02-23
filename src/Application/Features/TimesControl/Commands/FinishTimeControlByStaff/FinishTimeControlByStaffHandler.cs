@@ -15,7 +15,7 @@ internal class FinishTimeControlByStaffHandler(
 {
     public async Task<Result> Handle(FinishTimeControlByStaffCommand request, CancellationToken cancellationToken)
     {
-        var timeControl = await timesControlService.GetById(request.TimeControlId, cancellationToken);
+        var timeControl = await timesControlService.GetByIdAsync(request.TimeControlId, cancellationToken);
         var employee = await identityService.GetByIdAsync(timeControl.UserId);
 
         await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);

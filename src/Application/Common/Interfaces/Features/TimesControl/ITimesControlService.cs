@@ -15,7 +15,7 @@ public interface ITimesControlService
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <exception cref="NotFoundException">En caso de no encontrar el <see cref="TimeControl" />.</exception>
     /// <returns><see cref="TimeControl" />.</returns>
-    Task<TimeControl> GetById(string id, CancellationToken cancellationToken);
+    Task<TimeControl> GetByIdAsync(string id, CancellationToken cancellationToken);
 
     /// <summary>
     /// Obtener un grupos por días de <see cref="TimeControl" /> en un rango de fechas de un

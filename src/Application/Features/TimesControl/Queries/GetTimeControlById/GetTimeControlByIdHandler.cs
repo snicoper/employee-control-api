@@ -13,7 +13,7 @@ internal class GetTimeControlByIdHandler(
 {
     public async Task<GetTimeControlByIdResponse> Handle(GetTimeControlByIdQuery request, CancellationToken cancellationToken)
     {
-        var timeControl = await timesControlService.GetById(request.Id, cancellationToken);
+        var timeControl = await timesControlService.GetByIdAsync(request.Id, cancellationToken);
         await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
         var resultResponse = mapper.Map<GetTimeControlByIdResponse>(timeControl);
 

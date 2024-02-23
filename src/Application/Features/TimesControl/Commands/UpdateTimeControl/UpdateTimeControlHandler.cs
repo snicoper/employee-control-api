@@ -12,7 +12,7 @@ internal class UpdateTimeControlHandler(
 {
     public async Task<Result> Handle(UpdateTimeControlCommand request, CancellationToken cancellationToken)
     {
-        var timeControl = await timesControlService.GetById(request.Id, cancellationToken);
+        var timeControl = await timesControlService.GetByIdAsync(request.Id, cancellationToken);
 
         await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
 
