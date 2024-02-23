@@ -2,6 +2,9 @@
 
 namespace EmployeeControl.Domain.Entities;
 
+/// <summary>
+/// Asociación de empleados y departamentos.
+/// </summary>
 public class EmployeeDepartment : ICompany
 {
     public string DepartmentId { get; set; } = default!;

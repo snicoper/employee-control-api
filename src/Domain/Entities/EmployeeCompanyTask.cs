@@ -2,6 +2,9 @@
 
 namespace EmployeeControl.Domain.Entities;
 
+/// <summary>
+/// Asociación de empleados y tareas de la compañía.
+/// </summary>
 public class EmployeeCompanyTask : ICompany
 {
     public string UserId { get; set; } = default!;

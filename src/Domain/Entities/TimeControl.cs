@@ -4,6 +4,9 @@ using EmployeeControl.Domain.Interfaces;
 
 namespace EmployeeControl.Domain.Entities;
 
+/// <summary>
+/// Control de tiempos para empleados.
+/// </summary>
 public class TimeControl : BaseAuditableEntity, ICompany
 {
     public string UserId { get; set; } = default!;

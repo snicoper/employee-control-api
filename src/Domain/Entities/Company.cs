@@ -2,6 +2,9 @@ using EmployeeControl.Domain.Common;
 
 namespace EmployeeControl.Domain.Entities;
 
+/// <summary>
+/// Compañías registradas.
+/// </summary>
 public class Company : BaseAuditableEntity
 {
     public string Name { get; set; } = default!;

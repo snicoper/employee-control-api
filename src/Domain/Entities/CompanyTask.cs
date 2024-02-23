@@ -3,6 +3,9 @@ using EmployeeControl.Domain.Interfaces;
 
 namespace EmployeeControl.Domain.Entities;
 
+/// <summary>
+/// Tareas en la compañía.
+/// </summary>
 public class CompanyTask : BaseAuditableEntity, ICompany
 {
     public string Name { get; set; } = default!;

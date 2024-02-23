@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeControl.Domain.Entities;
 
+/// <summary>
+/// Empleados de la aplicación.
+/// </summary>
 public class ApplicationUser : IdentityUser, ICompany, IEntityDomainEvent
 {
     private readonly List<BaseEvent> _domainEvents;

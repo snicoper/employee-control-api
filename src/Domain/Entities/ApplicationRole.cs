@@ -2,6 +2,9 @@
 
 namespace EmployeeControl.Domain.Entities;
 
+/// <summary>
+/// Roles de empleados.
+/// </summary>
 public class ApplicationRole : IdentityRole
 {
     public ApplicationRole()
