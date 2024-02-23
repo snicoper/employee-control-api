@@ -32,6 +32,8 @@ public class CategoryAbsenceConfiguration : IEntityTypeConfiguration<CategoryAbs
             .IsRequired()
             .HasMaxLength(7);
 
+        builder.Property(d => d.Active);
+
         builder.Property(c => c.CompanyId)
             .IsRequired();
     }

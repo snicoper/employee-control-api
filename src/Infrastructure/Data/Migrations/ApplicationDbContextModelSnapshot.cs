@@ -153,6 +153,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Background")
                         .IsRequired()
                         .HasMaxLength(7)

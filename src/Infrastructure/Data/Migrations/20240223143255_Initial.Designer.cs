@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240223045441_Initial")]
+    [Migration("20240223143255_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -151,6 +151,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Background")
                         .IsRequired()
