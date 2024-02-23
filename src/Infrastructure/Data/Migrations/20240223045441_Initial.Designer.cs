@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240223021607_Initial")]
+    [Migration("20240223045441_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -192,7 +192,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasIndex("Description", "CompanyId")
                         .IsUnique();
 
-                    b.ToTable("CategoryAbsence", (string)null);
+                    b.ToTable("CategoryAbsences", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.Company", b =>

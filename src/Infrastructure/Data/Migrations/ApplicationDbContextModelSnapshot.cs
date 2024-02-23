@@ -193,7 +193,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasIndex("Description", "CompanyId")
                         .IsUnique();
 
-                    b.ToTable("CategoryAbsence", (string)null);
+                    b.ToTable("CategoryAbsences", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.Company", b =>

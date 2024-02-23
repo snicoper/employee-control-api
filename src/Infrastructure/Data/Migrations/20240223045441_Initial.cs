@@ -101,7 +101,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CategoryAbsence",
+                name: "CategoryAbsences",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
@@ -116,9 +116,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CategoryAbsence", x => x.Id);
+                    table.PrimaryKey("PK_CategoryAbsences", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CategoryAbsence_Companies_CompanyId",
+                        name: "FK_CategoryAbsences_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
@@ -475,19 +475,19 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryAbsence_CompanyId",
-                table: "CategoryAbsence",
+                name: "IX_CategoryAbsences_CompanyId",
+                table: "CategoryAbsences",
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryAbsence_Description_CompanyId",
-                table: "CategoryAbsence",
+                name: "IX_CategoryAbsences_Description_CompanyId",
+                table: "CategoryAbsences",
                 columns: new[] { "Description", "CompanyId" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryAbsence_Id",
-                table: "CategoryAbsence",
+                name: "IX_CategoryAbsences_Id",
+                table: "CategoryAbsences",
                 column: "Id");
 
             migrationBuilder.CreateIndex(
@@ -616,7 +616,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CategoryAbsence");
+                name: "CategoryAbsences");
 
             migrationBuilder.DropTable(
                 name: "CompanySettings");

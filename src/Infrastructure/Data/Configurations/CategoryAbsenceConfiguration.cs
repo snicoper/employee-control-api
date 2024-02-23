@@ -8,7 +8,7 @@ public class CategoryAbsenceConfiguration : IEntityTypeConfiguration<CategoryAbs
 {
     public void Configure(EntityTypeBuilder<CategoryAbsence> builder)
     {
-        builder.ToTable("CategoryAbsence");
+        builder.ToTable("CategoryAbsences");
 
         // Primary key.
         builder.HasKey(c => c.Id);
