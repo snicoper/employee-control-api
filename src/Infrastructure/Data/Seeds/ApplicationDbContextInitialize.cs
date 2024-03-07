@@ -1,5 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Common;
-using EmployeeControl.Application.Common.Interfaces.Features.Company;
+using EmployeeControl.Application.Common.Interfaces.Features.Companies;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;

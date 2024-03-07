@@ -1,5 +1,7 @@
-﻿namespace EmployeeControl.Application.Common.Interfaces.Features.CategoryAbsences;
+﻿using EmployeeControl.Application.Common.Interfaces.Features.CategoryAbsences;
 
-public interface ICategoryAbsenceValidatorService
+namespace EmployeeControl.Infrastructure.Services.Features.CategoryAbsences;
+
+public class CategoryAbsenceValidatorService : ICategoryAbsenceValidatorService
 {
 }

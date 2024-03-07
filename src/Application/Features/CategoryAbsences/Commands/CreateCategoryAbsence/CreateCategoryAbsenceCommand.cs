@@ -1,10 +1,20 @@
-﻿// <copyright file="CreateCategoryAbsenceCommand.cs" company="PlaceholderCompany">
-// Copyright (c) PlaceholderCompany. All rights reserved.
-// </copyright>
+﻿using AutoMapper;
+using EmployeeControl.Application.Common.Security;
+using EmployeeControl.Domain.Constants;
+using EmployeeControl.Domain.Entities;
+using MediatR;
 
 namespace EmployeeControl.Application.Features.CategoryAbsences.Commands.CreateCategoryAbsence;
 
-public class CreateCategoryAbsenceCommand
+[Authorize(Roles = Roles.HumanResources)]
+public record CreateCategoryAbsenceCommand(string Description, string Background, string Color, string CompanyId)
+    : IRequest<CategoryAbsence>
 {
-    
+    internal class Mapping : Profile
+    {
+        public Mapping()
+        {
+            CreateMap<CreateCategoryAbsenceCommand, CategoryAbsence>();
+        }
+    }
 }

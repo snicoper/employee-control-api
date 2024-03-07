@@ -1,6 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.Company;
+namespace EmployeeControl.Application.Common.Interfaces.Features.Companies;
 
 public interface ICompanyService
 {

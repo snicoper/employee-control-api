@@ -1,5 +1,5 @@
 ﻿namespace EmployeeControl.Application.Common.Interfaces.Features.CategoryAbsences;
 
-public interface ICategoryAbsenceService
+public interface ICategoryAbsenceValidatorService
 {
 }
