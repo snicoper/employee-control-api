@@ -17,7 +17,7 @@ public class CategoryAbsenceController : ApiControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Result>> CreateDepartment(CreateCategoryAbsenceCommand command)
+    public async Task<ActionResult<Result>> CreateCompanyAbsence(CreateCategoryAbsenceCommand command)
     {
         var result = await Sender.Send(command);
 
