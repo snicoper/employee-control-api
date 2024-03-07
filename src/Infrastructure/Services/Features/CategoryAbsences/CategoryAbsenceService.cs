@@ -27,6 +27,8 @@ public class CategoryAbsenceService(
             validationFailureService.AddAndRaiseException(nameof(CategoryAbsence.Description), message);
         }
 
+        categoryAbsence.Active = true;
+
         context.CategoryAbsences.Add(categoryAbsence);
         await context.SaveChangesAsync(cancellationToken);
 
