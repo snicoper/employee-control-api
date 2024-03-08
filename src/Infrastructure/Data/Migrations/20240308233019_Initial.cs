@@ -293,6 +293,31 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EmployeeHolidays",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Year = table.Column<int>(type: "integer", nullable: false),
+                    TotalDays = table.Column<int>(type: "integer", nullable: false),
+                    Consumed = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "text", nullable: true),
+                    LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeHolidays", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EmployeeHolidays_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EmployeeSettings",
                 columns: table => new
                 {
@@ -360,7 +385,12 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 {
                     UserId = table.Column<string>(type: "text", nullable: false),
                     CompanyTaskId = table.Column<string>(type: "text", nullable: false),
-                    CompanyId = table.Column<string>(type: "text", nullable: false)
+                    CompanyId = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<string>(type: "text", nullable: true),
+                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "text", nullable: true),
+                    LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -391,7 +421,12 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 {
                     DepartmentId = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    CompanyId = table.Column<string>(type: "text", nullable: false)
+                    CompanyId = table.Column<string>(type: "text", nullable: false),
+                    Id = table.Column<string>(type: "text", nullable: true),
+                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "text", nullable: true),
+                    LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -572,6 +607,22 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 columns: new[] { "UserId", "DepartmentId", "CompanyId" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_EmployeeHolidays_Id",
+                table: "EmployeeHolidays",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmployeeHolidays_UserId",
+                table: "EmployeeHolidays",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmployeeHolidays_Year_UserId",
+                table: "EmployeeHolidays",
+                columns: new[] { "Year", "UserId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EmployeeSettings_Id",
                 table: "EmployeeSettings",
                 column: "Id");
@@ -627,6 +678,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "EmployeeDepartments");
+
+            migrationBuilder.DropTable(
+                name: "EmployeeHolidays");
 
             migrationBuilder.DropTable(
                 name: "EmployeeSettings");
