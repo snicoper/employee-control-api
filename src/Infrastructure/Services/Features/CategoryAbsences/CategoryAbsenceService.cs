@@ -26,7 +26,7 @@ public class CategoryAbsenceService(
     public async Task<CategoryAbsence> CreateAsync(CategoryAbsence categoryAbsence, CancellationToken cancellationToken)
     {
         var categoryExists = await context.CategoryAbsences.AnyAsync(
-            ca => ca.Description == categoryAbsence.Description &&
+            ca => ca.Description.ToLower() == categoryAbsence.Description.ToLower() &&
                   ca.CompanyId == categoryAbsence.CompanyId,
             cancellationToken);
 
@@ -48,7 +48,9 @@ public class CategoryAbsenceService(
     {
         var categoryAbsenceExist = await context
             .CategoryAbsences
-            .AnyAsync(ca => ca.Description == categoryAbsence.Description && ca.Id != categoryAbsence.Id, cancellationToken);
+            .AnyAsync(
+                ca => ca.Description.ToLower() == categoryAbsence.Description.ToLower() && ca.Id != categoryAbsence.Id,
+                cancellationToken);
 
         if (categoryAbsenceExist)
         {
