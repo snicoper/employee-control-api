@@ -26,8 +26,9 @@ public class EmployeeHolidayConfiguration : IEntityTypeConfiguration<EmployeeHol
         builder.Property(d => d.TotalDays)
             .IsRequired();
 
-        builder.Property(d => d.Consumed)
-            .IsRequired();
+        builder.Property(d => d.Consumed);
+
+        builder.Property(d => d.Claimed);
 
         builder.Property(d => d.UserId)
             .IsRequired();

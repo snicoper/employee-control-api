@@ -10,6 +10,8 @@ public class EmployeeHoliday : BaseAuditableEntity
 
     public int Consumed { get; set; }
 
+    public int Claimed { get; set; }
+
     public string UserId { get; set; } = default!;
 
     public ApplicationUser User { get; set; } = null!;

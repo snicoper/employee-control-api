@@ -300,6 +300,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     Year = table.Column<int>(type: "integer", nullable: false),
                     TotalDays = table.Column<int>(type: "integer", nullable: false),
                     Consumed = table.Column<int>(type: "integer", nullable: false),
+                    Claimed = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
