@@ -28,6 +28,8 @@ public interface IApplicationDbContext
 
     DbSet<TimeControl> TimeControls { get; }
 
+    DbSet<WorkDays> WorkDays { get; }
+
     DatabaseFacade Database { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);

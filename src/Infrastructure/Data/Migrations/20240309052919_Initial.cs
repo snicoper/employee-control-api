@@ -226,6 +226,35 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "WorkDays",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Monday = table.Column<bool>(type: "boolean", nullable: false),
+                    Tuesday = table.Column<bool>(type: "boolean", nullable: false),
+                    Wednesday = table.Column<bool>(type: "boolean", nullable: false),
+                    Thursday = table.Column<bool>(type: "boolean", nullable: false),
+                    Friday = table.Column<bool>(type: "boolean", nullable: false),
+                    Saturday = table.Column<bool>(type: "boolean", nullable: false),
+                    Sunday = table.Column<bool>(type: "boolean", nullable: false),
+                    CompanyId = table.Column<string>(type: "text", nullable: false),
+                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "text", nullable: true),
+                    LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkDays", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkDays_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
                 columns: table => new
                 {
@@ -688,6 +717,17 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 name: "IX_TimeControls_UserId",
                 table: "TimeControls",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkDays_CompanyId",
+                table: "WorkDays",
+                column: "CompanyId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkDays_Id",
+                table: "WorkDays",
+                column: "Id");
         }
 
         /// <inheritdoc />
@@ -731,6 +771,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "TimeControls");
+
+            migrationBuilder.DropTable(
+                name: "WorkDays");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

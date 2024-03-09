@@ -32,6 +32,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public DbSet<TimeControl> TimeControls => Set<TimeControl>();
 
+    public DbSet<WorkDays> WorkDays => Set<WorkDays>();
+
     public new DatabaseFacade Database => base.Database;
 
     protected override void OnModelCreating(ModelBuilder builder)
