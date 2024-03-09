@@ -11,26 +11,24 @@ public class EmployeeHolidayConfiguration : IEntityTypeConfiguration<EmployeeHol
         builder.ToTable("EmployeeHolidays");
 
         // Key.
-        builder.HasKey(d => d.Id);
+        builder.HasKey(eh => eh.Id);
 
         // Indexes.
-        builder.HasIndex(d => d.Id);
+        builder.HasIndex(eh => eh.Id);
 
-        builder.HasIndex(d => new { d.Year, d.UserId })
+        builder.HasIndex(eh => new { eh.Year, eh.UserId })
             .IsUnique();
 
         // Properties.
-        builder.Property(d => d.Year)
+        builder.Property(eh => eh.Year)
             .IsRequired();
 
-        builder.Property(d => d.TotalDays)
+        builder.Property(eh => eh.TotalDays)
             .IsRequired();
 
-        builder.Property(d => d.Consumed);
+        builder.Property(eh => eh.Consumed);
 
-        builder.Property(d => d.Claimed);
-
-        builder.Property(d => d.UserId)
+        builder.Property(eh => eh.UserId)
             .IsRequired();
     }
 }

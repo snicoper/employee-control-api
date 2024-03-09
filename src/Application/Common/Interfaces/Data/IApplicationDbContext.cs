@@ -10,6 +10,8 @@ public interface IApplicationDbContext
 
     DbSet<Company> Companies { get; }
 
+    DbSet<CompanyHoliday> CompanyHolidays { get; }
+
     DbSet<CompanySettings> CompanySettings { get; }
 
     DbSet<CompanyTask> CompanyTasks { get; }

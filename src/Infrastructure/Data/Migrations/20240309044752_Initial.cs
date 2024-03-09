@@ -127,6 +127,30 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CompanyHolidays",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Day = table.Column<DateOnly>(type: "date", nullable: false),
+                    Description = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    CompanyId = table.Column<string>(type: "text", nullable: false),
+                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "text", nullable: true),
+                    LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompanyHolidays", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CompanyHolidays_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CompanySettings",
                 columns: table => new
                 {
@@ -300,7 +324,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     Year = table.Column<int>(type: "integer", nullable: false),
                     TotalDays = table.Column<int>(type: "integer", nullable: false),
                     Consumed = table.Column<int>(type: "integer", nullable: false),
-                    Claimed = table.Column<int>(type: "integer", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
@@ -539,6 +562,22 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_CompanyHolidays_CompanyId",
+                table: "CompanyHolidays",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CompanyHolidays_Day_CompanyId",
+                table: "CompanyHolidays",
+                columns: new[] { "Day", "CompanyId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CompanyHolidays_Id",
+                table: "CompanyHolidays",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CompanySettings_CompanyId",
                 table: "CompanySettings",
                 column: "CompanyId",
@@ -615,7 +654,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeHolidays_UserId",
                 table: "EmployeeHolidays",
-                column: "UserId");
+                column: "UserId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeHolidays_Year_UserId",
@@ -670,6 +710,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "CategoryAbsences");
+
+            migrationBuilder.DropTable(
+                name: "CompanyHolidays");
 
             migrationBuilder.DropTable(
                 name: "CompanySettings");
