@@ -226,7 +226,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "WorkDays",
+                name: "WorkingDaysWeek",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
@@ -245,9 +245,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WorkDays", x => x.Id);
+                    table.PrimaryKey("PK_WorkingDaysWeek", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_WorkDays_Companies_CompanyId",
+                        name: "FK_WorkingDaysWeek_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id",
@@ -721,14 +721,14 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkDays_CompanyId",
-                table: "WorkDays",
+                name: "IX_WorkingDaysWeek_CompanyId",
+                table: "WorkingDaysWeek",
                 column: "CompanyId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkDays_Id",
-                table: "WorkDays",
+                name: "IX_WorkingDaysWeek_Id",
+                table: "WorkingDaysWeek",
                 column: "Id");
         }
 
@@ -775,7 +775,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 name: "TimeControls");
 
             migrationBuilder.DropTable(
-                name: "WorkDays");
+                name: "WorkingDaysWeek");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

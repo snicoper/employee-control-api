@@ -2,9 +2,9 @@
 using EmployeeControl.Application.Common.Models;
 using MediatR;
 
-namespace EmployeeControl.Application.Features.WorkDays.Commands.UpdateWorkDays;
+namespace EmployeeControl.Application.Features.WorkDays.Commands.UpdateWorkingDaysWeek;
 
-public record UpdateWorkDaysCommand(
+public record UpdateWorkingDaysWeekCommand(
     string Id,
     bool Monday,
     bool Tuesday,
@@ -20,7 +20,7 @@ public record UpdateWorkDaysCommand(
     {
         public Mapping()
         {
-            CreateMap<UpdateWorkDaysCommand, Domain.Entities.WorkDays>();
+            CreateMap<UpdateWorkingDaysWeekCommand, Domain.Entities.WorkingDaysWeek>();
         }
     }
 }

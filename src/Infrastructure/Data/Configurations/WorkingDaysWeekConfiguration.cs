@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EmployeeControl.Infrastructure.Data.Configurations;
 
-public class WorkDaysConfiguration : IEntityTypeConfiguration<WorkDays>
+public class WorkingDaysWeekConfiguration : IEntityTypeConfiguration<WorkingDaysWeek>
 {
-    public void Configure(EntityTypeBuilder<WorkDays> builder)
+    public void Configure(EntityTypeBuilder<WorkingDaysWeek> builder)
     {
-        builder.ToTable("WorkDays");
+        builder.ToTable("WorkingDaysWeek");
 
         // Key.
         builder.HasKey(wd => wd.Id);

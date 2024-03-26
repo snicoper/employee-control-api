@@ -1,8 +1,8 @@
 using AutoMapper;
 
-namespace EmployeeControl.Application.Features.WorkDays.Queries.GetWorkDaysByCompanyId;
+namespace EmployeeControl.Application.Features.WorkDays.Queries.GetWorkingDaysWeekByCompanyId;
 
-public record GetWorkDaysByCompanyIdResponse(
+public record GetWorkingDaysWeekByCompanyIdResponse(
     string Id,
     bool Monday,
     bool Tuesday,
@@ -17,7 +17,7 @@ public record GetWorkDaysByCompanyIdResponse(
     {
         public Mapper()
         {
-            CreateMap<Domain.Entities.WorkDays, GetWorkDaysByCompanyIdResponse>();
+            CreateMap<Domain.Entities.WorkingDaysWeek, GetWorkingDaysWeekByCompanyIdResponse>();
         }
     }
 }
