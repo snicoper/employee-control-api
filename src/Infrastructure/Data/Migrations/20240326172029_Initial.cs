@@ -401,6 +401,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     UserId = table.Column<string>(type: "text", nullable: false),
                     Start = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     Finish = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    Incidence = table.Column<bool>(type: "boolean", nullable: false),
+                    IncidenceDescription = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     ClosedBy = table.Column<int>(type: "integer", nullable: false),
                     TimeState = table.Column<int>(type: "integer", nullable: false),
                     DeviceTypeStart = table.Column<int>(type: "integer", nullable: false),

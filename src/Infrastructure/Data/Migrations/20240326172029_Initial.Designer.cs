@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240319122734_Initial")]
+    [Migration("20240326172029_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -589,6 +589,13 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.Property<DateTimeOffset>("Finish")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("Incidence")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("IncidenceDescription")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
 
                     b.Property<DateTimeOffset>("LastModified")
                         .HasColumnType("timestamp with time zone");

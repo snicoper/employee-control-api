@@ -591,6 +591,13 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<DateTimeOffset>("Finish")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("Incidence")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("IncidenceDescription")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
                     b.Property<DateTimeOffset>("LastModified")
                         .HasColumnType("timestamp with time zone");
 
