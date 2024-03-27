@@ -34,6 +34,17 @@ public class TimesControlService(
         return result;
     }
 
+    public async Task<TimeControl> GetWithEmployeeInfoByIdAsync(string id, CancellationToken cancellationToken)
+    {
+        var result = await context
+                         .TimeControls
+                         .Include(tc => tc.User)
+                         .SingleOrDefaultAsync(tc => tc.Id.Equals(id), cancellationToken) ??
+                     throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.Id));
+
+        return result;
+    }
+
     public async Task<IEnumerable<IGrouping<int, TimeControl>>> GetRangeByEmployeeIdAsync(
         string employeeId,
         DateTimeOffset from,

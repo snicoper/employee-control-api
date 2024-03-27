@@ -8,6 +8,7 @@ using EmployeeControl.Application.Features.TimesControl.Commands.StartTimeContro
 using EmployeeControl.Application.Features.TimesControl.Commands.UpdateTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlById;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlRangeByEmployeeId;
+using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlWithEmployeeById;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlByCompanyIdPaginated;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlByEmployeeIdPaginated;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeStateByEmployeeId;
@@ -83,6 +84,23 @@ public class TimesControlController : ApiControllerBase
     public async Task<ActionResult<GetTimeControlByIdResponse>> GetTimeControlById(string id)
     {
         var result = await Sender.Send(new GetTimeControlByIdQuery(id));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Obtener un <see cref="TimeControl" /> por su Id.
+    /// <para>Contiene datos de <see cref="ApplicationUser" />.</para>
+    /// </summary>
+    /// <param name="id">Id del <see cref="TimeControl" />.</param>
+    /// <returns><see cref="TimeControl" />.</returns>
+    [HttpGet("{id}/employees")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<GetTimeControlWithEmployeeByIdResponse>> GetTimeControlWithEmployeeById(string id)
+    {
+        var result = await Sender.Send(new GetTimeControlWithEmployeeByIdQuery(id));
 
         return result;
     }

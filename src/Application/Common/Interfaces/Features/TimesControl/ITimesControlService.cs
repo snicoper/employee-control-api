@@ -18,6 +18,15 @@ public interface ITimesControlService
     Task<TimeControl> GetByIdAsync(string id, CancellationToken cancellationToken);
 
     /// <summary>
+    /// Obtener un <see cref="TimeControl" /> por su Id con datos de <see cref="ApplicationUser" />.
+    /// </summary>
+    /// <param name="id">Id del <see cref="TimeControl" />.</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
+    /// <exception cref="NotFoundException">En caso de no encontrar el <see cref="TimeControl" />.</exception>
+    /// <returns><see cref="TimeControl" />.</returns>
+    Task<TimeControl> GetWithEmployeeInfoByIdAsync(string id, CancellationToken cancellationToken);
+
+    /// <summary>
     /// Obtener un grupos por días de <see cref="TimeControl" /> en un rango de fechas de un
     /// empleado concreto por su Id.
     /// </summary>
