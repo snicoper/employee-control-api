@@ -3,7 +3,7 @@ using EmployeeControl.Application.Common.Interfaces.Features.WorkingDaysWeek;
 using EmployeeControl.Application.Common.Security;
 using MediatR;
 
-namespace EmployeeControl.Application.Features.WorkDays.Queries.GetWorkingDaysWeekByCompanyId;
+namespace EmployeeControl.Application.Features.WorkingDaysWeek.Queries.GetWorkingDaysWeekByCompanyId;
 
 internal class GetWorkingDaysWeekByCompanyIdHandler(
     IWorkingDaysWeekService workingDaysWeekService,
@@ -15,9 +15,9 @@ internal class GetWorkingDaysWeekByCompanyIdHandler(
         GetWorkingDaysWeekByCompanyIdQuery request,
         CancellationToken cancellationToken)
     {
-        var workDays = await workingDaysWeekService.GetByCompanyIdAsync(request.CompanyId, cancellationToken);
-        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(workDays);
-        var resultResponse = mapper.Map<GetWorkingDaysWeekByCompanyIdResponse>(workDays);
+        var workingDaysWeek = await workingDaysWeekService.GetByCompanyIdAsync(request.CompanyId, cancellationToken);
+        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(workingDaysWeek);
+        var resultResponse = mapper.Map<GetWorkingDaysWeekByCompanyIdResponse>(workingDaysWeek);
 
         return resultResponse;
     }

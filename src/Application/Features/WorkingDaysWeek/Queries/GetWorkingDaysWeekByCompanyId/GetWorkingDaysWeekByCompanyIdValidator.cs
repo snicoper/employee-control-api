@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace EmployeeControl.Application.Features.WorkDays.Queries.GetWorkingDaysWeekByCompanyId;
+namespace EmployeeControl.Application.Features.WorkingDaysWeek.Queries.GetWorkingDaysWeekByCompanyId;
 
 public class GetWorkingDaysWeekByCompanyIdValidator : AbstractValidator<GetWorkingDaysWeekByCompanyIdQuery>
 {

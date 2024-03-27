@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace EmployeeControl.Application.Features.WorkDays.Queries.GetWorkingDaysWeekByCompanyId;
+namespace EmployeeControl.Application.Features.WorkingDaysWeek.Queries.GetWorkingDaysWeekByCompanyId;
 
 public record GetWorkingDaysWeekByCompanyIdResponse(
     string Id,

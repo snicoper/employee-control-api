@@ -2,7 +2,7 @@
 using EmployeeControl.Application.Common.Models;
 using MediatR;
 
-namespace EmployeeControl.Application.Features.WorkDays.Commands.UpdateWorkingDaysWeek;
+namespace EmployeeControl.Application.Features.WorkingDaysWeek.Commands.UpdateWorkingDaysWeek;
 
 public record UpdateWorkingDaysWeekCommand(
     string Id,

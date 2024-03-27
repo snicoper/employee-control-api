@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace EmployeeControl.Application.Features.WorkDays.Commands.UpdateWorkingDaysWeek;
+namespace EmployeeControl.Application.Features.WorkingDaysWeek.Commands.UpdateWorkingDaysWeek;
 
 public class UpdateWorkingDaysWeekValidator : AbstractValidator<UpdateWorkingDaysWeekCommand>
 {

@@ -32,6 +32,8 @@ public class TimesControlController : ApiControllerBase
     /// <param name="requestData"><see cref="ResponseData{TResponse}" />.</param>
     /// <returns><see cref="ResponseData{TResponse}" /> con los filtros aplicados.</returns>
     [HttpGet("companies/{companyId}/from/{from}/to/{to}/paginated")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ResponseData<GetTimesControlByCompanyIdPaginatedResponse>>>
         GetTimesControlByCompanyIdPaginated(
             string companyId,
@@ -54,6 +56,8 @@ public class TimesControlController : ApiControllerBase
     /// <param name="requestData"><see cref="ResponseData{TResponse}" />.</param>
     /// <returns><see cref="ResponseData{TResponse}" /> con los filtros aplicados.</returns>
     [HttpGet("employees/{employeeId}/from/{from}/to/{to}/paginated")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ResponseData<GetTimesControlByEmployeeIdPaginatedResponse>>>
         GetTimesControlByEmployeeIdPaginated(
             string employeeId,
