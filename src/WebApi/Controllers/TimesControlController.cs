@@ -1,4 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Features.TimesControl.Commands.CreateIncidence;
 using EmployeeControl.Application.Features.TimesControl.Commands.CreateTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Commands.DeleteTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeControl;
@@ -175,7 +176,7 @@ public class TimesControlController : ApiControllerBase
     /// <summary>
     /// Finalizar un <see cref="TimeControl" />.
     /// </summary>
-    /// <param name="command">Employee Id.</param>
+    /// <param name="command">Datos para finalizar el <see cref="TimeControl" />.</param>
     /// <returns>Result con el estado del proceso.</returns>
     [HttpPost("finish")]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -215,6 +216,22 @@ public class TimesControlController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> UpdateTimeControl(UpdateTimeControlCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Crea una incidencia en un <see cref="TimeControl" />.
+    /// </summary>
+    /// <param name="command">Employee Id.</param>
+    /// <returns>Result con el estado del proceso.</returns>
+    [HttpPut("{id}/create-incidence")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Result>> CreateIncidence(CreateIncidenceCommand command)
     {
         var result = await Sender.Send(command);
 

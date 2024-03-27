@@ -16,6 +16,8 @@ public record GetTimesControlByCompanyIdPaginatedResponse
 
     public bool Incidence { get; set; }
 
+    public string? IncidenceDescription { get; set; }
+
     public DateTimeOffset Start { get; set; }
 
     public DateTimeOffset Finish { get; set; }
