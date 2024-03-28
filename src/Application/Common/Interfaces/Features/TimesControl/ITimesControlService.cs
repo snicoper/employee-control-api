@@ -66,12 +66,20 @@ public interface ITimesControlService
     Task<TimeState> GetTimeStateByEmployeeAsync(ApplicationUser user, CancellationToken cancellationToken);
 
     /// <summary>
+    /// Crea un <see cref="TimeControl" /> sin hora final.
+    /// </summary>
+    /// <param name="timeControl"><see cref="TimeControl" /> a crear.</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
+    /// <returns><see cref="TimeControl" /> creado.</returns>
+    Task<TimeControl> CreateWithOutFinishAsync(TimeControl timeControl, CancellationToken cancellationToken);
+
+    /// <summary>
     /// Crea un <see cref="TimeControl" /> con su hora de inicio y final.
     /// </summary>
     /// <param name="timeControl"><see cref="TimeControl" /> a crear.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns><see cref="TimeControl" /> creado.</returns>
-    Task<TimeControl> CreateAsync(TimeControl timeControl, CancellationToken cancellationToken);
+    Task<TimeControl> CreateWithFinishAsync(TimeControl timeControl, CancellationToken cancellationToken);
 
     /// <summary>
     /// Inicializar un <see cref="TimeControl" />.

@@ -117,7 +117,20 @@ public class TimesControlService(
         return timeControl.TimeState;
     }
 
-    public async Task<TimeControl> CreateAsync(TimeControl timeControl, CancellationToken cancellationToken)
+    public async Task<TimeControl> CreateWithOutFinishAsync(TimeControl timeControl, CancellationToken cancellationToken)
+    {
+        await timesControlValidatorService.ValidateCreateAsync(timeControl, cancellationToken);
+        validationFailureService.RaiseExceptionIfExistsErrors();
+
+        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
+
+        await context.TimeControls.AddAsync(timeControl, cancellationToken);
+        await context.SaveChangesAsync(cancellationToken);
+
+        return timeControl;
+    }
+
+    public async Task<TimeControl> CreateWithFinishAsync(TimeControl timeControl, CancellationToken cancellationToken)
     {
         await timesControlValidatorService.ValidateUpdateAsync(timeControl, cancellationToken);
         validationFailureService.RaiseExceptionIfExistsErrors();
