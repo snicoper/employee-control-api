@@ -59,7 +59,7 @@ public class ApplicationDbContextInitialize(
             return;
         }
 
-        var company = await context.Companies.FirstOrDefaultAsync(c => c.Name == "Test Company");
+        var company = await context.Companies.FirstOrDefaultAsync();
 
         if (company is null)
         {

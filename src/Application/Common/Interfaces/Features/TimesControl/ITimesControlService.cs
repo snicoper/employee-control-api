@@ -27,6 +27,14 @@ public interface ITimesControlService
     Task<TimeControl> GetWithEmployeeInfoByIdAsync(string id, CancellationToken cancellationToken);
 
     /// <summary>
+    /// Obtener un <see cref="TimeControl" /> con estado <see cref="TimeState.Open" /> de un empleado.
+    /// </summary>
+    /// <param name="employeeId">Id del empleado.</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
+    /// <returns><see cref="TimeControl" />.</returns>
+    Task<TimeControl?> GetTimeStateOpenByEmployeeIdAsync(string employeeId, CancellationToken cancellationToken);
+
+    /// <summary>
     /// Obtener un grupos por días de <see cref="TimeControl" /> en un rango de fechas de un
     /// empleado concreto por su Id.
     /// </summary>

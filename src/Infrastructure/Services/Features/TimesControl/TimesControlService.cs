@@ -43,6 +43,15 @@ public class TimesControlService(
         return result;
     }
 
+    public async Task<TimeControl?> GetTimeStateOpenByEmployeeIdAsync(string employeeId, CancellationToken cancellationToken)
+    {
+        var timeControl = await context
+            .TimeControls
+            .SingleOrDefaultAsync(ts => ts.UserId == employeeId && ts.TimeState == TimeState.Open, cancellationToken);
+
+        return timeControl;
+    }
+
     public async Task<IEnumerable<IGrouping<int, TimeControl>>> GetRangeByEmployeeIdAsync(
         string employeeId,
         DateTimeOffset from,
