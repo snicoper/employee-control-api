@@ -5,7 +5,6 @@ using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
@@ -17,7 +16,6 @@ namespace EmployeeControl.Infrastructure.Services.Features.TimesControl;
 
 public class TimesControlService(
     IDateTimeService dateTimeService,
-    IPermissionsValidationService permissionsValidationService,
     ITimesControlValidatorService timesControlValidatorService,
     IValidationFailureService validationFailureService,
     IApplicationDbContext context,
@@ -62,22 +60,14 @@ public class TimesControlService(
         // Seleccionar el primer item para comprobar permisos de lectura.
         var firstTimeControl = timeControlGroups.FirstOrDefault()?.FirstOrDefault();
 
-        if (firstTimeControl is null)
-        {
-            return new List<IGrouping<int, TimeControl>>();
-        }
-
-        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(firstTimeControl);
-
-        return timeControlGroups;
+        return firstTimeControl is null ? new List<IGrouping<int, TimeControl>>() : timeControlGroups;
     }
 
-    public IQueryable<TimeControl> GetWithUserByCompanyId(string companyId)
+    public IQueryable<TimeControl> GetWithUser()
     {
         var timesControl = context
             .TimeControls
-            .Include(tc => tc.User)
-            .Where(tc => tc.CompanyId == companyId);
+            .Include(tc => tc.User);
 
         return timesControl;
     }
@@ -114,8 +104,6 @@ public class TimesControlService(
             await FinishAsync(user, DeviceType.System, ClosedBy.System, null, null, cancellationToken);
         }
 
-        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
-
         return timeControl.TimeState;
     }
 
@@ -123,8 +111,6 @@ public class TimesControlService(
     {
         await timesControlValidatorService.ValidateCreateAsync(timeControl, cancellationToken);
         validationFailureService.RaiseExceptionIfExistsErrors();
-
-        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
 
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
@@ -136,8 +122,6 @@ public class TimesControlService(
     {
         await timesControlValidatorService.ValidateUpdateAsync(timeControl, cancellationToken);
         validationFailureService.RaiseExceptionIfExistsErrors();
-
-        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
 
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
@@ -166,8 +150,6 @@ public class TimesControlService(
         // Validaciones.
         await timesControlValidatorService.ValidateCreateAsync(timeControl, cancellationToken);
         validationFailureService.RaiseExceptionIfExistsErrors();
-
-        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
 
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
@@ -215,8 +197,6 @@ public class TimesControlService(
     {
         await timesControlValidatorService.ValidateUpdateAsync(timeControl, cancellationToken);
         validationFailureService.RaiseExceptionIfExistsErrors();
-
-        await permissionsValidationService.CheckEntityCompanyIsOwnerAsync(timeControl);
 
         context.TimeControls.Update(timeControl);
         await context.SaveChangesAsync(cancellationToken);

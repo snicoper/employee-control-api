@@ -2,15 +2,12 @@
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Models.Settings;
-using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Application.Common.Services;
-using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Infrastructure.Data;
 using EmployeeControl.Infrastructure.Data.Interceptors;
 using EmployeeControl.Infrastructure.Data.Seeds;
 using EmployeeControl.Infrastructure.Services.Common;
-using EmployeeControl.Infrastructure.Services.Security;
 using Hangfire;
 using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -41,7 +38,6 @@ public static class DependencyInjection
 
         services.AddSingleton(TimeProvider.System);
         services.AddScoped<IValidationFailureService, ValidationFailureService>();
-        services.AddScoped<IPermissionsValidationService, PermissionsValidationService>();
         services.AddScoped<IDateTimeService, DateTimeService>();
 
         var connectionString = configuration.GetConnectionString("DefaultConnection");
@@ -117,10 +113,6 @@ public static class DependencyInjection
                 // Default SignIn settings.
                 options.SignIn.RequireConfirmedAccount = true;
             });
-
-        services.AddAuthorization(
-            options =>
-                options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.SiteAdmin)));
 
         services.AddAuthentication(
                 options =>
