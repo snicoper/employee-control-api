@@ -10,7 +10,6 @@ using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
 
 namespace EmployeeControl.Infrastructure.Services.Features.TimesControl;
 
@@ -20,8 +19,7 @@ public class TimesControlService(
     IValidationFailureService validationFailureService,
     IApplicationDbContext context,
     ICompanySettingsService companySettingsService,
-    IStringLocalizer<TimeControlLocalizer> localizer,
-    ILogger<TimesControlService> logger)
+    IStringLocalizer<TimeControlLocalizer> localizer)
     : ITimesControlService
 {
     public async Task<TimeControl> GetByIdAsync(string id, CancellationToken cancellationToken)
@@ -57,10 +55,7 @@ public class TimesControlService(
             .GroupBy(tc => tc.Start.Day)
             .ToListAsync(cancellationToken);
 
-        // Seleccionar el primer item para comprobar permisos de lectura.
-        var firstTimeControl = timeControlGroups.FirstOrDefault()?.FirstOrDefault();
-
-        return firstTimeControl is null ? new List<IGrouping<int, TimeControl>>() : timeControlGroups;
+        return timeControlGroups;
     }
 
     public IQueryable<TimeControl> GetWithUserQueryable()
@@ -202,12 +197,5 @@ public class TimesControlService(
         await context.SaveChangesAsync(cancellationToken);
 
         return timeControl;
-    }
-
-    public Task CloseTimeControlJobAsync()
-    {
-        logger.LogInformation($"Ejecutando servicio {nameof(CloseTimeControlJobAsync)}");
-
-        return Task.CompletedTask;
     }
 }
