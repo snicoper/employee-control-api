@@ -125,4 +125,10 @@ public interface ITimesControlService
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns><see cref="TimeControl" /> actualizado.</returns>
     Task<TimeControl> UpdateAsync(TimeControl timeControl, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Cerrar tareas que excedan el tiempo máximo de las compañías.
+    /// </summary>
+    /// <returns><see cref="TimeControl" />.</returns>
+    Task CloseTimeControlJobAsync();
 }
