@@ -48,7 +48,7 @@ public class ApplicationDbContextInitialize(
         await CreateRolesAsync();
         await CreateUsersAsync();
         await CreateCompanyTasksAsync();
-        await CreateDepartementsAsync();
+        await CreateDepartmentsAsync();
         await CreateCategoryAbsencesAsync();
     }
 
@@ -91,14 +91,14 @@ public class ApplicationDbContextInitialize(
         await context.SaveChangesAsync(CancellationToken.None);
     }
 
-    private async Task CreateDepartementsAsync()
+    private async Task CreateDepartmentsAsync()
     {
         if (await context.Departments.AnyAsync())
         {
             return;
         }
 
-        var company = await context.Companies.FirstOrDefaultAsync(c => c.Name == "Test Company");
+        var company = await context.Companies.FirstOrDefaultAsync();
 
         if (company is null)
         {
@@ -125,7 +125,7 @@ public class ApplicationDbContextInitialize(
             return;
         }
 
-        var company = await context.Companies.FirstOrDefaultAsync(c => c.Name == "Test Company");
+        var company = await context.Companies.FirstOrDefaultAsync();
 
         if (company is null)
         {
