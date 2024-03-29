@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
-namespace EmployeeControl.Infrastructure.Services.Features.Company;
+namespace EmployeeControl.Infrastructure.Services.Features.Companies;
 
 public class CompanyValidatorService(
     IApplicationDbContext context,

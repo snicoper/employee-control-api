@@ -5,7 +5,7 @@ using EmployeeControl.Domain.Entities;
 using EmployeeControl.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Infrastructure.Services.Features.Company;
+namespace EmployeeControl.Infrastructure.Services.Features.Companies;
 
 public class CompanyService(
     ApplicationDbContext context,
@@ -13,25 +13,30 @@ public class CompanyService(
     IValidationFailureService validationFailureService)
     : ICompanyService
 {
-    public async Task<Domain.Entities.Company> GetByIdAsync(string companyId, CancellationToken cancellationToken)
+    public async Task<Company> GetCompanyAsync(CancellationToken cancellationToken)
     {
-        var result = await context.Companies.SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken)
-                     ?? throw new NotFoundException(nameof(Domain.Entities.Company), nameof(Domain.Entities.Company));
+        var result = await context.Companies.FirstOrDefaultAsync(cancellationToken)
+                     ?? throw new NotFoundException(nameof(Company), nameof(Company));
 
         return result;
     }
 
-    public async Task<Domain.Entities.Company> CreateAsync(
-        Domain.Entities.Company company,
-        string timezone,
-        CancellationToken cancellationToken)
+    public async Task<Company> GetCompanyByIdAsync(string companyId, CancellationToken cancellationToken)
+    {
+        var result = await context.Companies.SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken)
+                     ?? throw new NotFoundException(nameof(Company), nameof(Company));
+
+        return result;
+    }
+
+    public async Task<Company> CreateAsync(Company company, string timezone, CancellationToken cancellationToken)
     {
         // Validaciones.
         await companyValidatorService.UniqueNameValidationAsync(company.Name, cancellationToken);
         validationFailureService.RaiseExceptionIfExistsErrors();
 
         // Crear Company y establecer valores de CompanySettings.
-        company.CompanySettings = new CompanySettings { CompanyId = company.Id, Timezone = timezone, MaximumDailyWorkHours = 8 };
+        company.CompanySettings = new CompanySettings { CompanyId = company.Id, Timezone = timezone, MaximumDailyWorkHours = 10 };
 
         // Crear los días de trabajo para la compañía, por defecto días laborables de lunes a viernes.
         company.WorkingDaysWeek = new Domain.Entities.WorkingDaysWeek

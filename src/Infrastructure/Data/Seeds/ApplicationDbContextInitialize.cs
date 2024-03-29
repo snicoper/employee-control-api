@@ -44,7 +44,7 @@ public class ApplicationDbContextInitialize(
 
     private async Task TrySeedAsync()
     {
-        await CreateCompaniesAsync();
+        await CreateCompanyAsync();
         await CreateRolesAsync();
         await CreateUsersAsync();
         await CreateCompanyTasksAsync();
@@ -145,7 +145,7 @@ public class ApplicationDbContextInitialize(
         await context.SaveChangesAsync(CancellationToken.None);
     }
 
-    private async Task CreateCompaniesAsync()
+    private async Task CreateCompanyAsync()
     {
         var companies = new List<Company> { new() { Name = "Company test" } };
 
