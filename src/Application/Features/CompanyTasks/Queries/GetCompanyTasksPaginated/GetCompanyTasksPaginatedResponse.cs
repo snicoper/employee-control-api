@@ -3,7 +3,7 @@ using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksPaginated;
 
-public record GetCompanyTasksByCompanyIdPaginatedResponse(
+public record GetCompanyTasksPaginatedResponse(
     string Id,
     string Name,
     string CompanyId,
@@ -16,7 +16,7 @@ public record GetCompanyTasksByCompanyIdPaginatedResponse(
     {
         public Mapper()
         {
-            CreateMap<CompanyTask, GetCompanyTasksByCompanyIdPaginatedResponse>();
+            CreateMap<CompanyTask, GetCompanyTasksPaginatedResponse>();
         }
     }
 }
