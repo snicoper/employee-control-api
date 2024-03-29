@@ -23,7 +23,7 @@ internal class CreateTimeControlHandler(
         // Si el empleado tiene algún tiempo iniciado, el nuevo deberá ser TimeState.close.
         var timeControlOpen = await timesControlService.GetTimeStateOpenByEmployeeIdAsync(request.UserId, cancellationToken);
 
-        if (timeControlOpen is not null)
+        if (timeControlOpen is not null && request.TimeState == TimeState.Open)
         {
             var message = localizer["El empleado ya tiene un tiempo abierto y no es posible abrir otro, debe cerrar el tiempo."];
             validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NotificationErrors, message);
