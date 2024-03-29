@@ -15,10 +15,10 @@ public class CompanyValidatorService(
     IStringLocalizer<CompanyLocalizer> localizer)
     : ICompanyValidatorService
 {
-    public async Task UniqueNameValidationAsync(string name, CancellationToken cancellationToken)
+    public async Task UniqueNameValidationAsync(string companyName, CancellationToken cancellationToken)
     {
         var company = await context.Companies
-            .AnyAsync(c => c.Name.ToLower().Equals(name), cancellationToken);
+            .AnyAsync(c => c.Name.ToLower().Equals(companyName), cancellationToken);
 
         if (!company)
         {
