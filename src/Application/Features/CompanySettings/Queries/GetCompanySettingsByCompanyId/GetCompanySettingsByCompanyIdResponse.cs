@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.CompanySettings.Queries.GetCompanySettingsByCompanyId;
 
-public record GetCompanySettingsByCompanyIdResponse(string Id, string Timezone)
+public record GetCompanySettingsByCompanyIdResponse(string Id, string Timezone, int MaximumDailyWorkHours)
 {
     internal class Mapping : Profile
     {

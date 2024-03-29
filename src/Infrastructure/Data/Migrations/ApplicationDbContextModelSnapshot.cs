@@ -293,6 +293,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("text");
 
+                    b.Property<int>("MaximumDailyWorkHours")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Timezone")
                         .IsRequired()
                         .HasMaxLength(50)

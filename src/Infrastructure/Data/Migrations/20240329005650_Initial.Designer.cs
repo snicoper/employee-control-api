@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240326205220_Initial")]
+    [Migration("20240329005650_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -291,6 +291,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("text");
+
+                    b.Property<int>("MaximumDailyWorkHours")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Timezone")
                         .IsRequired()

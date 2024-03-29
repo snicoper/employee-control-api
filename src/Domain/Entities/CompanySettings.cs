@@ -10,6 +10,8 @@ public class CompanySettings : BaseAuditableEntity, ICompany
 {
     public string Timezone { get; set; } = default!;
 
+    public int MaximumDailyWorkHours { get; set; }
+
     public string CompanyId { get; set; } = default!;
 
     public Company Company { get; set; } = null!;
