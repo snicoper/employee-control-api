@@ -46,7 +46,7 @@ public interface ITimesControlService
     /// <para>Incluye los <see cref="ApplicationUser" />.</para>
     /// </summary>
     /// <returns><see cref="IQueryable{T}" /> con los <see cref="TimeControl" />.</returns>
-    IQueryable<TimeControl> GetWithUser();
+    IQueryable<TimeControl> GetWithUserQueryable();
 
     /// <summary>
     /// Obtener los <see cref="TimeControl" /> por el Id de <see cref="ApplicationUser" />.
@@ -54,7 +54,7 @@ public interface ITimesControlService
     /// </summary>
     /// <param name="employeeId">Id <see cref="ApplicationUser" />.</param>
     /// <returns><see cref="IQueryable{T}" /> con los <see cref="TimeControl" />.</returns>
-    IQueryable<TimeControl> GetWithUserByEmployeeId(string employeeId);
+    IQueryable<TimeControl> GetWithUserByEmployeeIdQueryable(string employeeId);
 
     /// <summary>
     /// Obtener si el empleado tiene algún <see cref="TimeControl" /> inicializado.

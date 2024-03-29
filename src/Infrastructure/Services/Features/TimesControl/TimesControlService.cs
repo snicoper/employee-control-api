@@ -63,7 +63,7 @@ public class TimesControlService(
         return firstTimeControl is null ? new List<IGrouping<int, TimeControl>>() : timeControlGroups;
     }
 
-    public IQueryable<TimeControl> GetWithUser()
+    public IQueryable<TimeControl> GetWithUserQueryable()
     {
         var timesControl = context
             .TimeControls
@@ -72,7 +72,7 @@ public class TimesControlService(
         return timesControl;
     }
 
-    public IQueryable<TimeControl> GetWithUserByEmployeeId(string employeeId)
+    public IQueryable<TimeControl> GetWithUserByEmployeeIdQueryable(string employeeId)
     {
         var timesControl = context
             .TimeControls
