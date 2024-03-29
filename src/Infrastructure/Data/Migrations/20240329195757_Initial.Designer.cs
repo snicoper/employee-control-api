@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240329151250_Initial")]
+    [Migration("20240329195757_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -302,6 +302,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
+
+                    b.Property<int>("WeeklyWorkingHours")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
