@@ -111,6 +111,20 @@ public class TimesControlService(
         return timeControl.TimeState;
     }
 
+    public IQueryable<TimeControl> GetTimesControlIncidencesQueryable()
+    {
+        var timesControl = context.TimeControls.Where(tc => tc.Incidence);
+
+        return timesControl;
+    }
+
+    public int CountIncidences()
+    {
+        var incidences = GetTimesControlIncidencesQueryable().Count();
+
+        return incidences;
+    }
+
     public async Task<TimeControl> CreateWithOutFinishAsync(TimeControl timeControl, CancellationToken cancellationToken)
     {
         await timesControlValidatorService.ValidateCreateAsync(timeControl, cancellationToken);

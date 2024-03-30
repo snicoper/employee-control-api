@@ -73,6 +73,18 @@ public interface ITimesControlService
     Task<TimeState> GetTimeStateByEmployeeAsync(ApplicationUser user, CancellationToken cancellationToken);
 
     /// <summary>
+    /// Obtener los <see cref="TimeControl" /> con incidencias.
+    /// </summary>
+    /// <returns>Lista de <see cref="TimeControl" /> con incidencias.</returns>
+    IQueryable<TimeControl> GetTimesControlIncidencesQueryable();
+
+    /// <summary>
+    /// Obtener cantidad de incidencias.
+    /// </summary>
+    /// <returns>Total de <see cref="TimeControl" /> con incidencias.</returns>
+    int CountIncidences();
+
+    /// <summary>
     /// Crea un <see cref="TimeControl" /> sin hora final.
     /// </summary>
     /// <param name="timeControl"><see cref="TimeControl" /> a crear.</param>
