@@ -137,6 +137,8 @@ public class TimesControlService(
 
     public async Task<TimeControl> CloseIncidenceByTimeControlAsync(TimeControl timeControl, CancellationToken cancellationToken)
     {
+        timeControl.Incidence = false;
+
         context.TimeControls.Update(timeControl);
         await context.SaveChangesAsync(cancellationToken);
 
