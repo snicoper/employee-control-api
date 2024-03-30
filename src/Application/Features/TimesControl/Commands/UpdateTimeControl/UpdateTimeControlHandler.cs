@@ -28,7 +28,7 @@ internal class UpdateTimeControlHandler(
 
         if (request.CloseIncidence)
         {
-            // Notificar SignalR de una nueva incidencia.
+            // Notificar SignalR de cierre de una incidencia.
             await hubContext.Clients.All.SendAsync(HubNames.TimeControlIncidences, cancellationToken);
         }
 

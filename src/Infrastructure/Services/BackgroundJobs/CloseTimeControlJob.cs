@@ -45,7 +45,7 @@ public class CloseTimeControlJob(
         context.TimeControls.UpdateRange(timesControl);
         await context.SaveChangesAsync(CancellationToken.None);
 
-        // Notificar SignalR de una nueva incidencia.
+        // Notificar SignalR de cierre de una incidencia.
         await hubContext.Clients.All.SendAsync(HubNames.TimeControlIncidences, CancellationToken.None);
 
         logger.LogInformation($"Procesado ${nameof(CloseTimeControlJob)} con éxito.");
