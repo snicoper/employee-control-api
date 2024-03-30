@@ -5,9 +5,11 @@ using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Common.Services.Hubs;
 using EmployeeControl.Application.Localizations;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
@@ -19,6 +21,7 @@ public class TimesControlService(
     IValidationFailureService validationFailureService,
     IApplicationDbContext context,
     ICompanySettingsService companySettingsService,
+    IHubContext<NotificationTimeControlIncidenceHub> hubContext,
     IStringLocalizer<TimeControlLocalizer> localizer)
     : ITimesControlService
 {
@@ -128,8 +131,6 @@ public class TimesControlService(
     public async Task<TimeControl> CloseIncidenceByTimeControlIdAsync(string id, CancellationToken cancellationToken)
     {
         var timeControl = await GetByIdAsync(id, cancellationToken);
-        timeControl.Incidence = false;
-
         await CloseIncidenceByTimeControlAsync(timeControl, cancellationToken);
 
         return timeControl;
@@ -141,6 +142,9 @@ public class TimesControlService(
 
         context.TimeControls.Update(timeControl);
         await context.SaveChangesAsync(cancellationToken);
+
+        // Notificar SignalR de una nueva incidencia.
+        await hubContext.Clients.All.SendAsync(HubNames.TimeControlIncidences, cancellationToken);
 
         return timeControl;
     }

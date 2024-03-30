@@ -1,8 +1,8 @@
 using EmployeeControl.Application;
 using EmployeeControl.Application.Common.Interfaces.BackgroundJobs;
+using EmployeeControl.Application.Common.Services.Hubs;
 using EmployeeControl.Infrastructure;
 using EmployeeControl.Infrastructure.Data.Seeds;
-using EmployeeControl.Infrastructure.Hubs;
 using EmployeeControl.WebApi;
 using Hangfire;
 using Serilog;

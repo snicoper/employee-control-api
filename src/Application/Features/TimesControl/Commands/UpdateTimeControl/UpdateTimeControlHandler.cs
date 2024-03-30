@@ -1,10 +1,15 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
+﻿using EmployeeControl.Application.Common.Constants;
+using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Common.Services.Hubs;
 using MediatR;
+using Microsoft.AspNetCore.SignalR;
 
 namespace EmployeeControl.Application.Features.TimesControl.Commands.UpdateTimeControl;
 
-internal class UpdateTimeControlHandler(ITimesControlService timesControlService)
+internal class UpdateTimeControlHandler(
+    ITimesControlService timesControlService,
+    IHubContext<NotificationTimeControlIncidenceHub> hubContext)
     : IRequestHandler<UpdateTimeControlCommand, Result>
 {
     public async Task<Result> Handle(UpdateTimeControlCommand request, CancellationToken cancellationToken)
@@ -20,6 +25,12 @@ internal class UpdateTimeControlHandler(ITimesControlService timesControlService
         }
 
         await timesControlService.UpdateAsync(timeControl, cancellationToken);
+
+        if (request.CloseIncidence)
+        {
+            // Notificar SignalR de una nueva incidencia.
+            await hubContext.Clients.All.SendAsync(HubNames.TimeControlIncidences, cancellationToken);
+        }
 
         return Result.Success();
     }
