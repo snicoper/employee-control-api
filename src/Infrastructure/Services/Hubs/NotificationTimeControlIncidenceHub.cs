@@ -5,7 +5,7 @@ namespace EmployeeControl.Infrastructure.Services.Hubs;
 
 public class NotificationTimeControlIncidenceHub : Hub, INotificationTimeControlIncidenceHub
 {
-    public Task NotifyNewIncidence()
+    public Task SendMessage()
     {
         return Clients.All.SendAsync("notification-time-control-incidence", true);
     }

@@ -125,6 +125,24 @@ public class TimesControlService(
         return incidences;
     }
 
+    public async Task<TimeControl> CloseIncidenceByTimeControlIdAsync(string id, CancellationToken cancellationToken)
+    {
+        var timeControl = await GetByIdAsync(id, cancellationToken);
+        timeControl.Incidence = false;
+
+        await CloseIncidenceByTimeControlAsync(timeControl, cancellationToken);
+
+        return timeControl;
+    }
+
+    public async Task<TimeControl> CloseIncidenceByTimeControlAsync(TimeControl timeControl, CancellationToken cancellationToken)
+    {
+        context.TimeControls.Update(timeControl);
+        await context.SaveChangesAsync(cancellationToken);
+
+        return timeControl;
+    }
+
     public async Task<TimeControl> CreateWithOutFinishAsync(TimeControl timeControl, CancellationToken cancellationToken)
     {
         await timesControlValidatorService.ValidateCreateAsync(timeControl, cancellationToken);

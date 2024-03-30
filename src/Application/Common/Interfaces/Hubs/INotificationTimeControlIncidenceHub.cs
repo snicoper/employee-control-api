@@ -2,5 +2,5 @@
 
 public interface INotificationTimeControlIncidenceHub
 {
-    Task NotifyNewIncidence();
+    Task SendMessage();
 }
