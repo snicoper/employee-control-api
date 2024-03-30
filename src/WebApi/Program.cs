@@ -58,7 +58,7 @@ if (app.Environment.IsDevelopment())
 {
     // NSwag.
     app.UseOpenApi();
-    app.UseSwaggerUi3(settings => { settings.Path = string.Empty; });
+    app.UseSwaggerUi(settings => { settings.Path = string.Empty; });
     app.UseReDoc(settings => { settings.Path = "/docs"; });
 }
 
