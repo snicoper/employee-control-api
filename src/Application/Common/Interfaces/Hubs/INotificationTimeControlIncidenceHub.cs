@@ -2,5 +2,5 @@
 
 public interface INotificationTimeControlIncidenceHub
 {
-    Task SendMessage();
+    Task SendMessageAsync(string method, CancellationToken cancellationToken);
 }
