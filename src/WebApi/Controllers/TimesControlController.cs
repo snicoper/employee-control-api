@@ -8,6 +8,7 @@ using EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeContr
 using EmployeeControl.Application.Features.TimesControl.Commands.StartTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Commands.UpdateTimeControl;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlById;
+using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlIncidencesCount;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlRangeByEmployeeId;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlWithEmployeeById;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlByEmployeeIdPaginated;
@@ -153,6 +154,19 @@ public class TimesControlController : ApiControllerBase
     public async Task<ActionResult<GetTimeStateOpenByEmployeeIdResponse>> GetTimeStateOpenByEmployeeId(string employeeId)
     {
         var result = await Sender.Send(new GetTimeStateOpenByEmployeeIdQuery(employeeId));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Obtener numero de incidencias de en los <see cref="TimeControl" />.
+    /// </summary>
+    /// <returns>Numero total de incidencias.</returns>
+    [HttpGet("incidences-count")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<ActionResult<GetTimeControlIncidencesCountResponse>> GetTimeControlIncidencesCount()
+    {
+        var result = await Sender.Send(new GetTimeControlIncidencesCountQuery());
 
         return result;
     }
