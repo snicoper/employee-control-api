@@ -4,8 +4,8 @@ using MediatR;
 
 namespace EmployeeControl.Application.Features.CompanyHolidays.Command.CreateCompanyHoliday;
 
-public record CreateCompanyHolidayCommand(DateOnly Date, string Description, string CompanyId)
-    : IRequest<CreateCompanyHolidayResponse>
+public record CreateCompanyHolidayCommand(DateTimeOffset Date, string Description, string CompanyId)
+    : IRequest<string>
 {
     internal class Mapper : Profile
     {

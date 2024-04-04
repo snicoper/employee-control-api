@@ -18,7 +18,7 @@ public class CompanyHolidaysValidatorService(
     {
         var dateExists = await context
             .CompanyHolidays
-            .AnyAsync(ch => ch.Day == companyHoliday.Day && ch.CompanyId == companyHoliday.CompanyId, cancellationToken);
+            .AnyAsync(ch => ch.Date == companyHoliday.Date && ch.CompanyId == companyHoliday.CompanyId, cancellationToken);
 
         if (!dateExists)
         {
@@ -26,6 +26,6 @@ public class CompanyHolidaysValidatorService(
         }
 
         var message = localizer["La fecha seleccionada ya tiene asignado un día festivo."];
-        validationFailureService.Add(nameof(CompanyHoliday.Day), message);
+        validationFailureService.Add(nameof(CompanyHoliday.Date), message);
     }
 }
