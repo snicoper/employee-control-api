@@ -14,7 +14,9 @@ internal class GetCompanyHolidaysByYearHandler(IApplicationDbContext context, IM
     {
         var companyHolidays = context
             .CompanyHolidays
-            .Where(ch => ch.Date.Year == request.Year);
+            .Where(ch => ch.Date.Year == request.Year)
+            .OrderBy(ch => ch.Date);
+
         var resultResponse =
             mapper.Map<ICollection<CompanyHoliday>, ICollection<GetCompanyHolidaysByYearResponse>>(companyHolidays.ToList());
 

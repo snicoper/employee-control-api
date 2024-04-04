@@ -3,7 +3,7 @@ using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Features.CompanyHolidays.Queries.GetCompanyHolidaysByYear;
 
-public record GetCompanyHolidaysByYearResponse(string Id, DateTimeOffset Date, string Description)
+public record GetCompanyHolidaysByYearResponse(string Id, DateOnly Date, string Description)
 {
     internal class Mapping : Profile
     {
