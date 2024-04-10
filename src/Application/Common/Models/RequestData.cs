@@ -12,7 +12,7 @@ public class RequestData
 
     public int Ratio { get; set; } = 2;
 
-    public string Orders { get; set; } = string.Empty;
+    public string Order { get; set; } = string.Empty;
 
     public string Filters { get; set; } = string.Empty;
 }
