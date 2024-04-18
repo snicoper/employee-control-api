@@ -11,8 +11,6 @@ public static class QueryableOrderByExtensions
 {
     public static IQueryable<TEntity> Ordering<TEntity>(this IQueryable<TEntity> source, RequestData request)
     {
-        IQueryable<TEntity> result;
-
         if (string.IsNullOrEmpty(request.Order))
         {
             // Por defecto si existe, ordena por "Created | Id" - Descending.
@@ -26,7 +24,7 @@ public static class QueryableOrderByExtensions
 
         if (requestItemOrderBy is null)
         {
-            result = OrderByDefault(source);
+            var result = OrderByDefault(source);
 
             return result;
         }
