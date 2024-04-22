@@ -35,7 +35,7 @@ public class ApplicationUser : IdentityUser, ICompany, IEntityDomainEvent
 
     public EmployeeSettings EmployeeSettings { get; set; } = null!;
 
-    public EmployeeHoliday EmployeeHoliday { get; set; } = null!;
+    public ICollection<EmployeeHoliday> EmployeeHolidays { get; set; } = null!;
 
     public ICollection<EmployeeCompanyTask> EmployeeCompanyTasks { get; set; }
 
