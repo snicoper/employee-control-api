@@ -11,9 +11,10 @@ internal class GetEmployeeHolidaysByYearAndEmployeeIdHandler(IEmployeeHolidaysSe
         GetEmployeeHolidaysByYearAndEmployeeIdQuery request,
         CancellationToken cancellationToken)
     {
-        var employeeHolidays =
-            await employeeHolidaysService.GetByYearByEmployeeId(request.Year, request.EmployeeId, cancellationToken);
-        var resultResponse = mapper.Map<GetEmployeeHolidaysByYearAndEmployeeIdResponse>(employeeHolidays);
+        var employeeHoliday = await employeeHolidaysService
+            .GetOrCreateByYearByEmployeeIdAsync(request.Year, request.EmployeeId, cancellationToken);
+
+        var resultResponse = mapper.Map<GetEmployeeHolidaysByYearAndEmployeeIdResponse>(employeeHoliday);
 
         return resultResponse;
     }
