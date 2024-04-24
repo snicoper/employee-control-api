@@ -200,7 +200,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     Active = table.Column<bool>(type: "boolean", nullable: false),
                     Background = table.Column<string>(type: "character varying(7)", maxLength: 7, nullable: false),
                     Color = table.Column<string>(type: "character varying(7)", maxLength: 7, nullable: false),
-                    CompanyId = table.Column<string>(type: "text", nullable: false),
+                    CompanyId = table.Column<string>(type: "text", nullable: true),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -213,8 +213,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         name: "FK_Departments_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -486,7 +485,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 {
                     DepartmentId = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    CompanyId = table.Column<string>(type: "text", nullable: false),
                     Id = table.Column<string>(type: "text", nullable: true),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
@@ -500,12 +498,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         name: "FK_EmployeeDepartments_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EmployeeDepartments_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -682,12 +674,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_Name",
                 table: "Departments",
-                column: "Name");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Departments_Name_CompanyId",
-                table: "Departments",
-                columns: new[] { "Name", "CompanyId" },
+                column: "Name",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -702,19 +689,14 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeDepartments_CompanyId",
-                table: "EmployeeDepartments",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_EmployeeDepartments_DepartmentId",
                 table: "EmployeeDepartments",
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeDepartments_UserId_DepartmentId_CompanyId",
+                name: "IX_EmployeeDepartments_UserId_DepartmentId",
                 table: "EmployeeDepartments",
-                columns: new[] { "UserId", "DepartmentId", "CompanyId" });
+                columns: new[] { "UserId", "DepartmentId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeHolidayClaimLines_Date_UserId",

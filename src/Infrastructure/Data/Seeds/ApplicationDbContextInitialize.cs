@@ -77,21 +77,7 @@ public class ApplicationDbContextInitialize(
             return;
         }
 
-        var company = await context.Companies.FirstOrDefaultAsync();
-
-        if (company is null)
-        {
-            return;
-        }
-
-        var department = new Department
-        {
-            Name = "IT",
-            Active = true,
-            CompanyId = company.Id,
-            Background = "#28961f",
-            Color = "#ffffff"
-        };
+        var department = new Department { Name = "IT", Active = true, Background = "#28961f", Color = "#ffffff" };
 
         context.Departments.Add(department);
         await context.SaveChangesAsync(CancellationToken.None);

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240424134846_Initial")]
+    [Migration("20240424141700_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -379,7 +379,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasColumnType("character varying(7)");
 
                     b.Property<string>("CompanyId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("Created")
@@ -405,9 +404,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasIndex("Id");
 
-                    b.HasIndex("Name");
-
-                    b.HasIndex("Name", "CompanyId")
+                    b.HasIndex("Name")
                         .IsUnique();
 
                     b.ToTable("Departments", (string)null);
@@ -454,10 +451,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<string>("DepartmentId")
                         .HasColumnType("text");
 
-                    b.Property<string>("CompanyId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("timestamp with time zone");
 
@@ -475,11 +468,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasKey("UserId", "DepartmentId");
 
-                    b.HasIndex("CompanyId");
-
                     b.HasIndex("DepartmentId");
 
-                    b.HasIndex("UserId", "DepartmentId", "CompanyId");
+                    b.HasIndex("UserId", "DepartmentId");
 
                     b.ToTable("EmployeeDepartments", (string)null);
                 });
@@ -912,13 +903,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.Department", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
+                    b.HasOne("EmployeeControl.Domain.Entities.Company", null)
                         .WithMany("Departaments")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
+                        .HasForeignKey("CompanyId");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.EmployeeCompanyTask", b =>
@@ -942,12 +929,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.EmployeeDepartment", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("EmployeeControl.Domain.Entities.Department", "Department")
                         .WithMany("EmployeeDepartments")
                         .HasForeignKey("DepartmentId")
@@ -959,8 +940,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Company");
 
                     b.Navigation("Department");
 
