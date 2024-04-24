@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240424111118_Initial")]
+    [Migration("20240424131713_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -169,7 +169,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasColumnType("character varying(7)");
 
                     b.Property<string>("CompanyId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("Created")
@@ -193,10 +192,10 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("Id");
-
-                    b.HasIndex("Description", "CompanyId")
+                    b.HasIndex("Description")
                         .IsUnique();
+
+                    b.HasIndex("Id");
 
                     b.ToTable("CategoryAbsences", (string)null);
                 });
@@ -901,13 +900,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CategoryAbsence", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
+                    b.HasOne("EmployeeControl.Domain.Entities.Company", null)
                         .WithMany("CategoryAbsences")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
+                        .HasForeignKey("CompanyId");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyHoliday", b =>

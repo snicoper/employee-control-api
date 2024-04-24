@@ -108,7 +108,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     Background = table.Column<string>(type: "character varying(7)", maxLength: 7, nullable: false),
                     Color = table.Column<string>(type: "character varying(7)", maxLength: 7, nullable: false),
                     Active = table.Column<bool>(type: "boolean", nullable: false),
-                    CompanyId = table.Column<string>(type: "text", nullable: false),
+                    CompanyId = table.Column<string>(type: "text", nullable: true),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -121,8 +121,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         name: "FK_CategoryAbsences_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -628,9 +627,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryAbsences_Description_CompanyId",
+                name: "IX_CategoryAbsences_Description",
                 table: "CategoryAbsences",
-                columns: new[] { "Description", "CompanyId" },
+                column: "Description",
                 unique: true);
 
             migrationBuilder.CreateIndex(
