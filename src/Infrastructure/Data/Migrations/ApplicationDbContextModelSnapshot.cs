@@ -230,10 +230,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("CompanyId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("timestamp with time zone");
 
@@ -256,12 +252,10 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
+                    b.HasIndex("Date")
+                        .IsUnique();
 
                     b.HasIndex("Id");
-
-                    b.HasIndex("Date", "CompanyId")
-                        .IsUnique();
 
                     b.ToTable("CompanyHolidays", (string)null);
                 });
@@ -896,17 +890,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasOne("EmployeeControl.Domain.Entities.Company", null)
                         .WithMany("CategoryAbsences")
                         .HasForeignKey("CompanyId");
-                });
-
-            modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyHoliday", b =>
-                {
-                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanySettings", b =>
