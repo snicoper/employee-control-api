@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240424132952_Initial")]
+    [Migration("20240424134846_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -205,6 +205,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
+                    b.Property<string>("CompanySettingsId")
+                        .HasColumnType("text");
+
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("timestamp with time zone");
 
@@ -223,6 +226,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanySettingsId");
 
                     b.HasIndex("Id");
 
@@ -272,10 +277,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("CompanyId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("timestamp with time zone");
 
@@ -304,9 +305,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId")
-                        .IsUnique();
-
                     b.HasIndex("Id");
 
                     b.ToTable("CompanySettings", (string)null);
@@ -331,7 +329,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasColumnType("character varying(7)");
 
                     b.Property<string>("CompanyId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("Created")
@@ -353,9 +350,11 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanyId");
+
                     b.HasIndex("Id");
 
-                    b.HasIndex("CompanyId", "Name")
+                    b.HasIndex("Name")
                         .IsUnique();
 
                     b.ToTable("CompanyTasks", (string)null);
@@ -422,10 +421,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<string>("CompanyTaskId")
                         .HasColumnType("text");
 
-                    b.Property<string>("CompanyId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<DateTimeOffset>("Created")
                         .HasColumnType("timestamp with time zone");
 
@@ -445,7 +440,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasIndex("CompanyTaskId");
 
-                    b.HasIndex("CompanyId", "UserId", "CompanyTaskId")
+                    b.HasIndex("UserId", "CompanyTaskId")
                         .IsUnique();
 
                     b.ToTable("EmployeeCompanyTasks", (string)null);
@@ -899,26 +894,20 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasForeignKey("CompanyId");
                 });
 
-            modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanySettings", b =>
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.Company", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
-                        .WithOne("CompanySettings")
-                        .HasForeignKey("EmployeeControl.Domain.Entities.CompanySettings", "CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("EmployeeControl.Domain.Entities.CompanySettings", "CompanySettings")
+                        .WithMany()
+                        .HasForeignKey("CompanySettingsId");
 
-                    b.Navigation("Company");
+                    b.Navigation("CompanySettings");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyTask", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
+                    b.HasOne("EmployeeControl.Domain.Entities.Company", null)
                         .WithMany("CompanyTasks")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
+                        .HasForeignKey("CompanyId");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.Department", b =>
@@ -934,12 +923,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.EmployeeCompanyTask", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("EmployeeControl.Domain.Entities.CompanyTask", "CompanyTask")
                         .WithMany("EmployeeCompanyTasks")
                         .HasForeignKey("CompanyTaskId")
@@ -951,8 +934,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Company");
 
                     b.Navigation("CompanyTask");
 
@@ -1142,9 +1123,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
             modelBuilder.Entity("EmployeeControl.Domain.Entities.Company", b =>
                 {
                     b.Navigation("CategoryAbsences");
-
-                    b.Navigation("CompanySettings")
-                        .IsRequired();
 
                     b.Navigation("CompanyTasks");
 

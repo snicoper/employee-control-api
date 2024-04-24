@@ -104,21 +104,7 @@ public class ApplicationDbContextInitialize(
             return;
         }
 
-        var company = await context.Companies.FirstOrDefaultAsync();
-
-        if (company is null)
-        {
-            return;
-        }
-
-        var companyTask = new CompanyTask
-        {
-            Name = "Agenda",
-            Active = true,
-            CompanyId = company.Id,
-            Background = "#8722d1",
-            Color = "#dfedfe"
-        };
+        var companyTask = new CompanyTask { Name = "Agenda", Active = true, Background = "#8722d1", Color = "#dfedfe" };
 
         context.CompanyTasks.Add(companyTask);
         await context.SaveChangesAsync(CancellationToken.None);

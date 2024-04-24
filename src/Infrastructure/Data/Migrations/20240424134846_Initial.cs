@@ -26,22 +26,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Companies",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<string>(type: "text", nullable: true),
-                    LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    LastModifiedBy = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Companies", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CompanyHolidays",
                 columns: table => new
                 {
@@ -56,6 +40,25 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CompanyHolidays", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CompanySettings",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Timezone = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    PeriodTimeControlMax = table.Column<int>(type: "integer", nullable: false),
+                    WeeklyWorkingHours = table.Column<int>(type: "integer", nullable: false),
+                    GeolocationRequired = table.Column<bool>(type: "boolean", nullable: false),
+                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "text", nullable: true),
+                    LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CompanySettings", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -77,6 +80,28 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Companies",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
+                    CompanySettingsId = table.Column<string>(type: "text", nullable: true),
+                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "text", nullable: true),
+                    LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Companies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Companies_CompanySettings_CompanySettingsId",
+                        column: x => x.CompanySettingsId,
+                        principalTable: "CompanySettings",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -142,32 +167,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CompanySettings",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    Timezone = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    PeriodTimeControlMax = table.Column<int>(type: "integer", nullable: false),
-                    WeeklyWorkingHours = table.Column<int>(type: "integer", nullable: false),
-                    GeolocationRequired = table.Column<bool>(type: "boolean", nullable: false),
-                    CompanyId = table.Column<string>(type: "text", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<string>(type: "text", nullable: true),
-                    LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    LastModifiedBy = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CompanySettings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CompanySettings_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CompanyTasks",
                 columns: table => new
                 {
@@ -176,7 +175,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     Active = table.Column<bool>(type: "boolean", nullable: false),
                     Background = table.Column<string>(type: "character varying(7)", maxLength: 7, nullable: false),
                     Color = table.Column<string>(type: "character varying(7)", maxLength: 7, nullable: false),
-                    CompanyId = table.Column<string>(type: "text", nullable: false),
+                    CompanyId = table.Column<string>(type: "text", nullable: true),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -189,8 +188,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         name: "FK_CompanyTasks_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -459,7 +457,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 {
                     UserId = table.Column<string>(type: "text", nullable: false),
                     CompanyTaskId = table.Column<string>(type: "text", nullable: false),
-                    CompanyId = table.Column<string>(type: "text", nullable: false),
                     Id = table.Column<string>(type: "text", nullable: true),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
@@ -473,12 +470,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         name: "FK_EmployeeCompanyTasks_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EmployeeCompanyTasks_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -631,6 +622,11 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 column: "Id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Companies_CompanySettingsId",
+                table: "Companies",
+                column: "CompanySettingsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Companies_Id",
                 table: "Companies",
                 column: "Id");
@@ -653,26 +649,25 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 column: "Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CompanySettings_CompanyId",
-                table: "CompanySettings",
-                column: "CompanyId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CompanySettings_Id",
                 table: "CompanySettings",
                 column: "Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CompanyTasks_CompanyId_Name",
+                name: "IX_CompanyTasks_CompanyId",
                 table: "CompanyTasks",
-                columns: new[] { "CompanyId", "Name" },
-                unique: true);
+                column: "CompanyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CompanyTasks_Id",
                 table: "CompanyTasks",
                 column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CompanyTasks_Name",
+                table: "CompanyTasks",
+                column: "Name",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_CompanyId",
@@ -696,15 +691,15 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeCompanyTasks_CompanyId_UserId_CompanyTaskId",
-                table: "EmployeeCompanyTasks",
-                columns: new[] { "CompanyId", "UserId", "CompanyTaskId" },
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_EmployeeCompanyTasks_CompanyTaskId",
                 table: "EmployeeCompanyTasks",
                 column: "CompanyTaskId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmployeeCompanyTasks_UserId_CompanyTaskId",
+                table: "EmployeeCompanyTasks",
+                columns: new[] { "UserId", "CompanyTaskId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeDepartments_CompanyId",
@@ -831,9 +826,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 name: "CompanyHolidays");
 
             migrationBuilder.DropTable(
-                name: "CompanySettings");
-
-            migrationBuilder.DropTable(
                 name: "EmployeeCompanyTasks");
 
             migrationBuilder.DropTable(
@@ -871,6 +863,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Companies");
+
+            migrationBuilder.DropTable(
+                name: "CompanySettings");
         }
     }
 }

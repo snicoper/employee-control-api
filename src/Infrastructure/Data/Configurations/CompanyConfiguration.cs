@@ -20,12 +20,6 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
             .IsUnique();
 
         // Relations.
-        builder.HasOne(c => c.CompanySettings)
-            .WithOne(cs => cs.Company)
-            .HasForeignKey<CompanySettings>(cs => cs.CompanyId)
-            .OnDelete(DeleteBehavior.Cascade)
-            .IsRequired();
-
         builder.HasOne(c => c.WorkingDaysWeek)
             .WithOne(wd => wd.Company)
             .HasForeignKey<WorkingDaysWeek>(wd => wd.CompanyId)
