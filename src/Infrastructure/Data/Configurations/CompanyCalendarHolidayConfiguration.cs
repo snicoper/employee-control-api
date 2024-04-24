@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EmployeeControl.Infrastructure.Data.Configurations;
 
-public class CompanyHolidayConfiguration : IEntityTypeConfiguration<CompanyHoliday>
+public class CompanyCalendarHolidayConfiguration : IEntityTypeConfiguration<CompanyCalendarHoliday>
 {
-    public void Configure(EntityTypeBuilder<CompanyHoliday> builder)
+    public void Configure(EntityTypeBuilder<CompanyCalendarHoliday> builder)
     {
-        builder.ToTable("CompanyHolidays");
+        builder.ToTable("CompanyCalendarHolidays");
 
         // Key.
         builder.HasKey(ch => ch.Id);

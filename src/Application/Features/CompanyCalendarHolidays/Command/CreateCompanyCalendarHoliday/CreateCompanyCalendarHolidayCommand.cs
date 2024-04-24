@@ -4,17 +4,17 @@ using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 
-namespace EmployeeControl.Application.Features.CompanyHolidays.Command.CreateCompanyHoliday;
+namespace EmployeeControl.Application.Features.CompanyCalendarHolidays.Command.CreateCompanyCalendarHoliday;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record CreateCompanyHolidayCommand(DateOnly Date, string Description)
+public record CreateCompanyCalendarHolidayCommand(DateOnly Date, string Description)
     : IRequest<string>
 {
     internal class Mapper : Profile
     {
         public Mapper()
         {
-            CreateMap<CreateCompanyHolidayCommand, CompanyHoliday>();
+            CreateMap<CreateCompanyCalendarHolidayCommand, CompanyCalendarHoliday>();
         }
     }
 }
