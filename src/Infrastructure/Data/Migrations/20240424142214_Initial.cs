@@ -62,6 +62,28 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "WorkingDaysWeek",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "text", nullable: false),
+                    Monday = table.Column<bool>(type: "boolean", nullable: false),
+                    Tuesday = table.Column<bool>(type: "boolean", nullable: false),
+                    Wednesday = table.Column<bool>(type: "boolean", nullable: false),
+                    Thursday = table.Column<bool>(type: "boolean", nullable: false),
+                    Friday = table.Column<bool>(type: "boolean", nullable: false),
+                    Saturday = table.Column<bool>(type: "boolean", nullable: false),
+                    Sunday = table.Column<bool>(type: "boolean", nullable: false),
+                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "text", nullable: true),
+                    LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    LastModifiedBy = table.Column<string>(type: "text", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkingDaysWeek", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -89,6 +111,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     Id = table.Column<string>(type: "text", nullable: false),
                     Name = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     CompanySettingsId = table.Column<string>(type: "text", nullable: true),
+                    WorkingDaysWeekId = table.Column<string>(type: "text", nullable: true),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -101,6 +124,11 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         name: "FK_Companies_CompanySettings_CompanySettingsId",
                         column: x => x.CompanySettingsId,
                         principalTable: "CompanySettings",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Companies_WorkingDaysWeek_WorkingDaysWeekId",
+                        column: x => x.WorkingDaysWeekId,
+                        principalTable: "WorkingDaysWeek",
                         principalColumn: "Id");
                 });
 
@@ -214,35 +242,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "WorkingDaysWeek",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "text", nullable: false),
-                    Monday = table.Column<bool>(type: "boolean", nullable: false),
-                    Tuesday = table.Column<bool>(type: "boolean", nullable: false),
-                    Wednesday = table.Column<bool>(type: "boolean", nullable: false),
-                    Thursday = table.Column<bool>(type: "boolean", nullable: false),
-                    Friday = table.Column<bool>(type: "boolean", nullable: false),
-                    Saturday = table.Column<bool>(type: "boolean", nullable: false),
-                    Sunday = table.Column<bool>(type: "boolean", nullable: false),
-                    CompanyId = table.Column<string>(type: "text", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    CreatedBy = table.Column<string>(type: "text", nullable: true),
-                    LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    LastModifiedBy = table.Column<string>(type: "text", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WorkingDaysWeek", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_WorkingDaysWeek_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -427,7 +426,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     LatitudeFinish = table.Column<double>(type: "double precision", nullable: true),
                     LongitudeFinish = table.Column<double>(type: "double precision", nullable: true),
                     UserId = table.Column<string>(type: "text", nullable: false),
-                    CompanyId = table.Column<string>(type: "text", nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -440,12 +438,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         name: "FK_TimeControls_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TimeControls_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -630,6 +622,11 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Companies_WorkingDaysWeekId",
+                table: "Companies",
+                column: "WorkingDaysWeekId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CompanyHolidays_Date",
                 table: "CompanyHolidays",
                 column: "Date",
@@ -757,11 +754,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_TimeControls_CompanyId",
-                table: "TimeControls",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TimeControls_Id",
                 table: "TimeControls",
                 column: "Id");
@@ -770,12 +762,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 name: "IX_TimeControls_UserId",
                 table: "TimeControls",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WorkingDaysWeek_CompanyId",
-                table: "WorkingDaysWeek",
-                column: "CompanyId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkingDaysWeek_Id",
@@ -826,9 +812,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 name: "TimeControls");
 
             migrationBuilder.DropTable(
-                name: "WorkingDaysWeek");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -848,6 +831,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "CompanySettings");
+
+            migrationBuilder.DropTable(
+                name: "WorkingDaysWeek");
         }
     }
 }

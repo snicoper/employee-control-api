@@ -19,13 +19,6 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.HasIndex(c => c.Name)
             .IsUnique();
 
-        // Relations.
-        builder.HasOne(c => c.WorkingDaysWeek)
-            .WithOne(wd => wd.Company)
-            .HasForeignKey<WorkingDaysWeek>(wd => wd.CompanyId)
-            .OnDelete(DeleteBehavior.Cascade)
-            .IsRequired();
-
         // Properties.
         builder.Property(c => c.Name)
             .HasMaxLength(256)
