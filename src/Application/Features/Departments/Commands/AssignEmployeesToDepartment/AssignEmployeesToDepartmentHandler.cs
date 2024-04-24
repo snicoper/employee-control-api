@@ -29,7 +29,7 @@ internal class AssignEmployeesToDepartmentHandler(
 
         var employees = userManager
             .Users
-            .Where(au => request.EmployeeIds.Contains(au.Id) && au.CompanyId == department.CompanyId)
+            .Where(au => request.EmployeeIds.Contains(au.Id))
             .ToList();
 
         var employeesToAdd = new List<EmployeeDepartment>();

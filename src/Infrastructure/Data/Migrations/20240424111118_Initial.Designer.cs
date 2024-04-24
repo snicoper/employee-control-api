@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240423170302_Initial")]
+    [Migration("20240424111118_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -63,7 +63,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("CompanyId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -895,13 +894,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.ApplicationUser", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
+                    b.HasOne("EmployeeControl.Domain.Entities.Company", null)
                         .WithMany("Users")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
+                        .HasForeignKey("CompanyId");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CategoryAbsence", b =>

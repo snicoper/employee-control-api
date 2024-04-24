@@ -29,7 +29,7 @@ internal class AssignEmployeesToTaskHandler(
 
         var employees = userManager
             .Users
-            .Where(au => request.EmployeeIds.Contains(au.Id) && au.CompanyId == companyTask.CompanyId)
+            .Where(au => request.EmployeeIds.Contains(au.Id))
             .ToList();
 
         var userCompanyTasks = new List<EmployeeCompanyTask>();

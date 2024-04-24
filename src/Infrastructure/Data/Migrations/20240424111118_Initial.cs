@@ -73,7 +73,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     Active = table.Column<bool>(type: "boolean", nullable: false),
                     RefreshTokenExpiryTime = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
                     EntryDate = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
-                    CompanyId = table.Column<string>(type: "text", nullable: false),
+                    CompanyId = table.Column<string>(type: "text", nullable: true),
                     UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
@@ -96,8 +96,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         name: "FK_AspNetUsers_Companies_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

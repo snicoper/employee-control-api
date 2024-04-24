@@ -171,17 +171,9 @@ public class ApplicationDbContextInitialize(
 
     private async Task CreateUsersAsync()
     {
-        var company = context.Companies.FirstOrDefault();
-
-        if (company is null)
-        {
-            return;
-        }
-
         // Admin user.
         var user = new ApplicationUser
         {
-            CompanyId = company.Id,
             UserName = "admin@localhost",
             FirstName = "Admin",
             LastName = "Admin1",
@@ -208,7 +200,6 @@ public class ApplicationDbContextInitialize(
         // EnterpriseStaff user.
         user = new ApplicationUser
         {
-            CompanyId = company.Id,
             UserName = "snicoper@gmail.com",
             FirstName = "Salvador",
             LastName = "Nicolas",
@@ -235,7 +226,6 @@ public class ApplicationDbContextInitialize(
         // HumanResources user.
         user = new ApplicationUser
         {
-            CompanyId = company.Id,
             UserName = "alice@example.com",
             FirstName = "Alice",
             LastName = "Smith",
@@ -262,7 +252,6 @@ public class ApplicationDbContextInitialize(
         // Employee user.
         user = new ApplicationUser
         {
-            CompanyId = company.Id,
             UserName = "bob@example.com",
             FirstName = "Bob",
             LastName = "Garcia",

@@ -8,7 +8,7 @@ namespace EmployeeControl.Domain.Entities;
 /// <summary>
 /// Empleados de la aplicación.
 /// </summary>
-public class ApplicationUser : IdentityUser, ICompany, IEntityDomainEvent
+public class ApplicationUser : IdentityUser, IEntityDomainEvent
 {
     private readonly List<BaseEvent> _domainEvents;
 
@@ -44,10 +44,6 @@ public class ApplicationUser : IdentityUser, ICompany, IEntityDomainEvent
     public ICollection<EmployeeDepartment> EmployeeDepartments { get; set; }
 
     public ICollection<IdentityUserRole<string>> UserRoles { get; set; }
-
-    public Company Company { get; set; } = null!;
-
-    public string CompanyId { get; set; } = default!;
 
     [NotMapped]
     public IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();

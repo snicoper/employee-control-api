@@ -56,7 +56,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("CompanyId")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -888,13 +887,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.ApplicationUser", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
+                    b.HasOne("EmployeeControl.Domain.Entities.Company", null)
                         .WithMany("Users")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
+                        .HasForeignKey("CompanyId");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CategoryAbsence", b =>
