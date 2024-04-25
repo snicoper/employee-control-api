@@ -8,6 +8,7 @@ public class CompanyConfiguration : IEntityTypeConfiguration<Company>
 {
     public void Configure(EntityTypeBuilder<Company> builder)
     {
+        // Table name.
         builder.ToTable("Companies");
 
         // Primary key.

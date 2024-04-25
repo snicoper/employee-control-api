@@ -8,6 +8,7 @@ public class CompanyCalendarHolidayConfiguration : IEntityTypeConfiguration<Comp
 {
     public void Configure(EntityTypeBuilder<CompanyCalendarHoliday> builder)
     {
+        // Table name.
         builder.ToTable("CompanyCalendarHolidays");
 
         // Key.

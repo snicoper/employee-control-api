@@ -8,6 +8,7 @@ public class EmployeeHolidayClaimLineConfiguration : IEntityTypeConfiguration<Em
 {
     public void Configure(EntityTypeBuilder<EmployeeHolidayClaimLine> builder)
     {
+        // Table name.
         builder.ToTable("EmployeeHolidayClaimLines");
 
         // Key.

@@ -8,6 +8,7 @@ public class TimeControlConfiguration : IEntityTypeConfiguration<TimeControl>
 {
     public void Configure(EntityTypeBuilder<TimeControl> builder)
     {
+        // Table name.
         builder.ToTable("TimeControls");
 
         // Key.
