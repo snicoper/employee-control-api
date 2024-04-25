@@ -20,6 +20,12 @@ public class EmployeeHolidayConfiguration : IEntityTypeConfiguration<EmployeeHol
         builder.HasIndex(eh => new { eh.Year, eh.UserId })
             .IsUnique();
 
+        // One-to-Many.
+        builder.HasOne<ApplicationUser>(eh => eh.User)
+            .WithMany(au => au.EmployeeHolidays)
+            .HasForeignKey(eh => eh.UserId)
+            .IsRequired();
+
         // Properties.
         builder.Property(eh => eh.Year)
             .IsRequired();

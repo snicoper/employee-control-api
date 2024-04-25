@@ -122,6 +122,8 @@ public class ApplicationDbContextInitialize(
 
     private async Task CreateUsersAsync()
     {
+        var company = context.Companies.First();
+
         // Admin user.
         var user = new ApplicationUser
         {
@@ -131,7 +133,8 @@ public class ApplicationDbContextInitialize(
             Email = "admin@localhost",
             EntryDate = dateTimeService.UtcNow,
             Active = true,
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            CompanyId = company.Id
         };
 
         if (!await userManager.Users.AnyAsync(u => u.Email == user.Email))
@@ -157,7 +160,8 @@ public class ApplicationDbContextInitialize(
             Email = "snicoper@gmail.com",
             EntryDate = dateTimeService.UtcNow,
             Active = true,
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            CompanyId = company.Id
         };
 
         if (!await userManager.Users.AnyAsync(u => u.Email == user.Email))
@@ -183,7 +187,8 @@ public class ApplicationDbContextInitialize(
             Email = "alice@example.com",
             EntryDate = dateTimeService.UtcNow,
             Active = true,
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            CompanyId = company.Id
         };
 
         if (!await userManager.Users.AnyAsync(u => u.Email == user.Email))
@@ -209,7 +214,8 @@ public class ApplicationDbContextInitialize(
             Email = "bob@example.com",
             EntryDate = dateTimeService.UtcNow,
             Active = true,
-            EmailConfirmed = true
+            EmailConfirmed = true,
+            CompanyId = company.Id
         };
 
         if (!await userManager.Users.AnyAsync(u => u.Email == user.Email))

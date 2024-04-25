@@ -17,11 +17,10 @@ public class TimeControlConfiguration : IEntityTypeConfiguration<TimeControl>
         // Indexes.
         builder.HasIndex(tc => tc.Id);
 
-        // Relations.
-        builder.HasOne(tc => tc.User)
+        // One-to-Many.
+        builder.HasOne<ApplicationUser>(tc => tc.User)
             .WithMany(au => au.TimeControls)
             .HasForeignKey(tc => tc.UserId)
-            .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
 
         // Properties

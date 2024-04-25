@@ -15,16 +15,23 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
         builder.HasIndex(au => au.RefreshToken)
             .IsUnique();
 
-        // Relations.
-        builder.HasMany(e => e.UserRoles)
-            .WithOne()
-            .HasForeignKey(uc => uc.UserId)
-            .IsRequired();
-
-        builder.HasOne(au => au.EmployeeSettings)
+        // One-to-One.
+        builder.HasOne<EmployeeSettings>(au => au.EmployeeSettings)
             .WithOne(es => es.User)
             .HasForeignKey<EmployeeSettings>(es => es.UserId)
             .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
+
+        // One-to-Many.
+        builder.HasOne<Company>(au => au.Company)
+            .WithMany(c => c.Users)
+            .HasForeignKey(au => au.CompanyId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // Many-to-Many.
+        builder.HasMany(au => au.UserRoles)
+            .WithOne()
+            .HasForeignKey(uc => uc.UserId)
             .IsRequired();
 
         // Properties.
