@@ -20,6 +20,12 @@ public class CategoryAbsenceConfiguration : IEntityTypeConfiguration<CategoryAbs
         builder.HasIndex(ca => new { ca.Description })
             .IsUnique();
 
+        // OneToMany.
+        builder.HasOne<Company>(ca => ca.Company)
+            .WithMany(c => c.CategoryAbsences)
+            .HasForeignKey(ca => ca.CompanyId)
+            .IsRequired();
+
         // Properties.
         builder.Property(ca => ca.Description)
             .HasMaxLength(256)
