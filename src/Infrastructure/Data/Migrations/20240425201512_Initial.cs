@@ -261,8 +261,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     Id = table.Column<string>(type: "text", nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
                     Description = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    CompanyHolidayGroupId = table.Column<string>(type: "text", nullable: false),
-                    CompanyCalendarId = table.Column<string>(type: "text", nullable: true),
+                    CompanyCalendarId = table.Column<string>(type: "text", nullable: false),
                     Created = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
                     CreatedBy = table.Column<string>(type: "text", nullable: true),
                     LastModified = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
@@ -275,7 +274,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         name: "FK_CompanyCalendarHolidays_CompanyCalendar_CompanyCalendarId",
                         column: x => x.CompanyCalendarId,
                         principalTable: "CompanyCalendar",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

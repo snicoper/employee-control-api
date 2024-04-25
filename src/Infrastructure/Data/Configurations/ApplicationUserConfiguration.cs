@@ -26,7 +26,11 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
         builder.HasOne<Company>(au => au.Company)
             .WithMany(c => c.Users)
             .HasForeignKey(au => au.CompanyId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .IsRequired();
+
+        builder.HasOne<CompanyCalendar>(au => au.CompanyCalendar)
+            .WithMany(cc => cc.Users)
+            .HasForeignKey(au => au.CompanyCalendarId);
 
         // Many-to-Many.
         builder.HasMany(au => au.UserRoles)

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace EmployeeControl.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240425195414_Initial")]
+    [Migration("20240425201512_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -275,9 +275,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("CompanyCalendarId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("CompanyHolidayGroupId")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -915,7 +912,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.ApplicationUser", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.CompanyCalendar", null)
+                    b.HasOne("EmployeeControl.Domain.Entities.CompanyCalendar", "CompanyCalendar")
                         .WithMany("Users")
                         .HasForeignKey("CompanyCalendarId");
 
@@ -926,6 +923,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Company");
+
+                    b.Navigation("CompanyCalendar");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CategoryAbsence", b =>
@@ -942,8 +941,10 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyCalendarHoliday", b =>
                 {
                     b.HasOne("EmployeeControl.Domain.Entities.CompanyCalendar", "CompanyCalendar")
-                        .WithMany("CompanyHolidays")
-                        .HasForeignKey("CompanyCalendarId");
+                        .WithMany("CompanyCalendarHolidays")
+                        .HasForeignKey("CompanyCalendarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("CompanyCalendar");
                 });
@@ -1175,7 +1176,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CompanyCalendar", b =>
                 {
-                    b.Navigation("CompanyHolidays");
+                    b.Navigation("CompanyCalendarHolidays");
 
                     b.Navigation("Users");
                 });

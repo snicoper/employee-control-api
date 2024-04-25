@@ -41,6 +41,10 @@ public class ApplicationUser : IdentityUser, IEntityDomainEvent
 
     public Company Company { get; set; } = null!;
 
+    public string? CompanyCalendarId { get; set; }
+
+    public CompanyCalendar CompanyCalendar { get; set; } = null!;
+
     public ICollection<EmployeeHoliday> EmployeeHolidays { get; set; }
 
     public ICollection<TimeControl> TimeControls { get; set; }

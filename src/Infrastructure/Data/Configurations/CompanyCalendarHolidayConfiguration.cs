@@ -20,6 +20,13 @@ public class CompanyCalendarHolidayConfiguration : IEntityTypeConfiguration<Comp
         builder.HasIndex(ch => new { Day = ch.Date })
             .IsUnique();
 
+        // One-to-Many.
+        builder.HasOne<CompanyCalendar>(cch => cch.CompanyCalendar)
+            .WithMany(cc => cc.CompanyCalendarHolidays)
+            .HasForeignKey(cch => cch.CompanyCalendarId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
+
         // Properties.
         builder.Property(ch => ch.Date)
             .IsRequired();
