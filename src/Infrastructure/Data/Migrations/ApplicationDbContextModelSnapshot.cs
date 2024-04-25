@@ -1019,7 +1019,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
             modelBuilder.Entity("EmployeeControl.Domain.Entities.EmployeeHolidayClaim", b =>
                 {
                     b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("EmployeeHolidayClaims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1036,7 +1036,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("EmployeeHolidayClaimLines")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1139,6 +1139,10 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Navigation("EmployeeCompanyTasks");
 
                     b.Navigation("EmployeeDepartments");
+
+                    b.Navigation("EmployeeHolidayClaimLines");
+
+                    b.Navigation("EmployeeHolidayClaims");
 
                     b.Navigation("EmployeeHolidays");
 

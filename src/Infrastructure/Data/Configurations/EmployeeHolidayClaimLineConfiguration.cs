@@ -20,6 +20,19 @@ public class EmployeeHolidayClaimLineConfiguration : IEntityTypeConfiguration<Em
         builder.HasIndex(ehcl => new { ehcl.Date, ehcl.UserId })
             .IsUnique();
 
+        // One-to-Many.
+        builder.HasOne<ApplicationUser>(ehcl => ehcl.User)
+            .WithMany(au => au.EmployeeHolidayClaimLines)
+            .HasForeignKey(ehcl => ehcl.UserId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
+
+        builder.HasOne<EmployeeHolidayClaim>(ehcl => ehcl.EmployeeHolidayClaim)
+            .WithMany(au => au.EmployeeHolidayClaimLines)
+            .HasForeignKey(ehcl => ehcl.EmployeeHolidayClaimId)
+            .OnDelete(DeleteBehavior.Cascade)
+            .IsRequired();
+
         // Properties.
         builder.Property(ehcl => ehcl.Date)
             .IsRequired();
