@@ -1,3 +1,3 @@
 ﻿namespace EmployeeControl.Application.Localizations;
 
-public class CompanyTaskLocalizer;
+public class TaskLocalizer;

@@ -1,3 +1,3 @@
 ﻿namespace EmployeeControl.Application.Localizations;
 
-public class CompanyHolidayLocalizer;
+public class CalendarLocalizer;

@@ -11,7 +11,7 @@ namespace EmployeeControl.Infrastructure.Services.Features.CompanyCalendarHolida
 public class CompanyCalendarHolidaysValidatorService(
     IApplicationDbContext context,
     IValidationFailureService validationFailureService,
-    IStringLocalizer<CompanyHolidayLocalizer> localizer)
+    IStringLocalizer<CalendarLocalizer> localizer)
     : ICompanyCalendarHolidaysValidatorService
 {
     public async Task ValidateCreateHolidayInDateAsync(

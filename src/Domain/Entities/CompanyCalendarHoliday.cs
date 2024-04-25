@@ -3,7 +3,7 @@
 namespace EmployeeControl.Domain.Entities;
 
 /// <summary>
-/// Días festivos de la empresa.
+/// Día festivo de un calendario concreto.
 /// </summary>
 public class CompanyCalendarHoliday : BaseAuditableEntity
 {
