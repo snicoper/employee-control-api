@@ -24,4 +24,26 @@ public class CompanyCalendarsService(IApplicationDbContext context) : ICompanyCa
 
         return companyCalendar;
     }
+
+    public async Task SetDefaultCalendarAsync(CompanyCalendar companyCalendar, CancellationToken cancellationToken)
+    {
+        companyCalendar.Default = true;
+
+        var currentDefault = await context
+            .CompanyCalendars
+            .Where(cc => cc.Default)
+            .FirstOrDefaultAsync(cancellationToken);
+
+        if (currentDefault is null)
+        {
+            context.CompanyCalendars.Update(companyCalendar);
+        }
+        else
+        {
+            currentDefault.Default = false;
+            context.CompanyCalendars.UpdateRange(currentDefault, companyCalendar);
+        }
+
+        await context.SaveChangesAsync(cancellationToken);
+    }
 }

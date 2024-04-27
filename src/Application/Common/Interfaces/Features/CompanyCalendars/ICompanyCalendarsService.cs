@@ -18,4 +18,11 @@ public interface ICompanyCalendarsService
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns><see cref="CompanyCalendar" />.</returns>
     Task<CompanyCalendar> GetByIdAsync(string id, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Establecer un <see cref="CompanyCalendar" /> como default.
+    /// </summary>
+    /// <param name="companyCalendar"><see cref="CompanyCalendar" />.</param>
+    /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
+    Task SetDefaultCalendarAsync(CompanyCalendar companyCalendar, CancellationToken cancellationToken);
 }

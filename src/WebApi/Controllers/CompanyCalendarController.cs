@@ -1,4 +1,6 @@
-﻿using EmployeeControl.Application.Features.CompanyCalendars.Queries.GetCompanyCalendarById;
+﻿using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Features.CompanyCalendars.Commands.SetDefaultCalendar;
+using EmployeeControl.Application.Features.CompanyCalendars.Queries.GetCompanyCalendarById;
 using EmployeeControl.Application.Features.CompanyCalendars.Queries.GetCompanyCalendars;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.WebApi.Infrastructure;
@@ -32,6 +34,20 @@ public class CompanyCalendarController : ApiControllerBase
     public async Task<ActionResult<GetCompanyCalendarByIdResponse>> GetCompanyCalendarById(string id)
     {
         var result = await Sender.Send(new GetCompanyCalendarByIdQuery(id));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Establecer un <see cref="CompanyCalendar" /> como default por su Id.
+    /// </summary>
+    /// <returns><see cref="Result" />.</returns>
+    [HttpPut("{id}/default")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Result>> SetDefaultCalendar(string id)
+    {
+        var result = await Sender.Send(new SetDefaultCalendarCommand(id));
 
         return result;
     }
