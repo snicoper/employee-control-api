@@ -34,7 +34,7 @@ public class TimesControlController : ApiControllerBase
     /// <param name="to">Final del rango.</param>
     /// <param name="requestData"><see cref="ResponseData{TResponse}" />.</param>
     /// <returns><see cref="ResponseData{TResponse}" /> con los filtros aplicados.</returns>
-    [HttpGet("from/{from}/to/{to}/paginated")]
+    [HttpGet("from/{from:datetime}/to/{to:datetime}/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ResponseData<GetTimesControlByRangePaginatedResponse>>>
@@ -54,7 +54,7 @@ public class TimesControlController : ApiControllerBase
     /// <param name="to">Filtro: final del rango.</param>
     /// <param name="requestData"><see cref="ResponseData{TResponse}" />.</param>
     /// <returns><see cref="ResponseData{TResponse}" /> con los filtros aplicados.</returns>
-    [HttpGet("employees/{employeeId}/from/{from}/to/{to}/paginated")]
+    [HttpGet("employees/{employeeId}/from/{from:datetime}/to/{to:datetime}/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ResponseData<GetTimesControlByEmployeeIdPaginatedResponse>>>
@@ -110,7 +110,7 @@ public class TimesControlController : ApiControllerBase
     /// <param name="from">Fecha inicial.</param>
     /// <param name="to">Fecha final.</param>
     /// <returns>IsOpen, true si tiene abierto un tiempo, false en caso contrario.</returns>
-    [HttpGet("employees/{employeeId}/from/{from}/to/{to}")]
+    [HttpGet("employees/{employeeId}/from/{from:datetime}/to/{to:datetime}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
