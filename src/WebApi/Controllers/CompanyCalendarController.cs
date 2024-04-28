@@ -1,5 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Features.CompanyCalendars.Commands.CreateCompanyCalendar;
 using EmployeeControl.Application.Features.CompanyCalendars.Commands.SetDefaultCalendar;
+using EmployeeControl.Application.Features.CompanyCalendars.Commands.UpdateCompanyCalendar;
 using EmployeeControl.Application.Features.CompanyCalendars.Queries.GetCompanyCalendarById;
 using EmployeeControl.Application.Features.CompanyCalendars.Queries.GetCompanyCalendars;
 using EmployeeControl.Domain.Entities;
@@ -34,6 +36,37 @@ public class CompanyCalendarController : ApiControllerBase
     public async Task<ActionResult<GetCompanyCalendarByIdResponse>> GetCompanyCalendarById(string id)
     {
         var result = await Sender.Send(new GetCompanyCalendarByIdQuery(id));
+
+        return result;
+    }
+
+    /// <summary>
+    /// Crea un <see cref="CompanyCalendar" />.
+    /// </summary>
+    /// <param name="command">Datos de <see cref="CompanyCalendar" />.</param>
+    /// <returns><see cref="Result" />.</returns>
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Result>> CreateCompanyCalendar(CreateCompanyCalendarCommand command)
+    {
+        var result = await Sender.Send(command);
+
+        return result;
+    }
+
+    /// <summary>
+    /// Actualizar un <see cref="CompanyCalendar" />.
+    /// </summary>
+    /// <param name="command">Datos actualizados de <see cref="CompanyCalendar" />.</param>
+    /// <returns><see cref="Result" />.</returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Result>> UpdateCompanyCalendar(UpdateCompanyCalendarCommand command)
+    {
+        var result = await Sender.Send(command);
 
         return result;
     }
