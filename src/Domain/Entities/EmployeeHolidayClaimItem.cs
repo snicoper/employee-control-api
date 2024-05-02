@@ -5,7 +5,7 @@ namespace EmployeeControl.Domain.Entities;
 /// <summary>
 /// Días reclamados para vacaciones.
 /// </summary>
-public class EmployeeHolidayClaimLine : BaseAuditableEntity
+public class EmployeeHolidayClaimItem : BaseAuditableEntity
 {
     public DateOnly Date { get; set; }
 

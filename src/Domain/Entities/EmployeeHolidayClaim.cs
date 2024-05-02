@@ -17,5 +17,5 @@ public class EmployeeHolidayClaim : BaseAuditableEntity
 
     public ApplicationUser User { get; set; } = null!;
 
-    public ICollection<EmployeeHolidayClaimLine> EmployeeHolidayClaimLines { get; set; } = new List<EmployeeHolidayClaimLine>();
+    public ICollection<EmployeeHolidayClaimItem> EmployeeHolidayClaimLines { get; set; } = new List<EmployeeHolidayClaimItem>();
 }

@@ -26,7 +26,7 @@ public interface IApplicationDbContext
 
     DbSet<EmployeeHolidayClaim> EmployeeHolidaysClaims { get; }
 
-    DbSet<EmployeeHolidayClaimLine> EmployeeHolidaysClaimLines { get; }
+    DbSet<EmployeeHolidayClaimItem> EmployeeHolidaysClaimLines { get; }
 
     DbSet<EmployeeHoliday> EmployeeHolidays { get; }
 

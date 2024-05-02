@@ -18,7 +18,7 @@ public class ApplicationUser : IdentityUser, IEntityDomainEvent
 
         EmployeeHolidays = new List<EmployeeHoliday>();
         EmployeeHolidayClaims = new List<EmployeeHolidayClaim>();
-        EmployeeHolidayClaimLines = new List<EmployeeHolidayClaimLine>();
+        EmployeeHolidayClaimItems = new List<EmployeeHolidayClaimItem>();
         TimeControls = new List<TimeControl>();
         EmployeeDepartments = new List<EmployeeDepartment>();
         EmployeeCompanyTasks = new List<EmployeeCompanyTask>();
@@ -51,7 +51,7 @@ public class ApplicationUser : IdentityUser, IEntityDomainEvent
 
     public ICollection<EmployeeHolidayClaim> EmployeeHolidayClaims { get; set; }
 
-    public ICollection<EmployeeHolidayClaimLine> EmployeeHolidayClaimLines { get; set; }
+    public ICollection<EmployeeHolidayClaimItem> EmployeeHolidayClaimItems { get; set; }
 
     public ICollection<TimeControl> TimeControls { get; set; }
 

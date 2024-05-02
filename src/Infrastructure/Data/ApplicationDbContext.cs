@@ -28,7 +28,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public DbSet<EmployeeDepartment> EmployeeDepartments => Set<EmployeeDepartment>();
 
-    public DbSet<EmployeeHolidayClaimLine> EmployeeHolidaysClaimLines => Set<EmployeeHolidayClaimLine>();
+    public DbSet<EmployeeHolidayClaimItem> EmployeeHolidaysClaimLines => Set<EmployeeHolidayClaimItem>();
 
     public DbSet<EmployeeHolidayClaim> EmployeeHolidaysClaims => Set<EmployeeHolidayClaim>();
 

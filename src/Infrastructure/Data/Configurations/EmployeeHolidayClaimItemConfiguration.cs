@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EmployeeControl.Infrastructure.Data.Configurations;
 
-public class EmployeeHolidayClaimLineConfiguration : IEntityTypeConfiguration<EmployeeHolidayClaimLine>
+public class EmployeeHolidayClaimItemConfiguration : IEntityTypeConfiguration<EmployeeHolidayClaimItem>
 {
-    public void Configure(EntityTypeBuilder<EmployeeHolidayClaimLine> builder)
+    public void Configure(EntityTypeBuilder<EmployeeHolidayClaimItem> builder)
     {
         // Table name.
-        builder.ToTable("EmployeeHolidayClaimLines");
+        builder.ToTable("EmployeeHolidayClaimItems");
 
         // Key.
         builder.HasKey(ehcl => ehcl.Id);
@@ -22,7 +22,7 @@ public class EmployeeHolidayClaimLineConfiguration : IEntityTypeConfiguration<Em
 
         // One-to-Many.
         builder.HasOne<ApplicationUser>(ehcl => ehcl.User)
-            .WithMany(au => au.EmployeeHolidayClaimLines)
+            .WithMany(au => au.EmployeeHolidayClaimItems)
             .HasForeignKey(ehcl => ehcl.UserId)
             .OnDelete(DeleteBehavior.Cascade)
             .IsRequired();
