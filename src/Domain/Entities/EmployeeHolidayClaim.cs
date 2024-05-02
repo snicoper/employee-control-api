@@ -7,11 +7,6 @@ namespace EmployeeControl.Domain.Entities;
 /// </summary>
 public class EmployeeHolidayClaim : BaseAuditableEntity
 {
-    public EmployeeHolidayClaim()
-    {
-        EmployeeHolidayClaimLines = new List<EmployeeHolidayClaimLine>();
-    }
-
     public int Year { get; set; }
 
     public string? Description { get; set; }
@@ -22,5 +17,5 @@ public class EmployeeHolidayClaim : BaseAuditableEntity
 
     public ApplicationUser User { get; set; } = null!;
 
-    public ICollection<EmployeeHolidayClaimLine> EmployeeHolidayClaimLines { get; set; }
+    public ICollection<EmployeeHolidayClaimLine> EmployeeHolidayClaimLines { get; set; } = new List<EmployeeHolidayClaimLine>();
 }
