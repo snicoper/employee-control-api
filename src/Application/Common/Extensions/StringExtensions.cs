@@ -7,16 +7,6 @@ namespace EmployeeControl.Application.Common.Extensions;
 public static class StringExtensions
 {
     /// <summary>
-    /// Comprueba si un string es null.
-    /// </summary>
-    /// <param name="value">String a comprobar.</param>
-    /// <returns>True si es null, false en caso contrario.</returns>
-    public static bool IsNull(this string? value)
-    {
-        return value is null;
-    }
-
-    /// <summary>
     /// Devolver un string con la primera letra en minúscula.
     /// </summary>
     /// <param name="value">String a convertir.</param>

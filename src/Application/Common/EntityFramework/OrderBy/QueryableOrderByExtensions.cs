@@ -4,6 +4,7 @@ using System.Text.Json;
 using EmployeeControl.Application.Common.EntityFramework.OrderBy.Exceptions;
 using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 
 namespace EmployeeControl.Application.Common.EntityFramework.OrderBy;
 
@@ -71,7 +72,9 @@ public static class QueryableOrderByExtensions
 
     private static IQueryable<TEntity> OrderByDefault<TEntity>(IQueryable<TEntity> source)
     {
-        var propertyInfo = typeof(TEntity).GetProperty("Created") ?? typeof(TEntity).GetProperty("Id");
+        var propertyInfo = typeof(TEntity).GetProperty(nameof(BaseAuditableEntity.Created)) ??
+                           typeof(TEntity).GetProperty(nameof(BaseEntity.Id));
+
         var result = propertyInfo is not null ? source.OrderBy($"{propertyInfo.Name} DESC") : source;
 
         return result;

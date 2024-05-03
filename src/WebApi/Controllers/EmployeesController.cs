@@ -25,7 +25,7 @@ public class EmployeesController : ApiControllerBase
     /// Obtener lista de empleados paginados.
     /// </summary>
     /// <param name="request">RequestData.</param>
-    /// <returns>Lista de empleados paginádos.</returns>
+    /// <returns>Lista de empleados paginados.</returns>
     [HttpGet("paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<ResponseData<GetEmployeesPaginatedResponse>>> GetEmployeesPaginated(
@@ -52,7 +52,7 @@ public class EmployeesController : ApiControllerBase
     }
 
     /// <summary>
-    /// Obtener roles de un empleado por el employeeId.
+    /// Obtener roles de un empleado por el Id de empleado.
     /// </summary>
     /// <param name="id">Id empleado.</param>
     /// <returns>Roles del empleado.</returns>
@@ -125,7 +125,7 @@ public class EmployeesController : ApiControllerBase
     }
 
     /// <summary>
-    /// Actualizar los roles de un emepleado.
+    /// Actualizar los roles de un empleado.
     /// </summary>
     /// <param name="command">Lista de roles a asignar.</param>
     /// <returns>Roles del empleado.</returns>

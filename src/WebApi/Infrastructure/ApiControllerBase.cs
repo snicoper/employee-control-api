@@ -10,9 +10,9 @@ namespace EmployeeControl.WebApi.Infrastructure;
 [ProducesResponseType(StatusCodes.Status401Unauthorized)]
 public class ApiControllerBase : ControllerBase
 {
-    private ISender? _sender;
+    private ISender? sender;
 
-    protected ISender Sender => _sender ??= HttpContext.RequestServices.GetRequiredService<ISender>();
+    protected ISender Sender => sender ??= HttpContext.RequestServices.GetRequiredService<ISender>();
 
     /// <summary>
     /// Devolver un resultado con un StatusCode concreto.
@@ -20,7 +20,7 @@ public class ApiControllerBase : ControllerBase
     /// <param name="result">Resultado a devolver.</param>
     /// <param name="statusCode">StatusCode respuesta.</param>
     /// <typeparam name="TResult">Tipo a devolver.</typeparam>
-    protected ObjectResult ObjectResultWithStatusCode<TResult>(TResult result, int statusCode)
+    protected static ObjectResult ObjectResultWithStatusCode<TResult>(TResult result, int statusCode)
     {
         return new ObjectResult(result) { StatusCode = statusCode };
     }
