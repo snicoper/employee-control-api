@@ -2,14 +2,9 @@
 
 namespace EmployeeControl.Infrastructure.Services.Common;
 
-public class DateTimeService : IDateTimeService
+public class DateTimeService(TimeProvider timeProvider) : IDateTimeService
 {
-    public DateTimeService(TimeProvider timeProvider)
-    {
-        TimeProvider = timeProvider;
-    }
-
-    public TimeProvider TimeProvider { get; }
+    public TimeProvider TimeProvider { get; } = timeProvider;
 
     public DateTimeOffset UtcNow => TimeProvider.GetUtcNow();
 

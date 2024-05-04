@@ -56,7 +56,7 @@ public class ValidationFailureService : IValidationFailureService
     {
         if (HasErrors())
         {
-            throw new CustomValidationException(Errors);
+            RaiseException();
         }
     }
 }
