@@ -18,7 +18,7 @@ public class EmployeeHolidayClaimConfiguration : IEntityTypeConfiguration<Employ
         builder.HasIndex(ehc => ehc.Id);
 
         // One-to-Many.
-        builder.HasOne<ApplicationUser>(ehc => ehc.User)
+        builder.HasOne<User>(ehc => ehc.User)
             .WithMany(au => au.EmployeeHolidayClaims)
             .HasForeignKey(ehc => ehc.UserId)
             .OnDelete(DeleteBehavior.Cascade)

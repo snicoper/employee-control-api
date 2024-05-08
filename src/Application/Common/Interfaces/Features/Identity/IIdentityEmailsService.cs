@@ -4,7 +4,7 @@ namespace EmployeeControl.Application.Common.Interfaces.Features.Identity;
 
 public interface IIdentityEmailsService
 {
-    Task SendInviteEmployeeAsync(ApplicationUser user, Company company, string code);
+    Task SendInviteEmployeeAsync(User user, Company company, string code);
 
-    Task SendRecoveryPasswordAsync(ApplicationUser user, string code);
+    Task SendRecoveryPasswordAsync(User user, string code);
 }

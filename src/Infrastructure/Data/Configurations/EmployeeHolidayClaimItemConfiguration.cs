@@ -21,7 +21,7 @@ public class EmployeeHolidayClaimItemConfiguration : IEntityTypeConfiguration<Em
             .IsUnique();
 
         // One-to-Many.
-        builder.HasOne<ApplicationUser>(ehcl => ehcl.User)
+        builder.HasOne<User>(ehcl => ehcl.User)
             .WithMany(au => au.EmployeeHolidayClaimItems)
             .HasForeignKey(ehcl => ehcl.UserId)
             .OnDelete(DeleteBehavior.Cascade)

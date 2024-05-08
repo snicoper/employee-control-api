@@ -9,7 +9,7 @@ namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetEmployees
 
 internal class GetEmployeesUnassignedTaskByCompanyTaskIdHandler(
     IApplicationDbContext context,
-    UserManager<ApplicationUser> userManager)
+    UserManager<User> userManager)
     : IRequestHandler<
         GetEmployeesUnassignedTaskByCompanyTaskIdQuery,
         ICollection<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>>

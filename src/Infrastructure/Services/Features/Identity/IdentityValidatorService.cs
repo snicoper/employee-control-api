@@ -10,16 +10,16 @@ using Microsoft.Extensions.Logging;
 namespace EmployeeControl.Infrastructure.Services.Features.Identity;
 
 public class IdentityValidatorService(
-    UserManager<ApplicationUser> userManager,
-    IUserValidator<ApplicationUser> userValidator,
-    IPasswordValidator<ApplicationUser> passwordValidator,
-    IStringLocalizer<ApplicationUser> localizer,
+    UserManager<User> userManager,
+    IUserValidator<User> userValidator,
+    IPasswordValidator<User> passwordValidator,
+    IStringLocalizer<User> localizer,
     IValidationFailureService validationFailureService,
     ICurrentUserService currentUserService,
     ILogger<IdentityService> logger)
     : IIdentityValidatorService
 {
-    public async Task UniqueEmailValidationAsync(ApplicationUser user, CancellationToken cancellationToken)
+    public async Task UniqueEmailValidationAsync(User user, CancellationToken cancellationToken)
     {
         // Si es un update, omitir el email actual del usuario.
         var emailExists = string.IsNullOrEmpty(user.Id)
@@ -34,7 +34,7 @@ public class IdentityValidatorService(
         }
     }
 
-    public async Task UserValidationAsync(ApplicationUser user)
+    public async Task UserValidationAsync(User user)
     {
         var validUser = await userValidator.ValidateAsync(userManager, user);
         if (!validUser.Succeeded)
@@ -45,7 +45,7 @@ public class IdentityValidatorService(
         }
     }
 
-    public async Task PasswordValidationAsync(ApplicationUser user, string password)
+    public async Task PasswordValidationAsync(User user, string password)
     {
         var validPassword = await passwordValidator.ValidateAsync(userManager, user, password);
         if (!validPassword.Succeeded)
@@ -56,7 +56,7 @@ public class IdentityValidatorService(
         }
     }
 
-    public void ValidateUpdateEmployeeRoles(ApplicationUser user, IEnumerable<string> userRoles)
+    public void ValidateUpdateEmployeeRoles(User user, IEnumerable<string> userRoles)
     {
         if (currentUserService.Id != user.Id)
         {

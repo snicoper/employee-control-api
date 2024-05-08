@@ -10,5 +10,5 @@ public interface IIdentityRoleService
     /// </summary>
     /// <param name="user">Usuario al que se quiere obtener sus roles.</param>
     /// <returns>Lista de <see cref="IdentityRole" />.</returns>
-    Task<List<ApplicationRole>> GetRolesByUseAsync(ApplicationUser user);
+    Task<List<ApplicationRole>> GetRolesByUseAsync(User user);
 }

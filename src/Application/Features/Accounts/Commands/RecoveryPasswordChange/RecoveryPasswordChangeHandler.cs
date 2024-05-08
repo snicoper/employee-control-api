@@ -12,7 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace EmployeeControl.Application.Features.Accounts.Commands.RecoveryPasswordChange;
 
 internal class RecoveryPasswordChangeHandler(
-    UserManager<ApplicationUser> userManager,
+    UserManager<User> userManager,
     IValidationFailureService validationFailureService,
     IStringLocalizer<IdentityResource> localizer,
     ILogger<RecoveryPasswordChangeHandler> logger)

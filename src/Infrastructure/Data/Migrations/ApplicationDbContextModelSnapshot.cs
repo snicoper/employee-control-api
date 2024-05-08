@@ -44,112 +44,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("EmployeeControl.Domain.Entities.ApplicationUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer");
-
-                    b.Property<bool>("Active")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("CompanyCalendarId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("CompanyId")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTimeOffset>("EntryDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("RefreshToken")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.Property<DateTimeOffset?>("RefreshTokenExpiryTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("character varying(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyCalendarId");
-
-                    b.HasIndex("CompanyId");
-
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex");
-
-                    b.HasIndex("RefreshToken")
-                        .IsUnique();
-
-                    b.ToTable("AspNetUsers", (string)null);
-                });
-
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CategoryAbsence", b =>
                 {
                     b.Property<string>("Id")
@@ -609,7 +503,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.ToTable("EmployeeHolidayClaims", (string)null);
                 });
 
-            modelBuilder.Entity("EmployeeControl.Domain.Entities.EmployeeHolidayClaimLine", b =>
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.EmployeeHolidayClaimItem", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -648,7 +542,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasIndex("Date", "UserId")
                         .IsUnique();
 
-                    b.ToTable("EmployeeHolidayClaimLines", (string)null);
+                    b.ToTable("EmployeeHolidayClaimItems", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.EmployeeSettings", b =>
@@ -752,6 +646,112 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("TimeControls", (string)null);
+                });
+
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.User", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("CompanyCalendarId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CompanyId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset>("EntryDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("RefreshToken")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<DateTimeOffset?>("RefreshTokenExpiryTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyCalendarId");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex");
+
+                    b.HasIndex("RefreshToken")
+                        .IsUnique();
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.WorkingDaysWeek", b =>
@@ -886,14 +886,14 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<string>("RoleId")
                         .HasColumnType("text");
 
-                    b.Property<string>("ApplicationUserId")
+                    b.Property<string>("UserId1")
                         .HasColumnType("text");
 
                     b.HasKey("UserId", "RoleId");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
@@ -915,25 +915,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("EmployeeControl.Domain.Entities.ApplicationUser", b =>
-                {
-                    b.HasOne("EmployeeControl.Domain.Entities.CompanyCalendar", "CompanyCalendar")
-                        .WithMany("Users")
-                        .HasForeignKey("CompanyCalendarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
-                        .WithMany("Users")
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-
-                    b.Navigation("CompanyCalendar");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.CategoryAbsence", b =>
@@ -991,7 +972,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", "User")
+                    b.HasOne("EmployeeControl.Domain.Entities.User", "User")
                         .WithMany("EmployeeCompanyTasks")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1010,7 +991,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", "User")
+                    b.HasOne("EmployeeControl.Domain.Entities.User", "User")
                         .WithMany("EmployeeDepartments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1023,7 +1004,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.EmployeeHoliday", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", "User")
+                    b.HasOne("EmployeeControl.Domain.Entities.User", "User")
                         .WithMany("EmployeeHolidays")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1034,7 +1015,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.EmployeeHolidayClaim", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", "User")
+                    b.HasOne("EmployeeControl.Domain.Entities.User", "User")
                         .WithMany("EmployeeHolidayClaims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1043,7 +1024,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("EmployeeControl.Domain.Entities.EmployeeHolidayClaimLine", b =>
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.EmployeeHolidayClaimItem", b =>
                 {
                     b.HasOne("EmployeeControl.Domain.Entities.EmployeeHolidayClaim", "EmployeeHolidayClaim")
                         .WithMany("EmployeeHolidayClaimLines")
@@ -1051,8 +1032,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", "User")
-                        .WithMany("EmployeeHolidayClaimLines")
+                    b.HasOne("EmployeeControl.Domain.Entities.User", "User")
+                        .WithMany("EmployeeHolidayClaimItems")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1064,7 +1045,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.EmployeeSettings", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", "User")
+                    b.HasOne("EmployeeControl.Domain.Entities.User", "User")
                         .WithOne("EmployeeSettings")
                         .HasForeignKey("EmployeeControl.Domain.Entities.EmployeeSettings", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1075,13 +1056,32 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.TimeControl", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", "User")
+                    b.HasOne("EmployeeControl.Domain.Entities.User", "User")
                         .WithMany("TimeControls")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.User", b =>
+                {
+                    b.HasOne("EmployeeControl.Domain.Entities.CompanyCalendar", "CompanyCalendar")
+                        .WithMany("Users")
+                        .HasForeignKey("CompanyCalendarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EmployeeControl.Domain.Entities.Company", "Company")
+                        .WithMany("Users")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("CompanyCalendar");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.WorkingDaysWeek", b =>
@@ -1106,7 +1106,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", null)
+                    b.HasOne("EmployeeControl.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1115,7 +1115,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", null)
+                    b.HasOne("EmployeeControl.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1124,50 +1124,30 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", null)
-                        .WithMany("UserRoles")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("EmployeeControl.Domain.Entities.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", null)
+                    b.HasOne("EmployeeControl.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("EmployeeControl.Domain.Entities.User", null)
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId1");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("EmployeeControl.Domain.Entities.ApplicationUser", null)
+                    b.HasOne("EmployeeControl.Domain.Entities.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("EmployeeControl.Domain.Entities.ApplicationUser", b =>
-                {
-                    b.Navigation("EmployeeCompanyTasks");
-
-                    b.Navigation("EmployeeDepartments");
-
-                    b.Navigation("EmployeeHolidayClaimLines");
-
-                    b.Navigation("EmployeeHolidayClaims");
-
-                    b.Navigation("EmployeeHolidays");
-
-                    b.Navigation("EmployeeSettings")
-                        .IsRequired();
-
-                    b.Navigation("TimeControls");
-
-                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("EmployeeControl.Domain.Entities.Company", b =>
@@ -1207,6 +1187,26 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
             modelBuilder.Entity("EmployeeControl.Domain.Entities.EmployeeHolidayClaim", b =>
                 {
                     b.Navigation("EmployeeHolidayClaimLines");
+                });
+
+            modelBuilder.Entity("EmployeeControl.Domain.Entities.User", b =>
+                {
+                    b.Navigation("EmployeeCompanyTasks");
+
+                    b.Navigation("EmployeeDepartments");
+
+                    b.Navigation("EmployeeHolidayClaimItems");
+
+                    b.Navigation("EmployeeHolidayClaims");
+
+                    b.Navigation("EmployeeHolidays");
+
+                    b.Navigation("EmployeeSettings")
+                        .IsRequired();
+
+                    b.Navigation("TimeControls");
+
+                    b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618
         }

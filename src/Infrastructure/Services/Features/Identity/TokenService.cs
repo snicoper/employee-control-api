@@ -12,10 +12,10 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace EmployeeControl.Infrastructure.Services.Features.Identity;
 
-public class TokenService(IOptions<JwtSettings> jwtSettings, UserManager<ApplicationUser> userManager)
+public class TokenService(IOptions<JwtSettings> jwtSettings, UserManager<User> userManager)
     : ITokenService
 {
-    public async Task<string> GenerateAccessTokenAsync(ApplicationUser user)
+    public async Task<string> GenerateAccessTokenAsync(User user)
     {
         // Añadir claims.
         var claims = new List<Claim>

@@ -9,7 +9,7 @@ public class EmployeeCompanyTask : BaseAuditableEntity
 {
     public string UserId { get; set; } = default!;
 
-    public ApplicationUser User { get; set; } = null!;
+    public User User { get; set; } = null!;
 
     public string CompanyTaskId { get; set; } = default!;
 

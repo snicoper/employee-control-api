@@ -9,7 +9,7 @@ namespace EmployeeControl.Application.Features.Departments.Queries.GetEmployeesU
 
 internal class GetEmployeesUnassignedDepartmentByDepartmentIdHandler(
     IApplicationDbContext context,
-    UserManager<ApplicationUser> userManager)
+    UserManager<User> userManager)
     : IRequestHandler<
         GetEmployeesUnassignedDepartmentByDepartmentIdQuery,
         ICollection<GetEmployeesUnassignedDepartmentByDepartmentIdResponse>>

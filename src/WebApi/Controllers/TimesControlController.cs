@@ -46,7 +46,7 @@ public class TimesControlController : ApiControllerBase
     }
 
     /// <summary>
-    /// Obtener registros de <see cref="TimeControl" /> por el Id de un <see cref="ApplicationUser" />.
+    /// Obtener registros de <see cref="TimeControl" /> por el Id de un <see cref="User" />.
     /// <para>El <see cref="TimeControl" /> se obtiene con información del empleado.</para>
     /// </summary>
     /// <param name="employeeId">Id empleado.</param>
@@ -87,7 +87,7 @@ public class TimesControlController : ApiControllerBase
 
     /// <summary>
     /// Obtener un <see cref="TimeControl" /> por su Id.
-    /// <para>Contiene datos de <see cref="ApplicationUser" />.</para>
+    /// <para>Contiene datos de <see cref="User" />.</para>
     /// </summary>
     /// <param name="id">Id del <see cref="TimeControl" />.</param>
     /// <returns><see cref="TimeControl" />.</returns>

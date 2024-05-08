@@ -14,14 +14,14 @@ internal class InviteEmployeeHandler(
     IIdentityService identityService,
     IIdentityEmailsService identityEmailsService,
     ICompanyService companyService,
-    UserManager<ApplicationUser> userManager,
+    UserManager<User> userManager,
     IEmployeeSettingsService employeeSettingsService)
     : IRequestHandler<InviteEmployeeCommand, string>
 {
     public async Task<string> Handle(InviteEmployeeCommand request, CancellationToken cancellationToken)
     {
         var company = await companyService.GetCompanyAsync(cancellationToken);
-        var user = mapper.Map<InviteEmployeeCommand, ApplicationUser>(request);
+        var user = mapper.Map<InviteEmployeeCommand, User>(request);
         user.CompanyId = company.Id;
 
         var password = CommonUtils.GenerateRandomPassword(10);

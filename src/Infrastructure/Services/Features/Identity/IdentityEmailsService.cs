@@ -18,7 +18,7 @@ public class IdentityEmailsService(
     IOptions<WebApiSettings> webApiSettings)
     : IIdentityEmailsService
 {
-    public async Task SendInviteEmployeeAsync(ApplicationUser user, Company company, string code)
+    public async Task SendInviteEmployeeAsync(User user, Company company, string code)
     {
         // Url validación.
         var queryParams = new Dictionary<string, string> { ["userId"] = user.Id, ["code"] = code };
@@ -34,7 +34,7 @@ public class IdentityEmailsService(
         await emailService.SendMailWithViewAsync(EmailViews.InviteEmployee, model);
     }
 
-    public async Task SendRecoveryPasswordAsync(ApplicationUser user, string code)
+    public async Task SendRecoveryPasswordAsync(User user, string code)
     {
         // Url validación.
         var queryParams = new Dictionary<string, string> { ["userId"] = user.Id, ["code"] = code };

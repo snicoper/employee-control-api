@@ -18,7 +18,7 @@ public class TimeControlConfiguration : IEntityTypeConfiguration<TimeControl>
         builder.HasIndex(tc => tc.Id);
 
         // One-to-Many.
-        builder.HasOne<ApplicationUser>(tc => tc.User)
+        builder.HasOne<User>(tc => tc.User)
             .WithMany(au => au.TimeControls)
             .HasForeignKey(tc => tc.UserId)
             .IsRequired();

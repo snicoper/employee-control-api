@@ -19,7 +19,7 @@ public class DepartmentEmailsService(
     public async Task SendEmployeeAssignDepartmentAsync(
         Department department,
         Company company,
-        List<ApplicationUser> users)
+        List<User> users)
     {
         var siteName = webApiSettings.Value.SiteName ?? string.Empty;
         var companyName = company.Name;

@@ -11,7 +11,7 @@ public class EmployeeHolidayClaimItem : BaseAuditableEntity
 
     public string UserId { get; set; } = default!;
 
-    public ApplicationUser User { get; set; } = null!;
+    public User User { get; set; } = null!;
 
     public string EmployeeHolidayClaimId { get; set; } = null!;
 

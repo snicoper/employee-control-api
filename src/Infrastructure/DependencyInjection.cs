@@ -95,7 +95,7 @@ public static class DependencyInjection
         services.AddAuthorizationBuilder();
 
         services
-            .AddIdentityCore<ApplicationUser>()
+            .AddIdentityCore<User>()
             .AddRoles<ApplicationRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddClaimsPrincipalFactory<CustomClaimsPrincipalFactory>()

@@ -12,7 +12,7 @@ internal class AssignEmployeesToDepartmentHandler(
     IApplicationDbContext context,
     IDepartmentService departmentService,
     ICompanyService companyService,
-    UserManager<ApplicationUser> userManager,
+    UserManager<User> userManager,
     IDepartmentEmailsService departmentEmailsService)
     : IRequestHandler<AssignEmployeesToDepartmentCommand, Result>
 {

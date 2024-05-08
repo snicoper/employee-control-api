@@ -13,7 +13,7 @@ public class CompanyCalendar : BaseAuditableEntity
 
     public bool Default { get; set; }
 
-    public ICollection<ApplicationUser> Users { get; set; } = new List<ApplicationUser>();
+    public ICollection<User> Users { get; set; } = new List<User>();
 
     public ICollection<CompanyCalendarHoliday> CompanyCalendarHolidays { get; set; } = new List<CompanyCalendarHoliday>();
 }

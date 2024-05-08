@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace EmployeeControl.Application.Features.Employees.Commands.RemoveRoleHumanResources;
 
 internal class RemoveRoleHumanResourcesHandler(
-    UserManager<ApplicationUser> userManager,
+    UserManager<User> userManager,
     IIdentityService identityService,
     ILogger<AddRoleHumanResourcesHandler> logger)
     : IRequestHandler<RemoveRoleHumanResourcesCommand, Result>

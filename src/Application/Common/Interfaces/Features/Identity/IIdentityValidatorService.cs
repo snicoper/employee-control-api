@@ -12,14 +12,14 @@ public interface IIdentityValidatorService
     /// </summary>
     /// <param name="user">Usuario con el email a validar.</param>
     /// <param name="cancellationToken">CancellationToken.</param>
-    Task UniqueEmailValidationAsync(ApplicationUser user, CancellationToken cancellationToken);
+    Task UniqueEmailValidationAsync(User user, CancellationToken cancellationToken);
 
     /// <summary>
     /// Validación de usuario de <see cref="IUserValidator{TUser}" />.
     /// <para>Si esta en uso, añade un error en <see cref="IValidationFailureService" />.</para>
     /// </summary>
     /// <param name="user">Usuario con el email a validar.</param>
-    Task UserValidationAsync(ApplicationUser user);
+    Task UserValidationAsync(User user);
 
     /// <summary>
     /// Validación del password con <see cref="IPasswordValidator{TUser}" />.
@@ -27,12 +27,12 @@ public interface IIdentityValidatorService
     /// </summary>
     /// <param name="user">Usuario a validar.</param>
     /// <param name="password">Password a validar.</param>
-    Task PasswordValidationAsync(ApplicationUser user, string password);
+    Task PasswordValidationAsync(User user, string password);
 
     /// <summary>
-    /// Validaciones para asignar roles a un <see cref="ApplicationUser" />.
+    /// Validaciones para asignar roles a un <see cref="User" />.
     /// </summary>
-    /// <param name="user"><see cref="ApplicationUser" />.</param>
-    /// <param name="userRoles">Roles a asigna al <see cref="ApplicationUser" />.</param>
-    void ValidateUpdateEmployeeRoles(ApplicationUser user, IEnumerable<string> userRoles);
+    /// <param name="user"><see cref="User" />.</param>
+    /// <param name="userRoles">Roles a asigna al <see cref="User" />.</param>
+    void ValidateUpdateEmployeeRoles(User user, IEnumerable<string> userRoles);
 }

@@ -9,7 +9,7 @@ public record GetEmployeesByDepartmentIdPaginatedResponse(string Id, string Firs
     {
         public Mapping()
         {
-            CreateMap<ApplicationUser, GetEmployeesByDepartmentIdPaginatedResponse>();
+            CreateMap<User, GetEmployeesByDepartmentIdPaginatedResponse>();
         }
     }
 }

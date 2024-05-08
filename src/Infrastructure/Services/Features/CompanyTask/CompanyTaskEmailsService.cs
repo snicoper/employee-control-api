@@ -19,7 +19,7 @@ public class CompanyTaskEmailsService(
     public async Task SendEmployeeAssignTaskAsync(
         Domain.Entities.CompanyTask companyTask,
         Company company,
-        List<ApplicationUser> users)
+        List<User> users)
     {
         var siteName = webApiSettings.Value.SiteName ?? string.Empty;
         var companyName = company.Name;

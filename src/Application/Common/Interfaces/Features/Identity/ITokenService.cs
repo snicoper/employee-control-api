@@ -4,7 +4,7 @@ namespace EmployeeControl.Application.Common.Interfaces.Features.Identity;
 
 public interface ITokenService
 {
-    Task<string> GenerateAccessTokenAsync(ApplicationUser user);
+    Task<string> GenerateAccessTokenAsync(User user);
 
     string GenerateRefreshToken();
 }

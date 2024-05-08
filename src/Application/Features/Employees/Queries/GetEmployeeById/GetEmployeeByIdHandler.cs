@@ -11,7 +11,7 @@ public class GetEmployeeByIdHandler(IIdentityService identityService, IMapper ma
     public async Task<GetEmployeeByIdResponse> Handle(GetEmployeeByIdQuery request, CancellationToken cancellationToken)
     {
         var employee = await identityService.GetByIdWithCompanyCalendarAsync(request.Id);
-        var result = mapper.Map<ApplicationUser, GetEmployeeByIdResponse>(employee);
+        var result = mapper.Map<User, GetEmployeeByIdResponse>(employee);
 
         return result;
     }

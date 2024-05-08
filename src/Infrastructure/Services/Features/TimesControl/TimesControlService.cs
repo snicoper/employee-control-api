@@ -91,7 +91,7 @@ public class TimesControlService(
         return timesControl;
     }
 
-    public async Task<TimeState> GetTimeStateByEmployeeAsync(ApplicationUser user, CancellationToken cancellationToken)
+    public async Task<TimeState> GetTimeStateByEmployeeAsync(User user, CancellationToken cancellationToken)
     {
         var timeControl = await context
             .TimeControls
@@ -174,7 +174,7 @@ public class TimesControlService(
     }
 
     public async Task<(Result Result, TimeControl TimeControl)> StartAsync(
-        ApplicationUser user,
+        User user,
         DeviceType deviceType,
         double? latitude,
         double? longitude,
@@ -201,7 +201,7 @@ public class TimesControlService(
     }
 
     public async Task<(Result Result, TimeControl? TimeControl)> FinishAsync(
-        ApplicationUser user,
+        User user,
         DeviceType deviceType,
         ClosedBy closedBy,
         double? latitude,

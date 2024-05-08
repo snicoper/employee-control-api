@@ -15,7 +15,7 @@ public record GetCurrentEmployeeResponse(
     {
         public Mapping()
         {
-            CreateMap<ApplicationUser, GetCurrentEmployeeResponse>();
+            CreateMap<User, GetCurrentEmployeeResponse>();
         }
     }
 }

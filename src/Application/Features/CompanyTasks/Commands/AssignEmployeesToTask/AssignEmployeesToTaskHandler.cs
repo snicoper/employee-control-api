@@ -12,7 +12,7 @@ internal class AssignEmployeesToTaskHandler(
     IApplicationDbContext context,
     ICompanyTaskService companyTaskService,
     ICompanyService companyService,
-    UserManager<ApplicationUser> userManager,
+    UserManager<User> userManager,
     ICompanyTaskEmailsService companyTaskEmailsService)
     : IRequestHandler<AssignEmployeesToTaskCommand, Result>
 {

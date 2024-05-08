@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 namespace EmployeeControl.Infrastructure.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-    : IdentityDbContext<ApplicationUser, ApplicationRole, string>(options), IApplicationDbContext
+    : IdentityDbContext<User, ApplicationRole, string>(options), IApplicationDbContext
 {
     public DbSet<CompanyCalendarHoliday> CompanyCalendarHoliday => Set<CompanyCalendarHoliday>();
 

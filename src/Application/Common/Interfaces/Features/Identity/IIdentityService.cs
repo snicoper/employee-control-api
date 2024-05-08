@@ -16,31 +16,31 @@ public interface IIdentityService
     /// Obtener usuario por su Id.
     /// </summary>
     /// <param name="userId">Id del usuario.</param>
-    /// <returns><see cref="ApplicationUser" />.</returns>
-    Task<ApplicationUser> GetByIdAsync(string userId);
+    /// <returns><see cref="User" />.</returns>
+    Task<User> GetByIdAsync(string userId);
 
     /// <summary>
-    /// Obtener <see cref="ApplicationUser" /> con <see cref="CompanyCalendar" /> por el Id del usuario.
+    /// Obtener <see cref="User" /> con <see cref="CompanyCalendar" /> por el Id del usuario.
     /// </summary>
     /// <param name="userId">Id del usuario a obtener.</param>
-    /// <returns><see cref="ApplicationUser" />.</returns>
-    Task<ApplicationUser> GetByIdWithCompanyCalendarAsync(string userId);
+    /// <returns><see cref="User" />.</returns>
+    Task<User> GetByIdWithCompanyCalendarAsync(string userId);
 
     /// <summary>
     /// Obtener usuario actual.
     /// </summary>
-    /// <returns><see cref="ApplicationUser" />.</returns>
-    Task<ApplicationUser> GetCurrentAsync();
+    /// <returns><see cref="User" />.</returns>
+    Task<User> GetCurrentAsync();
 
     /// <summary>
     /// Obtener un usuario por su Email.
     /// </summary>
     /// <param name="email">Email del usuaio.</param>
-    /// <returns><see cref="ApplicationUser" />.</returns>
-    Task<ApplicationUser> GetByEmailAsync(string email);
+    /// <returns><see cref="User" />.</returns>
+    Task<User> GetByEmailAsync(string email);
 
     /// <summary>
-    /// Comprueba si un <see cref="ApplicationUser" /> tiene un role asignado.
+    /// Comprueba si un <see cref="User" /> tiene un role asignado.
     /// </summary>
     /// <param name="userId">Id de usuario.</param>
     /// <param name="role">Role a verificar.</param>
@@ -50,22 +50,22 @@ public interface IIdentityService
     Task<bool> AuthorizeAsync(string userId, string policyName);
 
     /// <summary>
-    /// Obtener un <see cref="IQueryable" /> de <see cref="ApplicationUser" />.
+    /// Obtener un <see cref="IQueryable" /> de <see cref="User" />.
     /// </summary>
-    /// <returns><see cref="IQueryable" /> de <see cref="ApplicationUser" />.</returns>
-    IQueryable<ApplicationUser> GetAllQueryable();
+    /// <returns><see cref="IQueryable" /> de <see cref="User" />.</returns>
+    IQueryable<User> GetAllQueryable();
 
     /// <summary>
     /// Crear un usuario.
     /// <para>Hace las validaciones necesarias para ver si puede ser creado.</para>
     /// </summary>
-    /// <param name="user"><see cref="ApplicationUser" />.</param>
+    /// <param name="user"><see cref="User" />.</param>
     /// <param name="password">Contraseña del usuario.</param>
     /// <param name="roles">Roles a asignar al usuario.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns><see cref="Result" /> y el Id del usuario en caso de éxito.</returns>
     Task<(Result Result, string Id)> CreateAsync(
-        ApplicationUser user,
+        User user,
         string password,
         IEnumerable<string> roles,
         CancellationToken cancellationToken);
@@ -74,28 +74,28 @@ public interface IIdentityService
     /// Actualizar un usuario.
     /// <para>Hace las validaciones necesarias para ver si puede ser actualizado.</para>
     /// </summary>
-    /// <param name="user"><see cref="ApplicationUser" />.</param>
+    /// <param name="user"><see cref="User" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns><see cref="Result" />.</returns>
-    Task<Result> UpdateAsync(ApplicationUser user, CancellationToken cancellationToken);
+    Task<Result> UpdateAsync(User user, CancellationToken cancellationToken);
 
     /// <summary>
     /// Elimina de la base de datos un usuario.
     /// </summary>
-    /// <param name="user"><see cref="ApplicationUser" />.</param>
+    /// <param name="user"><see cref="User" />.</param>
     /// <returns><see cref="Result" />.</returns>
-    Task<Result> DeleteAsync(ApplicationUser user);
+    Task<Result> DeleteAsync(User user);
 
     /// <summary>
     /// Modifica los roles de un usuario.
     /// <para>Elimina todos los roles que tenga actualmente y añade solo los que obtiene.</para>
     /// </summary>
-    /// <param name="user"><see cref="ApplicationUser" />.</param>
+    /// <param name="user"><see cref="User" />.</param>
     /// <param name="rolesToAdd">Roles a añadir.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns><see cref="Result" />.</returns>
     Task<Result> UpdateRolesByUserIdAsync(
-        ApplicationUser user,
+        User user,
         List<string> rolesToAdd,
         CancellationToken cancellationToken);
 }

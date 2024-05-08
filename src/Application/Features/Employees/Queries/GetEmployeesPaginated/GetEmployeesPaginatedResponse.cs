@@ -15,7 +15,7 @@ public record GetEmployeesPaginatedResponse(
     {
         public Mapping()
         {
-            CreateMap<ApplicationUser, GetEmployeesPaginatedResponse>();
+            CreateMap<User, GetEmployeesPaginatedResponse>();
         }
     }
 }

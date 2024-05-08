@@ -8,11 +8,11 @@ namespace EmployeeControl.Domain.Entities;
 /// <summary>
 /// Empleados de la aplicación.
 /// </summary>
-public class ApplicationUser : IdentityUser, IEntityDomainEvent
+public class User : IdentityUser, IEntityDomainEvent
 {
     private readonly List<BaseEvent> _domainEvents;
 
-    public ApplicationUser()
+    public User()
     {
         _domainEvents = new List<BaseEvent>();
 

@@ -18,7 +18,7 @@ public interface ITimesControlService
     Task<TimeControl> GetByIdAsync(string id, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Obtener un <see cref="TimeControl" /> por su Id con datos de <see cref="ApplicationUser" />.
+    /// Obtener un <see cref="TimeControl" /> por su Id con datos de <see cref="User" />.
     /// </summary>
     /// <param name="id">Id del <see cref="TimeControl" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
@@ -52,26 +52,26 @@ public interface ITimesControlService
 
     /// <summary>
     /// Obtener los <see cref="TimeControl" />.
-    /// <para>Incluye los <see cref="ApplicationUser" />.</para>
+    /// <para>Incluye los <see cref="User" />.</para>
     /// </summary>
     /// <returns><see cref="IQueryable{T}" /> con los <see cref="TimeControl" />.</returns>
     IQueryable<TimeControl> GetWithUserQueryable();
 
     /// <summary>
-    /// Obtener los <see cref="TimeControl" /> por el Id de <see cref="ApplicationUser" />.
-    /// <para>Incluye los <see cref="ApplicationUser" />.</para>
+    /// Obtener los <see cref="TimeControl" /> por el Id de <see cref="User" />.
+    /// <para>Incluye los <see cref="User" />.</para>
     /// </summary>
-    /// <param name="employeeId">Id <see cref="ApplicationUser" />.</param>
+    /// <param name="employeeId">Id <see cref="User" />.</param>
     /// <returns><see cref="IQueryable{T}" /> con los <see cref="TimeControl" />.</returns>
     IQueryable<TimeControl> GetWithUserByEmployeeIdQueryable(string employeeId);
 
     /// <summary>
     /// Obtener si el empleado tiene algún <see cref="TimeControl" /> inicializado.
     /// </summary>
-    /// <param name="user"><see cref="ApplicationUser" />.</param>
+    /// <param name="user"><see cref="User" />.</param>
     /// <param name="cancellationToken">CancellationToken.</param>
     /// <returns>true si tiene el <see cref="TimeControl" /> inicializado, false en caso contrario.</returns>
-    Task<TimeState> GetTimeStateByEmployeeAsync(ApplicationUser user, CancellationToken cancellationToken);
+    Task<TimeState> GetTimeStateByEmployeeAsync(User user, CancellationToken cancellationToken);
 
     /// <summary>
     /// Obtener los <see cref="TimeControl" /> con incidencias.
@@ -122,14 +122,14 @@ public interface ITimesControlService
     /// <para>Lanza un <see cref="NotFoundException" /> si el empleado no existe.</para>
     /// <para>Lanza un <see cref="IValidationFailureService" /> si ya tenía un tiempo inicializado.</para>
     /// </summary>
-    /// <param name="user"><see cref="ApplicationUser" />.</param>
+    /// <param name="user"><see cref="User" />.</param>
     /// <param name="deviceType">Dispositivo utilizado.</param>
     /// <param name="latitude">Longitud del empleado.</param>
     /// <param name="longitude">Latitud del empleado.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>Result con la respuesta y <see cref="TimeControl" /> creado.</returns>
     Task<(Result Result, TimeControl TimeControl)> StartAsync(
-        ApplicationUser user,
+        User user,
         DeviceType deviceType,
         double? latitude,
         double? longitude,
@@ -139,7 +139,7 @@ public interface ITimesControlService
     /// Inicia un TimeControl.
     /// <para>Lanza un <see cref="IValidationFailureService" /> en caso de error.</para>
     /// </summary>
-    /// <param name="user"><see cref="ApplicationUser" />.</param>
+    /// <param name="user"><see cref="User" />.</param>
     /// <param name="deviceType">Dispositivo utilizado.</param>
     /// <param name="closedBy"><see cref="ClosedBy" />, quien finaliza el tiempo.</param>
     /// <param name="latitude">Longitud del empleado.</param>
@@ -147,7 +147,7 @@ public interface ITimesControlService
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns>Result.Success en caso de exito, <see cref="IValidationFailureService" /> en caso contrario.</returns>
     Task<(Result Result, TimeControl? TimeControl)> FinishAsync(
-        ApplicationUser user,
+        User user,
         DeviceType deviceType,
         ClosedBy closedBy,
         double? latitude,

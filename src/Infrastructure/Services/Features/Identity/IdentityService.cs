@@ -14,9 +14,9 @@ using Microsoft.Extensions.Logging;
 namespace EmployeeControl.Infrastructure.Services.Features.Identity;
 
 public class IdentityService(
-    UserManager<ApplicationUser> userManager,
+    UserManager<User> userManager,
     IApplicationDbContext context,
-    IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
+    IUserClaimsPrincipalFactory<User> userClaimsPrincipalFactory,
     IAuthorizationService authorizationService,
     IIdentityValidatorService identityValidatorService,
     IValidationFailureService validationFailureService,
@@ -34,34 +34,34 @@ public class IdentityService(
         return user.UserName;
     }
 
-    public async Task<ApplicationUser> GetByIdAsync(string userId)
+    public async Task<User> GetByIdAsync(string userId)
     {
         return await userManager.FindByIdAsync(userId) ??
-               throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
+               throw new NotFoundException(nameof(User), nameof(User.Id));
     }
 
-    public async Task<ApplicationUser> GetByIdWithCompanyCalendarAsync(string userId)
+    public async Task<User> GetByIdWithCompanyCalendarAsync(string userId)
     {
         var user = await userManager
                        .Users
                        .Include(u => u.CompanyCalendar)
                        .SingleOrDefaultAsync(u => u.Id == userId) ??
-                   throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
+                   throw new NotFoundException(nameof(User), nameof(User.Id));
 
         return user;
     }
 
-    public async Task<ApplicationUser> GetCurrentAsync()
+    public async Task<User> GetCurrentAsync()
     {
         var user = await GetByIdAsync(currentUserService.Id);
 
         return user;
     }
 
-    public async Task<ApplicationUser> GetByEmailAsync(string email)
+    public async Task<User> GetByEmailAsync(string email)
     {
         return await userManager.FindByEmailAsync(email) ??
-               throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Email));
+               throw new NotFoundException(nameof(User), nameof(User.Email));
     }
 
     public async Task<bool> IsInRoleAsync(string userId, string role)
@@ -93,7 +93,7 @@ public class IdentityService(
         return result.Succeeded;
     }
 
-    public IQueryable<ApplicationUser> GetAllQueryable()
+    public IQueryable<User> GetAllQueryable()
     {
         var users = userManager.Users;
 
@@ -101,7 +101,7 @@ public class IdentityService(
     }
 
     public async Task<(Result Result, string Id)> CreateAsync(
-        ApplicationUser user,
+        User user,
         string password,
         IEnumerable<string> roles,
         CancellationToken cancellationToken)
@@ -123,7 +123,7 @@ public class IdentityService(
         return (identityResult.ToApplicationResult(), user.Id);
     }
 
-    public async Task<Result> UpdateAsync(ApplicationUser user, CancellationToken cancellationToken)
+    public async Task<Result> UpdateAsync(User user, CancellationToken cancellationToken)
     {
         // Validaciones.
         await identityValidatorService.UserValidationAsync(user);
@@ -139,7 +139,7 @@ public class IdentityService(
         return identityResult.ToApplicationResult();
     }
 
-    public async Task<Result> DeleteAsync(ApplicationUser user)
+    public async Task<Result> DeleteAsync(User user)
     {
         var result = await userManager.DeleteAsync(user);
 
@@ -147,7 +147,7 @@ public class IdentityService(
     }
 
     public async Task<Result> UpdateRolesByUserIdAsync(
-        ApplicationUser user,
+        User user,
         List<string> rolesToAdd,
         CancellationToken cancellationToken)
     {

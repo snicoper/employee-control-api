@@ -22,7 +22,7 @@ public record UpdateEmployeeCommand(
     {
         public Mapping()
         {
-            CreateMap<UpdateEmployeeCommand, ApplicationUser>();
+            CreateMap<UpdateEmployeeCommand, User>();
         }
     }
 }

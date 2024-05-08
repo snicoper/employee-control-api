@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 namespace EmployeeControl.Infrastructure.Services.Features.Identity;
 
 public class AuthService(
-    UserManager<ApplicationUser> userManager,
+    UserManager<User> userManager,
     IOptions<JwtSettings> jwtSettings,
     ITokenService tokenService,
     IDateTimeService dateTimeService,
@@ -62,7 +62,7 @@ public class AuthService(
         return tokensResult;
     }
 
-    private async Task<(string AccessToken, string RefreshToken)> GenerateUserTokenAsync(ApplicationUser user)
+    private async Task<(string AccessToken, string RefreshToken)> GenerateUserTokenAsync(User user)
     {
         var jwt = await tokenService.GenerateAccessTokenAsync(user);
         var newRefreshToken = tokenService.GenerateRefreshToken();

@@ -19,7 +19,7 @@ public record GetEmployeeByIdResponse(
     {
         public Mapping()
         {
-            CreateMap<ApplicationUser, GetEmployeeByIdResponse>()
+            CreateMap<User, GetEmployeeByIdResponse>()
                 .ForMember(dest => dest.CompanyCalendarName, opt => opt.MapFrom(src => src.CompanyCalendar.Name));
         }
     }

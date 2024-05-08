@@ -34,7 +34,7 @@ public class DepartmentsController : ApiControllerBase
     }
 
     /// <summary>
-    /// Obtener lista paginada de <see cref="ApplicationUser" /> por el Id del <see cref="Department" />.
+    /// Obtener lista paginada de <see cref="User" /> por el Id del <see cref="Department" />.
     /// </summary>
     /// <param name="request"><see cref="RequestData" />.</param>
     /// <param name="id">Id del <see cref="Department" />.</param>
@@ -50,7 +50,7 @@ public class DepartmentsController : ApiControllerBase
     }
 
     /// <summary>
-    /// Obtener lista paginada de <see cref="Department" /> por el Id de <see cref="ApplicationUser" />.
+    /// Obtener lista paginada de <see cref="Department" /> por el Id de <see cref="User" />.
     /// </summary>
     /// <param name="request"><see cref="RequestData" />.</param>
     /// <param name="employeeId">Id del <see cref="Department" />.</param>

@@ -14,7 +14,7 @@ using Microsoft.Extensions.Localization;
 namespace EmployeeControl.Application.Features.Employees.Commands.DeactivateEmployee;
 
 internal class DeactivateEmployeeHandler(
-    UserManager<ApplicationUser> userManager,
+    UserManager<User> userManager,
     IIdentityService identityService,
     IValidationFailureService validationFailureService,
     IStringLocalizer<IdentityResource> localizer)
@@ -23,7 +23,7 @@ internal class DeactivateEmployeeHandler(
     public async Task<Result> Handle(DeactivateEmployeeCommand request, CancellationToken cancellationToken)
     {
         var user = userManager.Users.SingleOrDefault(au => au.Id == request.EmployeeId)
-                   ?? throw new NotFoundException(nameof(ApplicationUser), nameof(ApplicationUser.Id));
+                   ?? throw new NotFoundException(nameof(User), nameof(User.Id));
 
         // La cuenta del Administrator, no se puede desactivar.
         var isAdministrator = await identityService.IsInRoleAsync(user.Id, Roles.Admin);

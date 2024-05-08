@@ -10,7 +10,7 @@ namespace EmployeeControl.Application.Features.Accounts.Commands.RecoveryPasswor
 
 internal class RecoveryPasswordHandler(
     IIdentityService identityService,
-    UserManager<ApplicationUser> userManager,
+    UserManager<User> userManager,
     IIdentityEmailsService identityEmailsService,
     IStringLocalizer<IdentityResource> localizer)
     : IRequestHandler<RecoveryPasswordCommand, Result>

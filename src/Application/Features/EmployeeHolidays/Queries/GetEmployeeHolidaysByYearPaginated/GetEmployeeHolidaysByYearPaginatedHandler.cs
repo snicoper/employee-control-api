@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 namespace EmployeeControl.Application.Features.EmployeeHolidays.Queries.GetEmployeeHolidaysByYearPaginated;
 
 internal class GetEmployeeHolidaysByYearPaginatedHandler(
-    UserManager<ApplicationUser> userManager,
+    UserManager<User> userManager,
     IMapper mapper)
     : IRequestHandler<GetEmployeeHolidaysByYearPaginatedQuery, ResponseData<GetEmployeeHolidaysByYearPaginatedResponse>>
 {

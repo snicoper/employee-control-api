@@ -13,7 +13,7 @@ public class ApplicationDbContextInitialize(
     ApplicationDbContext context,
     IDateTimeService dateTimeService,
     ICompanyService companyService,
-    UserManager<ApplicationUser> userManager,
+    UserManager<User> userManager,
     RoleManager<ApplicationRole> roleManager)
 {
     public async Task InitialiseAsync()
@@ -159,7 +159,7 @@ public class ApplicationDbContextInitialize(
         var companyCalendar = context.CompanyCalendars.First(cc => cc.Default);
 
         // Admin user.
-        var user = new ApplicationUser
+        var user = new User
         {
             UserName = "admin@localhost",
             FirstName = "Admin",
@@ -187,7 +187,7 @@ public class ApplicationDbContextInitialize(
         }
 
         // EnterpriseStaff user.
-        user = new ApplicationUser
+        user = new User
         {
             UserName = "snicoper@gmail.com",
             FirstName = "Salvador",
@@ -215,7 +215,7 @@ public class ApplicationDbContextInitialize(
         }
 
         // HumanResources user.
-        user = new ApplicationUser
+        user = new User
         {
             UserName = "alice@example.com",
             FirstName = "Alice",
@@ -243,7 +243,7 @@ public class ApplicationDbContextInitialize(
         }
 
         // Employee user.
-        user = new ApplicationUser
+        user = new User
         {
             UserName = "bob@example.com",
             FirstName = "Bob",

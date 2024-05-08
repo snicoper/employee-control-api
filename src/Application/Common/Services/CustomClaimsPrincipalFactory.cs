@@ -6,10 +6,10 @@ using Microsoft.Extensions.Options;
 
 namespace EmployeeControl.Application.Common.Services;
 
-public class CustomClaimsPrincipalFactory(UserManager<ApplicationUser> userManager, IOptions<IdentityOptions> optionsAccessor)
-    : UserClaimsPrincipalFactory<ApplicationUser>(userManager, optionsAccessor)
+public class CustomClaimsPrincipalFactory(UserManager<User> userManager, IOptions<IdentityOptions> optionsAccessor)
+    : UserClaimsPrincipalFactory<User>(userManager, optionsAccessor)
 {
-    protected override async Task<ClaimsIdentity> GenerateClaimsAsync(ApplicationUser user)
+    protected override async Task<ClaimsIdentity> GenerateClaimsAsync(User user)
     {
         var identity = await base.GenerateClaimsAsync(user);
 

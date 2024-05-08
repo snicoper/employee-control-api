@@ -327,7 +327,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 {
                     UserId = table.Column<string>(type: "text", nullable: false),
                     RoleId = table.Column<string>(type: "text", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "text", nullable: true)
+                    UserId1 = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -339,16 +339,16 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AspNetUserRoles_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUserRoles_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -537,7 +537,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmployeeHolidayClaimLines",
+                name: "EmployeeHolidayClaimItems",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
@@ -551,15 +551,15 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmployeeHolidayClaimLines", x => x.Id);
+                    table.PrimaryKey("PK_EmployeeHolidayClaimItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmployeeHolidayClaimLines_AspNetUsers_UserId",
+                        name: "FK_EmployeeHolidayClaimItems_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EmployeeHolidayClaimLines_EmployeeHolidayClaims_EmployeeHol~",
+                        name: "FK_EmployeeHolidayClaimItems_EmployeeHolidayClaims_EmployeeHol~",
                         column: x => x.EmployeeHolidayClaimId,
                         principalTable: "EmployeeHolidayClaims",
                         principalColumn: "Id",
@@ -588,14 +588,14 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUserRoles_ApplicationUserId",
-                table: "AspNetUserRoles",
-                column: "ApplicationUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserRoles_RoleId",
                 table: "AspNetUserRoles",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AspNetUserRoles_UserId1",
+                table: "AspNetUserRoles",
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -755,24 +755,24 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 columns: new[] { "UserId", "DepartmentId" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeHolidayClaimLines_Date_UserId",
-                table: "EmployeeHolidayClaimLines",
+                name: "IX_EmployeeHolidayClaimItems_Date_UserId",
+                table: "EmployeeHolidayClaimItems",
                 columns: new[] { "Date", "UserId" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeHolidayClaimLines_EmployeeHolidayClaimId",
-                table: "EmployeeHolidayClaimLines",
+                name: "IX_EmployeeHolidayClaimItems_EmployeeHolidayClaimId",
+                table: "EmployeeHolidayClaimItems",
                 column: "EmployeeHolidayClaimId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeHolidayClaimLines_Id",
-                table: "EmployeeHolidayClaimLines",
+                name: "IX_EmployeeHolidayClaimItems_Id",
+                table: "EmployeeHolidayClaimItems",
                 column: "Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeHolidayClaimLines_UserId",
-                table: "EmployeeHolidayClaimLines",
+                name: "IX_EmployeeHolidayClaimItems_UserId",
+                table: "EmployeeHolidayClaimItems",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -868,7 +868,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 name: "EmployeeDepartments");
 
             migrationBuilder.DropTable(
-                name: "EmployeeHolidayClaimLines");
+                name: "EmployeeHolidayClaimItems");
 
             migrationBuilder.DropTable(
                 name: "EmployeeHolidays");

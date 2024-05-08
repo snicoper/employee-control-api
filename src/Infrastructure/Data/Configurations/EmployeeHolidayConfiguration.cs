@@ -21,7 +21,7 @@ public class EmployeeHolidayConfiguration : IEntityTypeConfiguration<EmployeeHol
             .IsUnique();
 
         // One-to-Many.
-        builder.HasOne<ApplicationUser>(eh => eh.User)
+        builder.HasOne<User>(eh => eh.User)
             .WithMany(au => au.EmployeeHolidays)
             .HasForeignKey(eh => eh.UserId)
             .OnDelete(DeleteBehavior.Cascade)

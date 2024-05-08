@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace EmployeeControl.Application.Features.Employees.Commands.AddRoleHumanResources;
 
 internal class AddRoleHumanResourcesHandler(
-    UserManager<ApplicationUser> userManager,
+    UserManager<User> userManager,
     IIdentityService identityService,
     ILogger<AddRoleHumanResourcesHandler> logger)
     : IRequestHandler<AddRoleHumanResourcesCommand, Result>

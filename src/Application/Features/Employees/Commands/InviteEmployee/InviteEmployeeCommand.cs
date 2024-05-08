@@ -14,7 +14,7 @@ public record InviteEmployeeCommand(string FirstName, string LastName, string Em
     {
         public Mapping()
         {
-            CreateMap<InviteEmployeeCommand, ApplicationUser>()
+            CreateMap<InviteEmployeeCommand, User>()
                 .ForMember(dest => dest.FirstName, opt => opt.MapFrom(src => src.FirstName))
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email));

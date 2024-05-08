@@ -12,7 +12,7 @@ public interface IDepartmentService
     IQueryable<Department> GetAllQueryable();
 
     /// <summary>
-    /// Obtener departamentos por el Id del <see cref="ApplicationUser" />.
+    /// Obtener departamentos por el Id del <see cref="User" />.
     /// </summary>
     /// <param name="employeeId">Id empleado.</param>
     /// <returns><see cref="IQueryable{T}" /> de la consulta.</returns>
