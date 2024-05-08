@@ -2,7 +2,7 @@ using AutoMapper;
 using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
-using EmployeeControl.Application.Localizations;
+using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
 using MediatR;
@@ -14,7 +14,7 @@ internal class CreateTimeControlHandler(
     IMapper mapper,
     ITimesControlService timesControlService,
     IValidationFailureService validationFailureService,
-    IStringLocalizer<TimeControlLocalizer> localizer)
+    IStringLocalizer<TimeControlResource> localizer)
     : IRequestHandler<CreateTimeControlCommand, string>
 {
     public async Task<string> Handle(CreateTimeControlCommand request, CancellationToken cancellationToken)

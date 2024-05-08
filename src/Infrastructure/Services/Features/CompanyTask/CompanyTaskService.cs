@@ -2,14 +2,14 @@
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
-using EmployeeControl.Application.Localizations;
+using EmployeeControl.Application.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
 namespace EmployeeControl.Infrastructure.Services.Features.CompanyTask;
 
 public class CompanyTaskService(
-    IStringLocalizer<TaskLocalizer> localizer,
+    IStringLocalizer<TaskResource> localizer,
     IValidationFailureService validationFailureService,
     IApplicationDbContext context)
     : ICompanyTaskService

@@ -4,7 +4,7 @@ using EmployeeControl.Application.Common.Interfaces.Emails;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models.Emails;
 using EmployeeControl.Application.Common.Models.Settings;
-using EmployeeControl.Application.Localizations;
+using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Entities;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
@@ -14,7 +14,7 @@ namespace EmployeeControl.Infrastructure.Services.Features.Identity;
 public class IdentityEmailsService(
     IEmailService emailService,
     ILinkGeneratorService linkGeneratorService,
-    IStringLocalizer<SharedLocalizer> localizer,
+    IStringLocalizer<SharedResource> localizer,
     IOptions<WebApiSettings> webApiSettings)
     : IIdentityEmailsService
 {

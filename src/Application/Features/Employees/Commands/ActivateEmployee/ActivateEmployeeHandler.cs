@@ -4,7 +4,7 @@ using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Localizations;
+using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using MediatR;
@@ -17,7 +17,7 @@ internal class ActivateEmployeeHandler(
     UserManager<ApplicationUser> userManager,
     IIdentityService identityService,
     IValidationFailureService validationFailureService,
-    IStringLocalizer<IdentityLocalizer> localizer)
+    IStringLocalizer<IdentityResource> localizer)
     : IRequestHandler<ActivateEmployeeCommand, Result>
 {
     public async Task<Result> Handle(ActivateEmployeeCommand request, CancellationToken cancellationToken)

@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendars;
-using EmployeeControl.Application.Localizations;
+using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -12,7 +12,7 @@ namespace EmployeeControl.Infrastructure.Services.Features.CompanyCalendars;
 public class CompanyCalendarValidatorService(
     IValidationFailureService validationFailureService,
     ILogger<CompanyCalendarValidatorService> logger,
-    IStringLocalizer<CalendarLocalizer> localizer,
+    IStringLocalizer<CalendarResource> localizer,
     IApplicationDbContext context)
     : ICompanyCalendarValidatorService
 {

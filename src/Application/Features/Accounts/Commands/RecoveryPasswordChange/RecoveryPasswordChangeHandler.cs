@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Localizations;
+using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -12,10 +12,10 @@ using Microsoft.IdentityModel.Tokens;
 namespace EmployeeControl.Application.Features.Accounts.Commands.RecoveryPasswordChange;
 
 internal class RecoveryPasswordChangeHandler(
-        UserManager<ApplicationUser> userManager,
-        IValidationFailureService validationFailureService,
-        IStringLocalizer<IdentityLocalizer> localizer,
-        ILogger<RecoveryPasswordChangeHandler> logger)
+    UserManager<ApplicationUser> userManager,
+    IValidationFailureService validationFailureService,
+    IStringLocalizer<IdentityResource> localizer,
+    ILogger<RecoveryPasswordChangeHandler> logger)
     : IRequestHandler<RecoveryPasswordChangeCommand, Result>
 {
     public async Task<Result> Handle(RecoveryPasswordChangeCommand request, CancellationToken cancellationToken)

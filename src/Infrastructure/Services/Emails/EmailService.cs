@@ -80,11 +80,11 @@ public class EmailService : IEmailService
         client.EnableSsl = true;
 
         ValidateEmail();
-        LoggerMessage();
 
         // Solo en Production se envían los mensajes por SMTP.
         if (!environment.IsProduction())
         {
+            LoggerMessage();
             return;
         }
 
@@ -123,6 +123,6 @@ public class EmailService : IEmailService
         stringBuilder.Append($"Body: {body}\n");
         stringBuilder.Append("=========================================================\n");
 
-        logger.LogDebug("{logEmail}", stringBuilder.ToString());
+        logger.LogDebug("{LogEmail}", stringBuilder);
     }
 }

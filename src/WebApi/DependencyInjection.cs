@@ -1,6 +1,7 @@
 using System.Reflection;
 using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Common;
+using EmployeeControl.Application.Localization;
 using EmployeeControl.WebApi.Infrastructure;
 using EmployeeControl.WebApi.Services;
 using Microsoft.AspNetCore.Localization;
@@ -41,9 +42,11 @@ public static class DependencyInjection
 
         services.AddControllersWithViews()
             .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-            .AddDataAnnotationsLocalization();
-
-        services.AddRazorPages();
+            .AddDataAnnotationsLocalization(
+                options =>
+                {
+                    options.DataAnnotationLocalizerProvider = (_, factory) => factory.Create(typeof(SharedResource));
+                });
 
         // Customize default API behavior.
         services.Configure<ApiBehaviorOptions>(
@@ -106,7 +109,7 @@ public static class DependencyInjection
         services.Configure<RequestLocalizationOptions>(
             options =>
             {
-                options.DefaultRequestCulture = new RequestCulture(AppCultures.DefaultCulture);
+                options.DefaultRequestCulture = new RequestCulture(AppCultures.DefaultCulture, AppCultures.DefaultCulture);
                 options.SupportedCultures = AppCultures.GetAll();
                 options.SupportedUICultures = AppCultures.GetAll();
             });

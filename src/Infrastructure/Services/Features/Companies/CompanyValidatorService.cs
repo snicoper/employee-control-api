@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Companies;
-using EmployeeControl.Application.Localizations;
+using EmployeeControl.Application.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -12,7 +12,7 @@ public class CompanyValidatorService(
     IApplicationDbContext context,
     IValidationFailureService validationFailureService,
     ILogger<CompanyValidatorService> logger,
-    IStringLocalizer<CompanyLocalizer> localizer)
+    IStringLocalizer<CompanyResource> localizer)
     : ICompanyValidatorService
 {
     public async Task UniqueNameValidationAsync(string companyName, CancellationToken cancellationToken)

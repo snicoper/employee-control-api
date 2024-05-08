@@ -2,7 +2,7 @@
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models.Settings;
-using EmployeeControl.Application.Localizations;
+using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
@@ -11,12 +11,12 @@ using Microsoft.Extensions.Options;
 namespace EmployeeControl.Infrastructure.Services.Features.Identity;
 
 public class AuthService(
-        UserManager<ApplicationUser> userManager,
-        IOptions<JwtSettings> jwtSettings,
-        ITokenService tokenService,
-        IDateTimeService dateTimeService,
-        IStringLocalizer<IdentityLocalizer> localizer,
-        IValidationFailureService validationFailureService)
+    UserManager<ApplicationUser> userManager,
+    IOptions<JwtSettings> jwtSettings,
+    ITokenService tokenService,
+    IDateTimeService dateTimeService,
+    IStringLocalizer<IdentityResource> localizer,
+    IValidationFailureService validationFailureService)
     : IAuthService
 {
     public async Task<(string AccessToken, string RefreshToken)> LoginAsync(string email, string password)

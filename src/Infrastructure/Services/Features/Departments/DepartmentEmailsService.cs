@@ -3,7 +3,7 @@ using EmployeeControl.Application.Common.Interfaces.Emails;
 using EmployeeControl.Application.Common.Interfaces.Features.Departments;
 using EmployeeControl.Application.Common.Models.Emails;
 using EmployeeControl.Application.Common.Models.Settings;
-using EmployeeControl.Application.Localizations;
+using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Entities;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
@@ -13,7 +13,7 @@ namespace EmployeeControl.Infrastructure.Services.Features.Departments;
 public class DepartmentEmailsService(
     IEmailService emailService,
     IOptions<WebApiSettings> webApiSettings,
-    IStringLocalizer<TaskLocalizer> localizer)
+    IStringLocalizer<TaskResource> localizer)
     : IDepartmentEmailsService
 {
     public async Task SendEmployeeAssignDepartmentAsync(

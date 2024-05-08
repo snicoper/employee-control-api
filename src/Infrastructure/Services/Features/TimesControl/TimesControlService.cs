@@ -6,7 +6,7 @@ using EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Common.Services.Hubs;
-using EmployeeControl.Application.Localizations;
+using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
 using Microsoft.AspNetCore.SignalR;
@@ -22,7 +22,7 @@ public class TimesControlService(
     IApplicationDbContext context,
     ICompanySettingsService companySettingsService,
     IHubContext<NotificationTimeControlIncidenceHub> hubContext,
-    IStringLocalizer<TimeControlLocalizer> localizer)
+    IStringLocalizer<TimeControlResource> localizer)
     : ITimesControlService
 {
     public async Task<TimeControl> GetByIdAsync(string id, CancellationToken cancellationToken)

@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendarHolidays;
-using EmployeeControl.Application.Localizations;
+using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -11,7 +11,7 @@ namespace EmployeeControl.Infrastructure.Services.Features.CompanyCalendarHolida
 public class CompanyCalendarHolidaysValidatorService(
     IApplicationDbContext context,
     IValidationFailureService validationFailureService,
-    IStringLocalizer<CalendarLocalizer> localizer)
+    IStringLocalizer<CalendarResource> localizer)
     : ICompanyCalendarHolidaysValidatorService
 {
     public async Task ValidateCreateHolidayInDateAsync(

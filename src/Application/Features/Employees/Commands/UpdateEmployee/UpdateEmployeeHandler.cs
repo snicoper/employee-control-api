@@ -3,7 +3,7 @@ using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Localizations;
+using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Constants;
 using MediatR;
 using Microsoft.Extensions.Localization;
@@ -15,7 +15,7 @@ internal class UpdateEmployeeHandler(
     IMapper mapper,
     ICurrentUserService currentUserService,
     IValidationFailureService validationFailureService,
-    IStringLocalizer<IdentityLocalizer> localizer)
+    IStringLocalizer<IdentityResource> localizer)
     : IRequestHandler<UpdateEmployeeCommand, Result>
 {
     public async Task<Result> Handle(UpdateEmployeeCommand request, CancellationToken cancellationToken)

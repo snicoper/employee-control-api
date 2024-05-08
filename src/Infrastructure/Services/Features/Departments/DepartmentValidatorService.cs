@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Departments;
-using EmployeeControl.Application.Localizations;
+using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -11,7 +11,7 @@ namespace EmployeeControl.Infrastructure.Services.Features.Departments;
 public class DepartmentValidatorService(
     IApplicationDbContext context,
     IValidationFailureService validationFailureService,
-    IStringLocalizer<DepartmentLocalizer> localizer)
+    IStringLocalizer<DepartmentResource> localizer)
     : IDepartmentValidatorService
 {
     public async Task ValidateNameAsync(Department department, CancellationToken cancellationToken)

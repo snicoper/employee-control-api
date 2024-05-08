@@ -3,7 +3,7 @@ using EmployeeControl.Application.Common.Interfaces.Emails;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
 using EmployeeControl.Application.Common.Models.Emails;
 using EmployeeControl.Application.Common.Models.Settings;
-using EmployeeControl.Application.Localizations;
+using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Entities;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
@@ -13,7 +13,7 @@ namespace EmployeeControl.Infrastructure.Services.Features.CompanyTask;
 public class CompanyTaskEmailsService(
     IEmailService emailService,
     IOptions<WebApiSettings> webApiSettings,
-    IStringLocalizer<TaskLocalizer> localizer)
+    IStringLocalizer<TaskResource> localizer)
     : ICompanyTaskEmailsService
 {
     public async Task SendEmployeeAssignTaskAsync(

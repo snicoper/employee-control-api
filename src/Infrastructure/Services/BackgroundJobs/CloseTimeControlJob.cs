@@ -4,7 +4,7 @@ using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
 using EmployeeControl.Application.Common.Services.Hubs;
-using EmployeeControl.Application.Localizations;
+using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Enums;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
@@ -15,7 +15,7 @@ namespace EmployeeControl.Infrastructure.Services.BackgroundJobs;
 public class CloseTimeControlJob(
     ICompanySettingsService companySettingsService,
     IApplicationDbContext context,
-    IStringLocalizer<TimeControlLocalizer> localizer,
+    IStringLocalizer<TimeControlResource> localizer,
     IDateTimeService dateTimeService,
     IHubContext<NotificationTimeControlIncidenceHub> hubContext,
     ILogger<CloseTimeControlJob> logger)
@@ -23,7 +23,7 @@ public class CloseTimeControlJob(
 {
     public async Task Process()
     {
-        logger.LogInformation($"Procesando ${nameof(CloseTimeControlJob)}.");
+        logger.LogInformation("Procesando {ControlJob}.", nameof(CloseTimeControlJob));
         var companySettings = await companySettingsService.GetCompanySettingsAsync(CancellationToken.None);
         var periodTimeControlMax = companySettings.PeriodTimeControlMax;
 
@@ -48,6 +48,6 @@ public class CloseTimeControlJob(
         // Notificar SignalR de cierre de una incidencia.
         await hubContext.Clients.All.SendAsync(HubNames.TimeControlIncidences, CancellationToken.None);
 
-        logger.LogInformation($"Procesado ${nameof(CloseTimeControlJob)} con éxito.");
+        logger.LogInformation("Procesado {ControlJob} con éxito.", nameof(CloseTimeControlJob));
     }
 }

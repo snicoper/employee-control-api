@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Localizations;
+﻿using EmployeeControl.Application.Localization;
 using FluentValidation;
 using Microsoft.Extensions.Localization;
 
@@ -6,7 +6,7 @@ namespace EmployeeControl.Application.Features.Accounts.Commands.RecoveryPasswor
 
 public class RecoveryPasswordChangeValidator : AbstractValidator<RecoveryPasswordChangeCommand>
 {
-    public RecoveryPasswordChangeValidator(IStringLocalizer<IdentityLocalizer> localizer)
+    public RecoveryPasswordChangeValidator(IStringLocalizer<IdentityResource> localizer)
     {
         RuleFor(r => r.Password)
             .NotEmpty()
