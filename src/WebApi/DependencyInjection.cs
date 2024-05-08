@@ -1,3 +1,4 @@
+using System.Reflection;
 using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.WebApi.Infrastructure;
@@ -6,9 +7,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Versioning;
-using NSwag;
-using NSwag.Generation.Processors.Security;
-using ZymLabs.NSwag.FluentValidation;
+using Microsoft.OpenApi.Models;
 
 namespace EmployeeControl.WebApi;
 
@@ -28,16 +27,6 @@ public static class DependencyInjection
 
         services.AddScoped<ICurrentUserService, CurrentUserService>();
 
-        // FluentValidation.
-        services.AddScoped(
-            provider =>
-            {
-                var validationRules = provider.GetService<IEnumerable<FluentValidationRule>>();
-                var loggerFactory = provider.GetService<ILoggerFactory>();
-
-                return new FluentValidationSchemaProcessor(provider, validationRules, loggerFactory);
-            });
-
         // API versioning.
         services.AddApiVersioning(
             options =>
@@ -54,35 +43,7 @@ public static class DependencyInjection
             .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
             .AddDataAnnotationsLocalization();
 
-        services.AddEndpointsApiExplorer();
         services.AddRazorPages();
-
-        // NSwag.
-        services.AddOpenApiDocument(
-            (configure, sp) =>
-            {
-                configure.Title = "Employee Control API";
-
-                // Add the fluent validations schema processor.
-                var fluentValidationSchemaProcessor =
-                    sp.CreateScope().ServiceProvider.GetRequiredService<FluentValidationSchemaProcessor>();
-
-                configure.SchemaSettings.SchemaProcessors.Add(fluentValidationSchemaProcessor);
-
-                // Add JWT.
-                configure.AddSecurity(
-                    "JWT",
-                    Enumerable.Empty<string>(),
-                    new OpenApiSecurityScheme
-                    {
-                        Type = OpenApiSecuritySchemeType.ApiKey,
-                        Name = "Authorization",
-                        In = OpenApiSecurityApiKeyLocation.Header,
-                        Description = "Type into the text box: Bearer {your JWT token}."
-                    });
-
-                configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
-            });
 
         // Customize default API behavior.
         services.Configure<ApiBehaviorOptions>(
@@ -93,6 +54,28 @@ public static class DependencyInjection
 
         // Routing.
         services.AddRouting(options => { options.LowercaseUrls = true; });
+
+        // OpenApi.
+        services.AddSwaggerGen(
+            options =>
+            {
+                options.SwaggerDoc(
+                    "v1",
+                    new OpenApiInfo { Version = "v1", Title = "Employee Control API", Description = "An ASP.NET Core Web API" });
+
+                options.AddSecurityDefinition(
+                    "Bearer",
+                    new OpenApiSecurityScheme
+                    {
+                        In = ParameterLocation.Header,
+                        Description = "Please insert JWT with Bearer into field",
+                        Name = "Authorization",
+                        Type = SecuritySchemeType.ApiKey
+                    });
+
+                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+            });
 
         // Cors.
         services.AddCors(
