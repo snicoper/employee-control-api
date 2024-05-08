@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Localization;
+﻿using EmployeeControl.Application.Common.Localization;
 using FluentValidation;
 using Microsoft.Extensions.Localization;
 

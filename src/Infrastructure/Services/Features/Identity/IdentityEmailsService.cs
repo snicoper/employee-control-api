@@ -2,9 +2,9 @@
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Emails;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Models.Emails;
 using EmployeeControl.Application.Common.Models.Settings;
-using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Entities;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;

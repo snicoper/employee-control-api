@@ -1,7 +1,7 @@
 using System.Reflection;
 using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Common;
-using EmployeeControl.Application.Localization;
+using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.WebApi.Infrastructure;
 using EmployeeControl.WebApi.Services;
 using Microsoft.AspNetCore.Localization;
@@ -115,7 +115,7 @@ public static class DependencyInjection
             });
 
         // Localization.
-        services.AddLocalization(options => { options.ResourcesPath = "Resources"; });
+        services.AddLocalization(options => { options.ResourcesPath = "Common/Resources"; });
 
         return services;
     }

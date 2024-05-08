@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendars;
-using EmployeeControl.Application.Localization;
+using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;

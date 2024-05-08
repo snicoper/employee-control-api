@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Data;
+using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Localization;
 using MediatR;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;

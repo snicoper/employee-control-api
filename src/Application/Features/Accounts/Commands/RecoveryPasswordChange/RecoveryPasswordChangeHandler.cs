@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Common;
+using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;

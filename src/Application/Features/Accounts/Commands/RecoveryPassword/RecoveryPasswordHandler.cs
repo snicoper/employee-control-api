@@ -1,6 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Localization;
 using EmployeeControl.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;

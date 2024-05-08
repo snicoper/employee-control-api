@@ -2,7 +2,7 @@ using AutoMapper;
 using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
-using EmployeeControl.Application.Localization;
+using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
 using MediatR;
