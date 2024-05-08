@@ -192,7 +192,7 @@ public class IdentityService(
         }
         catch (Exception ex)
         {
-            logger.LogDebug("{message}", ex.Message);
+            logger.LogError(ex, "Error al actualizar roles al usuario.");
             await transaction.RollbackAsync(cancellationToken);
             throw;
         }
