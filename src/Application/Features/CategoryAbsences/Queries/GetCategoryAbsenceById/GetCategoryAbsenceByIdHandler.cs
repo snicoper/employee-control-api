@@ -1,19 +1,20 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Features.CategoryAbsences;
-using MediatR;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 
 namespace EmployeeControl.Application.Features.CategoryAbsences.Queries.GetCategoryAbsenceById;
 
 internal class GetCategoryAbsenceByIdHandler(ICategoryAbsenceService categoryAbsenceService, IMapper mapper)
-    : IRequestHandler<GetCategoryAbsenceByIdQuery, GetCategoryAbsenceByIdResponse>
+    : IQueryHandler<GetCategoryAbsenceByIdQuery, GetCategoryAbsenceByIdResponse>
 {
-    public async Task<GetCategoryAbsenceByIdResponse> Handle(
+    public async Task<Result<GetCategoryAbsenceByIdResponse>> Handle(
         GetCategoryAbsenceByIdQuery request,
         CancellationToken cancellationToken)
     {
         var categoryAbsence = await categoryAbsenceService.GetByIdAsync(request.Id, cancellationToken);
         var resultResponse = mapper.Map<GetCategoryAbsenceByIdResponse>(categoryAbsence);
 
-        return resultResponse;
+        return Result.Success(resultResponse);
     }
 }

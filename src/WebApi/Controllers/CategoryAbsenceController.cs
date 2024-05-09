@@ -34,7 +34,7 @@ public class CategoryAbsenceController : ApiControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetCategoryAbsenceByIdResponse>> GetCategoryAbsenceById(string id)
+    public async Task<ActionResult<Result<GetCategoryAbsenceByIdResponse>>> GetCategoryAbsenceById(string id)
     {
         var result = await Sender.Send(new GetCategoryAbsenceByIdQuery(id));
 
