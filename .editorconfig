@@ -328,6 +328,3 @@ dotnet_diagnostic.SA1009.severity = none
 
 # Code should not contain empty statements.
 dotnet_diagnostic.SA1106.severity = none
-
-# Opening square brackets should be spaced correctly.
-dotnet_diagnostic.SA1010.severity = none
