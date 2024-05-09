@@ -1,15 +1,14 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.CategoryAbsences.Commands.UpdateCategoryAbsence;
 
 [Authorize(Roles = Roles.HumanResources)]
 public record UpdateCategoryAbsenceCommand(string Id, string Description, string Background, string Color, bool Active)
-    : IRequest<Result>
+    : ICommand
 {
     internal class Mapping : Profile
     {
