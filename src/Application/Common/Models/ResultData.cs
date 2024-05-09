@@ -1,17 +1,32 @@
 ﻿namespace EmployeeControl.Application.Common.Models;
 
-public sealed class ResultData<TData> : Result
+public sealed class ResultData<TValue> : Result
 {
-    private ResultData(TData data, bool succeeded, IEnumerable<string> errors)
+    private ResultData(TValue? value, bool succeeded, IEnumerable<string> errors)
         : base(succeeded, errors)
     {
-        Data = data;
+        Value = value;
     }
 
-    public TData Data { get; set; }
+    public TValue? Value { get; set; }
 
-    public static ResultData<TData> Success(TData data)
+    public static ResultData<TValue> Success(TValue data)
     {
-        return new ResultData<TData>(data, true, Array.Empty<string>());
+        return new ResultData<TValue>(data, true, []);
+    }
+
+    public static new ResultData<TValue> Failure(IEnumerable<string> errors)
+    {
+        return new ResultData<TValue>(default, false, errors);
+    }
+
+    public static new ResultData<TValue> Failure(string error)
+    {
+        return new ResultData<TValue>(default, false, [error]);
+    }
+
+    public static new ResultData<TValue> Failure()
+    {
+        return new ResultData<TValue>(default, false, [string.Empty]);
     }
 }

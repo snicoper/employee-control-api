@@ -14,7 +14,7 @@ public class Result
 
     public static Result Success()
     {
-        return new Result(true, Array.Empty<string>());
+        return new Result(true, []);
     }
 
     public static Result Failure(IEnumerable<string> errors)
@@ -24,11 +24,11 @@ public class Result
 
     public static Result Failure(string error)
     {
-        return Failure(new[] { error });
+        return Failure([error]);
     }
 
     public static Result Failure()
     {
-        return Failure(new[] { string.Empty });
+        return Failure([string.Empty]);
     }
 }
