@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Features.Companies;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+using EmployeeControl.Application.Common.Utils;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using MediatR;
@@ -24,7 +24,7 @@ internal class InviteEmployeeHandler(
         var user = mapper.Map<InviteEmployeeCommand, User>(request);
         user.CompanyId = company.Id;
 
-        var password = CommonUtils.GenerateRandomPassword(10);
+        var password = SecurityUtils.GenerateRandomPassword(10);
         var roles = new[] { Roles.Employee };
 
         // Crear nuevo usuario.

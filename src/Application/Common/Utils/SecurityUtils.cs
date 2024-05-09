@@ -1,6 +1,6 @@
-﻿namespace EmployeeControl.Application.Common.Constants;
+﻿namespace EmployeeControl.Application.Common.Utils;
 
-public static class CommonUtils
+public static class SecurityUtils
 {
     /// <summary>
     /// Genera un password aleatorio length caracteres.

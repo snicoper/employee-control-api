@@ -10,7 +10,7 @@ public sealed class ResultData<TData> : Result
 
     public TData Data { get; set; }
 
-    public static Result Success(TData data)
+    public static ResultData<TData> Success(TData data)
     {
         return new ResultData<TData>(data, true, Array.Empty<string>());
     }

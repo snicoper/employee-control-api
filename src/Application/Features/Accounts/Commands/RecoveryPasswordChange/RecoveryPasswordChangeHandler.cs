@@ -28,7 +28,7 @@ internal class RecoveryPasswordChangeHandler(
         if (user is null)
         {
             var message = localizer["El usuario no existe."];
-            logger.LogDebug("{message}", message);
+            logger.LogDebug("{Message}", message);
             validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NonFieldErrors, message);
         }
 
