@@ -19,7 +19,7 @@ public class CategoryAbsenceController : ApiControllerBase
     /// <returns>Lista de las categorías de ausencias de la compañía paginádos.</returns>
     [HttpGet("paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<ResponseData<GetCategoryAbsencePaginatedResponse>>>
+    public async Task<ActionResult<Result<ResponseData<GetCategoryAbsencePaginatedResponse>>>>
         GetCategoryAbsencePaginated([FromQuery] RequestData request)
     {
         var result = await Sender.Send(new GetCategoryAbsencePaginatedQuery(request));

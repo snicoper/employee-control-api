@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Data;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.CategoryAbsences.Queries.GetCategoryAbsencePaginated;
 
 internal class GetCategoryAbsencePaginatedHandler(IApplicationDbContext context, IMapper mapper)
-    : IRequestHandler<GetCategoryAbsencePaginatedQuery, ResponseData<GetCategoryAbsencePaginatedResponse>>
+    : IQueryHandler<GetCategoryAbsencePaginatedQuery, ResponseData<GetCategoryAbsencePaginatedResponse>>
 {
-    public async Task<ResponseData<GetCategoryAbsencePaginatedResponse>> Handle(
+    public async Task<Result<ResponseData<GetCategoryAbsencePaginatedResponse>>> Handle(
         GetCategoryAbsencePaginatedQuery request,
         CancellationToken cancellationToken)
     {
@@ -19,6 +19,6 @@ internal class GetCategoryAbsencePaginatedHandler(IApplicationDbContext context,
             mapper,
             cancellationToken);
 
-        return resultResponse;
+        return Result.Success(resultResponse);
     }
 }
