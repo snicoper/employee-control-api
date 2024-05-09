@@ -15,9 +15,24 @@ public class Result
 
     public ICollection<ValidationFailure> Errors { get; }
 
+    public static Result Create()
+    {
+        return new Result(false, []);
+    }
+
+    public static Result<TValue> Create<TValue>(TValue? value)
+    {
+        return new Result<TValue>(value, true, []);
+    }
+
     public static Result Success()
     {
         return new Result(true, []);
+    }
+
+    public static Result<TValue> Success<TValue>(TValue? value)
+    {
+        return new Result<TValue>(value, true, []);
     }
 
     public static Result Failure(ICollection<ValidationFailure> errors)
@@ -25,9 +40,19 @@ public class Result
         return new Result(false, errors);
     }
 
+    public static Result<TValue> Failure<TValue>(ICollection<ValidationFailure> errors)
+    {
+        return new Result<TValue>(default, false, errors);
+    }
+
     public static Result Failure(ValidationFailure validationFailure)
     {
         return Failure([validationFailure]);
+    }
+
+    public static Result<TValue> Failure<TValue>(ValidationFailure validationFailure)
+    {
+        return Failure<TValue>([validationFailure]);
     }
 
     public static Result Failure(string code, string error)
@@ -35,6 +60,13 @@ public class Result
         var validationFailure = new ValidationFailure(code, error);
 
         return Failure(validationFailure);
+    }
+
+    public static Result<TValue> Failure<TValue>(string code, string error)
+    {
+        var validationFailure = new ValidationFailure(code, error);
+
+        return Failure<TValue>(validationFailure);
     }
 
     public void AddValidationFailure(ValidationFailure validationFailure)
@@ -58,3 +90,16 @@ public class Result
         throw new CustomValidationException([.. Errors]);
     }
 }
+
+#pragma warning disable SA1402 // File may only contain a single type
+public class Result<TValue> : Result
+{
+    protected internal Result(TValue? value, bool succeeded, ICollection<ValidationFailure> errors)
+        : base(succeeded, errors)
+    {
+        Value = value;
+    }
+
+    public TValue? Value { get; set; }
+}
+#pragma warning disable SA1402 // File may only contain a single type
