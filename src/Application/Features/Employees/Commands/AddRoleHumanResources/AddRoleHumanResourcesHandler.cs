@@ -1,4 +1,5 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+﻿using EmployeeControl.Application.Common.Extensions;
+using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
@@ -24,8 +25,8 @@ internal class AddRoleHumanResourcesHandler(
             return Result.Success();
         }
 
-        logger.LogDebug("{Error}", identityResult.Errors);
+        logger.LogDebug("{Errors}", identityResult.Errors);
 
-        return Result.Failure();
+        return identityResult.ToApplicationResult();
     }
 }

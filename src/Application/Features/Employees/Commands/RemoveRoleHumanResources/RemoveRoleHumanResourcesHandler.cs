@@ -1,4 +1,5 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+﻿using EmployeeControl.Application.Common.Extensions;
+using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.Employees.Commands.AddRoleHumanResources;
 using EmployeeControl.Domain.Constants;
@@ -25,8 +26,8 @@ internal class RemoveRoleHumanResourcesHandler(
             return Result.Success();
         }
 
-        logger.LogDebug("{Error}", identityResult.Errors);
+        logger.LogDebug("{Errors}", identityResult.Errors);
 
-        return Result.Failure();
+        return identityResult.ToApplicationResult();
     }
 }
