@@ -1,5 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Http;
 
 namespace EmployeeControl.Application.Common.Models;
 
@@ -9,9 +10,12 @@ public class Result
     {
         Succeeded = succeeded;
         Errors = errors;
+        Status = StatusCodes.Status200OK;
     }
 
     public bool Succeeded { get; private set; }
+
+    public int Status { get; set; }
 
     public ICollection<ValidationFailure> Errors { get; }
 
@@ -72,6 +76,8 @@ public class Result
     public void AddValidationFailure(ValidationFailure validationFailure)
     {
         Succeeded = false;
+        Status = StatusCodes.Status400BadRequest;
+
         Errors.Add(validationFailure);
     }
 
