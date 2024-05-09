@@ -12,7 +12,7 @@ public sealed class ResultValue<TValue> : Result
 
     public TValue? Value { get; set; }
 
-    public static ResultValue<TValue> Success(TValue value)
+    public static ResultValue<TValue> Success(TValue? value)
     {
         return new ResultValue<TValue>(value, true, []);
     }

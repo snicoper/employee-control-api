@@ -11,7 +11,7 @@ public class Result
         Errors = errors;
     }
 
-    public bool Succeeded { get; }
+    public bool Succeeded { get; private set; }
 
     public ICollection<ValidationFailure> Errors { get; }
 
@@ -37,14 +37,15 @@ public class Result
         return Failure(validationFailure);
     }
 
-    public static Result Failure()
-    {
-        return Failure([]);
-    }
-
     public void AddValidationFailure(ValidationFailure validationFailure)
     {
+        Succeeded = false;
         Errors.Add(validationFailure);
+    }
+
+    public void Add(string code, string error)
+    {
+        AddValidationFailure(new ValidationFailure(code, error));
     }
 
     public void RaiseBadRequestIfResultFailure()
