@@ -39,7 +39,9 @@ internal class RecoveryPasswordChangeHandler(
         }
 
         var resetResult = await userManager.ResetPasswordAsync(user, code, request.Password);
-        var result = !resetResult.Succeeded ? Result.Failure(localizer["Error al cambiar la contraseña"]) : Result.Success();
+        var result = resetResult.Succeeded
+            ? Result.Success()
+            : Result.Failure(ValidationErrorsKeys.IdentityError, localizer["Error al cambiar la contraseña"]);
 
         return result;
     }

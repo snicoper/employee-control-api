@@ -217,7 +217,7 @@ public class TimesControlService(
             var message = localizer["No hay un tiempo inicializado."];
             validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NotificationErrors, message);
 
-            return (Result.Failure(message), timeControl);
+            return (Result.Failure(ValidationErrorsKeys.TimeControlError, message), timeControl);
         }
 
         // Si es cerrado por el sistema, de momento solo hay un motivo que es tiempo superado 23:59:00.

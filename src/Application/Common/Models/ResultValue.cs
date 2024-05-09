@@ -1,8 +1,10 @@
-﻿namespace EmployeeControl.Application.Common.Models;
+﻿using FluentValidation.Results;
+
+namespace EmployeeControl.Application.Common.Models;
 
 public sealed class ResultValue<TValue> : Result
 {
-    private ResultValue(TValue? value, bool succeeded, IEnumerable<string> errors)
+    private ResultValue(TValue? value, bool succeeded, ICollection<ValidationFailure> errors)
         : base(succeeded, errors)
     {
         Value = value;
@@ -15,18 +17,20 @@ public sealed class ResultValue<TValue> : Result
         return new ResultValue<TValue>(value, true, []);
     }
 
-    public static new ResultValue<TValue> Failure(IEnumerable<string> errors)
+    public static new ResultValue<TValue> Failure(ICollection<ValidationFailure> errors)
     {
         return new ResultValue<TValue>(default, false, errors);
     }
 
-    public static new ResultValue<TValue> Failure(string error)
+    public static new ResultValue<TValue> Failure(ValidationFailure validationFailure)
     {
-        return new ResultValue<TValue>(default, false, [error]);
+        return Failure([validationFailure]);
     }
 
-    public static new ResultValue<TValue> Failure()
+    public static new ResultValue<TValue> Failure(string code, string error)
     {
-        return new ResultValue<TValue>(default, false, [string.Empty]);
+        var validationFailure = new ValidationFailure(code, error);
+
+        return Failure(validationFailure);
     }
 }

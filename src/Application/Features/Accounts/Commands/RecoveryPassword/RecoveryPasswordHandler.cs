@@ -1,4 +1,5 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+﻿using EmployeeControl.Application.Common.Constants;
+using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
@@ -24,7 +25,7 @@ internal class RecoveryPasswordHandler(
         {
             var message = localizer["Correo electrónico no confirmado."];
 
-            return Result.Failure(message);
+            return Result.Failure(ValidationErrorsKeys.IdentityError, message);
         }
 
         // Generar code de validación y enviar correo electrónico.
