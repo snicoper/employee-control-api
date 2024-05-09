@@ -1,7 +1,7 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Common;
-using EmployeeControl.Application.Common.Interfaces.Data;
+﻿using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendars;
 using EmployeeControl.Application.Common.Localization;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -10,7 +10,6 @@ using Microsoft.Extensions.Logging;
 namespace EmployeeControl.Infrastructure.Services.Features.CompanyCalendars;
 
 public class CompanyCalendarValidatorService(
-    IValidationFailureService validationFailureService,
     ILogger<CompanyCalendarValidatorService> logger,
     IStringLocalizer<CalendarResource> localizer,
     IApplicationDbContext context)
@@ -29,9 +28,9 @@ public class CompanyCalendarValidatorService(
             return;
         }
 
-        var message = localizer["El nombre del calendario ya existe."];
-        logger.LogDebug("{message}", message);
-        validationFailureService.Add(nameof(CompanyCalendar.Name), message);
+        var messageError = localizer["El nombre del calendario ya existe."];
+        logger.LogDebug("{Message}", messageError);
+        Result.Failure(nameof(CompanyCalendar.Name), messageError).RaiseBadRequest();
     }
 
     public async Task UpdateValidationAsync(CompanyCalendar companyCalendar, CancellationToken cancellationToken)
@@ -47,8 +46,8 @@ public class CompanyCalendarValidatorService(
             return;
         }
 
-        var message = localizer["El nombre del calendario ya existe."];
-        logger.LogDebug("{message}", message);
-        validationFailureService.Add(nameof(CompanyCalendar.Name), message);
+        var messageError = localizer["El nombre del calendario ya existe."];
+        logger.LogDebug("{Message}", messageError);
+        Result.Failure(nameof(CompanyCalendar.Name), messageError).RaiseBadRequest();
     }
 }

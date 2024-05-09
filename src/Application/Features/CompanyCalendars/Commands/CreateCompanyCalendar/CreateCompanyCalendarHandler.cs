@@ -1,20 +1,20 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendars;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.CompanyCalendars.Commands.CreateCompanyCalendar;
 
 internal class CreateCompanyCalendarHandler(ICompanyCalendarsService companyCalendarsService, IMapper mapper)
-    : IRequestHandler<CreateCompanyCalendarCommand, Result>
+    : ICommandHandler<CreateCompanyCalendarCommand, string>
 {
-    public async Task<Result> Handle(CreateCompanyCalendarCommand request, CancellationToken cancellationToken)
+    public async Task<Result<string>> Handle(CreateCompanyCalendarCommand request, CancellationToken cancellationToken)
     {
         var companyCalendar = mapper.Map<CompanyCalendar>(request);
 
-        await companyCalendarsService.CreateAsync(companyCalendar, cancellationToken);
+        var result = await companyCalendarsService.CreateAsync(companyCalendar, cancellationToken);
 
-        return Result.Success();
+        return Result.Success(result.Id);
     }
 }

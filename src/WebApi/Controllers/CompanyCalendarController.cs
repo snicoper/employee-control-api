@@ -48,7 +48,7 @@ public class CompanyCalendarController : ApiControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Result>> CreateCompanyCalendar(CreateCompanyCalendarCommand command)
+    public async Task<ActionResult<Result<string>>> CreateCompanyCalendar(CreateCompanyCalendarCommand command)
     {
         var result = await Sender.Send(command);
 

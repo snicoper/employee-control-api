@@ -1,5 +1,4 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendars;
 using EmployeeControl.Domain.Entities;
@@ -9,7 +8,6 @@ namespace EmployeeControl.Infrastructure.Services.Features.CompanyCalendars;
 
 public class CompanyCalendarsService(
     IApplicationDbContext context,
-    IValidationFailureService validationFailureService,
     ICompanyCalendarValidatorService companyCalendarValidatorService)
     : ICompanyCalendarsService
 {
@@ -33,7 +31,6 @@ public class CompanyCalendarsService(
     public async Task<CompanyCalendar> CreateAsync(CompanyCalendar companyCalendar, CancellationToken cancellationToken)
     {
         await companyCalendarValidatorService.CreateValidationAsync(companyCalendar, cancellationToken);
-        validationFailureService.RaiseExceptionIfExistsErrors();
 
         context.CompanyCalendars.Add(companyCalendar);
         await context.SaveChangesAsync(cancellationToken);
@@ -49,7 +46,6 @@ public class CompanyCalendarsService(
     public async Task<CompanyCalendar> UpdateAsync(CompanyCalendar companyCalendar, CancellationToken cancellationToken)
     {
         await companyCalendarValidatorService.UpdateValidationAsync(companyCalendar, cancellationToken);
-        validationFailureService.RaiseExceptionIfExistsErrors();
 
         context.CompanyCalendars.Update(companyCalendar);
         await context.SaveChangesAsync(cancellationToken);
