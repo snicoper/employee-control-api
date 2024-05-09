@@ -2,11 +2,11 @@
 using FluentValidation;
 using Microsoft.Extensions.Localization;
 
-namespace EmployeeControl.Application.Features.Accounts.Commands.RecoveryPasswordChange;
+namespace EmployeeControl.Application.Features.Accounts.Commands.RestorePassword;
 
-public class RecoveryPasswordChangeValidator : AbstractValidator<RecoveryPasswordChangeCommand>
+public class RestorePasswordValidator : AbstractValidator<RestorePasswordCommand>
 {
-    public RecoveryPasswordChangeValidator(IStringLocalizer<IdentityResource> localizer)
+    public RestorePasswordValidator(IStringLocalizer<IdentityResource> localizer)
     {
         RuleFor(r => r.Password)
             .NotEmpty()

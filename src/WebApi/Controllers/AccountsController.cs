@@ -1,6 +1,6 @@
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.Accounts.Commands.RecoveryPassword;
-using EmployeeControl.Application.Features.Accounts.Commands.RecoveryPasswordChange;
+using EmployeeControl.Application.Features.Accounts.Commands.RestorePassword;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,10 +32,10 @@ public class AccountsController : ApiControllerBase
     /// <param name="command">Datos para restablecer la contraseña.</param>
     /// <returns>Result.</returns>
     [AllowAnonymous]
-    [HttpPost("recovery-password-change")]
+    [HttpPost("restore-password")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Result>> RecoveryPasswordChange(RecoveryPasswordChangeCommand command)
+    public async Task<ActionResult<Result>> RestorePassword(RestorePasswordCommand command)
     {
         var result = await Sender.Send(command);
 

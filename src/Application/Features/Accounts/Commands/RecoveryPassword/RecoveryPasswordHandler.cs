@@ -1,5 +1,4 @@
-﻿using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+﻿using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
@@ -20,12 +19,22 @@ internal class RecoveryPasswordHandler(
     {
         var user = await identityService.GetByEmailAsync(request.Email);
 
-        // Para restablecer contraseña, el usuario ha debido confirmar el email.
+        // El usuario debe estar activo.
+        if (!user.Active)
+        {
+            var messageError = localizer["La cuenta no esta activa."];
+            var result = Result.Failure(nameof(user.Email), messageError);
+
+            result.RaiseBadRequest();
+        }
+
+        // El usuario ha debido confirmar el email.
         if (!user.EmailConfirmed)
         {
-            var message = localizer["Correo electrónico no confirmado."];
+            var messageError = localizer["Correo electrónico no confirmado."];
+            var result = Result.Failure(nameof(user.Email), messageError);
 
-            return Result.Failure(ValidationErrorsKeys.IdentityError, message);
+            result.RaiseBadRequest();
         }
 
         // Generar code de validación y enviar correo electrónico.

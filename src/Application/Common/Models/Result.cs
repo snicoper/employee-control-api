@@ -172,6 +172,21 @@ public class Result
     {
         throw new CustomValidationException([.. Errors]);
     }
+
+    /// <summary>
+    /// Obtener el <see cref="Result" /> en caso de no haber errores,
+    /// en caso contrario, lanzara un <see cref="CustomValidationException" /> con los errores.
+    /// </summary>
+    /// <returns>Instancia de <see cref="Result" /> en caso de no tener errores.</returns>
+    public Result RaiseOrGetSuccess()
+    {
+        if (!Succeeded)
+        {
+            RaiseBadRequest();
+        }
+
+        return this;
+    }
 }
 
 #pragma warning disable SA1402 // File may only contain a single type
@@ -184,5 +199,20 @@ public class Result<TValue> : Result
     }
 
     public TValue? Value { get; set; }
+
+    /// <summary>
+    /// Obtener el <see cref="Result{TValue}" /> en caso de no haber errores,
+    /// en caso contrario, lanzara un <see cref="CustomValidationException" /> con los errores.
+    /// </summary>
+    /// <returns>Instancia de <see cref="Result{TValue}" /> en caso de no tener errores.</returns>
+    public new Result<TValue> RaiseOrGetSuccess()
+    {
+        if (!Succeeded)
+        {
+            RaiseBadRequest();
+        }
+
+        return this;
+    }
 }
 #pragma warning disable SA1402 // File may only contain a single type
