@@ -2,6 +2,7 @@
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Localization;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Common.Models.Settings;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -15,8 +16,7 @@ public class AuthService(
     IOptions<JwtSettings> jwtSettings,
     ITokenService tokenService,
     IDateTimeService dateTimeService,
-    IStringLocalizer<IdentityResource> localizer,
-    IValidationFailureService validationFailureService)
+    IStringLocalizer<IdentityResource> localizer)
     : IAuthService
 {
     public async Task<(string AccessToken, string RefreshToken)> LoginAsync(string email, string password)
@@ -32,15 +32,21 @@ public class AuthService(
         // Validación email confirmado.
         if (!user.EmailConfirmed)
         {
-            var message = localizer["El correo esta pendiente de validación desde tu bandeja de correo."];
-            validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NonFieldErrors, message);
+            var messageError = localizer["El correo esta pendiente de validación desde tu bandeja de correo."];
+
+            Result
+                .Failure(ValidationErrorsKeys.NonFieldErrors, messageError)
+                .RaiseBadRequest();
         }
 
         // Validación cuenta activa.
         if (!user.Active)
         {
-            var message = localizer["La cuenta no esta activa, debes hablar con un responsable de tu empresa."];
-            validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NonFieldErrors, message);
+            var messageError = localizer["La cuenta no esta activa, debes hablar con un responsable de tu empresa."];
+
+            Result
+                .Failure(ValidationErrorsKeys.NotificationErrors, messageError)
+                .RaiseBadRequest();
         }
 
         var tokensResult = await GenerateUserTokenAsync(user);

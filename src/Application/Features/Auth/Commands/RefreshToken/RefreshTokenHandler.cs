@@ -1,15 +1,16 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Features.Identity;
-using MediatR;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 
 namespace EmployeeControl.Application.Features.Auth.Commands.RefreshToken;
 
-internal class RefreshTokenHandler(IAuthService authService) : IRequestHandler<RefreshTokenCommand, RefreshTokenResponse>
+internal sealed class RefreshTokenHandler(IAuthService authService) : ICommandHandler<RefreshTokenCommand, RefreshTokenResponse>
 {
-    public async Task<RefreshTokenResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
+    public async Task<Result<RefreshTokenResponse>> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
         var result = await authService.RefreshTokenAsync(request.RefreshToken);
         var resultResponse = new RefreshTokenResponse(result.AccessToken, result.RefreshToken);
 
-        return resultResponse;
+        return Result.Success(resultResponse);
     }
 }

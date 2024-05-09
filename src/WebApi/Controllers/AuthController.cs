@@ -1,3 +1,4 @@
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.Auth.Commands.Login;
 using EmployeeControl.Application.Features.Auth.Commands.RefreshToken;
 using EmployeeControl.WebApi.Infrastructure;
@@ -18,7 +19,7 @@ public class AuthController : ApiControllerBase
     [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<LoginResponse>> Login(LoginCommand command)
+    public async Task<ActionResult<Result<LoginResponse>>> Login(LoginCommand command)
     {
         var result = await Sender.Send(command);
 
@@ -34,7 +35,7 @@ public class AuthController : ApiControllerBase
     [HttpPost("refresh-token")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<RefreshTokenResponse>> RefreshToken(RefreshTokenCommand command)
+    public async Task<ActionResult<Result<RefreshTokenResponse>>> RefreshToken(RefreshTokenCommand command)
     {
         var result = await Sender.Send(command);
 
