@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.CategoryAbsences.Commands.CreateCategoryAbsence;
 
 [Authorize(Roles = Roles.HumanResources)]
 public record CreateCategoryAbsenceCommand(string Description, string Background, string Color, string CompanyId)
-    : IRequest<CategoryAbsence>
+    : ICommand<CategoryAbsence>
 {
     internal class Mapping : Profile
     {

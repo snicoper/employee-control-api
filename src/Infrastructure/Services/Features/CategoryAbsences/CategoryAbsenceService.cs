@@ -1,8 +1,8 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CategoryAbsences;
 using EmployeeControl.Application.Common.Localization;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -11,7 +11,6 @@ namespace EmployeeControl.Infrastructure.Services.Features.CategoryAbsences;
 
 public class CategoryAbsenceService(
     IApplicationDbContext context,
-    IValidationFailureService validationFailureService,
     IStringLocalizer<CategoryAbsenceResource> localizer)
     : ICategoryAbsenceService
 {
@@ -31,8 +30,8 @@ public class CategoryAbsenceService(
 
         if (categoryExists)
         {
-            var message = localizer["La descripción ya existe en la base de datos."];
-            validationFailureService.AddAndRaiseException(nameof(CategoryAbsence.Description), message);
+            var messageError = localizer["La descripción ya existe en la base de datos."];
+            Result.Failure(nameof(CategoryAbsence.Description), messageError).RaiseBadRequest();
         }
 
         categoryAbsence.Active = true;
@@ -53,8 +52,8 @@ public class CategoryAbsenceService(
 
         if (categoryAbsenceExist)
         {
-            var message = localizer["La descripción ya existe en la base de datos."];
-            validationFailureService.AddAndRaiseException(nameof(CategoryAbsence.Description), message);
+            var messageError = localizer["La descripción ya existe en la base de datos."];
+            Result.Failure(nameof(CategoryAbsence.Description), messageError).RaiseBadRequest();
         }
 
         context.CategoryAbsences.Update(categoryAbsence);
