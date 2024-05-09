@@ -33,7 +33,7 @@ public class CompanyCalendarController : ApiControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetCompanyCalendarByIdResponse>> GetCompanyCalendarById(string id)
+    public async Task<ActionResult<Result<GetCompanyCalendarByIdResponse>>> GetCompanyCalendarById(string id)
     {
         var result = await Sender.Send(new GetCompanyCalendarByIdQuery(id));
 
