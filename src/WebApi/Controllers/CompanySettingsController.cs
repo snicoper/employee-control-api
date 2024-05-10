@@ -17,7 +17,6 @@ public class CompanySettingsController : ApiControllerBase
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<GetCompanySettingsResponse> GetCompanySettings()
     {
         var result = await Sender.Send(new GetCompanySettingsQuery());
@@ -33,7 +32,6 @@ public class CompanySettingsController : ApiControllerBase
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<Result>> UpdateCompanySettings(UpdateCompanySettingsCommand command)
     {
         var result = await Sender.Send(command);

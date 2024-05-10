@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Constants;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.CompanySettings.Commands.UpdateCompanySettings;
 
@@ -13,7 +12,7 @@ public record UpdateCompanySettingsCommand(
     int PeriodTimeControlMax,
     int WeeklyWorkingHours,
     bool GeolocationRequired)
-    : IRequest<Result>
+    : ICommand
 {
     internal class Mapping : Profile
     {
