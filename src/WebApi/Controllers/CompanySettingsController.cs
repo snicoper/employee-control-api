@@ -17,7 +17,7 @@ public class CompanySettingsController : ApiControllerBase
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<GetCompanySettingsResponse> GetCompanySettings()
+    public async Task<Result<GetCompanySettingsResponse>> GetCompanySettings()
     {
         var result = await Sender.Send(new GetCompanySettingsQuery());
 
