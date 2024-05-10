@@ -22,8 +22,8 @@ internal class RecoveryPasswordHandler(
         // El usuario debe estar activo.
         if (!user.Active)
         {
-            var messageError = localizer["La cuenta no esta activa."];
-            var result = Result.Failure(nameof(user.Email), messageError);
+            var errorMessage = localizer["La cuenta no esta activa."];
+            var result = Result.Failure(nameof(user.Email), errorMessage);
 
             result.RaiseBadRequest();
         }
@@ -31,8 +31,8 @@ internal class RecoveryPasswordHandler(
         // El usuario ha debido confirmar el email.
         if (!user.EmailConfirmed)
         {
-            var messageError = localizer["Correo electrónico no confirmado."];
-            var result = Result.Failure(nameof(user.Email), messageError);
+            var errorMessage = localizer["Correo electrónico no confirmado."];
+            var result = Result.Failure(nameof(user.Email), errorMessage);
 
             result.RaiseBadRequest();
         }

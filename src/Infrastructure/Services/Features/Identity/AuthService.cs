@@ -32,20 +32,20 @@ public class AuthService(
         // Validación email confirmado.
         if (!user.EmailConfirmed)
         {
-            var messageError = localizer["El correo esta pendiente de validación desde tu bandeja de correo."];
+            var errorMessage = localizer["El correo esta pendiente de validación desde tu bandeja de correo."];
 
             Result
-                .Failure(ValidationErrorsKeys.NonFieldErrors, messageError)
+                .Failure(ValidationErrorsKeys.NonFieldErrors, errorMessage)
                 .RaiseBadRequest();
         }
 
         // Validación cuenta activa.
         if (!user.Active)
         {
-            var messageError = localizer["La cuenta no esta activa, debes hablar con un responsable de tu empresa."];
+            var errorMessage = localizer["La cuenta no esta activa, debes hablar con un responsable de tu empresa."];
 
             Result
-                .Failure(ValidationErrorsKeys.NotificationErrors, messageError)
+                .Failure(ValidationErrorsKeys.NotificationErrors, errorMessage)
                 .RaiseBadRequest();
         }
 

@@ -25,15 +25,15 @@ internal class UpdateEmployeeHandler(
         // Un usuario no puede editarse asi mismo.
         if (currentUserService.Id == user.Id)
         {
-            var messageError = localizer["No te puedes editar a ti mismo."];
-            result.AddError(ValidationErrorsKeys.NonFieldErrors, messageError);
+            var errorMessage = localizer["No te puedes editar a ti mismo."];
+            result.AddError(ValidationErrorsKeys.NonFieldErrors, errorMessage);
         }
 
         // No es posible editar a un usuario con role.
         if (await identityService.IsInRoleAsync(user.Id, Roles.Admin))
         {
-            var messageError = localizer["No se puede editar a un administrador."];
-            result.AddError(ValidationErrorsKeys.NonFieldErrors, messageError);
+            var errorMessage = localizer["No se puede editar a un administrador."];
+            result.AddError(ValidationErrorsKeys.NonFieldErrors, errorMessage);
         }
 
         result.RaiseBadRequestIfResultFailure();

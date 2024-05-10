@@ -30,8 +30,8 @@ public class CategoryAbsenceService(
 
         if (categoryExists)
         {
-            var messageError = localizer["La descripción ya existe en la base de datos."];
-            Result.Failure(nameof(CategoryAbsence.Description), messageError).RaiseBadRequest();
+            var errorMessage = localizer["La descripción ya existe en la base de datos."];
+            Result.Failure(nameof(CategoryAbsence.Description), errorMessage).RaiseBadRequest();
         }
 
         categoryAbsence.Active = true;
@@ -52,8 +52,8 @@ public class CategoryAbsenceService(
 
         if (categoryAbsenceExist)
         {
-            var messageError = localizer["La descripción ya existe en la base de datos."];
-            Result.Failure(nameof(CategoryAbsence.Description), messageError).RaiseBadRequest();
+            var errorMessage = localizer["La descripción ya existe en la base de datos."];
+            Result.Failure(nameof(CategoryAbsence.Description), errorMessage).RaiseBadRequest();
         }
 
         context.CategoryAbsences.Update(categoryAbsence);

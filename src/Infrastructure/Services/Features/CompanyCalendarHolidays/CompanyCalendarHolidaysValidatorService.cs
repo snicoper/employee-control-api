@@ -22,8 +22,8 @@ public class CompanyCalendarHolidaysValidatorService(IApplicationDbContext conte
 
         if (dateExists)
         {
-            var messageError = localizer["La fecha seleccionada ya tiene asignado un día festivo."];
-            Result.Failure(nameof(CompanyCalendarHoliday.Date), messageError).RaiseBadRequest();
+            var errorMessage = localizer["La fecha seleccionada ya tiene asignado un día festivo."];
+            Result.Failure(nameof(CompanyCalendarHoliday.Date), errorMessage).RaiseBadRequest();
         }
 
         // Comprueba si la descripción ya existe en el mismo año.
@@ -36,8 +36,8 @@ public class CompanyCalendarHolidaysValidatorService(IApplicationDbContext conte
 
         if (dateExists)
         {
-            var messageError = localizer["La descripción ya existe en el año {0}.", companyCalendarHoliday.Date.Year];
-            Result.Failure(nameof(CompanyCalendarHoliday.Description), messageError).RaiseBadRequest();
+            var errorMessage = localizer["La descripción ya existe en el año {0}.", companyCalendarHoliday.Date.Year];
+            Result.Failure(nameof(CompanyCalendarHoliday.Description), errorMessage).RaiseBadRequest();
         }
     }
 
@@ -51,8 +51,8 @@ public class CompanyCalendarHolidaysValidatorService(IApplicationDbContext conte
 
         if (dateExists)
         {
-            var messageError = localizer["La fecha seleccionada ya tiene asignado un día festivo."];
-            Result.Failure(nameof(CompanyCalendarHoliday.Date), messageError).RaiseBadRequest();
+            var errorMessage = localizer["La fecha seleccionada ya tiene asignado un día festivo."];
+            Result.Failure(nameof(CompanyCalendarHoliday.Date), errorMessage).RaiseBadRequest();
         }
 
         // Comprueba si la descripción ya existe en el mismo año.
@@ -66,8 +66,8 @@ public class CompanyCalendarHolidaysValidatorService(IApplicationDbContext conte
 
         if (dateExists)
         {
-            var messageError = localizer["La descripción ya existe en el año {0}.", companyCalendarHoliday.Date.Year];
-            Result.Failure(nameof(CompanyCalendarHoliday.Description), messageError).RaiseBadRequest();
+            var errorMessage = localizer["La descripción ya existe en el año {0}.", companyCalendarHoliday.Date.Year];
+            Result.Failure(nameof(CompanyCalendarHoliday.Description), errorMessage).RaiseBadRequest();
         }
     }
 }
