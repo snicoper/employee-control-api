@@ -1,12 +1,12 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.DeactivateCompanyTask;
 
 internal class DeactivateCompanyTaskHandler(IApplicationDbContext context, ICompanyTaskService companyTaskService)
-    : IRequestHandler<DeactivateCompanyTaskCommand, Result>
+    : ICommandHandler<DeactivateCompanyTaskCommand>
 {
     public async Task<Result> Handle(DeactivateCompanyTaskCommand request, CancellationToken cancellationToken)
     {
