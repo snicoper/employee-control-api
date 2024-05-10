@@ -25,7 +25,7 @@ public class DepartmentsController : ApiControllerBase
     /// <returns>Lista de departamentos paginádos.</returns>
     [HttpGet("paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<ResponseData<GetDepartmentsPaginatedResponse>>> GetDepartmentsPaginated(
+    public async Task<ActionResult<Result<ResponseData<GetDepartmentsPaginatedResponse>>>> GetDepartmentsPaginated(
         [FromQuery] RequestData request)
     {
         var result = await Sender.Send(new GetDepartmentsPaginatedQuery(request));
