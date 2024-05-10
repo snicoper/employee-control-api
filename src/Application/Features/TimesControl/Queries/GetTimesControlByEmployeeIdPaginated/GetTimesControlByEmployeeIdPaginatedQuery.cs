@@ -1,7 +1,7 @@
-﻿using EmployeeControl.Application.Common.Models;
+﻿using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Constants;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlByEmployeeIdPaginated;
 
@@ -11,4 +11,4 @@ public record GetTimesControlByEmployeeIdPaginatedQuery(
     DateTimeOffset? From,
     DateTimeOffset? To,
     RequestData RequestData)
-    : IRequest<ResponseData<GetTimesControlByEmployeeIdPaginatedResponse>>;
+    : IQuery<ResponseData<GetTimesControlByEmployeeIdPaginatedResponse>>;

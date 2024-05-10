@@ -2,8 +2,9 @@
 using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.Employees.Commands.UpdateEmployeeSettings;
 
@@ -11,9 +12,9 @@ internal class UpdateEmployeeSettingsHandler(
     IEmployeeSettingsService employeeSettingsService,
     ICurrentUserService currentUserService,
     IMapper mapper)
-    : IRequestHandler<UpdateEmployeeSettingsCommand, EmployeeSettings>
+    : ICommandHandler<UpdateEmployeeSettingsCommand, EmployeeSettings>
 {
-    public async Task<EmployeeSettings> Handle(UpdateEmployeeSettingsCommand request, CancellationToken cancellationToken)
+    public async Task<Result<EmployeeSettings>> Handle(UpdateEmployeeSettingsCommand request, CancellationToken cancellationToken)
     {
         // Comprobar que el empleado actualiza su propia configuración.
         if (currentUserService.Id != request.UserId)
@@ -25,6 +26,6 @@ internal class UpdateEmployeeSettingsHandler(
         await employeeSettingsService.GetByEmployeeIdAsync(request.UserId, cancellationToken);
         var result = await employeeSettingsService.UpdateAsync(employeeSettings, cancellationToken);
 
-        return result;
+        return Result.Success(result);
     }
 }

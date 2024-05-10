@@ -1,4 +1,5 @@
-﻿using EmployeeControl.Application.Features.IdentityRoles.Queries.GetAllIdentityRoles;
+﻿using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Features.IdentityRoles.Queries.GetAllIdentityRoles;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +15,10 @@ public class IdentityRolesController : ApiControllerBase
     /// <returns>Lista de roles disponibles.</returns>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<ICollection<GetAllIdentityRolesResponse>>> GetAllIdentityRoles()
+    public async Task<ActionResult<Result<ICollection<GetAllIdentityRolesResponse>>>> GetAllIdentityRoles()
     {
         var result = await Sender.Send(new GetAllIdentityRolesQuery());
 
-        return result.ToList();
+        return result;
     }
 }

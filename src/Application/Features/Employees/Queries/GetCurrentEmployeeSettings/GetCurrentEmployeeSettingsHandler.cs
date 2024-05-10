@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
-using MediatR;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 
 namespace EmployeeControl.Application.Features.Employees.Queries.GetCurrentEmployeeSettings;
 
@@ -9,15 +10,15 @@ internal class GetCurrentEmployeeSettingsHandler(
     IEmployeeSettingsService employeeSettingsService,
     ICurrentUserService currentUserService,
     IMapper mapper)
-    : IRequestHandler<GetCurrentEmployeeSettingsQuery, GetCurrentEmployeeSettingsResponse>
+    : IQueryHandler<GetCurrentEmployeeSettingsQuery, GetCurrentEmployeeSettingsResponse>
 {
-    public async Task<GetCurrentEmployeeSettingsResponse> Handle(
+    public async Task<Result<GetCurrentEmployeeSettingsResponse>> Handle(
         GetCurrentEmployeeSettingsQuery request,
         CancellationToken cancellationToken)
     {
         var employeeSettings = await employeeSettingsService.GetByEmployeeIdAsync(currentUserService.Id, cancellationToken);
         var resultResponse = mapper.Map<GetCurrentEmployeeSettingsResponse>(employeeSettings);
 
-        return resultResponse;
+        return Result.Success(resultResponse);
     }
 }

@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlByEmployeeIdPaginated;
 
 public class GetTimesControlByEmployeeIdPaginatedHandler(ITimesControlService timesControlService, IMapper mapper)
-    : IRequestHandler<GetTimesControlByEmployeeIdPaginatedQuery, ResponseData<GetTimesControlByEmployeeIdPaginatedResponse>>
+    : IQueryHandler<GetTimesControlByEmployeeIdPaginatedQuery, ResponseData<GetTimesControlByEmployeeIdPaginatedResponse>>
 {
-    public async Task<ResponseData<GetTimesControlByEmployeeIdPaginatedResponse>> Handle(
+    public async Task<Result<ResponseData<GetTimesControlByEmployeeIdPaginatedResponse>>> Handle(
         GetTimesControlByEmployeeIdPaginatedQuery request,
         CancellationToken cancellationToken)
     {
@@ -32,6 +32,6 @@ public class GetTimesControlByEmployeeIdPaginatedHandler(ITimesControlService ti
             mapper,
             cancellationToken);
 
-        return resultResponse;
+        return Result.Success(resultResponse);
     }
 }

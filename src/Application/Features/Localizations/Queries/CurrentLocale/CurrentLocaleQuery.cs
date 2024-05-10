@@ -1,5 +1,5 @@
-﻿using MediatR;
+﻿using EmployeeControl.Application.Common.Interfaces.Messaging;
 
 namespace EmployeeControl.Application.Features.Localizations.Queries.CurrentLocale;
 
-public record CurrentLocaleQuery : IRequest<CurrentLocaleResponse>;
+public record CurrentLocaleQuery : IQuery<CurrentLocaleResponse>;

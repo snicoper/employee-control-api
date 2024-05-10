@@ -1,9 +1,9 @@
 ﻿using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
@@ -13,7 +13,7 @@ internal class AddRoleHumanResourcesHandler(
     UserManager<User> userManager,
     IIdentityService identityService,
     ILogger<AddRoleHumanResourcesHandler> logger)
-    : IRequestHandler<AddRoleHumanResourcesCommand, Result>
+    : ICommandHandler<AddRoleHumanResourcesCommand>
 {
     public async Task<Result> Handle(AddRoleHumanResourcesCommand request, CancellationToken cancellationToken)
     {
@@ -25,7 +25,7 @@ internal class AddRoleHumanResourcesHandler(
             return Result.Success();
         }
 
-        logger.LogDebug("{Errors}", identityResult.Errors);
+        logger.LogError("{Errors}", identityResult.Errors);
 
         return identityResult.ToApplicationResult();
     }

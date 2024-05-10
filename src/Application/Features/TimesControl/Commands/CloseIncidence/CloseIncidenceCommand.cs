@@ -1,9 +1,9 @@
-﻿using EmployeeControl.Application.Common.Models;
+﻿using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Constants;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.TimesControl.Commands.CloseIncidence;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record CloseIncidenceCommand(string Id) : IRequest<Result>;
+public record CloseIncidenceCommand(string Id)
+    : ICommand;

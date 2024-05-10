@@ -1,9 +1,9 @@
 using AutoMapper;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.TimesControl.Commands.CreateTimeControl;
 
@@ -14,7 +14,7 @@ public record CreateTimeControlCommand(
     DateTimeOffset Finish,
     DeviceType DeviceType,
     TimeState TimeState)
-    : IRequest<string>
+    : ICommand<string>
 {
     internal class Mapping : Profile
     {

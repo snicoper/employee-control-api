@@ -1,11 +1,11 @@
 using AutoMapper;
 using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Localization;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
-using MediatR;
 using Microsoft.Extensions.Localization;
 
 namespace EmployeeControl.Application.Features.TimesControl.Commands.CreateTimeControl;
@@ -13,19 +13,19 @@ namespace EmployeeControl.Application.Features.TimesControl.Commands.CreateTimeC
 internal class CreateTimeControlHandler(
     IMapper mapper,
     ITimesControlService timesControlService,
-    IValidationFailureService validationFailureService,
     IStringLocalizer<TimeControlResource> localizer)
-    : IRequestHandler<CreateTimeControlCommand, string>
+    : ICommandHandler<CreateTimeControlCommand, string>
 {
-    public async Task<string> Handle(CreateTimeControlCommand request, CancellationToken cancellationToken)
+    public async Task<Result<string>> Handle(CreateTimeControlCommand request, CancellationToken cancellationToken)
     {
         // Si el empleado tiene algún tiempo iniciado, el nuevo deberá ser TimeState.close.
         var timeControlOpen = await timesControlService.GetTimeStateOpenByEmployeeIdAsync(request.UserId, cancellationToken);
 
         if (timeControlOpen is not null && request.TimeState == TimeState.Open)
         {
-            var message = localizer["El empleado ya tiene un tiempo abierto y no es posible abrir otro, debe cerrar el tiempo."];
-            validationFailureService.AddAndRaiseException(ValidationErrorsKeys.NotificationErrors, message);
+            var messageError =
+                localizer["El empleado ya tiene un tiempo abierto y no es posible abrir otro, debe cerrar el tiempo."];
+            Result.Failure(ValidationErrorsKeys.NotificationErrors, messageError).RaiseBadRequest();
         }
 
         TimeControl resultResponse;
@@ -50,6 +50,6 @@ internal class CreateTimeControlHandler(
             resultResponse = await timesControlService.CreateWithOutFinishAsync(timeControl, cancellationToken);
         }
 
-        return resultResponse.Id;
+        return Result.Success(resultResponse.Id);
     }
 }

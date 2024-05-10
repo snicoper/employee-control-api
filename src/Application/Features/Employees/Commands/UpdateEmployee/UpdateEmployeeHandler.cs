@@ -2,10 +2,10 @@
 using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Constants;
-using MediatR;
 using Microsoft.Extensions.Localization;
 
 namespace EmployeeControl.Application.Features.Employees.Commands.UpdateEmployee;
@@ -16,32 +16,35 @@ internal class UpdateEmployeeHandler(
     ICurrentUserService currentUserService,
     IValidationFailureService validationFailureService,
     IStringLocalizer<IdentityResource> localizer)
-    : IRequestHandler<UpdateEmployeeCommand, Result>
+    : ICommandHandler<UpdateEmployeeCommand>
 {
     public async Task<Result> Handle(UpdateEmployeeCommand request, CancellationToken cancellationToken)
     {
+        var result = Result.Create();
         var user = await identityService.GetByIdAsync(request.Id);
 
         // Un usuario no puede editarse asi mismo.
         if (currentUserService.Id == user.Id)
         {
-            var message = localizer["No te puedes editar a ti mismo."];
-            validationFailureService.Add(ValidationErrorsKeys.NonFieldErrors, message);
+            var messageError = localizer["No te puedes editar a ti mismo."];
+            result.AddError(ValidationErrorsKeys.NonFieldErrors, messageError);
         }
 
         // No es posible editar a un usuario con role.
         if (await identityService.IsInRoleAsync(user.Id, Roles.Admin))
         {
-            var message = localizer["No se puede editar a un administrador."];
-            validationFailureService.Add(ValidationErrorsKeys.NonFieldErrors, message);
+            var messageError = localizer["No se puede editar a un administrador."];
+            result.AddError(ValidationErrorsKeys.NonFieldErrors, messageError);
         }
+
+        result.RaiseBadRequestIfResultFailure();
 
         validationFailureService.RaiseExceptionIfExistsErrors();
 
         // Update employee.
         var userUpdate = mapper.Map(request, user);
-        var result = await identityService.UpdateAsync(userUpdate, cancellationToken);
+        var identityResult = await identityService.UpdateAsync(userUpdate, cancellationToken);
 
-        return result;
+        return identityResult;
     }
 }

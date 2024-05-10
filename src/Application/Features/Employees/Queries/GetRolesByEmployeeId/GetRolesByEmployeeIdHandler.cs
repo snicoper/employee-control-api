@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.Employees.Queries.GetRolesByEmployeeId;
 
@@ -9,9 +10,9 @@ internal class GetRolesByEmployeeIdHandler(
     IIdentityService identityService,
     IIdentityRoleService identityRoleService,
     IMapper mapper)
-    : IRequestHandler<GetRolesByEmployeeIdQuery, ICollection<GetRolesByEmployeeIdResponse>>
+    : IQueryHandler<GetRolesByEmployeeIdQuery, ICollection<GetRolesByEmployeeIdResponse>>
 {
-    public async Task<ICollection<GetRolesByEmployeeIdResponse>> Handle(
+    public async Task<Result<ICollection<GetRolesByEmployeeIdResponse>>> Handle(
         GetRolesByEmployeeIdQuery request,
         CancellationToken cancellationToken)
     {
@@ -19,6 +20,6 @@ internal class GetRolesByEmployeeIdHandler(
         var identityRoles = await identityRoleService.GetRolesByUseAsync(user);
         var result = mapper.Map<List<ApplicationRole>, ICollection<GetRolesByEmployeeIdResponse>>(identityRoles);
 
-        return result;
+        return Result.Success(result);
     }
 }

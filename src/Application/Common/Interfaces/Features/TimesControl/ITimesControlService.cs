@@ -127,8 +127,8 @@ public interface ITimesControlService
     /// <param name="latitude">Longitud del empleado.</param>
     /// <param name="longitude">Latitud del empleado.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>Result con la respuesta y <see cref="TimeControl" /> creado.</returns>
-    Task<(Result Result, TimeControl TimeControl)> StartAsync(
+    /// <returns><see cref="TimeControl" /> creado.</returns>
+    Task<TimeControl> StartAsync(
         User user,
         DeviceType deviceType,
         double? latitude,

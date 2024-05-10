@@ -173,7 +173,7 @@ public class TimesControlService(
         return timeControl;
     }
 
-    public async Task<(Result Result, TimeControl TimeControl)> StartAsync(
+    public async Task<TimeControl> StartAsync(
         User user,
         DeviceType deviceType,
         double? latitude,
@@ -197,7 +197,7 @@ public class TimesControlService(
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
 
-        return (Result.Success(), timeControl);
+        return timeControl;
     }
 
     public async Task<(Result Result, TimeControl? TimeControl)> FinishAsync(

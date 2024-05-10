@@ -1,17 +1,20 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
-using MediatR;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 
 namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlById;
 
 internal class GetTimeControlByIdHandler(ITimesControlService timesControlService, IMapper mapper)
-    : IRequestHandler<GetTimeControlByIdQuery, GetTimeControlByIdResponse>
+    : IQueryHandler<GetTimeControlByIdQuery, GetTimeControlByIdResponse>
 {
-    public async Task<GetTimeControlByIdResponse> Handle(GetTimeControlByIdQuery request, CancellationToken cancellationToken)
+    public async Task<Result<GetTimeControlByIdResponse>> Handle(
+        GetTimeControlByIdQuery request,
+        CancellationToken cancellationToken)
     {
         var timeControl = await timesControlService.GetByIdAsync(request.Id, cancellationToken);
         var resultResponse = mapper.Map<GetTimeControlByIdResponse>(timeControl);
 
-        return resultResponse;
+        return Result.Success(resultResponse);
     }
 }

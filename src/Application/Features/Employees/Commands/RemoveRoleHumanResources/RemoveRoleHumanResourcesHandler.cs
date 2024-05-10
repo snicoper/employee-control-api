@@ -1,10 +1,10 @@
 ﻿using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.Employees.Commands.AddRoleHumanResources;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
@@ -14,7 +14,7 @@ internal class RemoveRoleHumanResourcesHandler(
     UserManager<User> userManager,
     IIdentityService identityService,
     ILogger<AddRoleHumanResourcesHandler> logger)
-    : IRequestHandler<RemoveRoleHumanResourcesCommand, Result>
+    : ICommandHandler<RemoveRoleHumanResourcesCommand>
 {
     public async Task<Result> Handle(RemoveRoleHumanResourcesCommand request, CancellationToken cancellationToken)
     {
@@ -26,7 +26,7 @@ internal class RemoveRoleHumanResourcesHandler(
             return Result.Success();
         }
 
-        logger.LogDebug("{Errors}", identityResult.Errors);
+        logger.LogError("{Errors}", identityResult.Errors);
 
         return identityResult.ToApplicationResult();
     }

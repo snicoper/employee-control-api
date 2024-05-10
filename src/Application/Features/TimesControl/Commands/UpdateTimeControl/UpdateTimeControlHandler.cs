@@ -1,8 +1,8 @@
 ﻿using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Common.Services.Hubs;
-using MediatR;
 using Microsoft.AspNetCore.SignalR;
 
 namespace EmployeeControl.Application.Features.TimesControl.Commands.UpdateTimeControl;
@@ -10,7 +10,7 @@ namespace EmployeeControl.Application.Features.TimesControl.Commands.UpdateTimeC
 internal class UpdateTimeControlHandler(
     ITimesControlService timesControlService,
     IHubContext<NotificationTimeControlIncidenceHub> hubContext)
-    : IRequestHandler<UpdateTimeControlCommand, Result>
+    : ICommandHandler<UpdateTimeControlCommand>
 {
     public async Task<Result> Handle(UpdateTimeControlCommand request, CancellationToken cancellationToken)
     {

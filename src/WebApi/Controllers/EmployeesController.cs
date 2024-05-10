@@ -28,7 +28,7 @@ public class EmployeesController : ApiControllerBase
     /// <returns>Lista de empleados paginados.</returns>
     [HttpGet("paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<ResponseData<GetEmployeesPaginatedResponse>>> GetEmployeesPaginated(
+    public async Task<ActionResult<Result<ResponseData<GetEmployeesPaginatedResponse>>>> GetEmployeesPaginated(
         [FromQuery] RequestData request)
     {
         var result = await Sender.Send(new GetEmployeesPaginatedQuery(request));
@@ -58,11 +58,11 @@ public class EmployeesController : ApiControllerBase
     /// <returns>Roles del empleado.</returns>
     [HttpGet("{id}/roles")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<ICollection<GetRolesByEmployeeIdResponse>>> GetRolesByEmployeeId(string id)
+    public async Task<ActionResult<Result<ICollection<GetRolesByEmployeeIdResponse>>>> GetRolesByEmployeeId(string id)
     {
         var result = await Sender.Send(new GetRolesByEmployeeIdQuery(id));
 
-        return result.ToList();
+        return result;
     }
 
     /// <summary>
@@ -72,7 +72,7 @@ public class EmployeesController : ApiControllerBase
     [HttpGet("current")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetCurrentEmployeeResponse>> GetCurrentEmployee()
+    public async Task<ActionResult<Result<GetCurrentEmployeeResponse>>> GetCurrentEmployee()
     {
         var result = await Sender.Send(new GetCurrentEmployeeQuery());
 
@@ -86,7 +86,7 @@ public class EmployeesController : ApiControllerBase
     [HttpGet("settings")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetCurrentEmployeeSettingsResponse>> GetCurrentEmployeeSettings()
+    public async Task<ActionResult<Result<GetCurrentEmployeeSettingsResponse>>> GetCurrentEmployeeSettings()
     {
         var result = await Sender.Send(new GetCurrentEmployeeSettingsQuery());
 
@@ -101,11 +101,11 @@ public class EmployeesController : ApiControllerBase
     [HttpPost("invite")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<string>> InviteEmployee(InviteEmployeeCommand command)
+    public async Task<ActionResult<Result<string>>> InviteEmployee(InviteEmployeeCommand command)
     {
         var result = await Sender.Send(command);
 
-        return ObjectResultWithStatusCode(result, StatusCodes.Status201Created);
+        return ResultWithStatus(result, StatusCodes.Status201Created);
     }
 
     /// <summary>
@@ -212,7 +212,7 @@ public class EmployeesController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<EmployeeSettings>> UpdateEmployeeSettings(UpdateEmployeeSettingsCommand command)
+    public async Task<ActionResult<Result<EmployeeSettings>>> UpdateEmployeeSettings(UpdateEmployeeSettingsCommand command)
     {
         var result = await Sender.Send(command);
 

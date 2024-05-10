@@ -1,11 +1,12 @@
 ﻿using EmployeeControl.Application.Common.Constants;
-using MediatR;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 
 namespace EmployeeControl.Application.Features.Localizations.Queries.SupportedLocales;
 
-internal class SupportedLocalesHandler : IRequestHandler<SupportedLocalesQuery, SupportedLocalesResponse>
+internal class SupportedLocalesHandler : IQueryHandler<SupportedLocalesQuery, SupportedLocalesResponse>
 {
-    public Task<SupportedLocalesResponse> Handle(SupportedLocalesQuery request, CancellationToken cancellationToken)
+    public Task<Result<SupportedLocalesResponse>> Handle(SupportedLocalesQuery request, CancellationToken cancellationToken)
     {
         var supportedCultures = AppCultures
             .GetAll()
@@ -14,6 +15,6 @@ internal class SupportedLocalesHandler : IRequestHandler<SupportedLocalesQuery, 
 
         var supportedLocalesResponse = new SupportedLocalesResponse(supportedCultures);
 
-        return Task.FromResult(supportedLocalesResponse);
+        return Task.FromResult(Result.Success(supportedLocalesResponse));
     }
 }

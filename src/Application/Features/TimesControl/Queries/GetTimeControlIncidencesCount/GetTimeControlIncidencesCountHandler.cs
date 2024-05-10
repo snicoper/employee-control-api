@@ -1,18 +1,19 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
-using MediatR;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 
 namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlIncidencesCount;
 
 internal class GetTimeControlIncidencesCountHandler(ITimesControlService timesControlService)
-    : IRequestHandler<GetTimeControlIncidencesCountQuery, GetTimeControlIncidencesCountResponse>
+    : IQueryHandler<GetTimeControlIncidencesCountQuery, GetTimeControlIncidencesCountResponse>
 {
-    public Task<GetTimeControlIncidencesCountResponse> Handle(
+    public Task<Result<GetTimeControlIncidencesCountResponse>> Handle(
         GetTimeControlIncidencesCountQuery request,
         CancellationToken cancellationToken)
     {
         var incidences = timesControlService.GetTimesControlIncidencesQueryable().Count();
         var resultResponse = new GetTimeControlIncidencesCountResponse(incidences);
 
-        return Task.FromResult(resultResponse);
+        return Task.FromResult(Result.Success(resultResponse));
     }
 }

@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Features.Companies;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Common.Utils;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
@@ -16,9 +17,9 @@ internal class InviteEmployeeHandler(
     ICompanyService companyService,
     UserManager<User> userManager,
     IEmployeeSettingsService employeeSettingsService)
-    : IRequestHandler<InviteEmployeeCommand, string>
+    : ICommandHandler<InviteEmployeeCommand, string>
 {
-    public async Task<string> Handle(InviteEmployeeCommand request, CancellationToken cancellationToken)
+    public async Task<Result<string>> Handle(InviteEmployeeCommand request, CancellationToken cancellationToken)
     {
         var company = await companyService.GetCompanyAsync(cancellationToken);
         var user = mapper.Map<InviteEmployeeCommand, User>(request);
@@ -40,6 +41,6 @@ internal class InviteEmployeeHandler(
         // Mandar email de verificación de Email.
         await identityEmailsService.SendInviteEmployeeAsync(user, company, code);
 
-        return employeeId;
+        return Result.Success(employeeId);
     }
 }

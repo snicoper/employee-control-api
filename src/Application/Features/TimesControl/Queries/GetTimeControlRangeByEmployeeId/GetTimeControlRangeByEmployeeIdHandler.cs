@@ -1,15 +1,16 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlRangeByEmployeeId;
 
 internal class GetTimeControlRangeByEmployeeIdHandler(IDateTimeService dateTimeService, ITimesControlService timesControlService)
-    : IRequestHandler<GetTimeControlRangeByEmployeeIdQuery, ICollection<GetTimeControlRangeByEmployeeIdResponse>>
+    : IQueryHandler<GetTimeControlRangeByEmployeeIdQuery, List<GetTimeControlRangeByEmployeeIdResponse>>
 {
-    public async Task<ICollection<GetTimeControlRangeByEmployeeIdResponse>> Handle(
+    public async Task<Result<List<GetTimeControlRangeByEmployeeIdResponse>>> Handle(
         GetTimeControlRangeByEmployeeIdQuery request,
         CancellationToken cancellationToken)
     {
@@ -24,7 +25,7 @@ internal class GetTimeControlRangeByEmployeeIdHandler(IDateTimeService dateTimeS
             .OrderBy(group => group.Day)
             .ToList();
 
-        return resultResponse;
+        return Result.Success(resultResponse);
     }
 
     private GetTimeControlRangeByEmployeeIdResponse MapTo(IGrouping<int, TimeControl> timesControlGroup)

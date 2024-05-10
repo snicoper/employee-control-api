@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.Employees.Commands.UpdateEmployee;
 
@@ -16,7 +15,7 @@ public record UpdateEmployeeCommand(
     string CompanyCalendarId,
     string? PhoneNumber,
     DateTimeOffset? EntryDate)
-    : IRequest<Result>
+    : ICommand
 {
     internal class Mapping : Profile
     {

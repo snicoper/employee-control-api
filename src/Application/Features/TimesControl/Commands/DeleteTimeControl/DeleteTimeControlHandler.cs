@@ -1,12 +1,12 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.TimesControl.Commands.DeleteTimeControl;
 
 internal class DeleteTimeControlHandler(IApplicationDbContext context, ITimesControlService timesControlService)
-    : IRequestHandler<DeleteTimeControlCommand, Result>
+    : ICommandHandler<DeleteTimeControlCommand>
 {
     public async Task<Result> Handle(DeleteTimeControlCommand request, CancellationToken cancellationToken)
     {

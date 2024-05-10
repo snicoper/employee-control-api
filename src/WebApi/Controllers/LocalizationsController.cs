@@ -1,4 +1,5 @@
-﻿using EmployeeControl.Application.Features.Localizations.Queries.CurrentLocale;
+﻿using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Features.Localizations.Queries.CurrentLocale;
 using EmployeeControl.Application.Features.Localizations.Queries.SupportedLocales;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
@@ -16,7 +17,7 @@ public class LocalizationsController : ApiControllerBase
     [AllowAnonymous]
     [HttpGet("current-locale")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<CurrentLocaleResponse>> CurrentLocale()
+    public async Task<ActionResult<Result<CurrentLocaleResponse>>> CurrentLocale()
     {
         var result = await Sender.Send(new CurrentLocaleQuery());
 
@@ -30,7 +31,7 @@ public class LocalizationsController : ApiControllerBase
     [AllowAnonymous]
     [HttpGet("supported-locales")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<SupportedLocalesResponse>> SupportedLocales()
+    public async Task<ActionResult<Result<SupportedLocalesResponse>>> SupportedLocales()
     {
         var result = await Sender.Send(new SupportedLocalesQuery());
 

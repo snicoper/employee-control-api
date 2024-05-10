@@ -1,13 +1,13 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Enums;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeControl;
 
 internal class FinishTimeControlHandler(IIdentityService identityService, ITimesControlService timesControlService)
-    : IRequestHandler<FinishTimeControlCommand, Result>
+    : ICommandHandler<FinishTimeControlCommand>
 {
     public async Task<Result> Handle(FinishTimeControlCommand request, CancellationToken cancellationToken)
     {

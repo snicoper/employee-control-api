@@ -1,5 +1,5 @@
-﻿using MediatR;
+﻿using EmployeeControl.Application.Common.Interfaces.Messaging;
 
 namespace EmployeeControl.Application.Features.Localizations.Queries.SupportedLocales;
 
-public record SupportedLocalesQuery : IRequest<SupportedLocalesResponse>;
+public record SupportedLocalesQuery : IQuery<SupportedLocalesResponse>;
