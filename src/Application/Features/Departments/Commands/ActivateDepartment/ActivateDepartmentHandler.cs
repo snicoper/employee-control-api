@@ -1,11 +1,11 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Features.Departments;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.Departments.Commands.ActivateDepartment;
 
 internal class ActivateDepartmentHandler(IDepartmentService departmentService)
-    : IRequestHandler<ActivateDepartmentCommand, Result>
+    : ICommandHandler<ActivateDepartmentCommand>
 {
     public async Task<Result> Handle(ActivateDepartmentCommand request, CancellationToken cancellationToken)
     {
