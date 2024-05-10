@@ -1,6 +1,5 @@
-﻿using EmployeeControl.Application.Common.Models;
-using MediatR;
+﻿using EmployeeControl.Application.Common.Interfaces.Messaging;
 
 namespace EmployeeControl.Application.Features.Accounts.Commands.RecoveryPassword;
 
-public record RecoveryPasswordCommand(string Email) : IRequest<Result>;
+public record RecoveryPasswordCommand(string Email) : ICommand;

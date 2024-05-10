@@ -1,11 +1,11 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendarHolidays;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.CompanyCalendarHolidays.Command.DeleteCompanyCalendarHoliday;
 
 internal class DeleteCompanyCalendarHolidayHandler(ICompanyCalendarHolidaysService companyCalendarHolidaysService)
-    : IRequestHandler<DeleteCompanyCalendarHolidayCommand, Result>
+    : ICommandHandler<DeleteCompanyCalendarHolidayCommand>
 {
     public async Task<Result> Handle(DeleteCompanyCalendarHolidayCommand request, CancellationToken cancellationToken)
     {

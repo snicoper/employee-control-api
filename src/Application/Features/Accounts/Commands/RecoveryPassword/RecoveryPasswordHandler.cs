@@ -1,8 +1,8 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 
@@ -13,7 +13,7 @@ internal class RecoveryPasswordHandler(
     UserManager<User> userManager,
     IIdentityEmailsService identityEmailsService,
     IStringLocalizer<IdentityResource> localizer)
-    : IRequestHandler<RecoveryPasswordCommand, Result>
+    : ICommandHandler<RecoveryPasswordCommand>
 {
     public async Task<Result> Handle(RecoveryPasswordCommand request, CancellationToken cancellationToken)
     {
