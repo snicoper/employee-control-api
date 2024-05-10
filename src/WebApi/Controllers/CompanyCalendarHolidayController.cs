@@ -36,11 +36,11 @@ public class CompanyCalendarHolidayController : ApiControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<string>> CreateCompanyCalendarHoliday(CreateCompanyCalendarHolidayCommand command)
+    public async Task<ActionResult<Result<string>>> CreateCompanyCalendarHoliday(CreateCompanyCalendarHolidayCommand command)
     {
         var result = await Sender.Send(command);
 
-        return ObjectResultWithStatusCode(result, StatusCodes.Status201Created);
+        return ResultWithStatus(result, StatusCodes.Status201Created);
     }
 
     /// <summary>

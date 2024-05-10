@@ -46,13 +46,13 @@ public class CompanyCalendarController : ApiControllerBase
     /// <param name="command">Datos de <see cref="CompanyCalendar" />.</param>
     /// <returns><see cref="Result" />.</returns>
     [HttpPost]
-    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Result<string>>> CreateCompanyCalendar(CreateCompanyCalendarCommand command)
     {
         var result = await Sender.Send(command);
 
-        return result;
+        return ResultWithStatus(result, StatusCodes.Status201Created);
     }
 
     /// <summary>

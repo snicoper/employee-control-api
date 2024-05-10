@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendarHolidays;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.CompanyCalendarHolidays.Command.CreateCompanyCalendarHoliday;
 
 internal class CreateCompanyCalendarHolidayHandler(ICompanyCalendarHolidaysService companyCalendarHolidaysService, IMapper mapper)
-    : IRequestHandler<CreateCompanyCalendarHolidayCommand, string>
+    : ICommandHandler<CreateCompanyCalendarHolidayCommand, string>
 {
-    public async Task<string> Handle(
+    public async Task<Result<string>> Handle(
         CreateCompanyCalendarHolidayCommand request,
         CancellationToken cancellationToken)
     {
@@ -16,6 +17,6 @@ internal class CreateCompanyCalendarHolidayHandler(ICompanyCalendarHolidaysServi
         companyHoliday = await companyCalendarHolidaysService.CreateAsync(companyHoliday, cancellationToken);
         var resultResponse = companyHoliday.Id;
 
-        return resultResponse;
+        return Result.Success(resultResponse);
     }
 }

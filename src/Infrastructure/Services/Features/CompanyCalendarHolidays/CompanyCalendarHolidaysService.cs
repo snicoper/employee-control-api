@@ -1,5 +1,4 @@
 using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendarHolidays;
 using EmployeeControl.Domain.Entities;
@@ -9,8 +8,7 @@ namespace EmployeeControl.Infrastructure.Services.Features.CompanyCalendarHolida
 
 public class CompanyCalendarHolidaysService(
     IApplicationDbContext context,
-    ICompanyCalendarHolidaysValidatorService companyCalendarHolidaysValidatorService,
-    IValidationFailureService validationFailureService)
+    ICompanyCalendarHolidaysValidatorService companyCalendarHolidaysValidatorService)
     : ICompanyCalendarHolidaysService
 {
     public async Task<CompanyCalendarHoliday> GetByIdAsync(string id, CancellationToken cancellationToken)
@@ -28,7 +26,6 @@ public class CompanyCalendarHolidaysService(
         CancellationToken cancellationToken)
     {
         await companyCalendarHolidaysValidatorService.ValidateCreateHolidayInDateAsync(companyCalendarHoliday, cancellationToken);
-        validationFailureService.RaiseExceptionIfExistsErrors();
 
         context.CompanyCalendarHoliday.Add(companyCalendarHoliday);
         await context.SaveChangesAsync(cancellationToken);
@@ -41,7 +38,6 @@ public class CompanyCalendarHolidaysService(
         CancellationToken cancellationToken)
     {
         await companyCalendarHolidaysValidatorService.ValidateUpdateHolidayInDateAsync(companyCalendarHoliday, cancellationToken);
-        validationFailureService.RaiseExceptionIfExistsErrors();
 
         context.CompanyCalendarHoliday.Update(companyCalendarHoliday);
         await context.SaveChangesAsync(cancellationToken);
