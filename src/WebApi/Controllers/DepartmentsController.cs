@@ -102,11 +102,11 @@ public class DepartmentsController : ApiControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<CreateDepartmentResponse>> CreateDepartment(CreateDepartmentCommand command)
+    public async Task<ActionResult<Result<string>>> CreateDepartment(CreateDepartmentCommand command)
     {
         var result = await Sender.Send(command);
 
-        return ObjectResultWithStatusCode(result, StatusCodes.Status201Created);
+        return ResultWithStatus(result, StatusCodes.Status201Created);
     }
 
     /// <summary>

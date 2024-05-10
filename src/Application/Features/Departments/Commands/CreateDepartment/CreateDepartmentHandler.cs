@@ -1,22 +1,21 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Features.Departments;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.Departments.Commands.CreateDepartment;
 
 internal class CreateDepartmentHandler(IDepartmentService departmentService, IMapper mapper)
-    : IRequestHandler<CreateDepartmentCommand, CreateDepartmentResponse>
+    : ICommandHandler<CreateDepartmentCommand, string>
 {
-    public async Task<CreateDepartmentResponse> Handle(CreateDepartmentCommand request, CancellationToken cancellationToken)
+    public async Task<Result<string>> Handle(CreateDepartmentCommand request, CancellationToken cancellationToken)
     {
         var department = mapper.Map<Department>(request);
         department.Active = true;
 
         department = await departmentService.CreateAsync(department, cancellationToken);
 
-        var resultResponse = new CreateDepartmentResponse(department.Id);
-
-        return resultResponse;
+        return Result.Success(department.Id);
     }
 }
