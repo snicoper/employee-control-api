@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendars;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.CompanyCalendars.Commands.UpdateCompanyCalendar;
 
 internal sealed class UpdateCompanyCalendarHandler(ICompanyCalendarsService companyCalendarsService, IMapper mapper)
-    : IRequestHandler<UpdateCompanyCalendarCommand, Result>
+    : ICommandHandler<UpdateCompanyCalendarCommand>
 {
     public async Task<Result> Handle(UpdateCompanyCalendarCommand request, CancellationToken cancellationToken)
     {
