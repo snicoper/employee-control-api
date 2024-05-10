@@ -25,7 +25,7 @@ public class Result
     /// <returns>Instancia de <see cref="Result" />.</returns>
     public static Result Create()
     {
-        return new Result(false, []);
+        return new Result(true, []);
     }
 
     /// <summary>

@@ -1,16 +1,13 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Departments;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Infrastructure.Services.Features.Departments;
 
-public class DepartmentService(
-    IApplicationDbContext context,
-    IDepartmentValidatorService departmentValidatorService,
-    IValidationFailureService validationFailureService)
+public class DepartmentService(IApplicationDbContext context, IDepartmentValidatorService departmentValidatorService)
     : IDepartmentService
 {
     public IQueryable<Department> GetAllQueryable()
@@ -44,9 +41,10 @@ public class DepartmentService(
     public async Task<Department> CreateAsync(Department department, CancellationToken cancellationToken)
     {
         // Validaciones.
-        await departmentValidatorService.ValidateNameAsync(department, cancellationToken);
-        await departmentValidatorService.ValidateBackgroundAndColorAsync(department, cancellationToken);
-        validationFailureService.RaiseExceptionIfExistsErrors();
+        var result = Result.Create();
+        await departmentValidatorService.ValidateNameAsync(department, result, cancellationToken);
+        await departmentValidatorService.ValidateBackgroundAndColorAsync(department, result, cancellationToken);
+        result.RaiseBadRequestIfResultFailure();
 
         // Crear departamento.
         context.Departments.Add(department);

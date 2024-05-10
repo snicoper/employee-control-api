@@ -1,4 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Common;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Common.Interfaces.Features.Departments;
@@ -12,8 +13,9 @@ public interface IDepartmentValidatorService
     /// <para>Añade un error en <see cref="IValidationFailureService" />.</para>
     /// </summary>
     /// <param name="department">Datos <see cref="Department" />.</param>
+    /// <param name="result"><see cref="Result" /> para setear posibles errores.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-    Task ValidateNameAsync(Department department, CancellationToken cancellationToken);
+    Task<Result> ValidateNameAsync(Department department, Result result, CancellationToken cancellationToken);
 
     /// <summary>
     /// Valida el <see cref="Department.Background" /> y <see cref="Department.Color" />
@@ -22,6 +24,7 @@ public interface IDepartmentValidatorService
     /// <para>Añade un error en <see cref="IValidationFailureService" />.</para>
     /// </summary>
     /// <param name="department">Datos <see cref="Department" />.</param>
+    /// <param name="result"><see cref="Result" /> para setear posibles errores.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-    Task ValidateBackgroundAndColorAsync(Department department, CancellationToken cancellationToken);
+    Task<Result> ValidateBackgroundAndColorAsync(Department department, Result result, CancellationToken cancellationToken);
 }

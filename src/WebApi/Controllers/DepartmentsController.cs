@@ -87,7 +87,7 @@ public class DepartmentsController : ApiControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetDepartmentByIdResponse>> GetDepartmentById(string id)
+    public async Task<ActionResult<Result<GetDepartmentByIdResponse>>> GetDepartmentById(string id)
     {
         var result = await Sender.Send(new GetDepartmentByIdQuery(id));
 

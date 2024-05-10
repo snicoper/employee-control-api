@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.Departments.Commands.UpdateDepartment;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record UpdateDepartmentCommand(string Id, string Name, string Background, string Color) : IRequest<Result>
+public record UpdateDepartmentCommand(string Id, string Name, string Background, string Color)
+    : ICommand
 {
     internal class Mapping : Profile
     {
