@@ -2,6 +2,7 @@
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
+using EmployeeControl.Application.Common.Interfaces.Validation;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,7 @@ namespace EmployeeControl.Infrastructure.Services.Features.TimesControl;
 
 public class TimesControlValidatorService(
     IApplicationDbContext context,
-    IValidationFailureService validationFailureService,
+    IValidationResultService validationResultService,
     IStringLocalizer<TimesControlService> localizer,
     IDateTimeService dateTimeService)
     : ITimesControlValidatorService
@@ -21,7 +22,7 @@ public class TimesControlValidatorService(
         // El Finish no puede ser menor al Start.
         if (timeControl.Finish < timeControl.Start)
         {
-            validationFailureService.Add(
+            validationResultService.Add(
                 ValidationErrorsKeys.NotificationErrors,
                 localizer["El tiempo final no puede ser antes que el tiempo de inicio."]);
 
@@ -40,7 +41,7 @@ public class TimesControlValidatorService(
 
         if (checkTime)
         {
-            validationFailureService.Add(
+            validationResultService.Add(
                 ValidationErrorsKeys.NotificationErrors,
                 localizer["El tiempo coincide con algún tiempo creado y no es posible iniciar el tiempo."]);
 
@@ -60,7 +61,7 @@ public class TimesControlValidatorService(
             return;
         }
 
-        validationFailureService.Add(
+        validationResultService.Add(
             ValidationErrorsKeys.NotificationErrors,
             localizer["El tiempo coincide con algún tiempo abierto y no es posible iniciar el tiempo."]);
     }
@@ -70,7 +71,7 @@ public class TimesControlValidatorService(
         // Los tiempos iniciados, no se pueden editar.
         if (timeControl.TimeState == TimeState.Open)
         {
-            validationFailureService.Add(
+            validationResultService.Add(
                 ValidationErrorsKeys.NotificationErrors,
                 localizer["El tiempo esta actualmente iniciado."]);
 
@@ -80,7 +81,7 @@ public class TimesControlValidatorService(
         // El Finish no puede ser menor al Start.
         if (timeControl.Finish < timeControl.Start)
         {
-            validationFailureService.Add(
+            validationResultService.Add(
                 ValidationErrorsKeys.NotificationErrors,
                 localizer["El tiempo final no puede ser antes que el tiempo de inicio."]);
 
@@ -101,7 +102,7 @@ public class TimesControlValidatorService(
 
         if (checkTime)
         {
-            validationFailureService.Add(
+            validationResultService.Add(
                 ValidationErrorsKeys.NotificationErrors,
                 localizer["El tiempo coincide con algún tiempo creado y no es posible actualizar el tiempo."]);
 
@@ -122,7 +123,7 @@ public class TimesControlValidatorService(
             return;
         }
 
-        validationFailureService.Add(
+        validationResultService.Add(
             ValidationErrorsKeys.NotificationErrors,
             localizer["El tiempo coincide con algún tiempo abierto y no es posible actualizar el tiempo."]);
     }

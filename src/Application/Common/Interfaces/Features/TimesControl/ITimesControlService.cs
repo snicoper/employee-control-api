@@ -1,5 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Common;
+using EmployeeControl.Application.Common.Interfaces.Validation;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
@@ -120,7 +120,7 @@ public interface ITimesControlService
     /// <summary>
     /// Inicializar un <see cref="TimeControl" />.
     /// <para>Lanza un <see cref="NotFoundException" /> si el empleado no existe.</para>
-    /// <para>Lanza un <see cref="IValidationFailureService" /> si ya tenía un tiempo inicializado.</para>
+    /// <para>Lanza un <see cref="IValidationResultService" /> si ya tenía un tiempo inicializado.</para>
     /// </summary>
     /// <param name="user"><see cref="User" />.</param>
     /// <param name="deviceType">Dispositivo utilizado.</param>
@@ -137,7 +137,7 @@ public interface ITimesControlService
 
     /// <summary>
     /// Inicia un TimeControl.
-    /// <para>Lanza un <see cref="IValidationFailureService" /> en caso de error.</para>
+    /// <para>Lanza un <see cref="IValidationResultService" /> en caso de error.</para>
     /// </summary>
     /// <param name="user"><see cref="User" />.</param>
     /// <param name="deviceType">Dispositivo utilizado.</param>
@@ -145,7 +145,7 @@ public interface ITimesControlService
     /// <param name="latitude">Longitud del empleado.</param>
     /// <param name="longitude">Latitud del empleado.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-    /// <returns>Result.Success en caso de exito, <see cref="IValidationFailureService" /> en caso contrario.</returns>
+    /// <returns>Result.Success en caso de exito, <see cref="IValidationResultService" /> en caso contrario.</returns>
     Task<(Result Result, TimeControl? TimeControl)> FinishAsync(
         User user,
         DeviceType deviceType,

@@ -1,12 +1,15 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Common;
+using EmployeeControl.Application.Common.Interfaces.Validation;
+using EmployeeControl.Application.Common.Models;
 using FluentValidation.Results;
 
-namespace EmployeeControl.Infrastructure.Services.Common;
+namespace EmployeeControl.Infrastructure.Services.Validation;
 
-public class ValidationFailureService : IValidationFailureService
+public class ValidationResultService : IValidationResultService
 {
-    private List<ValidationFailure> Errors { get; } = new();
+    private List<ValidationFailure> Errors { get; } =
+    [
+    ];
 
     public bool HasErrors()
     {
@@ -58,5 +61,15 @@ public class ValidationFailureService : IValidationFailureService
         {
             RaiseException();
         }
+    }
+
+    public Result ToResult()
+    {
+        return HasErrors() ? Result.Failure(Errors) : Result.Success();
+    }
+
+    public Result<TValue> ToResult<TValue>(TValue value)
+    {
+        return HasErrors() ? Result.Failure<TValue>(Errors) : Result.Success(value);
     }
 }

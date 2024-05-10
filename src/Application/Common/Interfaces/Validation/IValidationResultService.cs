@@ -1,6 +1,8 @@
-﻿namespace EmployeeControl.Application.Common.Interfaces.Common;
+﻿using EmployeeControl.Application.Common.Models;
 
-public interface IValidationFailureService
+namespace EmployeeControl.Application.Common.Interfaces.Validation;
+
+public interface IValidationResultService
 {
     /// <summary>
     /// Comprueba si tiene errores.
@@ -42,4 +44,17 @@ public interface IValidationFailureService
     /// Lanza la excepción si tiene errores.
     /// </summary>
     void RaiseExceptionIfExistsErrors();
+
+    /// <summary>
+    /// Convierte un <see cref="IValidationResultService" /> a <see cref="Result" />.
+    /// </summary>
+    /// <returns><see cref="Result" />.</returns>
+    Result ToResult();
+
+    /// <summary>
+    /// Convierte un <see cref="IValidationResultService" /> a <see cref="Result{TValue}" />.
+    /// </summary>
+    /// <typeparam name="TValue">Valor a insertar a Result.</typeparam>
+    /// <returns><see cref="Result{TValue}" />.</returns>
+    Result<TValue> ToResult<TValue>(TValue value);
 }

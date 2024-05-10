@@ -3,6 +3,7 @@ using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Interfaces.Validation;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Constants;
@@ -14,7 +15,7 @@ internal class UpdateEmployeeHandler(
     IIdentityService identityService,
     IMapper mapper,
     ICurrentUserService currentUserService,
-    IValidationFailureService validationFailureService,
+    IValidationResultService validationResultService,
     IStringLocalizer<IdentityResource> localizer)
     : ICommandHandler<UpdateEmployeeCommand>
 {
@@ -39,7 +40,7 @@ internal class UpdateEmployeeHandler(
 
         result.RaiseBadRequestIfResultFailure();
 
-        validationFailureService.RaiseExceptionIfExistsErrors();
+        validationResultService.RaiseExceptionIfExistsErrors();
 
         // Update employee.
         var userUpdate = mapper.Map(request, user);

@@ -1,4 +1,4 @@
-using EmployeeControl.Application.Common.Interfaces.Common;
+using EmployeeControl.Application.Common.Interfaces.Validation;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -9,7 +9,7 @@ public interface IIdentityValidatorService
 {
     /// <summary>
     /// Comprueba si el Email esta en uso.
-    /// <para>Si esta en uso, añade un error en <see cref="IValidationFailureService" />.</para>
+    /// <para>Si esta en uso, añade un error en <see cref="IValidationResultService" />.</para>
     /// </summary>
     /// <param name="user">Usuario con el email a validar.</param>
     /// <param name="result"><see cref="Result" />.</param>
@@ -18,7 +18,7 @@ public interface IIdentityValidatorService
 
     /// <summary>
     /// Validación de usuario de <see cref="IUserValidator{TUser}" />.
-    /// <para>Si esta en uso, añade un error en <see cref="IValidationFailureService" />.</para>
+    /// <para>Si esta en uso, añade un error en <see cref="IValidationResultService" />.</para>
     /// </summary>
     /// <param name="user">Usuario con el email a validar.</param>
     /// <param name="result"><see cref="Result" />.</param>
@@ -26,7 +26,7 @@ public interface IIdentityValidatorService
 
     /// <summary>
     /// Validación del password con <see cref="IPasswordValidator{TUser}" />.
-    /// <para>Si esta en uso, añade un error en <see cref="IValidationFailureService" />.</para>
+    /// <para>Si esta en uso, añade un error en <see cref="IValidationResultService" />.</para>
     /// </summary>
     /// <param name="user">Usuario a validar.</param>
     /// <param name="password">Password a validar.</param>

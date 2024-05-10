@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Common;
+﻿using EmployeeControl.Application.Common.Interfaces.Validation;
 using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
@@ -9,7 +9,7 @@ public interface ITimesControlValidatorService
     /// Reglas de validación de un <see cref="TimeControl" /> en la creación.
     /// <para>Un tiempo creado no deberá estar en algún rango de tiempo ya creado.</para>
     /// <para>Un tiempo creado no deberá estar en algún rango de tiempo que actualmente este abierto.</para>
-    /// <para>En caso de no éxito, genera errores en <see cref="IValidationFailureService" />.</para>
+    /// <para>En caso de no éxito, genera errores en <see cref="IValidationResultService" />.</para>
     /// </summary>
     /// <param name="timeControl"><see cref="TimeControl" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
@@ -20,7 +20,7 @@ public interface ITimesControlValidatorService
     /// <para>Un tiempo actualizado no deberá estar en algún rango de tiempo ya creado.</para>
     /// <para>Un tiempo actualizado no deberá estar en algún rango de tiempo que actualmente este abierto.</para>
     /// <para>Las reglas excluyen al tiempo actual.</para>
-    /// <para>En caso de no éxito, genera errores en <see cref="IValidationFailureService" />.</para>
+    /// <para>En caso de no éxito, genera errores en <see cref="IValidationResultService" />.</para>
     /// </summary>
     /// <param name="timeControl"><see cref="TimeControl" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>

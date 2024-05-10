@@ -1,5 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Common;
+using EmployeeControl.Application.Common.Interfaces.Validation;
 using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Common.Interfaces.Features.CategoryAbsences;
@@ -20,7 +20,7 @@ public interface ICategoryAbsenceService
     /// <summary>
     /// Creación de una nueva <see cref="CategoryAbsence" />.
     /// <para>
-    /// Lanza un <see cref="IValidationFailureService" /> si no cumple las reglas de creación.
+    /// Lanza un <see cref="IValidationResultService" /> si no cumple las reglas de creación.
     /// </para>
     /// </summary>
     /// <param name="categoryAbsence">Datos para crear <see cref="CategoryAbsence" />.</param>
