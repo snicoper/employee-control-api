@@ -1,7 +1,6 @@
 ﻿using System.Text;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Validation;
 using EmployeeControl.Application.Common.Models.Settings;
 using EmployeeControl.Application.Common.Services;
 using EmployeeControl.Domain.Entities;
@@ -9,7 +8,6 @@ using EmployeeControl.Infrastructure.Data;
 using EmployeeControl.Infrastructure.Data.Interceptors;
 using EmployeeControl.Infrastructure.Data.Seeds;
 using EmployeeControl.Infrastructure.Services.Common;
-using EmployeeControl.Infrastructure.Services.Validation;
 using Hangfire;
 using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -40,7 +38,6 @@ public static class DependencyInjection
                     .WithTransientLifetime());
 
         services.AddSingleton(TimeProvider.System);
-        services.AddScoped<IValidationResultService, ValidationResultService>();
         services.AddScoped<IDateTimeService, DateTimeService>();
 
         // SignalR.

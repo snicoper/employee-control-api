@@ -8,7 +8,9 @@ using Microsoft.Extensions.Localization;
 
 namespace EmployeeControl.Infrastructure.Services.Features.Departments;
 
-public class DepartmentValidatorService(IApplicationDbContext context, IStringLocalizer<DepartmentResource> localizer)
+public class DepartmentValidatorService(
+    IApplicationDbContext context,
+    IStringLocalizer<DepartmentResource> localizer)
     : IDepartmentValidatorService
 {
     public async Task<Result> ValidateNameAsync(Department department, Result result, CancellationToken cancellationToken)
@@ -45,7 +47,7 @@ public class DepartmentValidatorService(IApplicationDbContext context, IStringLo
 
         if (!company)
         {
-            return result;
+            return Result.Success();
         }
 
         var errorMessage = localizer["Ya existe una combinación de colores así en los departamentos."];

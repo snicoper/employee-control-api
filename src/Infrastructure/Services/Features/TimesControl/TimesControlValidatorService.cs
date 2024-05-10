@@ -2,7 +2,7 @@
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
-using EmployeeControl.Application.Common.Interfaces.Validation;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -12,21 +12,20 @@ namespace EmployeeControl.Infrastructure.Services.Features.TimesControl;
 
 public class TimesControlValidatorService(
     IApplicationDbContext context,
-    IValidationResultService validationResultService,
     IStringLocalizer<TimesControlService> localizer,
     IDateTimeService dateTimeService)
     : ITimesControlValidatorService
 {
-    public async Task ValidateCreateAsync(TimeControl timeControl, CancellationToken cancellationToken)
+    public async Task<Result> ValidateCreateAsync(TimeControl timeControl, Result result, CancellationToken cancellationToken)
     {
         // El Finish no puede ser menor al Start.
         if (timeControl.Finish < timeControl.Start)
         {
-            validationResultService.Add(
+            result.AddError(
                 ValidationErrorsKeys.NotificationErrors,
                 localizer["El tiempo final no puede ser antes que el tiempo de inicio."]);
 
-            return;
+            return result;
         }
 
         // Comprueba si existe algún tiempo cerrado en el rango del tiempo a crear.
@@ -41,11 +40,11 @@ public class TimesControlValidatorService(
 
         if (checkTime)
         {
-            validationResultService.Add(
+            result.AddError(
                 ValidationErrorsKeys.NotificationErrors,
                 localizer["El tiempo coincide con algún tiempo creado y no es posible iniciar el tiempo."]);
 
-            return;
+            return result;
         }
 
         // Comprueba si hay algún tiempo abierto que coincide con el rango de tiempo a crear.
@@ -58,34 +57,36 @@ public class TimesControlValidatorService(
 
         if (!checkTime)
         {
-            return;
+            return result;
         }
 
-        validationResultService.Add(
+        result.AddError(
             ValidationErrorsKeys.NotificationErrors,
             localizer["El tiempo coincide con algún tiempo abierto y no es posible iniciar el tiempo."]);
+
+        return result;
     }
 
-    public async Task ValidateUpdateAsync(TimeControl timeControl, CancellationToken cancellationToken)
+    public async Task<Result> ValidateUpdateAsync(TimeControl timeControl, Result result, CancellationToken cancellationToken)
     {
         // Los tiempos iniciados, no se pueden editar.
         if (timeControl.TimeState == TimeState.Open)
         {
-            validationResultService.Add(
+            result.AddError(
                 ValidationErrorsKeys.NotificationErrors,
                 localizer["El tiempo esta actualmente iniciado."]);
 
-            return;
+            return result;
         }
 
         // El Finish no puede ser menor al Start.
         if (timeControl.Finish < timeControl.Start)
         {
-            validationResultService.Add(
+            result.AddError(
                 ValidationErrorsKeys.NotificationErrors,
                 localizer["El tiempo final no puede ser antes que el tiempo de inicio."]);
 
-            return;
+            return result;
         }
 
         // Comprueba si existe algún tiempo en el rango del tiempo a actualizar.
@@ -102,11 +103,11 @@ public class TimesControlValidatorService(
 
         if (checkTime)
         {
-            validationResultService.Add(
+            result.AddError(
                 ValidationErrorsKeys.NotificationErrors,
                 localizer["El tiempo coincide con algún tiempo creado y no es posible actualizar el tiempo."]);
 
-            return;
+            return result;
         }
 
         // Comprueba si hay algún tiempo abierto que coincide con el rango de tiempo a actualizar.
@@ -120,11 +121,13 @@ public class TimesControlValidatorService(
 
         if (!checkTime)
         {
-            return;
+            return result;
         }
 
-        validationResultService.Add(
+        result.AddError(
             ValidationErrorsKeys.NotificationErrors,
             localizer["El tiempo coincide con algún tiempo abierto y no es posible actualizar el tiempo."]);
+
+        return result;
     }
 }

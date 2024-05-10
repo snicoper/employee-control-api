@@ -14,7 +14,7 @@ internal class FinishTimeControlByStaffHandler(IIdentityService identityService,
         var timeControl = await timesControlService.GetByIdAsync(request.TimeControlId, cancellationToken);
         var employee = await identityService.GetByIdAsync(timeControl.UserId);
 
-        var (result, _) = await timesControlService.FinishAsync(
+        await timesControlService.FinishAsync(
             employee,
             DeviceType.System,
             ClosedBy.Staff,
@@ -22,6 +22,6 @@ internal class FinishTimeControlByStaffHandler(IIdentityService identityService,
             null,
             cancellationToken);
 
-        return result;
+        return Result.Success();
     }
 }

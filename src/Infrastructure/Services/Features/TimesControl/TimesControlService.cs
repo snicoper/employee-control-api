@@ -4,7 +4,6 @@ using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
-using EmployeeControl.Application.Common.Interfaces.Validation;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Common.Services.Hubs;
@@ -19,7 +18,6 @@ namespace EmployeeControl.Infrastructure.Services.Features.TimesControl;
 public class TimesControlService(
     IDateTimeService dateTimeService,
     ITimesControlValidatorService timesControlValidatorService,
-    IValidationResultService validationResultService,
     IApplicationDbContext context,
     ICompanySettingsService companySettingsService,
     IHubContext<NotificationTimeControlIncidenceHub> hubContext,
@@ -154,8 +152,9 @@ public class TimesControlService(
 
     public async Task<TimeControl> CreateWithOutFinishAsync(TimeControl timeControl, CancellationToken cancellationToken)
     {
-        await timesControlValidatorService.ValidateCreateAsync(timeControl, cancellationToken);
-        validationResultService.RaiseExceptionIfExistsErrors();
+        var result = Result.Create();
+        result = await timesControlValidatorService.ValidateCreateAsync(timeControl, result, cancellationToken);
+        result.RaiseBadRequestIfResultFailure();
 
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
@@ -165,8 +164,9 @@ public class TimesControlService(
 
     public async Task<TimeControl> CreateWithFinishAsync(TimeControl timeControl, CancellationToken cancellationToken)
     {
-        await timesControlValidatorService.ValidateUpdateAsync(timeControl, cancellationToken);
-        validationResultService.RaiseExceptionIfExistsErrors();
+        var result = Result.Create();
+        result = await timesControlValidatorService.ValidateUpdateAsync(timeControl, result, cancellationToken);
+        result.RaiseBadRequestIfResultFailure();
 
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
@@ -192,8 +192,9 @@ public class TimesControlService(
         };
 
         // Validaciones.
-        await timesControlValidatorService.ValidateCreateAsync(timeControl, cancellationToken);
-        validationResultService.RaiseExceptionIfExistsErrors();
+        var result = Result.Create();
+        result = await timesControlValidatorService.ValidateCreateAsync(timeControl, result, cancellationToken);
+        result.RaiseBadRequestIfResultFailure();
 
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
@@ -201,7 +202,19 @@ public class TimesControlService(
         return timeControl;
     }
 
-    public async Task<(Result Result, TimeControl? TimeControl)> FinishAsync(
+    public async Task<TimeControl> UpdateAsync(TimeControl timeControl, CancellationToken cancellationToken)
+    {
+        var result = Result.Create();
+        result = await timesControlValidatorService.ValidateUpdateAsync(timeControl, result, cancellationToken);
+        result.RaiseBadRequestIfResultFailure();
+
+        context.TimeControls.Update(timeControl);
+        await context.SaveChangesAsync(cancellationToken);
+
+        return timeControl;
+    }
+
+    public async Task<TimeControl> FinishAsync(
         User user,
         DeviceType deviceType,
         ClosedBy closedBy,
@@ -210,22 +223,19 @@ public class TimesControlService(
         CancellationToken cancellationToken)
     {
         var timeControl = await context
-            .TimeControls
-            .SingleOrDefaultAsync(tc => tc.TimeState == TimeState.Open && tc.UserId == user.Id, cancellationToken);
+                              .TimeControls
+                              .SingleOrDefaultAsync(
+                                  tc => tc.TimeState == TimeState.Open && tc.UserId == user.Id,
+                                  cancellationToken) ??
+                          throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.UserId));
 
-        if (timeControl?.ClosedBy is null)
+        if (timeControl.ClosedBy != ClosedBy.Unclosed)
         {
             var message = localizer["No hay un tiempo inicializado."];
-            validationResultService.AddAndRaiseException(ValidationErrorsKeys.NotificationErrors, message);
-
-            return (Result.Failure(ValidationErrorsKeys.TimeControlError, message), timeControl);
+            Result.Failure(ValidationErrorsKeys.NotificationErrors, message).RaiseBadRequest();
         }
 
-        // Si es cerrado por el sistema, de momento solo hay un motivo que es tiempo superado 23:59:00.
-        timeControl.Finish = closedBy == ClosedBy.System
-            ? dateTimeService.EndOfDay(timeControl.Finish)
-            : dateTimeService.UtcNow;
-
+        timeControl.Finish = dateTimeService.UtcNow;
         timeControl.ClosedBy = closedBy;
         timeControl.TimeState = TimeState.Close;
         timeControl.DeviceTypeFinish = deviceType;
@@ -233,17 +243,6 @@ public class TimesControlService(
         timeControl.LongitudeFinish = longitude;
 
         await UpdateAsync(timeControl, cancellationToken);
-
-        return (Result.Success(), timeControl);
-    }
-
-    public async Task<TimeControl> UpdateAsync(TimeControl timeControl, CancellationToken cancellationToken)
-    {
-        await timesControlValidatorService.ValidateUpdateAsync(timeControl, cancellationToken);
-        validationResultService.RaiseExceptionIfExistsErrors();
-
-        context.TimeControls.Update(timeControl);
-        await context.SaveChangesAsync(cancellationToken);
 
         return timeControl;
     }

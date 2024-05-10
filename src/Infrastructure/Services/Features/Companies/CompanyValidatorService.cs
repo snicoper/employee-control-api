@@ -22,12 +22,12 @@ public class CompanyValidatorService(
 
         if (!company)
         {
-            return result;
+            return Result.Success();
         }
 
-        var message = localizer["El nombre de compañía ya existe."];
-        logger.LogDebug(message);
-        result.AddError("CompanyName", message);
+        var errorMessage = localizer["El nombre de compañía ya existe."];
+        logger.LogDebug(errorMessage);
+        result.AddError("CompanyName", errorMessage);
 
         return result;
     }

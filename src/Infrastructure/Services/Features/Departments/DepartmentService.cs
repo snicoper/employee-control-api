@@ -42,8 +42,8 @@ public class DepartmentService(IApplicationDbContext context, IDepartmentValidat
     {
         // Validaciones.
         var result = Result.Create();
-        await departmentValidatorService.ValidateNameAsync(department, result, cancellationToken);
-        await departmentValidatorService.ValidateBackgroundAndColorAsync(department, result, cancellationToken);
+        result = await departmentValidatorService.ValidateNameAsync(department, result, cancellationToken);
+        result = await departmentValidatorService.ValidateBackgroundAndColorAsync(department, result, cancellationToken);
         result.RaiseBadRequestIfResultFailure();
 
         // Crear departamento.

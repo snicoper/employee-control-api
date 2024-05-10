@@ -13,7 +13,7 @@ internal class FinishTimeControlHandler(IIdentityService identityService, ITimes
     {
         var employee = await identityService.GetByIdAsync(request.EmployeeId);
 
-        var (result, _) = await timesControlService.FinishAsync(
+        await timesControlService.FinishAsync(
             employee,
             request.DeviceType,
             ClosedBy.Employee,
@@ -21,6 +21,6 @@ internal class FinishTimeControlHandler(IIdentityService identityService, ITimes
             request.Longitude,
             cancellationToken);
 
-        return result;
+        return Result.Success();
     }
 }
