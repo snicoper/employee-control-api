@@ -86,7 +86,7 @@ public class CompanyTasksController : ApiControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetCompanyTasksByIdResponse>> GetCompanyTasksById(string id)
+    public async Task<ActionResult<Result<GetCompanyTasksByIdResponse>>> GetCompanyTasksById(string id)
     {
         var result = await Sender.Send(new GetCompanyTasksByIdQuery(id));
 
