@@ -18,9 +18,10 @@ public class EmployeeHolidayController : ApiControllerBase
     /// <returns>Lista de <see cref="EmployeeHoliday" /> paginádos.</returns>
     [HttpGet("year/{year}/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<ResponseData<GetEmployeeHolidaysByYearPaginatedResponse>>> GetEmployeeHolidaysByYearPaginated(
-        int year,
-        [FromQuery] RequestData request)
+    public async Task<ActionResult<Result<ResponseData<GetEmployeeHolidaysByYearPaginatedResponse>>>>
+        GetEmployeeHolidaysByYearPaginated(
+            int year,
+            [FromQuery] RequestData request)
     {
         var result = await Sender.Send(new GetEmployeeHolidaysByYearPaginatedQuery(year, request));
 

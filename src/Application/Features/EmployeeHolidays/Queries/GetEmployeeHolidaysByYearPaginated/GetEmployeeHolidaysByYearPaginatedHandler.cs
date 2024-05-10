@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,9 +10,9 @@ namespace EmployeeControl.Application.Features.EmployeeHolidays.Queries.GetEmplo
 internal class GetEmployeeHolidaysByYearPaginatedHandler(
     UserManager<User> userManager,
     IMapper mapper)
-    : IRequestHandler<GetEmployeeHolidaysByYearPaginatedQuery, ResponseData<GetEmployeeHolidaysByYearPaginatedResponse>>
+    : IQueryHandler<GetEmployeeHolidaysByYearPaginatedQuery, ResponseData<GetEmployeeHolidaysByYearPaginatedResponse>>
 {
-    public async Task<ResponseData<GetEmployeeHolidaysByYearPaginatedResponse>> Handle(
+    public async Task<Result<ResponseData<GetEmployeeHolidaysByYearPaginatedResponse>>> Handle(
         GetEmployeeHolidaysByYearPaginatedQuery request,
         CancellationToken cancellationToken)
     {
@@ -23,13 +23,13 @@ internal class GetEmployeeHolidaysByYearPaginatedHandler(
             .Include(au => au.EmployeeHolidays.Where(eh => eh.Year == request.Year))
             .Where(au => au.Active);
 
-        // El mapeo se hace como si fuese una entidad EmployeeHoliday en vez de ApplicationUser.
+        // El mapeo se hace como si fuese una entidad EmployeeHoliday en vez de User.
         var resultResponse = await ResponseData<GetEmployeeHolidaysByYearPaginatedResponse>.CreateAsync(
             employees,
             request.RequestData,
             mapper,
             cancellationToken);
 
-        return resultResponse;
+        return Result.Success(resultResponse);
     }
 }
