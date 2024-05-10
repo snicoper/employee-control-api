@@ -41,7 +41,7 @@ public class DepartmentsController : ApiControllerBase
     /// <returns>Lista de usuarios paginádos.</returns>
     [HttpGet("{id}/employees/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<ResponseData<GetEmployeesByDepartmentIdPaginatedResponse>>>
+    public async Task<ActionResult<Result<ResponseData<GetEmployeesByDepartmentIdPaginatedResponse>>>>
         GetEmployeesByDepartmentIdPaginated([FromQuery] RequestData request, string id)
     {
         var result = await Sender.Send(new GetEmployeesByDepartmentIdPaginatedQuery(id, request));
@@ -72,7 +72,7 @@ public class DepartmentsController : ApiControllerBase
     /// <returns>Lista empleados que no pertenecen a un departamento concreta.</returns>
     [HttpGet("{id}/employees/unassigned")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ICollection<GetEmployeesUnassignedDepartmentByDepartmentIdResponse>>
+    public async Task<Result<List<GetEmployeesUnassignedDepartmentByDepartmentIdResponse>>>
         GetEmployeesUnassignedDepartmentByDepartmentId(string id)
     {
         var result = await Sender.Send(new GetEmployeesUnassignedDepartmentByDepartmentIdQuery(id));
@@ -121,7 +121,7 @@ public class DepartmentsController : ApiControllerBase
     {
         var result = await Sender.Send(command);
 
-        return ObjectResultWithStatusCode(result, StatusCodes.Status201Created);
+        return ResultWithStatus(result, StatusCodes.Status201Created);
     }
 
     /// <summary>

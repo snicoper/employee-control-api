@@ -1,9 +1,9 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Companies;
 using EmployeeControl.Application.Common.Interfaces.Features.Departments;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeControl.Application.Features.Departments.Commands.AssignEmployeesToDepartment;
@@ -14,7 +14,7 @@ internal class AssignEmployeesToDepartmentHandler(
     ICompanyService companyService,
     UserManager<User> userManager,
     IDepartmentEmailsService departmentEmailsService)
-    : IRequestHandler<AssignEmployeesToDepartmentCommand, Result>
+    : ICommandHandler<AssignEmployeesToDepartmentCommand>
 {
     public async Task<Result> Handle(AssignEmployeesToDepartmentCommand request, CancellationToken cancellationToken)
     {

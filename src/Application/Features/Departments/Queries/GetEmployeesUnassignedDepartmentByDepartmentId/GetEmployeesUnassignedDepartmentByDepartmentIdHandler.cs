@@ -1,7 +1,8 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Data;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,11 +11,11 @@ namespace EmployeeControl.Application.Features.Departments.Queries.GetEmployeesU
 internal class GetEmployeesUnassignedDepartmentByDepartmentIdHandler(
     IApplicationDbContext context,
     UserManager<User> userManager)
-    : IRequestHandler<
+    : IQueryHandler<
         GetEmployeesUnassignedDepartmentByDepartmentIdQuery,
-        ICollection<GetEmployeesUnassignedDepartmentByDepartmentIdResponse>>
+        List<GetEmployeesUnassignedDepartmentByDepartmentIdResponse>>
 {
-    public async Task<ICollection<GetEmployeesUnassignedDepartmentByDepartmentIdResponse>> Handle(
+    public async Task<Result<List<GetEmployeesUnassignedDepartmentByDepartmentIdResponse>>> Handle(
         GetEmployeesUnassignedDepartmentByDepartmentIdQuery request,
         CancellationToken cancellationToken)
     {
@@ -44,7 +45,7 @@ internal class GetEmployeesUnassignedDepartmentByDepartmentIdHandler(
 
         if (!users.Any())
         {
-            return new List<GetEmployeesUnassignedDepartmentByDepartmentIdResponse>();
+            return Result.Success(new List<GetEmployeesUnassignedDepartmentByDepartmentIdResponse>());
         }
 
         // Preparar la respuesta.
@@ -55,6 +56,6 @@ internal class GetEmployeesUnassignedDepartmentByDepartmentIdHandler(
                     $"{uct.FirstName} {uct.LastName} <{uct.Email}>"))
             .ToList();
 
-        return resultResponse;
+        return Result.Success(resultResponse);
     }
 }

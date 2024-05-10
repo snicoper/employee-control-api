@@ -1,16 +1,13 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Companies;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Infrastructure.Services.Features.Companies;
 
-public class CompanyService(
-    ApplicationDbContext context,
-    ICompanyValidatorService companyValidatorService,
-    IValidationFailureService validationFailureService)
+public class CompanyService(ApplicationDbContext context, ICompanyValidatorService companyValidatorService)
     : ICompanyService
 {
     public async Task<Company> GetCompanyAsync(CancellationToken cancellationToken)
@@ -32,8 +29,9 @@ public class CompanyService(
     public async Task<Company> CreateAsync(Company company, string timezone, CancellationToken cancellationToken)
     {
         // Validaciones.
-        await companyValidatorService.UniqueNameValidationAsync(company.Name, cancellationToken);
-        validationFailureService.RaiseExceptionIfExistsErrors();
+        var result = Result.Create();
+        result = await companyValidatorService.UniqueNameValidationAsync(company.Name, result, cancellationToken);
+        result.RaiseBadRequestIfResultFailure();
 
         // Crear Company y establecer valores de CompanySettings.
         company.CompanySettings = new CompanySettings { Timezone = timezone, PeriodTimeControlMax = 10 };
