@@ -19,11 +19,11 @@ public class CompanyCalendarController : ApiControllerBase
     /// <returns>Lista de <see cref="CompanyCalendar" />.</returns>
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<ICollection<GetCompanyCalendarsResponse>>> GetCompanyCalendars()
+    public async Task<ActionResult<Result<ICollection<GetCompanyCalendarsResponse>>>> GetCompanyCalendars()
     {
         var result = await Sender.Send(new GetCompanyCalendarsQuery());
 
-        return result.ToList();
+        return result;
     }
 
     /// <summary>
