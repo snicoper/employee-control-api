@@ -71,7 +71,7 @@ public class CompanyTasksController : ApiControllerBase
     /// <returns>Lista empleados que no pertenecen a una tarea concreta.</returns>
     [HttpGet("{id}/employees/unassigned")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ICollection<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>> GetEmployeesUnassignedTaskByCompanyTaskId(
+    public async Task<Result<List<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>>> GetEmployeesUnassignedTaskByCompanyTaskId(
         string id)
     {
         var result = await Sender.Send(new GetEmployeesUnassignedTaskByCompanyTaskIdQuery(id));
@@ -112,15 +112,15 @@ public class CompanyTasksController : ApiControllerBase
     /// Asignar empleados a una tarea concreta.
     /// </summary>
     /// <param name="command">Lista de Ids de empleado a asignar y la Id de la tarea.</param>
-    [HttpPost("{id}/employees/assign")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [HttpPut("{id}/employees/assign")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> AssignEmployeesToTask(AssignEmployeesToTaskCommand command)
     {
         var result = await Sender.Send(command);
 
-        return ObjectResultWithStatusCode(result, StatusCodes.Status201Created);
+        return result;
     }
 
     /// <summary>

@@ -1,7 +1,8 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Data;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,11 +11,11 @@ namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetEmployees
 internal class GetEmployeesUnassignedTaskByCompanyTaskIdHandler(
     IApplicationDbContext context,
     UserManager<User> userManager)
-    : IRequestHandler<
+    : IQueryHandler<
         GetEmployeesUnassignedTaskByCompanyTaskIdQuery,
-        ICollection<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>>
+        List<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>>
 {
-    public async Task<ICollection<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>> Handle(
+    public async Task<Result<List<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>>> Handle(
         GetEmployeesUnassignedTaskByCompanyTaskIdQuery request,
         CancellationToken cancellationToken)
     {
@@ -44,7 +45,7 @@ internal class GetEmployeesUnassignedTaskByCompanyTaskIdHandler(
 
         if (!users.Any())
         {
-            return new List<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>();
+            return Result.Success(new List<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>());
         }
 
         // Preparar la respuesta.
@@ -55,6 +56,6 @@ internal class GetEmployeesUnassignedTaskByCompanyTaskIdHandler(
                     $"{uct.FirstName} {uct.LastName} <{uct.Email}>"))
             .ToList();
 
-        return resultResponse;
+        return Result.Success(resultResponse);
     }
 }
