@@ -20,7 +20,7 @@ public class CompanyCalendarHolidayController : ApiControllerBase
     /// <returns>Lista de departamentos paginádos.</returns>
     [HttpGet("company-calendars/{companyCalendarId}/year/{year:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<List<GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearResponse>>>
+    public async Task<ActionResult<Result<ICollection<GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearResponse>>>>
         GetCompanyCalendarHolidaysByCompanyCalendarIdAndYear(string companyCalendarId, int year)
     {
         var result = await Sender.Send(new GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearQuery(companyCalendarId, year));

@@ -1,28 +1,29 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Data;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.CompanyCalendarHolidays.Queries.
     GetCompanyCalendarHolidaysByCompanyCalendarIdAndYear;
 
 internal class GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearHandler(IApplicationDbContext context, IMapper mapper)
-    : IRequestHandler<GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearQuery,
-        List<GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearResponse>>
+    : IQueryHandler<GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearQuery,
+        ICollection<GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearResponse>>
 {
-    public Task<List<GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearResponse>> Handle(
+    public Task<Result<ICollection<GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearResponse>>> Handle(
         GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearQuery request,
         CancellationToken cancellationToken)
     {
         var companyHolidays = context
             .CompanyCalendarHoliday
-            .Where(ch => ch.CompanyCalendarId == request.CompanyCalendarId && ch.Date.Year == request.Year)
-            .OrderBy(ch => ch.Date);
+            .Where(cch => cch.CompanyCalendarId == request.CompanyCalendarId && cch.Date.Year == request.Year)
+            .OrderBy(cch => cch.Date);
 
         var resultResponse = mapper
             .Map<ICollection<CompanyCalendarHoliday>,
                 ICollection<GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearResponse>>([.. companyHolidays]);
 
-        return Task.FromResult(resultResponse.ToList());
+        return Task.FromResult(Result.Success(resultResponse));
     }
 }
