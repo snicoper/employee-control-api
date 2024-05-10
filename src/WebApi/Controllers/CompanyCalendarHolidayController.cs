@@ -49,7 +49,7 @@ public class CompanyCalendarHolidayController : ApiControllerBase
     /// <param name="command">Datos del <see cref="CompanyCalendarHoliday" />.</param>
     /// <returns><see cref="Result" />.</returns>
     [HttpPut("{id}")]
-    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> UpdateCompanyCalendarHoliday(UpdateCompanyCalendarHolidayCommand command)

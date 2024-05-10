@@ -49,12 +49,25 @@ public class CompanyCalendarHolidaysValidatorService(IApplicationDbContext conte
             .CompanyCalendarHoliday
             .AnyAsync(ch => ch.Id != companyCalendarHoliday.Id && ch.Date == companyCalendarHoliday.Date, cancellationToken);
 
-        if (!dateExists)
+        if (dateExists)
         {
-            return;
+            var messageError = localizer["La fecha seleccionada ya tiene asignado un día festivo."];
+            Result.Failure(nameof(CompanyCalendarHoliday.Date), messageError).RaiseBadRequest();
         }
 
-        var messageError = localizer["La fecha seleccionada ya tiene asignado un día festivo."];
-        Result.Failure(nameof(CompanyCalendarHoliday.Date), messageError).RaiseBadRequest();
+        // Comprueba si la descripción ya existe en el mismo año.
+        dateExists = await context
+            .CompanyCalendarHoliday
+            .AnyAsync(
+                ch => ch.Date.Year == companyCalendarHoliday.Date.Year
+                      && ch.Description == companyCalendarHoliday.Description
+                      && ch.Id != companyCalendarHoliday.Id,
+                cancellationToken);
+
+        if (dateExists)
+        {
+            var messageError = localizer["La descripción ya existe en el año {0}.", companyCalendarHoliday.Date.Year];
+            Result.Failure(nameof(CompanyCalendarHoliday.Description), messageError).RaiseBadRequest();
+        }
     }
 }
