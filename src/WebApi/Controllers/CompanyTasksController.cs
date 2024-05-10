@@ -40,7 +40,7 @@ public class CompanyTasksController : ApiControllerBase
     /// <returns>Lista de usuarios paginádos.</returns>
     [HttpGet("{id}/employees/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>>>
+    public async Task<ActionResult<Result<ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>>>>
         GetEmployeesByCompanyTaskIdPaginated([FromQuery] RequestData request, string id)
     {
         var result = await Sender.Send(new GetEmployeesByCompanyTaskIdPaginatedQuery(request, id));

@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Data;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
-using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetEmployeesByCompanyTaskIdPaginated;
 
 internal class GetEmployeesByCompanyTaskIdPaginatedHandler(IApplicationDbContext context, IMapper mapper)
-    : IRequestHandler<GetEmployeesByCompanyTaskIdPaginatedQuery, ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>>
+    : IQueryHandler<GetEmployeesByCompanyTaskIdPaginatedQuery, ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>>
 {
-    public async Task<ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>> Handle(
+    public async Task<Result<ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>>> Handle(
         GetEmployeesByCompanyTaskIdPaginatedQuery request,
         CancellationToken cancellationToken)
     {
@@ -25,6 +25,6 @@ internal class GetEmployeesByCompanyTaskIdPaginatedHandler(IApplicationDbContext
             mapper,
             cancellationToken);
 
-        return resultResponse;
+        return Result.Success(resultResponse);
     }
 }
