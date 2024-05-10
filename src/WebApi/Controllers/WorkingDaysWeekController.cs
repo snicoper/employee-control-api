@@ -17,7 +17,7 @@ public class WorkingDaysWeekController : ApiControllerBase
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetWorkingDaysWeekResponse>> GetWorkingDaysWeek()
+    public async Task<ActionResult<Result<GetWorkingDaysWeekResponse>>> GetWorkingDaysWeek()
     {
         var result = await Sender.Send(new GetWorkingDaysWeekQuery());
 

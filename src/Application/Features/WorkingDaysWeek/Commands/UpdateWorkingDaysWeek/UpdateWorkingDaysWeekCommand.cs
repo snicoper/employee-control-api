@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Constants;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.WorkingDaysWeek.Commands.UpdateWorkingDaysWeek;
 
@@ -16,7 +15,7 @@ public record UpdateWorkingDaysWeekCommand(
     bool Friday,
     bool Saturday,
     bool Sunday)
-    : IRequest<Result>
+    : ICommand
 {
     internal class Mapping : Profile
     {

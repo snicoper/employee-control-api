@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Features.WorkingDaysWeek;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.WorkingDaysWeek.Commands.UpdateWorkingDaysWeek;
 
 internal class UpdateWorkingDaysWeekHandler(IWorkingDaysWeekService workingDaysWeekService, IMapper mapper)
-    : IRequestHandler<UpdateWorkingDaysWeekCommand, Result>
+    : ICommandHandler<UpdateWorkingDaysWeekCommand>
 {
     public async Task<Result> Handle(UpdateWorkingDaysWeekCommand request, CancellationToken cancellationToken)
     {
