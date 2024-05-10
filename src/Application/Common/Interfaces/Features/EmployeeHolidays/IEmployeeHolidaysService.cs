@@ -13,6 +13,9 @@ public interface IEmployeeHolidaysService
     /// <param name="year">Año al que obtener el <see cref="EmployeeHoliday" />.</param>
     /// <param name="employeeId">Id del empleado.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-    /// <returns><see cref="EmployeeHoliday" />.</returns>
-    Task<EmployeeHoliday> GetOrCreateByYearByEmployeeIdAsync(int year, string employeeId, CancellationToken cancellationToken);
+    /// <returns>Created bool: true si se ha creado, false en caso contrario y el objeto <see cref="EmployeeHoliday" />.</returns>
+    Task<(bool Created, EmployeeHoliday EmployeeHoliday)> GetOrCreateByYearByEmployeeIdAsync(
+        int year,
+        string employeeId,
+        CancellationToken cancellationToken);
 }

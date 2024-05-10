@@ -44,7 +44,7 @@ public class EmployeesController : ApiControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetEmployeeByIdResponse>> GetEmployeeById(string id)
+    public async Task<ActionResult<Result<GetEmployeeByIdResponse>>> GetEmployeeById(string id)
     {
         var result = await Sender.Send(new GetEmployeeByIdQuery(id));
 

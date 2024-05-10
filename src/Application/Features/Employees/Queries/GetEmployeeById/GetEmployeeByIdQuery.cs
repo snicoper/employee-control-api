@@ -1,8 +1,8 @@
-﻿using EmployeeControl.Application.Common.Security;
+﻿using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Constants;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.Employees.Queries.GetEmployeeById;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record GetEmployeeByIdQuery(string Id) : IRequest<GetEmployeeByIdResponse>;
+public record GetEmployeeByIdQuery(string Id) : IQuery<GetEmployeeByIdResponse>;

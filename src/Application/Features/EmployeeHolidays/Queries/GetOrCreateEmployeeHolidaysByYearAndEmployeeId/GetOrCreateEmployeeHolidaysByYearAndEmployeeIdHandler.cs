@@ -1,23 +1,27 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Features.EmployeeHolidays;
-using MediatR;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Models;
 
 namespace EmployeeControl.Application.Features.EmployeeHolidays.Queries.GetOrCreateEmployeeHolidaysByYearAndEmployeeId;
 
-internal class GetOrCreateEmployeeHolidaysByYearAndEmployeeIdHandler(IEmployeeHolidaysService employeeHolidaysService, IMapper mapper)
-    : IRequestHandler<GetOrCreateEmployeeHolidaysByYearAndEmployeeIdQuery, GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse>
+internal class GetOrCreateEmployeeHolidaysByYearAndEmployeeIdHandler(
+    IEmployeeHolidaysService employeeHolidaysService,
+    IMapper mapper)
+    : IQueryHandler<GetOrCreateEmployeeHolidaysByYearAndEmployeeIdQuery, GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse>
 {
-    public async Task<GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse> Handle(
+    public async Task<Result<GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse>> Handle(
         GetOrCreateEmployeeHolidaysByYearAndEmployeeIdQuery request,
         CancellationToken cancellationToken)
     {
-        var employeeHoliday = await employeeHolidaysService.GetOrCreateByYearByEmployeeIdAsync(
+        var (created, employeeHoliday) = await employeeHolidaysService.GetOrCreateByYearByEmployeeIdAsync(
             request.Year,
             request.EmployeeId,
             cancellationToken);
 
         var resultResponse = mapper.Map<GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse>(employeeHoliday);
+        resultResponse.Created = created;
 
-        return resultResponse;
+        return Result.Success(resultResponse);
     }
 }

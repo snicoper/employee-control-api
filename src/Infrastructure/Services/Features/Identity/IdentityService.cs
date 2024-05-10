@@ -19,7 +19,6 @@ public class IdentityService(
     IUserClaimsPrincipalFactory<User> userClaimsPrincipalFactory,
     IAuthorizationService authorizationService,
     IIdentityValidatorService identityValidatorService,
-    IValidationFailureService validationFailureService,
     ICurrentUserService currentUserService,
     IDateTimeService dateTimeService,
     ILogger<IdentityService> logger)
@@ -111,10 +110,11 @@ public class IdentityService(
         user.EntryDate = dateTimeService.UtcNow;
 
         // Validaciones.
-        await identityValidatorService.UserValidationAsync(user);
-        await identityValidatorService.PasswordValidationAsync(user, password);
-        await identityValidatorService.UniqueEmailValidationAsync(user, cancellationToken);
-        validationFailureService.RaiseExceptionIfExistsErrors();
+        var result = Result.Create();
+        await identityValidatorService.UserValidationAsync(user, result);
+        await identityValidatorService.PasswordValidationAsync(user, password, result);
+        await identityValidatorService.UniqueEmailValidationAsync(user, result, cancellationToken);
+        result.RaiseBadRequestIfResultFailure();
 
         var identityResult = await userManager.CreateAsync(user, password);
 
@@ -126,9 +126,10 @@ public class IdentityService(
     public async Task<Result> UpdateAsync(User user, CancellationToken cancellationToken)
     {
         // Validaciones.
-        await identityValidatorService.UserValidationAsync(user);
-        await identityValidatorService.UniqueEmailValidationAsync(user, cancellationToken);
-        validationFailureService.RaiseExceptionIfExistsErrors();
+        var result = Result.Create();
+        await identityValidatorService.UserValidationAsync(user, result);
+        await identityValidatorService.UniqueEmailValidationAsync(user, result, cancellationToken);
+        result.RaiseBadRequestIfResultFailure();
 
         user.UserName = user.Email;
 
@@ -158,8 +159,9 @@ public class IdentityService(
             // Obtener todos los roles y eliminarlos del usuario.
             var userRoles = await userManager.GetRolesAsync(user);
 
-            identityValidatorService.ValidateUpdateEmployeeRoles(user, userRoles);
-            validationFailureService.RaiseExceptionIfExistsErrors();
+            var result = Result.Create();
+            identityValidatorService.ValidateUpdateEmployeeRoles(user, userRoles, result);
+            result.RaiseBadRequestIfResultFailure();
 
             // El rol de Employee es requerido.
             if (!rolesToAdd.Exists(r => r.Equals(Roles.Employee)))

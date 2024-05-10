@@ -1,4 +1,5 @@
 using EmployeeControl.Application.Common.Interfaces.Common;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
@@ -11,15 +12,17 @@ public interface IIdentityValidatorService
     /// <para>Si esta en uso, añade un error en <see cref="IValidationFailureService" />.</para>
     /// </summary>
     /// <param name="user">Usuario con el email a validar.</param>
+    /// <param name="result"><see cref="Result" />.</param>
     /// <param name="cancellationToken">CancellationToken.</param>
-    Task UniqueEmailValidationAsync(User user, CancellationToken cancellationToken);
+    Task<Result> UniqueEmailValidationAsync(User user, Result result, CancellationToken cancellationToken);
 
     /// <summary>
     /// Validación de usuario de <see cref="IUserValidator{TUser}" />.
     /// <para>Si esta en uso, añade un error en <see cref="IValidationFailureService" />.</para>
     /// </summary>
     /// <param name="user">Usuario con el email a validar.</param>
-    Task UserValidationAsync(User user);
+    /// <param name="result"><see cref="Result" />.</param>
+    Task<Result> UserValidationAsync(User user, Result result);
 
     /// <summary>
     /// Validación del password con <see cref="IPasswordValidator{TUser}" />.
@@ -27,12 +30,14 @@ public interface IIdentityValidatorService
     /// </summary>
     /// <param name="user">Usuario a validar.</param>
     /// <param name="password">Password a validar.</param>
-    Task PasswordValidationAsync(User user, string password);
+    /// <param name="result"><see cref="Result" />.</param>
+    Task<Result> PasswordValidationAsync(User user, string password, Result result);
 
     /// <summary>
     /// Validaciones para asignar roles a un <see cref="User" />.
     /// </summary>
     /// <param name="user"><see cref="User" />.</param>
     /// <param name="userRoles">Roles a asigna al <see cref="User" />.</param>
-    void ValidateUpdateEmployeeRoles(User user, IEnumerable<string> userRoles);
+    /// <param name="result"><see cref="Result" />.</param>
+    Result ValidateUpdateEmployeeRoles(User user, IEnumerable<string> userRoles, Result result);
 }

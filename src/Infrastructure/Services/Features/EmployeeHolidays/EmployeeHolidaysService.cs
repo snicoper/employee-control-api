@@ -7,17 +7,23 @@ namespace EmployeeControl.Infrastructure.Services.Features.EmployeeHolidays;
 
 public class EmployeeHolidaysService(IApplicationDbContext context) : IEmployeeHolidaysService
 {
-    public async Task<EmployeeHoliday> GetOrCreateByYearByEmployeeIdAsync(
+    public async Task<(bool Created, EmployeeHoliday EmployeeHoliday)> GetOrCreateByYearByEmployeeIdAsync(
         int year,
         string employeeId,
         CancellationToken cancellationToken)
     {
         var employeeHoliday = await context
-                                  .EmployeeHolidays
-                                  .SingleOrDefaultAsync(eh => eh.Year == year && eh.UserId == employeeId, cancellationToken) ??
-                              await CreateEmployeeHolidayAsync(year, employeeId, cancellationToken);
+            .EmployeeHolidays
+            .SingleOrDefaultAsync(eh => eh.Year == year && eh.UserId == employeeId, cancellationToken);
 
-        return employeeHoliday;
+        if (employeeHoliday is not null)
+        {
+            return (false, employeeHoliday);
+        }
+
+        employeeHoliday = await CreateEmployeeHolidayAsync(year, employeeId, cancellationToken);
+
+        return (true, employeeHoliday);
     }
 
     private async Task<EmployeeHoliday> CreateEmployeeHolidayAsync(

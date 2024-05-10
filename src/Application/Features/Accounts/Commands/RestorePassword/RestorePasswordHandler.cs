@@ -28,21 +28,21 @@ internal class RestorePasswordHandler(
         {
             var message = localizer["El usuario no existe."];
             logger.LogDebug("{Message}", message);
-            result.Add(ValidationErrorsKeys.NonFieldErrors, message);
+            result.AddError(ValidationErrorsKeys.NonFieldErrors, message);
             result.RaiseBadRequest();
         }
 
         if (!user!.EmailConfirmed)
         {
             var message = localizer["Correo electrónico no confirmado."];
-            result.Add(ValidationErrorsKeys.NonFieldErrors, message);
+            result.AddError(ValidationErrorsKeys.NonFieldErrors, message);
             result.RaiseBadRequest();
         }
 
         if (!user.Active)
         {
             var message = localizer["La cuenta no esta activa."];
-            result.Add(ValidationErrorsKeys.NonFieldErrors, message);
+            result.AddError(ValidationErrorsKeys.NonFieldErrors, message);
             result.RaiseBadRequest();
         }
 

@@ -1,6 +1,7 @@
 using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -14,57 +15,69 @@ public class IdentityValidatorService(
     IUserValidator<User> userValidator,
     IPasswordValidator<User> passwordValidator,
     IStringLocalizer<User> localizer,
-    IValidationFailureService validationFailureService,
     ICurrentUserService currentUserService,
     ILogger<IdentityService> logger)
     : IIdentityValidatorService
 {
-    public async Task UniqueEmailValidationAsync(User user, CancellationToken cancellationToken)
+    public async Task<Result> UniqueEmailValidationAsync(User user, Result result, CancellationToken cancellationToken)
     {
         // Si es un update, omitir el email actual del usuario.
         var emailExists = string.IsNullOrEmpty(user.Id)
             ? await userManager.Users.AnyAsync(au => au.Email == user.Email, cancellationToken)
             : await userManager.Users.AnyAsync(au => au.Email == user.Email && au.Id != user.Id, cancellationToken);
 
-        if (emailExists)
+        if (!emailExists)
         {
-            var errorMessage = localizer["El email ya esta registrado."];
-            logger.LogWarning("{message}", errorMessage);
-            validationFailureService.Add(nameof(user.Email), errorMessage);
+            return result;
         }
+
+        var errorMessage = localizer["El email ya esta registrado."];
+        logger.LogError(errorMessage);
+        result.AddError(nameof(user.Email), errorMessage);
+
+        return result;
     }
 
-    public async Task UserValidationAsync(User user)
+    public async Task<Result> UserValidationAsync(User user, Result result)
     {
         var validUser = await userValidator.ValidateAsync(userManager, user);
-        if (!validUser.Succeeded)
+
+        if (validUser.Succeeded)
         {
-            var errorMessage = localizer["El usuario no es valido."];
-            logger.LogWarning("{message}", errorMessage);
-            validationFailureService.Add(nameof(user.UserName), errorMessage);
+            return result;
         }
+
+        var errorMessage = localizer["El usuario no es valido."];
+        logger.LogWarning(errorMessage);
+        result.AddError(nameof(user.UserName), errorMessage);
+
+        return result;
     }
 
-    public async Task PasswordValidationAsync(User user, string password)
+    public async Task<Result> PasswordValidationAsync(User user, string password, Result result)
     {
         var validPassword = await passwordValidator.ValidateAsync(userManager, user, password);
         if (!validPassword.Succeeded)
         {
             var errorMessage = localizer["La contraseña no es valida."];
-            logger.LogWarning("{message}", errorMessage);
-            validationFailureService.Add("Password", errorMessage);
+            logger.LogWarning(errorMessage);
+            result.AddError("Password", errorMessage);
         }
+
+        return result;
     }
 
-    public void ValidateUpdateEmployeeRoles(User user, IEnumerable<string> userRoles)
+    public Result ValidateUpdateEmployeeRoles(User user, IEnumerable<string> userRoles, Result result)
     {
         if (currentUserService.Id != user.Id)
         {
-            return;
+            return result;
         }
 
         var errorMessage = localizer["Un usuario no puede editar sus propios Roles."];
-        logger.LogWarning("{message}", errorMessage);
-        validationFailureService.Add(ValidationErrorsKeys.NotificationErrors, errorMessage);
+        logger.LogWarning(errorMessage);
+        result.AddError(ValidationErrorsKeys.NotificationErrors, errorMessage);
+
+        return result;
     }
 }

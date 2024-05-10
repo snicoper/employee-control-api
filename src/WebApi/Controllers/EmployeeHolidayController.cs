@@ -31,18 +31,20 @@ public class EmployeeHolidayController : ApiControllerBase
     /// <summary>
     /// Obtener días de vacaciones de un año y empleado concreto.
     /// <para>Si no existe en la db, lo crea al usuario/año concreto con valores a 0.</para>
+    /// <para>Si es creado devolvera un 201, en caso contrario un 200.</para>
     /// </summary>
     /// <param name="year">Año de días de vacaciones.</param>
     /// <param name="employeeId">Id del empleado.</param>
     /// <returns>Datos de <see cref="EmployeeHoliday" />.</returns>
     [HttpGet("year/{year}/employees/{employeeId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse>>
+    public async Task<ActionResult<Result<GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse>>>
         GetOrCreateEmployeeHolidaysByYearAndEmployeeId(int year, string employeeId)
     {
         var result = await Sender.Send(new GetOrCreateEmployeeHolidaysByYearAndEmployeeIdQuery(year, employeeId));
 
-        return result;
+        return result.Value is { Created: true } ? ResultWithStatus(result, StatusCodes.Status201Created) : result;
     }
 }

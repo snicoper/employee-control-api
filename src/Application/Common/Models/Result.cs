@@ -145,7 +145,7 @@ public class Result
     /// </summary>
     /// <param name="code">Código del error.</param>
     /// <param name="error">Error a insertar.</param>
-    public void Add(string code, string error)
+    public void AddError(string code, string error)
     {
         AddValidationFailure(new ValidationFailure(code, error));
     }

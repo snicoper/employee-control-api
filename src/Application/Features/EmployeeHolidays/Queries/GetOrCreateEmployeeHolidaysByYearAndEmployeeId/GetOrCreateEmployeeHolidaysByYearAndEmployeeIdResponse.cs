@@ -17,12 +17,15 @@ public record GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse
 
     public string UserId { get; set; } = default!;
 
+    public bool Created { get; set; }
+
     internal class Mapping : Profile
     {
         public Mapping()
         {
             CreateMap<EmployeeHoliday, GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse>()
-                .ForMember(dest => dest.Available, opt => opt.MapFrom(src => src.TotalDays - src.Consumed));
+                .ForMember(dest => dest.Available, opt => opt.MapFrom(src => src.TotalDays - src.Consumed))
+                .ForMember(dest => dest.Created, opt => opt.Ignore());
         }
     }
 }
