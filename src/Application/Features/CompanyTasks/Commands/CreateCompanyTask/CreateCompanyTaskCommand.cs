@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
+using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Security;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
-using MediatR;
 
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.CreateCompanyTask;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record CreateCompanyTaskCommand(string Name, string Background, string Color) : IRequest<string>
+public record CreateCompanyTaskCommand(string Name, string Background, string Color) : ICommand<string>
 {
     internal class Mapping : Profile
     {

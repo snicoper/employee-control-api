@@ -1,8 +1,8 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
 using EmployeeControl.Application.Common.Localization;
+using EmployeeControl.Application.Common.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
@@ -10,7 +10,6 @@ namespace EmployeeControl.Infrastructure.Services.Features.CompanyTask;
 
 public class CompanyTaskService(
     IStringLocalizer<TaskResource> localizer,
-    IValidationFailureService validationFailureService,
     IApplicationDbContext context)
     : ICompanyTaskService
 {
@@ -35,7 +34,7 @@ public class CompanyTaskService(
         if (companyTaskExists.Any())
         {
             var message = localizer["El nombre de compañía ya existe."];
-            validationFailureService.AddAndRaiseException(nameof(Domain.Entities.CompanyTask.Name), message);
+            Result.Failure(nameof(Domain.Entities.CompanyTask.Name), message).RaiseBadRequest();
         }
 
         newCompanyTask.Active = true;
