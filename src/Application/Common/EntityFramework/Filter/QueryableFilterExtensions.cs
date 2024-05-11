@@ -16,10 +16,9 @@ public static class QueryableFilterExtensions
         }
 
         var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
-        var query = new StringBuilder();
         var itemsFilter = JsonSerializer
             .Deserialize<List<RequestFilter>>(request.Filters, options)?
-            .ToArray() ?? Array.Empty<RequestFilter>();
+            .ToArray() ?? [];
 
         if (itemsFilter.Length == 0)
         {
@@ -27,11 +26,13 @@ public static class QueryableFilterExtensions
         }
 
         var values = itemsFilter
-            .Select(filter => filter.RelationalOperator == FilterOperator.Contains
-                ? filter.Value?.ToLower()
-                : filter.Value)
+            .Select(
+                filter => filter.RelationalOperator == FilterOperator.Contains
+                    ? filter.Value?.ToLower()
+                    : filter.Value)
             .ToDynamicArray();
 
+        var query = new StringBuilder();
         for (var position = 0; position < itemsFilter.Length; position++)
         {
             query = ComposeQuery(itemsFilter[position], query, position);
@@ -44,16 +45,37 @@ public static class QueryableFilterExtensions
 
     private static StringBuilder ComposeQuery(RequestFilter filter, StringBuilder query, int valuePosition)
     {
+        var propertyName = PropertyNameCaseUpper(filter.PropertyName);
         var relationalOperator = FilterOperator.GetRelationalOperator(filter.RelationalOperator ?? string.Empty);
+
         var logicalOperator = !string.IsNullOrEmpty(filter.LogicalOperator)
             ? FilterOperator.GetLogicalOperator(filter.LogicalOperator)
             : string.Empty;
 
-        query.Append(
-            filter.RelationalOperator != FilterOperator.Contains
-                ? $"{logicalOperator} {filter.PropertyName} {relationalOperator} @{valuePosition}"
-                : $"{logicalOperator} {string.Format(filter.PropertyName?.UpperCaseFirst() + relationalOperator, valuePosition)}");
+        // Comprobar si es un operador de string o lógico.
+        var filterResult = filter.RelationalOperator != FilterOperator.Contains &&
+                           filter.RelationalOperator != FilterOperator.StartsWith &&
+                           filter.RelationalOperator != FilterOperator.EndsWith
+            ? $"{logicalOperator} {propertyName} {relationalOperator} @{valuePosition}"
+            : $"{logicalOperator} {string.Format(propertyName + relationalOperator, valuePosition)}";
+
+        query.Append(filterResult);
 
         return query;
+    }
+
+    private static string PropertyNameCaseUpper(string? propertyName)
+    {
+        if (string.IsNullOrEmpty(propertyName))
+        {
+            return string.Empty;
+        }
+
+        var propertyNameParts = propertyName.Split('.');
+
+        var propertyNameResult = propertyNameParts
+            .Aggregate(string.Empty, (current, part) => current + $"{part.UpperCaseFirst()}.");
+
+        return propertyNameResult.TrimEnd('.');
     }
 }

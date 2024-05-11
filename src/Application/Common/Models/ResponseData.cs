@@ -21,19 +21,19 @@ public class ResponseData<TResponse> : RequestData
         CancellationToken cancellationToken)
         where TEntity : class?
     {
-        var totalItems = await source
+        var query = source
             .Filter(request)
-            .Ordering(request)
+            .Ordering(request);
+
+        var totalItems = await query
             .CountAsync(cancellationToken);
 
-        var items = await source
-            .Filter(request)
-            .Ordering(request)
+        var items = await query
             .Skip((request.PageNumber - 1) * request.PageSize)
             .Take(request.PageSize)
             .ToListAsync(cancellationToken);
 
-        var totalPages = (int)Math.Ceiling(totalItems / (double)request.PageSize);
+        var totalPages = (int)Math.Ceiling(items.Count / (double)request.PageSize);
 
         var responseData = new ResponseData<TResponse>
         {
