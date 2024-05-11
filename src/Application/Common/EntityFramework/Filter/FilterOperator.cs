@@ -22,12 +22,12 @@ public static class FilterOperator
     {
         return op switch
         {
-            EqualTo => " == ",
-            NotEqualTo => " != ",
-            GreaterThan => " > ",
-            GreaterThanOrEqual => " >= ",
+            EqualTo => "=",
+            NotEqualTo => "!=",
+            GreaterThan => ">",
+            GreaterThanOrEqual => ">=",
             LessThan => " < ",
-            LessThanOrEqualTo => " <= ",
+            LessThanOrEqualTo => "<=",
             Contains => ".ToLower().Contains(@{0}) ",
             StartsWith => ".ToLower().StartsWith(@{0}) ",
             EndsWith => ".ToLower().EndsWith(@{0}) ",

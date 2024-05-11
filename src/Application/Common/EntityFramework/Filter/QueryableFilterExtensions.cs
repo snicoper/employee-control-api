@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json;
 using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Common.Serializers;
 
 namespace EmployeeControl.Application.Common.EntityFramework.Filter;
 
@@ -15,9 +16,8 @@ public static class QueryableFilterExtensions
             return source;
         }
 
-        var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
         var itemsFilter = JsonSerializer
-            .Deserialize<List<ItemFilter>>(request.Filters, options)?
+            .Deserialize<List<ItemFilter>>(request.Filters, CustomJsonSerializerOptions.Default())?
             .ToArray() ?? [];
 
         if (itemsFilter.Length == 0)
@@ -25,28 +25,48 @@ public static class QueryableFilterExtensions
             return source;
         }
 
-        var values = itemsFilter
+        var filterValues = itemsFilter
             .Select(
                 filter => filter.RelationalOperator == FilterOperator.Contains
                     ? filter.Value?.ToLower()
                     : filter.Value)
             .ToDynamicArray();
 
+        // Los FilterOperator.And se separan en un nuevo Where o dará problemas con
+        // la precedencia a la hora de anidar las condiciones con los FilterOperator.Or.
+        // El resto de FilterOperator, no da problemas estando en un solo Where.
         var query = new StringBuilder();
+
         for (var position = 0; position < itemsFilter.Length; position++)
         {
-            query = ComposeQuery(itemsFilter[position], query, position);
+            var itemFilter = itemsFilter[position];
+            var logicalOperator = !string.IsNullOrEmpty(itemFilter.LogicalOperator)
+                ? FilterOperator.GetLogicalOperator(itemFilter.LogicalOperator)
+                : string.Empty;
+
+            if (logicalOperator == FilterOperator.GetLogicalOperator(FilterOperator.And))
+            {
+                var andQuery = new StringBuilder();
+                var filter = itemsFilter[position] with { LogicalOperator = string.Empty };
+
+                andQuery = ComposeQuery(filter, andQuery, position);
+                source = source.Where(andQuery.ToString(), filterValues);
+            }
+            else
+            {
+                query = ComposeQuery(itemsFilter[position], query, position);
+            }
         }
 
-        source = source.Where(query.ToString(), values);
+        source = source.Where(query.ToString(), filterValues);
 
         return source;
     }
 
     private static StringBuilder ComposeQuery(ItemFilter filter, StringBuilder query, int valuePosition)
     {
-        var propertyName = PropertyNameCaseUpper(filter.PropertyName);
-        var relationalOperator = FilterOperator.GetRelationalOperator(filter.RelationalOperator ?? string.Empty);
+        var propertyName = PropertyNameToUpper(filter.PropertyName);
+        var relationalOperator = FilterOperator.GetRelationalOperator(filter.RelationalOperator);
 
         var logicalOperator = !string.IsNullOrEmpty(filter.LogicalOperator)
             ? FilterOperator.GetLogicalOperator(filter.LogicalOperator)
@@ -64,7 +84,7 @@ public static class QueryableFilterExtensions
         return query;
     }
 
-    private static string PropertyNameCaseUpper(string? propertyName)
+    private static string PropertyNameToUpper(string? propertyName)
     {
         if (string.IsNullOrEmpty(propertyName))
         {

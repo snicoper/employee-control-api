@@ -4,6 +4,7 @@ using System.Text.Json;
 using EmployeeControl.Application.Common.EntityFramework.OrderBy.Exceptions;
 using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Application.Common.Serializers;
 using EmployeeControl.Domain.Common;
 
 namespace EmployeeControl.Application.Common.EntityFramework.OrderBy;
@@ -18,10 +19,8 @@ public static class QueryableOrderByExtensions
             return OrderByDefault(source);
         }
 
-        var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
-
         var requestItemOrderBy = JsonSerializer
-            .Deserialize<RequestOrderBy>(request.Order, options);
+            .Deserialize<RequestOrderBy>(request.Order, CustomJsonSerializerOptions.Default());
 
         if (requestItemOrderBy is null)
         {
