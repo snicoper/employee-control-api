@@ -35,41 +35,6 @@ public static class QueryableOrderByExtensions
         return source;
     }
 
-    public static IOrderedQueryable<TEntity> OrderByCommand<TEntity>(
-        this IQueryable<TEntity> source,
-        string orderByProperty,
-        string command)
-    {
-        var type = typeof(TEntity);
-        var property = type.GetProperty(orderByProperty);
-
-        var prop = orderByProperty.Split('.').Select(name => typeof(TEntity).GetProperty(name)).ToArray();
-        if (property is null && prop.Length > 1)
-        {
-            property = prop.FirstOrDefault();
-        }
-
-        if (property is null)
-        {
-            throw new OrderFieldEntityNotFoundException(type.Name, orderByProperty);
-        }
-
-        var parameter = Expression.Parameter(type, "p");
-        var propertyAccess = Expression.MakeMemberAccess(parameter, property);
-        var orderByExpression = Expression.Lambda(propertyAccess, parameter);
-
-        var resultExpression = Expression.Call(
-            typeof(Queryable),
-            command,
-            new[] { type, property.PropertyType },
-            source.Expression,
-            Expression.Quote(orderByExpression));
-
-        var result = (IOrderedQueryable<TEntity>)source.Provider.CreateQuery<TEntity>(resultExpression);
-
-        return result;
-    }
-
     private static IQueryable<TEntity> OrderByDefault<TEntity>(IQueryable<TEntity> source)
     {
         var propertyInfo = typeof(TEntity).GetProperty(nameof(BaseAuditableEntity.Created)) ??
@@ -85,7 +50,7 @@ public static class QueryableOrderByExtensions
         RequestOrderBy field,
         OrderByCommandType orderByCommandType = OrderByCommandType.ThenBy)
     {
-        var fieldName = field.PropertyName?.UpperCaseFirst() ?? string.Empty;
+        var fieldName = field.PropertyName.UpperCaseFirst();
 
         var command = orderByCommandType switch
         {
@@ -100,6 +65,41 @@ public static class QueryableOrderByExtensions
 
         source = source.OrderByCommand(fieldName, command);
         var result = (IOrderedQueryable<TEntity>)source;
+
+        return result;
+    }
+
+    private static IOrderedQueryable<TEntity> OrderByCommand<TEntity>(
+        this IQueryable<TEntity> source,
+        string orderByProperty,
+        string command)
+    {
+        var type = typeof(TEntity);
+        var orderProperty = type.GetProperty(orderByProperty);
+        var properties = orderByProperty.Split('.').Select(name => typeof(TEntity).GetProperty(name)).ToArray();
+
+        if (orderProperty is null && properties.Length > 1)
+        {
+            orderProperty = properties.FirstOrDefault();
+        }
+
+        if (orderProperty is null)
+        {
+            throw new OrderFieldEntityNotFoundException(type.Name, orderByProperty);
+        }
+
+        var parameter = Expression.Parameter(type, "p");
+        var propertyAccess = Expression.MakeMemberAccess(parameter, orderProperty);
+        var orderByExpression = Expression.Lambda(propertyAccess, parameter);
+
+        var resultExpression = Expression.Call(
+            typeof(Queryable),
+            command,
+            [type, orderProperty.PropertyType],
+            source.Expression,
+            Expression.Quote(orderByExpression));
+
+        var result = (IOrderedQueryable<TEntity>)source.Provider.CreateQuery<TEntity>(resultExpression);
 
         return result;
     }
