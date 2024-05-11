@@ -17,7 +17,7 @@ public static class QueryableFilterExtensions
 
         var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
         var itemsFilter = JsonSerializer
-            .Deserialize<List<QueryableFilter>>(request.Filters, options)?
+            .Deserialize<List<ItemFilter>>(request.Filters, options)?
             .ToArray() ?? [];
 
         if (itemsFilter.Length == 0)
@@ -43,7 +43,7 @@ public static class QueryableFilterExtensions
         return source;
     }
 
-    private static StringBuilder ComposeQuery(QueryableFilter filter, StringBuilder query, int valuePosition)
+    private static StringBuilder ComposeQuery(ItemFilter filter, StringBuilder query, int valuePosition)
     {
         var propertyName = PropertyNameCaseUpper(filter.PropertyName);
         var relationalOperator = FilterOperator.GetRelationalOperator(filter.RelationalOperator ?? string.Empty);
