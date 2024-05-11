@@ -48,8 +48,8 @@ public static class QueryableFilterExtensions
             {
                 var andQuery = new StringBuilder();
                 var filter = itemsFilter[position] with { LogicalOperator = string.Empty };
-
                 andQuery = ComposeQuery(filter, andQuery, position);
+
                 source = source.Where(andQuery.ToString(), filterValues);
             }
             else
