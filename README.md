@@ -17,10 +17,9 @@ dotnet ef database update -c ApplicationDbContext
 ## Secrets
 
 ```bash
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "User Id=postgres;Password=Password44!;Server=localhost;Port=5432;Database=EmployeeControl;Pooling=true;"
-  }
+"ConnectionStrings": {
+  "DefaultConnection": "User Id=postgres;Password=Password44!;Server=localhost;Port=5432;Database=EmployeeControl;Pooling=true;",
+  "HangfireConnection": "User Id=postgres;Password=Password44!;Server=localhost;Port=5432;Database=EmployeeControlHangfire;Pooling=true;"
 }
 ```
 
