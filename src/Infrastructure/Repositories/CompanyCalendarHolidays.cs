@@ -1,15 +1,16 @@
-using EmployeeControl.Application.Common.Interfaces.Data;
+﻿using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendarHolidays;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Infrastructure.Services.Features.CompanyCalendarHolidays;
+namespace EmployeeControl.Infrastructure.Repositories;
 
-public class CompanyCalendarHolidaysService(
+public class CompanyCalendarHolidays(
     IApplicationDbContext context,
     ICompanyCalendarHolidaysValidatorService companyCalendarHolidaysValidatorService)
-    : ICompanyCalendarHolidaysService
+    : ICompanyCalendarHolidaysRepository
 {
     public async Task<CompanyCalendarHoliday> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
