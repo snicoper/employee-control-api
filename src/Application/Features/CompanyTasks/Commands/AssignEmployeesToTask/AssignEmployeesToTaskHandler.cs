@@ -10,7 +10,7 @@ namespace EmployeeControl.Application.Features.CompanyTasks.Commands.AssignEmplo
 
 internal class AssignEmployeesToTaskHandler(
     IApplicationDbContext context,
-    ICompanyTaskService companyTaskService,
+    ICompanyTaskRepository companyTaskRepository,
     ICompanyRepository companyRepository,
     UserManager<User> userManager,
     ICompanyTaskEmailsService companyTaskEmailsService)
@@ -18,7 +18,7 @@ internal class AssignEmployeesToTaskHandler(
 {
     public async Task<Result> Handle(AssignEmployeesToTaskCommand request, CancellationToken cancellationToken)
     {
-        var companyTask = await companyTaskService.GetByIdAsync(request.Id, cancellationToken);
+        var companyTask = await companyTaskRepository.GetByIdAsync(request.Id, cancellationToken);
 
         var employees = userManager
             .Users

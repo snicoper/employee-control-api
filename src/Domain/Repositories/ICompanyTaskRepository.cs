@@ -1,8 +1,9 @@
-﻿using EmployeeControl.Domain.Exceptions;
+﻿using EmployeeControl.Domain.Entities;
+using EmployeeControl.Domain.Exceptions;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
+namespace EmployeeControl.Domain.Repositories;
 
-public interface ICompanyTaskService
+public interface ICompanyTaskRepository
 {
     /// <summary>
     /// Obtener una <see cref="Domain.Entities.CompanyTask" /> por du Id.
@@ -11,7 +12,7 @@ public interface ICompanyTaskService
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <exception cref="NotFoundException">Si no existe en la base de datos.</exception>
     /// <returns><see cref="Domain.Entities.CompanyTask" />.</returns>
-    Task<Domain.Entities.CompanyTask> GetByIdAsync(string id, CancellationToken cancellationToken);
+    Task<CompanyTask> GetByIdAsync(string id, CancellationToken cancellationToken);
 
     /// <summary>
     /// Crea una nueva <see cref="Domain.Entities.CompanyTask" />.
@@ -19,7 +20,7 @@ public interface ICompanyTaskService
     /// <param name="newCompanyTask"><see cref="Domain.Entities.CompanyTask" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns><see cref="Domain.Entities.CompanyTask" />Creada.</returns>
-    Task<Domain.Entities.CompanyTask> CreateAsync(
-        Domain.Entities.CompanyTask newCompanyTask,
+    Task<CompanyTask> CreateAsync(
+        CompanyTask newCompanyTask,
         CancellationToken cancellationToken);
 }
