@@ -1,8 +1,8 @@
 ﻿using EmployeeControl.Domain.Entities;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.Identity;
+namespace EmployeeControl.Domain.Repositories;
 
-public interface IEmployeeSettingsService
+public interface IEmployeeSettingsRepository
 {
     /// <summary>
     /// Obtener <see cref="EmployeeSettings" /> por el Id de usuario.

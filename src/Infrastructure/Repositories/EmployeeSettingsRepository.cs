@@ -1,12 +1,13 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Infrastructure.Services.Features.Identity;
+namespace EmployeeControl.Infrastructure.Repositories;
 
-public class EmployeeSettingsService(IApplicationDbContext context) : IEmployeeSettingsService
+public class EmployeeSettingsRepository(IApplicationDbContext context)
+    : IEmployeeSettingsRepository
 {
     public async Task<EmployeeSettings> GetByEmployeeIdAsync(string employeeId, CancellationToken cancellationToken)
     {

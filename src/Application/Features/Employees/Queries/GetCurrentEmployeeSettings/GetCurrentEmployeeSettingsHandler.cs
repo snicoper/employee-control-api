@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Interfaces.Users;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.Employees.Queries.GetCurrentEmployeeSettings;
 
 internal class GetCurrentEmployeeSettingsHandler(
-    IEmployeeSettingsService employeeSettingsService,
+    IEmployeeSettingsRepository employeeSettingsRepository,
     ICurrentUserService currentUserService,
     IMapper mapper)
     : IQueryHandler<GetCurrentEmployeeSettingsQuery, GetCurrentEmployeeSettingsResponse>
@@ -16,7 +16,7 @@ internal class GetCurrentEmployeeSettingsHandler(
         GetCurrentEmployeeSettingsQuery request,
         CancellationToken cancellationToken)
     {
-        var employeeSettings = await employeeSettingsService.GetByEmployeeIdAsync(currentUserService.Id, cancellationToken);
+        var employeeSettings = await employeeSettingsRepository.GetByEmployeeIdAsync(currentUserService.Id, cancellationToken);
         var resultResponse = mapper.Map<GetCurrentEmployeeSettingsResponse>(employeeSettings);
 
         return Result.Success(resultResponse);

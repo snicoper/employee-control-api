@@ -17,7 +17,7 @@ internal class InviteEmployeeHandler(
     IIdentityEmailsService identityEmailsService,
     ICompanyRepository companyRepository,
     UserManager<User> userManager,
-    IEmployeeSettingsService employeeSettingsService)
+    IEmployeeSettingsRepository employeeSettingsRepository)
     : ICommandHandler<InviteEmployeeCommand, string>
 {
     public async Task<Result<string>> Handle(InviteEmployeeCommand request, CancellationToken cancellationToken)
@@ -34,7 +34,7 @@ internal class InviteEmployeeHandler(
 
         // Configuración de empleado.
         var employeeSettings = new EmployeeSettings { UserId = user.Id, Timezone = request.TimeZone };
-        await employeeSettingsService.CreateAsync(employeeSettings, cancellationToken);
+        await employeeSettingsRepository.CreateAsync(employeeSettings, cancellationToken);
 
         // Generar code de validación.
         var code = await userManager.GenerateEmailConfirmationTokenAsync(user);

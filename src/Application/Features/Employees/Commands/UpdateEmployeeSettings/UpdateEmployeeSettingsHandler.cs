@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Interfaces.Users;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
+using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.Employees.Commands.UpdateEmployeeSettings;
 
 internal class UpdateEmployeeSettingsHandler(
-    IEmployeeSettingsService employeeSettingsService,
+    IEmployeeSettingsRepository employeeSettingsRepository,
     ICurrentUserService currentUserService,
     IMapper mapper)
     : ICommandHandler<UpdateEmployeeSettingsCommand, EmployeeSettings>
@@ -23,8 +23,8 @@ internal class UpdateEmployeeSettingsHandler(
         }
 
         var employeeSettings = mapper.Map<EmployeeSettings>(request);
-        await employeeSettingsService.GetByEmployeeIdAsync(request.UserId, cancellationToken);
-        var result = await employeeSettingsService.UpdateAsync(employeeSettings, cancellationToken);
+        await employeeSettingsRepository.GetByEmployeeIdAsync(request.UserId, cancellationToken);
+        var result = await employeeSettingsRepository.UpdateAsync(employeeSettings, cancellationToken);
 
         return Result.Success(result);
     }
