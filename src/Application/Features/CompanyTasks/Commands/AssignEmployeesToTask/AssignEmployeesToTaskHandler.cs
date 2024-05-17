@@ -1,9 +1,9 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.Companies;
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.AssignEmployeesToTask;
@@ -11,7 +11,7 @@ namespace EmployeeControl.Application.Features.CompanyTasks.Commands.AssignEmplo
 internal class AssignEmployeesToTaskHandler(
     IApplicationDbContext context,
     ICompanyTaskService companyTaskService,
-    ICompanyService companyService,
+    ICompanyRepository companyRepository,
     UserManager<User> userManager,
     ICompanyTaskEmailsService companyTaskEmailsService)
     : ICommandHandler<AssignEmployeesToTaskCommand>
@@ -32,7 +32,7 @@ internal class AssignEmployeesToTaskHandler(
         await context.EmployeeCompanyTasks.AddRangeAsync(userCompanyTasks, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
 
-        var company = await companyService.GetCompanyAsync(cancellationToken);
+        var company = await companyRepository.GetCompanyAsync(cancellationToken);
 
         // Enviar email a los empleados asignados a la tarea.
         await companyTaskEmailsService.SendEmployeeAssignTaskAsync(companyTask, company, employees);

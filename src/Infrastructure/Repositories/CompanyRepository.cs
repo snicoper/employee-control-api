@@ -1,14 +1,15 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Features.Companies;
+﻿using EmployeeControl.Application.Common.Interfaces.Data;
+using EmployeeControl.Application.Common.Interfaces.Features.Companies;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
-using EmployeeControl.Infrastructure.Data;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Infrastructure.Services.Features.Companies;
+namespace EmployeeControl.Infrastructure.Repositories;
 
-public class CompanyService(ApplicationDbContext context, ICompanyValidatorService companyValidatorService)
-    : ICompanyService
+public class CompanyRepository(IApplicationDbContext context, ICompanyValidatorService companyValidatorService)
+    : ICompanyRepository
 {
     public async Task<Company> GetCompanyAsync(CancellationToken cancellationToken)
     {
@@ -37,7 +38,7 @@ public class CompanyService(ApplicationDbContext context, ICompanyValidatorServi
         company.CompanySettings = new CompanySettings { Timezone = timezone, PeriodTimeControlMax = 10 };
 
         // Crear los días de trabajo para la compañía, por defecto días laborables de lunes a viernes.
-        company.WorkingDaysWeek = new Domain.Entities.WorkingDaysWeek
+        company.WorkingDaysWeek = new WorkingDaysWeek
         {
             Monday = true,
             Tuesday = true,

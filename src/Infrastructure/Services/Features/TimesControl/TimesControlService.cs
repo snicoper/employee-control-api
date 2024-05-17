@@ -1,7 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Models;
@@ -9,6 +8,7 @@ using EmployeeControl.Application.Common.Services.Hubs;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
 using EmployeeControl.Domain.Exceptions;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -19,7 +19,7 @@ public class TimesControlService(
     IDateTimeService dateTimeService,
     ITimesControlValidatorService timesControlValidatorService,
     IApplicationDbContext context,
-    ICompanySettingsService companySettingsService,
+    ICompanySettingsRepository companySettingsRepository,
     IHubContext<NotificationTimeControlIncidenceHub> hubContext,
     IStringLocalizer<TimeControlResource> localizer)
     : ITimesControlService
@@ -103,7 +103,7 @@ public class TimesControlService(
 
         // Si el tiempo ha superado las 23:59:59 respecto al día que se inicializó el sistema lo cierra y lo reporta como alerta.
         // El tiempo es en base al timezone de la compañía.
-        var datetimeZone = await companySettingsService.ConvertToTimezoneCurrentCompanyAsync(
+        var datetimeZone = await companySettingsRepository.ConvertToTimezoneCurrentCompanyAsync(
             dateTimeService.EndOfDay(dateTimeService.UtcNow),
             cancellationToken);
 

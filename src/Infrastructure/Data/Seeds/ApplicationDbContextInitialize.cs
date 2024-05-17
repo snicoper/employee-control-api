@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Common;
-using EmployeeControl.Application.Common.Interfaces.Features.Companies;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -12,7 +12,7 @@ public class ApplicationDbContextInitialize(
     ILogger<ApplicationDbContextInitialize> logger,
     ApplicationDbContext context,
     IDateTimeService dateTimeService,
-    ICompanyService companyService,
+    ICompanyRepository companyRepository,
     UserManager<User> userManager,
     RoleManager<ApplicationRole> roleManager)
 {
@@ -138,7 +138,7 @@ public class ApplicationDbContextInitialize(
 
         foreach (var company in companies.Where(company => !context.Companies.Any(c => c.Name == company.Name)))
         {
-            await companyService.CreateAsync(company, Timezone, CancellationToken.None);
+            await companyRepository.CreateAsync(company, Timezone, CancellationToken.None);
         }
     }
 

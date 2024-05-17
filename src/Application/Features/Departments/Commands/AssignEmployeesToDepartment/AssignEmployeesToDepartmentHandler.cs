@@ -1,5 +1,4 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.Companies;
 using EmployeeControl.Application.Common.Interfaces.Features.Departments;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
@@ -12,7 +11,7 @@ namespace EmployeeControl.Application.Features.Departments.Commands.AssignEmploy
 internal class AssignEmployeesToDepartmentHandler(
     IApplicationDbContext context,
     IDepartmentRepository departmentRepository,
-    ICompanyService companyService,
+    ICompanyRepository companyRepository,
     UserManager<User> userManager,
     IDepartmentEmailsService departmentEmailsService)
     : ICommandHandler<AssignEmployeesToDepartmentCommand>
@@ -33,7 +32,7 @@ internal class AssignEmployeesToDepartmentHandler(
         await context.EmployeeDepartments.AddRangeAsync(employeesToAdd, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
 
-        var company = await companyService.GetCompanyAsync(cancellationToken);
+        var company = await companyRepository.GetCompanyAsync(cancellationToken);
 
         // Enviar email a los empleados asignados a la tarea.
         await departmentEmailsService.SendEmployeeAssignDepartmentAsync(department, company, employees);

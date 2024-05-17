@@ -1,9 +1,9 @@
 ﻿using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
+namespace EmployeeControl.Domain.Repositories;
 
-public interface ICompanySettingsService
+public interface ICompanySettingsRepository
 {
     /// <summary>
     /// Obtener un <see cref="CompanySettings" /> por su Id.

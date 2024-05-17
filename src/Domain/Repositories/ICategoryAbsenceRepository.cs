@@ -1,9 +1,9 @@
 ﻿using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.CategoryAbsences;
+namespace EmployeeControl.Domain.Repositories;
 
-public interface ICategoryAbsenceService
+public interface ICategoryAbsenceRepository
 {
     /// <summary>
     /// Obtener un <see cref="CategoryAbsence" /> por su Id.

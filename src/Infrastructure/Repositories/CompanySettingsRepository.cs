@@ -1,19 +1,19 @@
 ﻿using System.Runtime.InteropServices;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
 using EmployeeControl.Application.Common.Interfaces.Users;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Infrastructure.Services.Features.CompaniesSettings;
+namespace EmployeeControl.Infrastructure.Repositories;
 
-public class CompanySettingsService(
+public class CompanySettingsRepository(
     IApplicationDbContext context,
     ICurrentUserService currentUserService,
     IDateTimeService dateTimeService)
-    : ICompanySettingsService
+    : ICompanySettingsRepository
 {
     public async Task<CompanySettings> GetByIdAsync(string companySettingsId, CancellationToken cancellationToken)
     {

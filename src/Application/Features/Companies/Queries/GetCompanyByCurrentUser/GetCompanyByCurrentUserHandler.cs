@@ -1,17 +1,17 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Features.Companies;
-using EmployeeControl.Application.Common.Interfaces.Messaging;
+﻿using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.Companies.Queries.GetCompanyByCurrentUser;
 
-internal class GetCompanyByCurrentUserHandler(ICompanyService companyService)
+internal class GetCompanyByCurrentUserHandler(ICompanyRepository companyRepository)
     : IQueryHandler<GetCompanyByCurrentUserQuery, GetCompanyByCurrentUserResponse>
 {
     public async Task<Result<GetCompanyByCurrentUserResponse>> Handle(
         GetCompanyByCurrentUserQuery request,
         CancellationToken cancellationToken)
     {
-        var company = await companyService.GetCompanyAsync(cancellationToken);
+        var company = await companyRepository.GetCompanyAsync(cancellationToken);
         var result = new GetCompanyByCurrentUserResponse(company.Id, company.Name);
 
         return Result.Success(result);

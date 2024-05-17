@@ -1,9 +1,9 @@
 ﻿using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.Companies;
+namespace EmployeeControl.Domain.Repositories;
 
-public interface ICompanyService
+public interface ICompanyRepository
 {
     /// <summary>
     /// Obtener compañía <see cref="Domain.Entities.Company" />.

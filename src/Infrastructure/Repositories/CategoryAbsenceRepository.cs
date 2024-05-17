@@ -1,18 +1,16 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.CategoryAbsences;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
-namespace EmployeeControl.Infrastructure.Services.Features.CategoryAbsences;
+namespace EmployeeControl.Infrastructure.Repositories;
 
-public class CategoryAbsenceService(
-    IApplicationDbContext context,
-    IStringLocalizer<CategoryAbsenceResource> localizer)
-    : ICategoryAbsenceService
+public class CategoryAbsenceRepository(IApplicationDbContext context, IStringLocalizer<CategoryAbsenceResource> localizer)
+    : ICategoryAbsenceRepository
 {
     public async Task<CategoryAbsence> GetByIdAsync(string id, CancellationToken cancellationToken)
     {

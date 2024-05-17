@@ -2,10 +2,10 @@
 using EmployeeControl.Application.Common.Interfaces.BackgroundJobs;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Services.Hubs;
 using EmployeeControl.Domain.Enums;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 namespace EmployeeControl.Infrastructure.Services.BackgroundJobs;
 
 public class CloseTimeControlJob(
-    ICompanySettingsService companySettingsService,
+    ICompanySettingsRepository companySettingsRepository,
     IApplicationDbContext context,
     IStringLocalizer<TimeControlResource> localizer,
     IDateTimeService dateTimeService,
@@ -24,7 +24,7 @@ public class CloseTimeControlJob(
     public async Task Process()
     {
         logger.LogInformation("Procesando {ControlJob}.", nameof(CloseTimeControlJob));
-        var companySettings = await companySettingsService.GetCompanySettingsAsync(CancellationToken.None);
+        var companySettings = await companySettingsRepository.GetCompanySettingsAsync(CancellationToken.None);
         var periodTimeControlMax = companySettings.PeriodTimeControlMax;
 
         var timesControl = context
