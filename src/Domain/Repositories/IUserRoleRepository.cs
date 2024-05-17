@@ -1,9 +1,9 @@
 ﻿using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.Identity;
+namespace EmployeeControl.Domain.Repositories;
 
-public interface IIdentityRoleService
+public interface IUserRoleRepository
 {
     /// <summary>
     /// Obtener lista de roles de un usuario concreto.

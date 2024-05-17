@@ -1,11 +1,11 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Features.Identity;
-using EmployeeControl.Domain.Entities;
+﻿using EmployeeControl.Domain.Entities;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
 
-namespace EmployeeControl.Infrastructure.Services.Features.Identity;
+namespace EmployeeControl.Infrastructure.Repositories;
 
-public class IdentityRoleService(RoleManager<ApplicationRole> roleManager, UserManager<User> userManager)
-    : IIdentityRoleService
+public class UserRoleRepository(RoleManager<ApplicationRole> roleManager, UserManager<User> userManager)
+    : IUserRoleRepository
 {
     public async Task<List<ApplicationRole>> GetRolesByUseAsync(User user)
     {
