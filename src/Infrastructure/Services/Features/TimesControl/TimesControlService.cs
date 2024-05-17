@@ -1,5 +1,4 @@
 ﻿using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
@@ -9,6 +8,7 @@ using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Common.Services.Hubs;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
+using EmployeeControl.Domain.Exceptions;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;

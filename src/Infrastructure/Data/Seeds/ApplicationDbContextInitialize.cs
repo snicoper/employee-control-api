@@ -16,6 +16,9 @@ public class ApplicationDbContextInitialize(
     UserManager<User> userManager,
     RoleManager<ApplicationRole> roleManager)
 {
+    private const string Password = "Password4!";
+    private const string Timezone = "Europe/Madrid";
+
     public async Task InitialiseAsync()
     {
         try
@@ -135,7 +138,7 @@ public class ApplicationDbContextInitialize(
 
         foreach (var company in companies.Where(company => !context.Companies.Any(c => c.Name == company.Name)))
         {
-            await companyService.CreateAsync(company, "Europe/Madrid", CancellationToken.None);
+            await companyService.CreateAsync(company, Timezone, CancellationToken.None);
         }
     }
 
@@ -174,7 +177,7 @@ public class ApplicationDbContextInitialize(
 
         if (!await userManager.Users.AnyAsync(u => u.Email == user.Email))
         {
-            await userManager.CreateAsync(user, "Password4!");
+            await userManager.CreateAsync(user, Password);
 
             // Roles.
             var rolesToAdd = new[] { Roles.Admin, Roles.Staff, Roles.HumanResources, Roles.Employee };
@@ -182,7 +185,7 @@ public class ApplicationDbContextInitialize(
             await userManager.AddToRolesAsync(user, rolesToAdd);
 
             // Settings.
-            var settings = new EmployeeSettings { UserId = user.Id, Timezone = "Europe/Madrid" };
+            var settings = new EmployeeSettings { UserId = user.Id, Timezone = Timezone };
             context.EmployeeSettings.Add(settings);
         }
 
@@ -202,7 +205,7 @@ public class ApplicationDbContextInitialize(
 
         if (!await userManager.Users.AnyAsync(u => u.Email == user.Email))
         {
-            await userManager.CreateAsync(user, "Password4!");
+            await userManager.CreateAsync(user, Password);
 
             // Roles de usuario.
             var rolesToAdd = new[] { Roles.Staff, Roles.HumanResources, Roles.Employee };
@@ -210,7 +213,7 @@ public class ApplicationDbContextInitialize(
             await userManager.AddToRolesAsync(user, rolesToAdd);
 
             // Settings.
-            var settings = new EmployeeSettings { UserId = user.Id, Timezone = "Europe/Madrid" };
+            var settings = new EmployeeSettings { UserId = user.Id, Timezone = Timezone };
             context.EmployeeSettings.Add(settings);
         }
 
@@ -230,7 +233,7 @@ public class ApplicationDbContextInitialize(
 
         if (!await userManager.Users.AnyAsync(u => u.Email == user.Email))
         {
-            await userManager.CreateAsync(user, "Password4!");
+            await userManager.CreateAsync(user, Password);
 
             // Roles de usuario.
             var rolesToAdd = new[] { Roles.HumanResources, Roles.Employee };
@@ -238,7 +241,7 @@ public class ApplicationDbContextInitialize(
             await userManager.AddToRolesAsync(user, rolesToAdd);
 
             // Settings.
-            var settings = new EmployeeSettings { UserId = user.Id, Timezone = "Europe/Madrid" };
+            var settings = new EmployeeSettings { UserId = user.Id, Timezone = Timezone };
             context.EmployeeSettings.Add(settings);
         }
 
@@ -258,7 +261,7 @@ public class ApplicationDbContextInitialize(
 
         if (!await userManager.Users.AnyAsync(u => u.Email == user.Email))
         {
-            await userManager.CreateAsync(user, "Password4!");
+            await userManager.CreateAsync(user, Password);
 
             // Roles de usuario.
             var rolesToAdd = new[] { Roles.Employee };
@@ -266,7 +269,7 @@ public class ApplicationDbContextInitialize(
             await userManager.AddToRolesAsync(user, rolesToAdd);
 
             // Settings.
-            var settings = new EmployeeSettings { UserId = user.Id, Timezone = "Europe/Madrid" };
+            var settings = new EmployeeSettings { UserId = user.Id, Timezone = Timezone };
             context.EmployeeSettings.Add(settings);
         }
 

@@ -2,18 +2,19 @@
 using EmployeeControl.Application.Common.Interfaces.Features.Departments;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.Departments.Commands.UpdateDepartment;
 
 internal class UpdateDepartmentHandler(
-    IDepartmentService departmentService,
+    IDepartmentRepository departmentRepository,
     IDepartmentValidatorService departmentValidatorService,
     IMapper mapper)
     : ICommandHandler<UpdateDepartmentCommand>
 {
     public async Task<Result> Handle(UpdateDepartmentCommand request, CancellationToken cancellationToken)
     {
-        var department = await departmentService.GetByIdAsync(request.Id, cancellationToken);
+        var department = await departmentRepository.GetByIdAsync(request.Id, cancellationToken);
 
         var departmentUpdate = mapper.Map(request, department);
 
@@ -22,7 +23,7 @@ internal class UpdateDepartmentHandler(
         await departmentValidatorService.ValidateBackgroundAndColorAsync(department, result, cancellationToken);
         result.RaiseBadRequestIfResultFailure();
 
-        await departmentService.UpdateAsync(departmentUpdate, cancellationToken);
+        await departmentRepository.UpdateAsync(departmentUpdate, cancellationToken);
 
         return result;
     }

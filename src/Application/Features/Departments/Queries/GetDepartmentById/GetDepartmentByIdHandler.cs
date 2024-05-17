@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Interfaces.Features.Departments;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.Departments.Queries.GetDepartmentById;
 
 internal class GetDepartmentByIdHandler(
-    IDepartmentService departmentService,
+    IDepartmentRepository departmentRepository,
     IMapper mapper)
     : IQueryHandler<GetDepartmentByIdQuery, GetDepartmentByIdResponse>
 {
@@ -14,7 +14,7 @@ internal class GetDepartmentByIdHandler(
         GetDepartmentByIdQuery request,
         CancellationToken cancellationToken)
     {
-        var department = await departmentService.GetByIdAsync(request.DepartmentId, cancellationToken);
+        var department = await departmentRepository.GetByIdAsync(request.DepartmentId, cancellationToken);
         var resultResponse = mapper.Map<GetDepartmentByIdResponse>(department);
 
         return Result.Success(resultResponse);

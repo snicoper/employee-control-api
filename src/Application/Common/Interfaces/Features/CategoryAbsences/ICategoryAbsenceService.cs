@@ -1,5 +1,5 @@
-﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Domain.Entities;
+﻿using EmployeeControl.Domain.Entities;
+using EmployeeControl.Domain.Exceptions;
 
 namespace EmployeeControl.Application.Common.Interfaces.Features.CategoryAbsences;
 

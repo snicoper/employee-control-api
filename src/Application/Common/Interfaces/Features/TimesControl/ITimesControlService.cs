@@ -1,6 +1,6 @@
-﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Domain.Entities;
+﻿using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
+using EmployeeControl.Domain.Exceptions;
 
 namespace EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
 

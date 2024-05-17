@@ -1,4 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Exceptions;
+using EmployeeControl.Domain.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 

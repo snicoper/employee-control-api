@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Interfaces.Features.Departments;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.Departments.Queries.GetDepartmentsPaginated;
 
 internal class GetDepartmentsPaginatedHandler(
-    IDepartmentService departmentService,
+    IDepartmentRepository departmentRepository,
     IMapper mapper)
     : IQueryHandler<GetDepartmentsPaginatedQuery, ResponseData<GetDepartmentsPaginatedResponse>>
 {
@@ -14,7 +14,7 @@ internal class GetDepartmentsPaginatedHandler(
         GetDepartmentsPaginatedQuery request,
         CancellationToken cancellationToken)
     {
-        var departments = departmentService.GetAllQueryable();
+        var departments = departmentRepository.GetAllQueryable();
 
         var resultResponse = await ResponseData<GetDepartmentsPaginatedResponse>.CreateAsync(
             departments,

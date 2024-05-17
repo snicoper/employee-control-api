@@ -1,9 +1,9 @@
-﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Domain.Entities;
+﻿using EmployeeControl.Domain.Entities;
+using EmployeeControl.Domain.Exceptions;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.Departments;
+namespace EmployeeControl.Domain.Repositories;
 
-public interface IDepartmentService
+public interface IDepartmentRepository
 {
     /// <summary>
     /// Obtener departamentos de la compañía.

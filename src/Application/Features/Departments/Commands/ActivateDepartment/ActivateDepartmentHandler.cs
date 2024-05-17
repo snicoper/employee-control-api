@@ -1,18 +1,18 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Features.Departments;
-using EmployeeControl.Application.Common.Interfaces.Messaging;
+﻿using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.Departments.Commands.ActivateDepartment;
 
-internal class ActivateDepartmentHandler(IDepartmentService departmentService)
+internal class ActivateDepartmentHandler(IDepartmentRepository departmentRepository)
     : ICommandHandler<ActivateDepartmentCommand>
 {
     public async Task<Result> Handle(ActivateDepartmentCommand request, CancellationToken cancellationToken)
     {
-        var department = await departmentService.GetByIdAsync(request.DepartmentId, cancellationToken);
+        var department = await departmentRepository.GetByIdAsync(request.DepartmentId, cancellationToken);
         department.Active = true;
 
-        await departmentService.UpdateAsync(department, cancellationToken);
+        await departmentRepository.UpdateAsync(department, cancellationToken);
 
         return Result.Success();
     }

@@ -1,4 +1,4 @@
-﻿namespace EmployeeControl.Application.Common.Exceptions;
+﻿namespace EmployeeControl.Domain.Exceptions;
 
 public class NotFoundException : Exception
 {

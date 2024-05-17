@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Common.Exceptions;
+﻿using EmployeeControl.Domain.Exceptions;
 
 namespace EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
 

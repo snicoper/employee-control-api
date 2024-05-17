@@ -4,13 +4,14 @@ using EmployeeControl.Application.Common.Interfaces.Features.Departments;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeControl.Application.Features.Departments.Commands.AssignEmployeesToDepartment;
 
 internal class AssignEmployeesToDepartmentHandler(
     IApplicationDbContext context,
-    IDepartmentService departmentService,
+    IDepartmentRepository departmentRepository,
     ICompanyService companyService,
     UserManager<User> userManager,
     IDepartmentEmailsService departmentEmailsService)
@@ -18,7 +19,7 @@ internal class AssignEmployeesToDepartmentHandler(
 {
     public async Task<Result> Handle(AssignEmployeesToDepartmentCommand request, CancellationToken cancellationToken)
     {
-        var department = await departmentService.GetByIdAsync(request.Id, cancellationToken);
+        var department = await departmentRepository.GetByIdAsync(request.Id, cancellationToken);
 
         var employees = userManager
             .Users

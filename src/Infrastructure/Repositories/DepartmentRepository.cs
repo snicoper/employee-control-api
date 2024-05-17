@@ -1,14 +1,15 @@
-﻿using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Data;
+﻿using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Departments;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
+using EmployeeControl.Domain.Exceptions;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Infrastructure.Services.Features.Departments;
+namespace EmployeeControl.Infrastructure.Repositories;
 
-public class DepartmentService(IApplicationDbContext context, IDepartmentValidatorService departmentValidatorService)
-    : IDepartmentService
+public class DepartmentRepository(IApplicationDbContext context, IDepartmentValidatorService departmentValidatorService)
+    : IDepartmentRepository
 {
     public IQueryable<Department> GetAllQueryable()
     {
@@ -19,21 +20,21 @@ public class DepartmentService(IApplicationDbContext context, IDepartmentValidat
 
     public IQueryable<Department> GetAllByEmployeeIdQueryable(string employeeId)
     {
-        var departments = context
+        var department = context
             .EmployeeDepartments
             .Include(ud => ud.Department)
             .Where(ud => ud.UserId == employeeId)
             .Select(ud => ud.Department);
 
-        return departments;
+        return department;
     }
 
     public async Task<Department> GetByIdAsync(string departmentId, CancellationToken cancellationToken)
     {
         var department = await context
                              .Departments
-                             .SingleOrDefaultAsync(d => d.Id == departmentId, cancellationToken) ??
-                         throw new NotFoundException(nameof(Department), nameof(Department.Id));
+                             .SingleOrDefaultAsync(d => d.Id == departmentId, cancellationToken)
+                         ?? throw new NotFoundException(nameof(Department), nameof(Department.Id));
 
         return department;
     }
