@@ -2,14 +2,15 @@
 using EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendars;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Infrastructure.Services.Features.CompanyCalendars;
+namespace EmployeeControl.Infrastructure.Repositories;
 
-public class CompanyCalendarsService(
+public class CompanyCalendarsRepository(
     IApplicationDbContext context,
     ICompanyCalendarValidatorService companyCalendarValidatorService)
-    : ICompanyCalendarsService
+    : ICompanyCalendarsRepository
 {
     public async Task<ICollection<CompanyCalendar>> GetAllAsync(CancellationToken cancellationToken)
     {

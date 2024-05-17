@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Infrastructure.Repositories;
 
-public class CompanyCalendarHolidays(
+public class CompanyCalendarHolidaysRepository(
     IApplicationDbContext context,
     ICompanyCalendarHolidaysValidatorService companyCalendarHolidaysValidatorService)
     : ICompanyCalendarHolidaysRepository

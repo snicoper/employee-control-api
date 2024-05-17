@@ -1,8 +1,8 @@
 ﻿using EmployeeControl.Domain.Entities;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendars;
+namespace EmployeeControl.Domain.Repositories;
 
-public interface ICompanyCalendarsService
+public interface ICompanyCalendarsRepository
 {
     /// <summary>
     /// Obtener lista de <see cref="CompanyCalendar" />.
