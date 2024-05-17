@@ -1,9 +1,9 @@
-﻿using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Domain.Entities;
+﻿using EmployeeControl.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.Identity;
+namespace EmployeeControl.Domain.Repositories;
 
-public interface IIdentityService
+public interface IUserRepository
 {
     /// <summary>
     /// Obtener el nombre de un usuario por su Id.
@@ -63,8 +63,8 @@ public interface IIdentityService
     /// <param name="password">Contraseña del usuario.</param>
     /// <param name="roles">Roles a asignar al usuario.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-    /// <returns><see cref="Result" /> y el Id del usuario en caso de éxito.</returns>
-    Task<(Result Result, string Id)> CreateAsync(
+    /// <returns><see cref="User" /> User creado.</returns>
+    Task<(IdentityResult IdentityResult, User User)> CreateAsync(
         User user,
         string password,
         IEnumerable<string> roles,
@@ -76,15 +76,15 @@ public interface IIdentityService
     /// </summary>
     /// <param name="user"><see cref="User" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-    /// <returns><see cref="Result" />.</returns>
-    Task<Result> UpdateAsync(User user, CancellationToken cancellationToken);
+    /// <returns><see cref="IdentityResult" />.</returns>
+    Task<(IdentityResult IdentityResult, User User)> UpdateAsync(User user, CancellationToken cancellationToken);
 
     /// <summary>
     /// Elimina de la base de datos un usuario.
     /// </summary>
     /// <param name="user"><see cref="User" />.</param>
-    /// <returns><see cref="Result" />.</returns>
-    Task<Result> DeleteAsync(User user);
+    /// <returns><see cref="IdentityResult" />.</returns>
+    Task<IdentityResult> DeleteAsync(User user);
 
     /// <summary>
     /// Modifica los roles de un usuario.
@@ -93,8 +93,8 @@ public interface IIdentityService
     /// <param name="user"><see cref="User" />.</param>
     /// <param name="rolesToAdd">Roles a añadir.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
-    /// <returns><see cref="Result" />.</returns>
-    Task<Result> UpdateRolesByUserIdAsync(
+    /// <returns><see cref="IdentityResult" />.</returns>
+    Task<IdentityResult> UpdateRolesByUserIdAsync(
         User user,
         List<string> rolesToAdd,
         CancellationToken cancellationToken);

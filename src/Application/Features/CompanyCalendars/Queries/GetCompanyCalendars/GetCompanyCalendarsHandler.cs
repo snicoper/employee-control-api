@@ -5,14 +5,14 @@ using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.CompanyCalendars.Queries.GetCompanyCalendars;
 
-internal class GetCompanyCalendarsHandler(ICompanyCalendarsRepository companyCalendarsRepository, IMapper mapper)
+internal class GetCompanyCalendarsHandler(ICompanyCalendarRepository companyCalendarRepository, IMapper mapper)
     : IQueryHandler<GetCompanyCalendarsQuery, ICollection<GetCompanyCalendarsResponse>>
 {
     public async Task<Result<ICollection<GetCompanyCalendarsResponse>>> Handle(
         GetCompanyCalendarsQuery request,
         CancellationToken cancellationToken)
     {
-        var companyCalendars = await companyCalendarsRepository.GetAllAsync(cancellationToken);
+        var companyCalendars = await companyCalendarRepository.GetAllAsync(cancellationToken);
         var resultResponse = mapper.Map<ICollection<GetCompanyCalendarsResponse>>(companyCalendars);
 
         return Result.Success(resultResponse);

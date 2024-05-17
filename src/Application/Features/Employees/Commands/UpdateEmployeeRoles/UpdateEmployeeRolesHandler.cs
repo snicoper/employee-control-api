@@ -1,17 +1,18 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+﻿using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.Employees.Commands.UpdateEmployeeRoles;
 
-internal class UpdateEmployeeRolesHandler(IIdentityService identityService)
+internal class UpdateEmployeeRolesHandler(IUserRepository userRepository)
     : ICommandHandler<UpdateEmployeeRolesCommand>
 {
     public async Task<Result> Handle(UpdateEmployeeRolesCommand request, CancellationToken cancellationToken)
     {
-        var user = await identityService.GetByIdAsync(request.EmployeeId);
-        var resultResponse = await identityService.UpdateRolesByUserIdAsync(user, request.RolesToAdd, cancellationToken);
+        var user = await userRepository.GetByIdAsync(request.EmployeeId);
+        var identityResult = await userRepository.UpdateRolesByUserIdAsync(user, request.RolesToAdd, cancellationToken);
 
-        return resultResponse;
+        return identityResult.ToApplicationResult();
     }
 }

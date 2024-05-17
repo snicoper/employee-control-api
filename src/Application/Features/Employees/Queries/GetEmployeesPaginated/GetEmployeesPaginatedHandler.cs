@@ -1,18 +1,18 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.Employees.Queries.GetEmployeesPaginated;
 
-internal class GetEmployeesPaginatedHandler(IIdentityService identityService, IMapper mapper)
+internal class GetEmployeesPaginatedHandler(IUserRepository userRepository, IMapper mapper)
     : IQueryHandler<GetEmployeesPaginatedQuery, ResponseData<GetEmployeesPaginatedResponse>>
 {
     public async Task<Result<ResponseData<GetEmployeesPaginatedResponse>>> Handle(
         GetEmployeesPaginatedQuery request,
         CancellationToken cancellationToken)
     {
-        var users = identityService.GetAllQueryable();
+        var users = userRepository.GetAllQueryable();
 
         var resultResponse = await ResponseData<GetEmployeesPaginatedResponse>.CreateAsync(
             users,

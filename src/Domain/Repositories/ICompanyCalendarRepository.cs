@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Domain.Repositories;
 
-public interface ICompanyCalendarsRepository
+public interface ICompanyCalendarRepository
 {
     /// <summary>
     /// Obtener lista de <see cref="CompanyCalendar" />.

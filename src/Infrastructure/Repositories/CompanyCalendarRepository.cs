@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Infrastructure.Repositories;
 
-public class CompanyCalendarsRepository(
+public class CompanyCalendarRepository(
     IApplicationDbContext context,
     ICompanyCalendarValidatorService companyCalendarValidatorService)
-    : ICompanyCalendarsRepository
+    : ICompanyCalendarRepository
 {
     public async Task<ICollection<CompanyCalendar>> GetAllAsync(CancellationToken cancellationToken)
     {

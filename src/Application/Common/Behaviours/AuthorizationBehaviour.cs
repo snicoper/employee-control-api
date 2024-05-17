@@ -1,13 +1,13 @@
 ﻿using System.Reflection;
 using EmployeeControl.Application.Common.Exceptions;
-using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Interfaces.Users;
 using EmployeeControl.Application.Common.Security;
+using EmployeeControl.Domain.Repositories;
 using MediatR;
 
 namespace EmployeeControl.Application.Common.Behaviours;
 
-public class AuthorizationBehaviour<TRequest, TResponse>(ICurrentUserService currentUserService, IIdentityService identityService)
+public class AuthorizationBehaviour<TRequest, TResponse>(ICurrentUserService currentUserService, IUserRepository userRepository)
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
 {
@@ -53,7 +53,7 @@ public class AuthorizationBehaviour<TRequest, TResponse>(ICurrentUserService cur
             {
                 foreach (var role in roles)
                 {
-                    var isInRole = await identityService.IsInRoleAsync(userId, role.Trim());
+                    var isInRole = await userRepository.IsInRoleAsync(userId, role.Trim());
 
                     if (!isInRole)
                     {
@@ -87,7 +87,7 @@ public class AuthorizationBehaviour<TRequest, TResponse>(ICurrentUserService cur
 
         foreach (var policy in attributesWithPolicies.Select(a => a.Policy))
         {
-            var authorized = await identityService.AuthorizeAsync(userId, policy);
+            var authorized = await userRepository.AuthorizeAsync(userId, policy);
 
             if (!authorized)
             {

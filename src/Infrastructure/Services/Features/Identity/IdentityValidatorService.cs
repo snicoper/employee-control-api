@@ -16,7 +16,7 @@ public class IdentityValidatorService(
     IPasswordValidator<User> passwordValidator,
     IStringLocalizer<User> localizer,
     ICurrentUserService currentUserService,
-    ILogger<IdentityService> logger)
+    ILogger<IdentityValidatorService> logger)
     : IIdentityValidatorService
 {
     public async Task<Result> UniqueEmailValidationAsync(User user, Result result, CancellationToken cancellationToken)

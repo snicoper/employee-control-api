@@ -6,7 +6,9 @@ using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.CompanyCalendarHolidays.Command.CreateCompanyCalendarHoliday;
 
-internal class CreateCompanyCalendarHolidayHandler(ICompanyCalendarHolidaysRepository companyCalendarHolidaysRepository, IMapper mapper)
+internal class CreateCompanyCalendarHolidayHandler(
+    ICompanyCalendarHolidayRepository companyCalendarHolidayRepository,
+    IMapper mapper)
     : ICommandHandler<CreateCompanyCalendarHolidayCommand, string>
 {
     public async Task<Result<string>> Handle(
@@ -14,7 +16,7 @@ internal class CreateCompanyCalendarHolidayHandler(ICompanyCalendarHolidaysRepos
         CancellationToken cancellationToken)
     {
         var companyHoliday = mapper.Map<CompanyCalendarHoliday>(request);
-        companyHoliday = await companyCalendarHolidaysRepository.CreateAsync(companyHoliday, cancellationToken);
+        companyHoliday = await companyCalendarHolidayRepository.CreateAsync(companyHoliday, cancellationToken);
         var resultResponse = companyHoliday.Id;
 
         return Result.Success(resultResponse);

@@ -1,5 +1,4 @@
-﻿using EmployeeControl.Application.Common.Extensions;
-using EmployeeControl.Application.Common.Interfaces.Common;
+﻿using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Interfaces.Users;
@@ -7,23 +6,24 @@ using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace EmployeeControl.Infrastructure.Services.Features.Identity;
+namespace EmployeeControl.Infrastructure.Repositories;
 
-public class IdentityService(
-    UserManager<User> userManager,
+public class UserRepository(
     IApplicationDbContext context,
+    UserManager<User> userManager,
     IUserClaimsPrincipalFactory<User> userClaimsPrincipalFactory,
     IAuthorizationService authorizationService,
-    IIdentityValidatorService identityValidatorService,
     ICurrentUserService currentUserService,
+    IIdentityValidatorService identityValidatorService,
     IDateTimeService dateTimeService,
-    ILogger<IdentityService> logger)
-    : IIdentityService
+    ILogger<UserRepository> logger)
+    : IUserRepository
 {
     public async Task<string?> GetUserNameAsync(string userId)
     {
@@ -100,7 +100,7 @@ public class IdentityService(
         return users;
     }
 
-    public async Task<(Result Result, string Id)> CreateAsync(
+    public async Task<(IdentityResult IdentityResult, User User)> CreateAsync(
         User user,
         string password,
         IEnumerable<string> roles,
@@ -121,10 +121,10 @@ public class IdentityService(
 
         await userManager.AddToRolesAsync(user, roles);
 
-        return (identityResult.ToApplicationResult(), user.Id);
+        return (identityResult, user);
     }
 
-    public async Task<Result> UpdateAsync(User user, CancellationToken cancellationToken)
+    public async Task<(IdentityResult IdentityResult, User User)> UpdateAsync(User user, CancellationToken cancellationToken)
     {
         // Validaciones.
         var result = Result.Create();
@@ -138,17 +138,17 @@ public class IdentityService(
         await userManager.UpdateNormalizedUserNameAsync(user);
         var identityResult = await userManager.UpdateAsync(user);
 
-        return identityResult.ToApplicationResult();
+        return (identityResult, user);
     }
 
-    public async Task<Result> DeleteAsync(User user)
+    public async Task<IdentityResult> DeleteAsync(User user)
     {
-        var result = await userManager.DeleteAsync(user);
+        var identityResult = await userManager.DeleteAsync(user);
 
-        return result.ToApplicationResult();
+        return identityResult;
     }
 
-    public async Task<Result> UpdateRolesByUserIdAsync(
+    public async Task<IdentityResult> UpdateRolesByUserIdAsync(
         User user,
         List<string> rolesToAdd,
         CancellationToken cancellationToken)
@@ -176,7 +176,7 @@ public class IdentityService(
             {
                 await transaction.RollbackAsync(cancellationToken);
 
-                return removeRolesResult.ToApplicationResult();
+                return removeRolesResult;
             }
 
             // Añade los nuevos roles al usuario.
@@ -186,12 +186,12 @@ public class IdentityService(
             {
                 await transaction.RollbackAsync(cancellationToken);
 
-                return addRolesResult.ToApplicationResult();
+                return addRolesResult;
             }
 
             await transaction.CommitAsync(cancellationToken);
 
-            return Result.Success();
+            return addRolesResult;
         }
         catch (Exception ex)
         {

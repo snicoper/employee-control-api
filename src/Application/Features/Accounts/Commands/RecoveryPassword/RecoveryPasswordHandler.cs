@@ -3,21 +3,22 @@ using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Localization;
 
 namespace EmployeeControl.Application.Features.Accounts.Commands.RecoveryPassword;
 
 internal class RecoveryPasswordHandler(
-    IIdentityService identityService,
     UserManager<User> userManager,
+    IUserRepository userRepository,
     IIdentityEmailsService identityEmailsService,
     IStringLocalizer<IdentityResource> localizer)
     : ICommandHandler<RecoveryPasswordCommand>
 {
     public async Task<Result> Handle(RecoveryPasswordCommand request, CancellationToken cancellationToken)
     {
-        var user = await identityService.GetByEmailAsync(request.Email);
+        var user = await userRepository.GetByEmailAsync(request.Email);
 
         // El usuario debe estar activo.
         if (!user.Active)

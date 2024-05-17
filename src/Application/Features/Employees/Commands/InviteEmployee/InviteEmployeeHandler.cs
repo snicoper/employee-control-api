@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
@@ -12,7 +13,7 @@ namespace EmployeeControl.Application.Features.Employees.Commands.InviteEmployee
 
 internal class InviteEmployeeHandler(
     IMapper mapper,
-    IIdentityService identityService,
+    IUserRepository userRepository,
     IIdentityEmailsService identityEmailsService,
     ICompanyRepository companyRepository,
     UserManager<User> userManager,
@@ -29,7 +30,7 @@ internal class InviteEmployeeHandler(
         var roles = new[] { Roles.Employee };
 
         // Crear nuevo usuario.
-        var (_, employeeId) = await identityService.CreateAsync(user, password, roles, cancellationToken);
+        var (identityResult, newUser) = await userRepository.CreateAsync(user, password, roles, cancellationToken);
 
         // Configuración de empleado.
         var employeeSettings = new EmployeeSettings { UserId = user.Id, Timezone = request.TimeZone };
@@ -41,6 +42,10 @@ internal class InviteEmployeeHandler(
         // Mandar email de verificación de Email.
         await identityEmailsService.SendInviteEmployeeAsync(user, company, code);
 
-        return Result.Success(employeeId);
+        var resultResponse = identityResult.Succeeded
+            ? Result.Success(newUser.Id)
+            : Result.Failure<string>(ValidationErrorsKeys.IdentityError, identityResult.Errors.First().Description);
+
+        return resultResponse;
     }
 }
