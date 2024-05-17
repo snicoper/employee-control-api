@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
 using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Interfaces.Common;
+using EmployeeControl.Application.Common.Interfaces.Users;
 
-namespace EmployeeControl.WebApi.Services;
+namespace EmployeeControl.WebApi.Services.Users;
 
 public class CurrentUserService(IHttpContextAccessor httpContextAccessor)
     : ICurrentUserService

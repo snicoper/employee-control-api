@@ -1,9 +1,9 @@
 using System.Reflection;
 using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Interfaces.Common;
+using EmployeeControl.Application.Common.Interfaces.Users;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.WebApi.Infrastructure;
-using EmployeeControl.WebApi.Services;
+using EmployeeControl.WebApi.Services.Users;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -48,7 +48,7 @@ public static class DependencyInjection
                     options.DataAnnotationLocalizerProvider = (_, factory) => factory.Create(typeof(SharedResource));
                 });
 
-        // Customize default API behavior.
+        // Customize default API behavior.º
         services.Configure<ApiBehaviorOptions>(
             options =>
             {

@@ -3,7 +3,8 @@ using Microsoft.Extensions.Logging;
 
 namespace EmployeeControl.Application.Common.Behaviours;
 
-public class UnhandledExceptionBehaviour<TRequest, TResponse>(ILogger<TRequest> logger) : IPipelineBehavior<TRequest, TResponse>
+public class UnhandledExceptionBehaviour<TRequest, TResponse>(ILogger<TRequest> logger)
+    : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
 {
     public async Task<TResponse> Handle(

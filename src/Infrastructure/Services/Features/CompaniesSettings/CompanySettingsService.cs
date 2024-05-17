@@ -3,6 +3,7 @@ using EmployeeControl.Application.Common.Exceptions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.CompaniesSettings;
+using EmployeeControl.Application.Common.Interfaces.Users;
 using EmployeeControl.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 

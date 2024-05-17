@@ -1,4 +1,4 @@
-﻿namespace EmployeeControl.Application.Common.Interfaces.Common;
+﻿namespace EmployeeControl.Application.Common.Interfaces.Users;
 
 public interface ICurrentUserService
 {

@@ -16,9 +16,4 @@ public static class ValidationErrorsKeys
     /// Errores de Identity.
     /// </summary>
     public const string IdentityError = nameof(IdentityError);
-
-    /// <summary>
-    /// Errores de TimeControl.
-    /// </summary>
-    public const string TimeControlError = nameof(TimeControlError);
 }

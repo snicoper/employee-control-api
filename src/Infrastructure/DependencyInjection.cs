@@ -44,8 +44,6 @@ public static class DependencyInjection
         services.AddSignalR();
 
         // Database.
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
-
         // Interceptors EntityFramework.
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
@@ -56,7 +54,7 @@ public static class DependencyInjection
             {
                 options.AddInterceptors(provider.GetServices<ISaveChangesInterceptor>());
                 options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-                options.UseNpgsql(connectionString);
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
 
                 if (!environment.IsProduction())
                 {

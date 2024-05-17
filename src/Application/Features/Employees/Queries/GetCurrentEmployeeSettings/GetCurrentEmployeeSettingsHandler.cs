@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Interfaces.Users;
 using EmployeeControl.Application.Common.Models;
 
 namespace EmployeeControl.Application.Features.Employees.Queries.GetCurrentEmployeeSettings;

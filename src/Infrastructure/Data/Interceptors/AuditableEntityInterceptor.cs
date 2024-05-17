@@ -1,4 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Common;
+using EmployeeControl.Application.Common.Interfaces.Users;
 using EmployeeControl.Domain.Common;
 using EmployeeControl.Infrastructure.Data.Extensions;
 using Microsoft.EntityFrameworkCore;

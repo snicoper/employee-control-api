@@ -3,6 +3,7 @@ using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+using EmployeeControl.Application.Common.Interfaces.Users;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;

@@ -20,7 +20,7 @@ public static class DependencyInjection
                     .AsImplementedInterfaces()
                     .WithTransientLifetime());
 
-        // Automapper.
+        // AutoMapper.
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
         // FluentValidator.
