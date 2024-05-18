@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EmployeeControl.Infrastructure.Data.Configurations;
 
-public class ApplicationRoleConfiguration : IEntityTypeConfiguration<ApplicationRole>
+internal class ApplicationRoleConfiguration : IEntityTypeConfiguration<ApplicationRole>
 {
     public void Configure(EntityTypeBuilder<ApplicationRole> builder)
     {

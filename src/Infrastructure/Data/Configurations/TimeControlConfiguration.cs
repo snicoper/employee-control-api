@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EmployeeControl.Infrastructure.Data.Configurations;
 
-public class TimeControlConfiguration : IEntityTypeConfiguration<TimeControl>
+internal class TimeControlConfiguration : IEntityTypeConfiguration<TimeControl>
 {
     public void Configure(EntityTypeBuilder<TimeControl> builder)
     {

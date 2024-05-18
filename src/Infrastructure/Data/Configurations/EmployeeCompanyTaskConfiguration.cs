@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EmployeeControl.Infrastructure.Data.Configurations;
 
-public class EmployeeCompanyTaskConfiguration : IEntityTypeConfiguration<EmployeeCompanyTask>
+internal class EmployeeCompanyTaskConfiguration : IEntityTypeConfiguration<EmployeeCompanyTask>
 {
     public void Configure(EntityTypeBuilder<EmployeeCompanyTask> builder)
     {

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EmployeeControl.Infrastructure.Data.Configurations;
 
-public class CompanySettingsConfiguration : IEntityTypeConfiguration<CompanySettings>
+internal class CompanySettingsConfiguration : IEntityTypeConfiguration<CompanySettings>
 {
     public void Configure(EntityTypeBuilder<CompanySettings> builder)
     {

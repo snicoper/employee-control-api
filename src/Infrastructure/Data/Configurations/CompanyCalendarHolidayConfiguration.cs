@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EmployeeControl.Infrastructure.Data.Configurations;
 
-public class CompanyCalendarHolidayConfiguration : IEntityTypeConfiguration<CompanyCalendarHoliday>
+internal class CompanyCalendarHolidayConfiguration : IEntityTypeConfiguration<CompanyCalendarHoliday>
 {
     public void Configure(EntityTypeBuilder<CompanyCalendarHoliday> builder)
     {

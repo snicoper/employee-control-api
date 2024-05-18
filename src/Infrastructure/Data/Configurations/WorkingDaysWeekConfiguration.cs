@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EmployeeControl.Infrastructure.Data.Configurations;
 
-public class WorkingDaysWeekConfiguration : IEntityTypeConfiguration<WorkingDaysWeek>
+internal class WorkingDaysWeekConfiguration : IEntityTypeConfiguration<WorkingDaysWeek>
 {
     public void Configure(EntityTypeBuilder<WorkingDaysWeek> builder)
     {

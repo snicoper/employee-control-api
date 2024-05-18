@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EmployeeControl.Infrastructure.Data.Configurations;
 
-public class CategoryAbsenceConfiguration : IEntityTypeConfiguration<CategoryAbsence>
+internal class CategoryAbsenceConfiguration : IEntityTypeConfiguration<CategoryAbsence>
 {
     public void Configure(EntityTypeBuilder<CategoryAbsence> builder)
     {

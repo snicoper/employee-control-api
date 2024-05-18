@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace EmployeeControl.Infrastructure.Data.Configurations;
 
-public class EmployeeHolidayClaimConfiguration : IEntityTypeConfiguration<EmployeeHolidayClaim>
+internal class EmployeeHolidayClaimConfiguration : IEntityTypeConfiguration<EmployeeHolidayClaim>
 {
     public void Configure(EntityTypeBuilder<EmployeeHolidayClaim> builder)
     {
