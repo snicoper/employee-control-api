@@ -32,9 +32,9 @@ public class DepartmentRepository(IApplicationDbContext context, IDepartmentVali
     public async Task<Department> GetByIdAsync(string departmentId, CancellationToken cancellationToken)
     {
         var department = await context
-                             .Departments
-                             .SingleOrDefaultAsync(d => d.Id == departmentId, cancellationToken)
-                         ?? throw new NotFoundException(nameof(Department), nameof(Department.Id));
+                .Departments
+                .SingleOrDefaultAsync(d => d.Id == departmentId, cancellationToken)
+            ?? throw new NotFoundException(nameof(Department), nameof(Department.Id));
 
         return department;
     }

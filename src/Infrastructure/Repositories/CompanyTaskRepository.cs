@@ -15,9 +15,9 @@ public class CompanyTaskRepository(IStringLocalizer<TaskResource> localizer, IAp
     public async Task<CompanyTask> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         var result = await context
-                         .CompanyTasks
-                         .SingleOrDefaultAsync(cs => cs.Id == id, cancellationToken) ??
-                     throw new NotFoundException(nameof(CompanyTask), nameof(CompanyTask.Id));
+                .CompanyTasks
+                .SingleOrDefaultAsync(cs => cs.Id == id, cancellationToken) ??
+            throw new NotFoundException(nameof(CompanyTask), nameof(CompanyTask.Id));
 
         return result;
     }

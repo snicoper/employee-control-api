@@ -15,9 +15,9 @@ public class CompanyCalendarHolidayRepository(
     public async Task<CompanyCalendarHoliday> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         var companyHoliday = await context
-                                 .CompanyCalendarHoliday
-                                 .FirstOrDefaultAsync(ch => ch.Id == id, cancellationToken) ??
-                             throw new NotFoundException(nameof(CompanyCalendarHoliday), nameof(CompanyCalendarHoliday.Id));
+                .CompanyCalendarHoliday
+                .FirstOrDefaultAsync(ch => ch.Id == id, cancellationToken)
+            ?? throw new NotFoundException(nameof(CompanyCalendarHoliday), nameof(CompanyCalendarHoliday.Id));
 
         return companyHoliday;
     }

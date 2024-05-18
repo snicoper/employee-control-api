@@ -5,12 +5,7 @@ namespace EmployeeControl.Domain.Common;
 
 public abstract class BaseEntity : IEntityDomainEvent
 {
-    private readonly List<BaseEvent> domainEvents;
-
-    protected BaseEntity()
-    {
-        domainEvents = new List<BaseEvent>();
-    }
+    private readonly List<BaseEvent> domainEvents = new();
 
     public string Id { get; private set; } = Guid.NewGuid().ToString();
 

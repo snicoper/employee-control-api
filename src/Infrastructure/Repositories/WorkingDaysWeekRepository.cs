@@ -11,10 +11,10 @@ public class WorkingDaysWeekRepository(IApplicationDbContext context)
 {
     public async Task<WorkingDaysWeek> GetWorkingDaysWeekAsync(CancellationToken cancellationToken)
     {
-        var workDays = await context.WorkingDaysWeek.FirstOrDefaultAsync(cancellationToken)
-                       ?? throw new NotFoundException(
-                           nameof(WorkingDaysWeek),
-                           nameof(WorkingDaysWeek.Id));
+        var workDays = await context
+                .WorkingDaysWeek
+                .FirstOrDefaultAsync(cancellationToken)
+            ?? throw new NotFoundException(nameof(WorkingDaysWeek), nameof(WorkingDaysWeek.Id));
 
         return workDays;
     }

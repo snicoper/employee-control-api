@@ -36,17 +36,18 @@ public class UserRepository(
 
     public async Task<User> GetByIdAsync(string userId)
     {
-        return await userManager.FindByIdAsync(userId) ??
-               throw new NotFoundException(nameof(User), nameof(User.Id));
+        return await userManager
+                .FindByIdAsync(userId)
+            ?? throw new NotFoundException(nameof(User), nameof(User.Id));
     }
 
     public async Task<User> GetByIdWithCompanyCalendarAsync(string userId)
     {
         var user = await userManager
-                       .Users
-                       .Include(u => u.CompanyCalendar)
-                       .SingleOrDefaultAsync(u => u.Id == userId) ??
-                   throw new NotFoundException(nameof(User), nameof(User.Id));
+                .Users
+                .Include(u => u.CompanyCalendar)
+                .SingleOrDefaultAsync(u => u.Id == userId)
+            ?? throw new NotFoundException(nameof(User), nameof(User.Id));
 
         return user;
     }
@@ -60,8 +61,9 @@ public class UserRepository(
 
     public async Task<User> GetByEmailAsync(string email)
     {
-        return await userManager.FindByEmailAsync(email) ??
-               throw new NotFoundException(nameof(User), nameof(User.Email));
+        return await userManager
+                .FindByEmailAsync(email)
+            ?? throw new NotFoundException(nameof(User), nameof(User.Email));
     }
 
     public async Task<bool> IsInRoleAsync(string userId, string role)
@@ -193,11 +195,12 @@ public class UserRepository(
 
             return addRolesResult;
         }
-        catch (Exception ex)
+        catch (OperationCanceledException ex)
         {
             logger.LogError(ex, "Error al actualizar roles al usuario.");
             await transaction.RollbackAsync(cancellationToken);
-            throw;
+
+            throw new OperationCanceledException(ex.Message);
         }
     }
 }

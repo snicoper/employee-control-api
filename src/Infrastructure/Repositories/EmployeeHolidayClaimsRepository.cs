@@ -2,6 +2,4 @@
 
 namespace EmployeeControl.Infrastructure.Repositories;
 
-public class EmployeeHolidayClaimsRepository : IEmployeeHolidayClaimsRepository
-{
-}
+public class EmployeeHolidayClaimsRepository : IEmployeeHolidayClaimsRepository;

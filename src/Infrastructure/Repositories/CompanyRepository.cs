@@ -13,16 +13,20 @@ public class CompanyRepository(IApplicationDbContext context, ICompanyValidatorS
 {
     public async Task<Company> GetCompanyAsync(CancellationToken cancellationToken)
     {
-        var result = await context.Companies.FirstOrDefaultAsync(cancellationToken)
-                     ?? throw new NotFoundException(nameof(Company), nameof(Company));
+        var result = await context
+                .Companies
+                .FirstOrDefaultAsync(cancellationToken)
+            ?? throw new NotFoundException(nameof(Company), nameof(Company));
 
         return result;
     }
 
     public async Task<Company> GetCompanyByIdAsync(string companyId, CancellationToken cancellationToken)
     {
-        var result = await context.Companies.SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken)
-                     ?? throw new NotFoundException(nameof(Company), nameof(Company));
+        var result = await context
+                .Companies
+                .SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken)
+            ?? throw new NotFoundException(nameof(Company), nameof(Company));
 
         return result;
     }

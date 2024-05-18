@@ -11,8 +11,10 @@ public class EmployeeSettingsRepository(IApplicationDbContext context)
 {
     public async Task<EmployeeSettings> GetByEmployeeIdAsync(string employeeId, CancellationToken cancellationToken)
     {
-        return await context.EmployeeSettings.SingleOrDefaultAsync(es => es.UserId == employeeId, cancellationToken)
-               ?? throw new NotFoundException(nameof(EmployeeSettings), nameof(EmployeeSettings.UserId));
+        return await context
+                .EmployeeSettings
+                .SingleOrDefaultAsync(es => es.UserId == employeeId, cancellationToken)
+            ?? throw new NotFoundException(nameof(EmployeeSettings), nameof(EmployeeSettings.UserId));
     }
 
     public async Task<int> CreateAsync(EmployeeSettings employeeSettings, CancellationToken cancellationToken)
