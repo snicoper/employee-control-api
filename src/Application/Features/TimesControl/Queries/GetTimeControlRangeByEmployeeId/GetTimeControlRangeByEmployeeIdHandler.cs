@@ -1,20 +1,22 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Common;
-using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
+using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlRangeByEmployeeId;
 
-internal class GetTimeControlRangeByEmployeeIdHandler(IDateTimeService dateTimeService, ITimesControlService timesControlService)
+internal class GetTimeControlRangeByEmployeeIdHandler(
+    IDateTimeService dateTimeService,
+    ITimeControlRepository timeControlRepository)
     : IQueryHandler<GetTimeControlRangeByEmployeeIdQuery, List<GetTimeControlRangeByEmployeeIdResponse>>
 {
     public async Task<Result<List<GetTimeControlRangeByEmployeeIdResponse>>> Handle(
         GetTimeControlRangeByEmployeeIdQuery request,
         CancellationToken cancellationToken)
     {
-        var timesControlGroup = await timesControlService.GetRangeByEmployeeIdAsync(
+        var timesControlGroup = await timeControlRepository.GetRangeByEmployeeIdAsync(
             request.EmployeeId,
             request.From,
             request.To,

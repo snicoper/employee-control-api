@@ -1,18 +1,17 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
-using EmployeeControl.Application.Common.Interfaces.Messaging;
+﻿using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.TimesControl.Commands.StartTimeControl;
 
-internal class StartTimeControlHandler(ITimesControlService timesControlService, IUserRepository userRepository)
+internal class StartTimeControlHandler(ITimeControlRepository timeControlRepository, IUserRepository userRepository)
     : ICommandHandler<StartTimeControlCommand, string>
 {
     public async Task<Result<string>> Handle(StartTimeControlCommand request, CancellationToken cancellationToken)
     {
         var employee = await userRepository.GetByIdAsync(request.EmployeeId);
 
-        var timeControl = await timesControlService.StartAsync(
+        var timeControl = await timeControlRepository.StartAsync(
             employee,
             request.DeviceType,
             request.Latitude,

@@ -2,9 +2,9 @@
 using EmployeeControl.Domain.Enums;
 using EmployeeControl.Domain.Exceptions;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
+namespace EmployeeControl.Domain.Repositories;
 
-public interface ITimesControlService
+public interface ITimeControlRepository
 {
     /// <summary>
     /// Obtener un <see cref="TimeControl" /> por su Id.

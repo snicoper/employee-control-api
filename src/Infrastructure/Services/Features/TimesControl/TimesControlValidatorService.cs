@@ -2,6 +2,7 @@
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
+using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
@@ -12,7 +13,7 @@ namespace EmployeeControl.Infrastructure.Services.Features.TimesControl;
 
 public class TimesControlValidatorService(
     IApplicationDbContext context,
-    IStringLocalizer<TimesControlService> localizer,
+    IStringLocalizer<TimeControlResource> localizer,
     IDateTimeService dateTimeService)
     : ITimesControlValidatorService
 {

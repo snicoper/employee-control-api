@@ -13,17 +13,24 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
-namespace EmployeeControl.Infrastructure.Services.Features.TimesControl;
+namespace EmployeeControl.Infrastructure.Repositories;
 
-public class TimesControlService(
+public class TimeControlRepository(
     IDateTimeService dateTimeService,
     ITimesControlValidatorService timesControlValidatorService,
     IApplicationDbContext context,
     ICompanySettingsRepository companySettingsRepository,
     IHubContext<NotificationTimeControlIncidenceHub> hubContext,
     IStringLocalizer<TimeControlResource> localizer)
-    : ITimesControlService
+    : ITimeControlRepository
 {
+    public int CountIncidences()
+    {
+        var incidences = GetTimesControlIncidencesQueryable().Count();
+
+        return incidences;
+    }
+
     public async Task<TimeControl> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         var result = await context
@@ -120,13 +127,6 @@ public class TimesControlService(
         var timesControl = context.TimeControls.Where(tc => tc.Incidence);
 
         return timesControl;
-    }
-
-    public int CountIncidences()
-    {
-        var incidences = GetTimesControlIncidencesQueryable().Count();
-
-        return incidences;
     }
 
     public async Task<TimeControl> CloseIncidenceByTimeControlIdAsync(string id, CancellationToken cancellationToken)

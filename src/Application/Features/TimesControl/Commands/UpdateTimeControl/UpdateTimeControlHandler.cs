@@ -1,20 +1,20 @@
 ﻿using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Common.Services.Hubs;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.AspNetCore.SignalR;
 
 namespace EmployeeControl.Application.Features.TimesControl.Commands.UpdateTimeControl;
 
 internal class UpdateTimeControlHandler(
-    ITimesControlService timesControlService,
+    ITimeControlRepository timeControlRepository,
     IHubContext<NotificationTimeControlIncidenceHub> hubContext)
     : ICommandHandler<UpdateTimeControlCommand>
 {
     public async Task<Result> Handle(UpdateTimeControlCommand request, CancellationToken cancellationToken)
     {
-        var timeControl = await timesControlService.GetByIdAsync(request.Id, cancellationToken);
+        var timeControl = await timeControlRepository.GetByIdAsync(request.Id, cancellationToken);
 
         timeControl.Start = request.Start;
         timeControl.Finish = request.Finish;
@@ -24,7 +24,7 @@ internal class UpdateTimeControlHandler(
             timeControl.Incidence = false;
         }
 
-        await timesControlService.UpdateAsync(timeControl, cancellationToken);
+        await timeControlRepository.UpdateAsync(timeControl, cancellationToken);
 
         if (request.CloseIncidence)
         {
