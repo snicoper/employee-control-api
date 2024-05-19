@@ -11,32 +11,28 @@ public abstract class ValueObject
         }
 
         var other = (ValueObject)obj;
+
         return GetEqualityComponents().SequenceEqual(other.GetEqualityComponents());
     }
 
     public override int GetHashCode()
     {
-        var hash = default(HashCode);
-
-        foreach (var component in GetEqualityComponents())
-        {
-            hash.Add(component);
-        }
-
-        return hash.ToHashCode();
+        return GetEqualityComponents()
+            .Select(x => x.GetHashCode())
+            .Aggregate((x, y) => x ^ y);
     }
 
-    protected static bool EqualOperator(ValueObject? left, ValueObject? right)
+    protected static bool EqualOperator(ValueObject left, ValueObject right)
     {
-        if (left is null ^ right is null)
+        if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null))
         {
             return false;
         }
 
-        return left?.Equals(right!) != false;
+        return ReferenceEquals(left, right) || left!.Equals(right);
     }
 
-    protected static bool NotEqualOperator(ValueObject? left, ValueObject? right)
+    protected static bool NotEqualOperator(ValueObject left, ValueObject right)
     {
         return !EqualOperator(left, right);
     }
