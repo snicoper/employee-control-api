@@ -4,10 +4,6 @@ namespace EmployeeControl.Domain.ValueObjects;
 
 public class Period : ValueObject
 {
-    private Period()
-    {
-    }
-
     private Period(DateTimeOffset start, DateTimeOffset end)
     {
         Start = start;
@@ -18,7 +14,7 @@ public class Period : ValueObject
 
     public DateTimeOffset End { get; }
 
-    public static Period From(DateTimeOffset start, DateTimeOffset end)
+    public static Period Create(DateTimeOffset start, DateTimeOffset end)
     {
         var timeInterval = new Period(start, end);
 
