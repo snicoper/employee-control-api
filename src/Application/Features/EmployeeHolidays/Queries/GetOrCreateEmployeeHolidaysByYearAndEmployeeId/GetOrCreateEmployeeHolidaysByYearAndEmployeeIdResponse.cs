@@ -11,7 +11,7 @@ public record GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse
 
     public int TotalDays { get; set; }
 
-    public int Consumed { get; set; }
+    public int ConsumedDays { get; set; }
 
     public int Available { get; set; }
 
@@ -24,7 +24,7 @@ public record GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse
         public Mapping()
         {
             CreateMap<EmployeeHoliday, GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse>()
-                .ForMember(dest => dest.Available, opt => opt.MapFrom(src => src.TotalDays - src.Consumed))
+                .ForMember(dest => dest.Available, opt => opt.MapFrom(src => src.TotalDays - src.ConsumedDays))
                 .ForMember(dest => dest.Created, opt => opt.Ignore());
         }
     }

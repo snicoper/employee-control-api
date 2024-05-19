@@ -34,7 +34,7 @@ internal class EmployeeHolidayConfiguration : IEntityTypeConfiguration<EmployeeH
         builder.Property(eh => eh.TotalDays)
             .IsRequired();
 
-        builder.Property(eh => eh.Consumed);
+        builder.Property(eh => eh.ConsumedDays);
 
         builder.Property(eh => eh.UserId)
             .IsRequired();

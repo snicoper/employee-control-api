@@ -31,7 +31,7 @@ public class EmployeeHolidaysService(IApplicationDbContext context) : IEmployeeH
         string employeeId,
         CancellationToken cancellationToken)
     {
-        var employeeHoliday = new EmployeeHoliday { Year = year, TotalDays = 0, Consumed = 0, UserId = employeeId };
+        var employeeHoliday = new EmployeeHoliday { Year = year, TotalDays = 0, ConsumedDays = 0, UserId = employeeId };
 
         context.EmployeeHolidays.Add(employeeHoliday);
         await context.SaveChangesAsync(cancellationToken);

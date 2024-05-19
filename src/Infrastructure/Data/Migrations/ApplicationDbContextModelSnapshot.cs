@@ -426,7 +426,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<int>("Consumed")
+                    b.Property<int>("ConsumedDays")
                         .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("Created")
