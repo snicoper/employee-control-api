@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeControl.Application.Features.Employees.Queries.GetRolesByEmployeeId;
 
@@ -18,7 +18,7 @@ internal class GetRolesByEmployeeIdHandler(
     {
         var user = await userRepository.GetByIdAsync(request.EmployeeId);
         var identityRoles = await userRoleRepository.GetRolesByUseAsync(user);
-        var result = mapper.Map<List<ApplicationRole>, ICollection<GetRolesByEmployeeIdResponse>>(identityRoles);
+        var result = mapper.Map<List<IdentityRole>, ICollection<GetRolesByEmployeeIdResponse>>(identityRoles);
 
         return Result.Success(result);
     }

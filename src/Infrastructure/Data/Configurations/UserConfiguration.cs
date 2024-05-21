@@ -33,12 +33,6 @@ internal class UserConfiguration : IEntityTypeConfiguration<User>
             .HasForeignKey(au => au.CompanyCalendarId)
             .IsRequired();
 
-        // Many-to-Many.
-        builder.HasMany(au => au.UserRoles)
-            .WithOne()
-            .HasForeignKey(uc => uc.UserId)
-            .IsRequired();
-
         // Properties.
         builder.Property(au => au.Email)
             .IsRequired()

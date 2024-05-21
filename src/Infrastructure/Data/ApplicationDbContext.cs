@@ -1,6 +1,7 @@
 using System.Reflection;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
@@ -8,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 namespace EmployeeControl.Infrastructure.Data;
 
 public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-    : IdentityDbContext<User, ApplicationRole, string>(options), IApplicationDbContext
+    : IdentityDbContext<User, IdentityRole, string>(options), IApplicationDbContext
 {
     public DbSet<CompanyCalendarHoliday> CompanyCalendarHoliday => Set<CompanyCalendarHoliday>();
 

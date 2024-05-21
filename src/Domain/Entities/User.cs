@@ -22,7 +22,6 @@ public class User : IdentityUser, IEntityDomainEvent
         TimeControls = new List<TimeControl>();
         EmployeeDepartments = new List<EmployeeDepartment>();
         EmployeeCompanyTasks = new List<EmployeeCompanyTask>();
-        UserRoles = new List<IdentityUserRole<string>>();
     }
 
     public string? FirstName { get; set; }
@@ -58,8 +57,6 @@ public class User : IdentityUser, IEntityDomainEvent
     public ICollection<EmployeeDepartment> EmployeeDepartments { get; set; }
 
     public ICollection<EmployeeCompanyTask> EmployeeCompanyTasks { get; set; }
-
-    public ICollection<IdentityUserRole<string>> UserRoles { get; set; }
 
     [NotMapped]
     public IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();
