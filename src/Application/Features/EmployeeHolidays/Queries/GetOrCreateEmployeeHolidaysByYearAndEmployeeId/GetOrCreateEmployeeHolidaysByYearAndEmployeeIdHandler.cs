@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using EmployeeControl.Application.Common.Interfaces.Features.EmployeeHolidays;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Domain.Entities;
+using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.EmployeeHolidays.Queries.GetOrCreateEmployeeHolidaysByYearAndEmployeeId;
 
 internal class GetOrCreateEmployeeHolidaysByYearAndEmployeeIdHandler(
-    IEmployeeHolidaysService employeeHolidaysService,
+    IEmployeeHolidaysRepository employeeHolidaysRepository,
     IMapper mapper)
     : IQueryHandler<GetOrCreateEmployeeHolidaysByYearAndEmployeeIdQuery, GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse>
 {
@@ -32,14 +32,14 @@ internal class GetOrCreateEmployeeHolidaysByYearAndEmployeeIdHandler(
         EmployeeHoliday employeeHoliday;
         var created = false;
 
-        if (!await employeeHolidaysService.ExistsByYearAndEmployeeId(request.Year, request.EmployeeId, cancellationToken))
+        if (!await employeeHolidaysRepository.ExistsByYearAndEmployeeId(request.Year, request.EmployeeId, cancellationToken))
         {
-            employeeHoliday = await employeeHolidaysService.CreateAsync(request.Year, request.EmployeeId, cancellationToken);
+            employeeHoliday = await employeeHolidaysRepository.CreateAsync(request.Year, request.EmployeeId, cancellationToken);
             created = true;
         }
         else
         {
-            employeeHoliday = await employeeHolidaysService
+            employeeHoliday = await employeeHolidaysRepository
                 .GetByEmployeeIdAndYearAsync(request.Year, request.EmployeeId, cancellationToken);
         }
 

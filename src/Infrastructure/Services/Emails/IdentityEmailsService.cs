@@ -1,7 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Emails;
-using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Models.Emails;
 using EmployeeControl.Application.Common.Models.Settings;
@@ -9,7 +8,7 @@ using EmployeeControl.Domain.Entities;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 
-namespace EmployeeControl.Infrastructure.Services.Features.Identity;
+namespace EmployeeControl.Infrastructure.Services.Emails;
 
 public class IdentityEmailsService(
     IEmailService emailService,

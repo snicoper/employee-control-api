@@ -1,8 +1,8 @@
 ﻿using EmployeeControl.Domain.Entities;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.EmployeeHolidays;
+namespace EmployeeControl.Domain.Repositories;
 
-public interface IEmployeeHolidaysService
+public interface IEmployeeHolidaysRepository
 {
     /// <summary>
     ///     Obtiene un <see cref="EmployeeHoliday" /> dado el id del <see cref="User" /> y el año.

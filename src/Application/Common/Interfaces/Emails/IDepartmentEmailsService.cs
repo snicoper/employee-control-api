@@ -1,6 +1,6 @@
 ﻿using EmployeeControl.Domain.Entities;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.Departments;
+namespace EmployeeControl.Application.Common.Interfaces.Emails;
 
 public interface IDepartmentEmailsService
 {

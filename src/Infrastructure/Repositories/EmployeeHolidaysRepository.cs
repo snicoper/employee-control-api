@@ -1,12 +1,12 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.EmployeeHolidays;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
+using EmployeeControl.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeControl.Infrastructure.Services.Features.EmployeeHolidays;
+namespace EmployeeControl.Infrastructure.Repositories;
 
-public class EmployeeHolidaysService(IApplicationDbContext context) : IEmployeeHolidaysService
+public class EmployeeHolidaysRepository(IApplicationDbContext context) : IEmployeeHolidaysRepository
 {
     public async Task<EmployeeHoliday> GetByEmployeeIdAndYearAsync(
         int year,

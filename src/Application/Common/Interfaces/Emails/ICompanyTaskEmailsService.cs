@@ -1,6 +1,6 @@
 ﻿using EmployeeControl.Domain.Entities;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.CompanyTask;
+namespace EmployeeControl.Application.Common.Interfaces.Emails;
 
 public interface ICompanyTaskEmailsService
 {
