@@ -1,32 +1,36 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.EmployeeHolidays;
 using EmployeeControl.Domain.Entities;
+using EmployeeControl.Domain.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Infrastructure.Services.Features.EmployeeHolidays;
 
 public class EmployeeHolidaysService(IApplicationDbContext context) : IEmployeeHolidaysService
 {
-    public async Task<(bool Created, EmployeeHoliday EmployeeHoliday)> GetOrCreateByYearByEmployeeIdAsync(
+    public async Task<EmployeeHoliday> GetByEmployeeIdAndYearAsync(
         int year,
         string employeeId,
         CancellationToken cancellationToken)
     {
         var employeeHoliday = await context
-            .EmployeeHolidays
-            .SingleOrDefaultAsync(eh => eh.Year == year && eh.UserId == employeeId, cancellationToken);
+                                  .EmployeeHolidays
+                                  .SingleOrDefaultAsync(eh => eh.UserId == employeeId && eh.Year == year, cancellationToken)
+                              ?? throw new NotFoundException(nameof(EmployeeHoliday), nameof(EmployeeHoliday.UserId));
 
-        if (employeeHoliday is not null)
-        {
-            return (false, employeeHoliday);
-        }
-
-        employeeHoliday = await CreateEmployeeHolidayAsync(year, employeeId, cancellationToken);
-
-        return (true, employeeHoliday);
+        return employeeHoliday;
     }
 
-    private async Task<EmployeeHoliday> CreateEmployeeHolidayAsync(
+    public async Task<bool> ExistsByYearAndEmployeeId(int year, string employeeId, CancellationToken cancellationToken)
+    {
+        var exists = await context
+            .EmployeeHolidays
+            .AnyAsync(eh => eh.Year == year && eh.UserId == employeeId, cancellationToken);
+
+        return exists;
+    }
+
+    public async Task<EmployeeHoliday> CreateAsync(
         int year,
         string employeeId,
         CancellationToken cancellationToken)
