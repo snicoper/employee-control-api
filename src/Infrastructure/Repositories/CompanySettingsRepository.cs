@@ -18,9 +18,9 @@ public class CompanySettingsRepository(
     public async Task<CompanySettings> GetByIdAsync(string companySettingsId, CancellationToken cancellationToken)
     {
         var result = await context
-                .CompanySettings
-                .SingleOrDefaultAsync(cs => cs.Id == companySettingsId, cancellationToken) ??
-            throw new NotFoundException(nameof(CompanySettings), nameof(CompanySettings.Id));
+            .CompanySettings
+            .SingleOrDefaultAsync(cs => cs.Id == companySettingsId, cancellationToken)
+                ?? throw new NotFoundException(nameof(CompanySettings), nameof(CompanySettings.Id));
 
         return result;
     }
@@ -28,9 +28,9 @@ public class CompanySettingsRepository(
     public async Task<CompanySettings> GetCompanySettingsAsync(CancellationToken cancellationToken)
     {
         var result = await context
-                .CompanySettings
-                .FirstOrDefaultAsync(cancellationToken) ??
-            throw new NotFoundException(nameof(CompanySettings), nameof(CompanySettings.Id));
+            .CompanySettings
+            .FirstOrDefaultAsync(cancellationToken)
+                ?? throw new NotFoundException(nameof(CompanySettings), nameof(CompanySettings.Id));
 
         return result;
     }
@@ -56,15 +56,17 @@ public class CompanySettingsRepository(
         CancellationToken cancellationToken)
     {
         var timezoneId = await GetIanaTimezoneCompanyAsync(currentUserService.CompanyId, cancellationToken);
-        var datetimeZone = TimeZoneInfo.ConvertTime(datetime, TimeZoneInfo.FindSystemTimeZoneById(timezoneId));
+        var dateTimeZone = TimeZoneInfo.ConvertTime(datetime, TimeZoneInfo.FindSystemTimeZoneById(timezoneId));
 
-        return datetimeZone;
+        return dateTimeZone;
     }
 
     public async Task<string> GetIanaTimezoneCompanyAsync(string companyId, CancellationToken cancellationToken)
     {
         var companySettings = await GetCompanySettingsAsync(cancellationToken);
-        var timezoneId = !string.IsNullOrEmpty(companySettings.Timezone) ? companySettings.Timezone : TimeZoneInfo.Local.Id;
+        var timezoneId = !string.IsNullOrEmpty(companySettings.Timezone)
+            ? companySettings.Timezone
+            : TimeZoneInfo.Local.Id;
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {

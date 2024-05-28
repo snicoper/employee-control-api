@@ -11,9 +11,9 @@ namespace EmployeeControl.WebApi.Infrastructure;
 [ProducesResponseType(StatusCodes.Status401Unauthorized)]
 public class ApiControllerBase : ControllerBase
 {
-    private ISender? sender;
+    private ISender? _sender;
 
-    protected ISender Sender => sender ??= HttpContext.RequestServices.GetRequiredService<ISender>();
+    protected ISender Sender => _sender ??= HttpContext.RequestServices.GetRequiredService<ISender>();
 
     /// <summary>
     /// Devolver un resultado con un StatusCode concreto.

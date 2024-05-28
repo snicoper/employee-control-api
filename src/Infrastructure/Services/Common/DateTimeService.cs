@@ -31,8 +31,8 @@ public class DateTimeService(TimeProvider timeProvider) : IDateTimeService
     public DateTimeOffset EndOfDay(DateTimeOffset dateTimeOffset)
     {
         var offset = TimeProvider.LocalTimeZone.GetUtcOffset(DateTimeOffset.UtcNow).TotalMinutes;
-        var datetime = dateTimeOffset.Date.AddHours(23).AddMinutes(59).AddMinutes(offset * -1).AddSeconds(59);
-        var result = new DateTimeOffset(datetime, TimeSpan.Zero);
+        var dateTime = dateTimeOffset.Date.AddHours(23).AddMinutes(59).AddMinutes(offset * -1).AddSeconds(59);
+        var result = new DateTimeOffset(dateTime, TimeSpan.Zero);
 
         return result;
     }
@@ -40,8 +40,8 @@ public class DateTimeService(TimeProvider timeProvider) : IDateTimeService
     public DateTimeOffset StartOfDay(DateTimeOffset dateTimeOffset)
     {
         var offset = TimeProvider.LocalTimeZone.GetUtcOffset(DateTimeOffset.UtcNow).TotalMinutes;
-        var datetime = dateTimeOffset.Date.AddHours(00).AddMinutes(00).AddMinutes(offset * -1).AddSeconds(00);
-        var result = new DateTimeOffset(datetime, TimeSpan.Zero);
+        var dateTime = dateTimeOffset.Date.AddHours(00).AddMinutes(00).AddMinutes(offset * -1).AddSeconds(00);
+        var result = new DateTimeOffset(dateTime, TimeSpan.Zero);
 
         return result;
     }

@@ -14,9 +14,9 @@ public class EmployeeHolidaysRepository(IApplicationDbContext context) : IEmploy
         CancellationToken cancellationToken)
     {
         var employeeHoliday = await context
-                                  .EmployeeHolidays
-                                  .SingleOrDefaultAsync(eh => eh.UserId == employeeId && eh.Year == year, cancellationToken)
-                              ?? throw new NotFoundException(nameof(EmployeeHoliday), nameof(EmployeeHoliday.UserId));
+            .EmployeeHolidays
+            .SingleOrDefaultAsync(eh => eh.UserId == employeeId && eh.Year == year, cancellationToken)
+                ?? throw new NotFoundException(nameof(EmployeeHoliday), nameof(EmployeeHoliday.UserId));
 
         return employeeHoliday;
     }

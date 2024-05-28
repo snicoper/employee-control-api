@@ -15,9 +15,9 @@ public class CompanyCalendarHolidayRepository(
     public async Task<CompanyCalendarHoliday> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         var companyHoliday = await context
-                .CompanyCalendarHoliday
-                .FirstOrDefaultAsync(ch => ch.Id == id, cancellationToken)
-            ?? throw new NotFoundException(nameof(CompanyCalendarHoliday), nameof(CompanyCalendarHoliday.Id));
+            .CompanyCalendarHoliday
+            .FirstOrDefaultAsync(ch => ch.Id == id, cancellationToken)
+                ?? throw new NotFoundException(nameof(CompanyCalendarHoliday), nameof(CompanyCalendarHoliday.Id));
 
         return companyHoliday;
     }
@@ -26,7 +26,8 @@ public class CompanyCalendarHolidayRepository(
         CompanyCalendarHoliday companyCalendarHoliday,
         CancellationToken cancellationToken)
     {
-        await companyCalendarHolidaysValidatorService.ValidateCreateHolidayInDateAsync(companyCalendarHoliday, cancellationToken);
+        await companyCalendarHolidaysValidatorService
+            .ValidateCreateHolidayInDateAsync(companyCalendarHoliday, cancellationToken);
 
         context.CompanyCalendarHoliday.Add(companyCalendarHoliday);
         await context.SaveChangesAsync(cancellationToken);
@@ -38,7 +39,8 @@ public class CompanyCalendarHolidayRepository(
         CompanyCalendarHoliday companyCalendarHoliday,
         CancellationToken cancellationToken)
     {
-        await companyCalendarHolidaysValidatorService.ValidateUpdateHolidayInDateAsync(companyCalendarHoliday, cancellationToken);
+        await companyCalendarHolidaysValidatorService
+            .ValidateUpdateHolidayInDateAsync(companyCalendarHoliday, cancellationToken);
 
         context.CompanyCalendarHoliday.Update(companyCalendarHoliday);
         await context.SaveChangesAsync(cancellationToken);

@@ -16,7 +16,7 @@ public class CompanyTaskEmailsService(
     : ICompanyTaskEmailsService
 {
     public async Task SendEmployeeAssignTaskAsync(
-        Domain.Entities.CompanyTask companyTask,
+        CompanyTask companyTask,
         Company company,
         List<User> users)
     {

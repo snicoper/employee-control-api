@@ -15,18 +15,20 @@ public class CategoryAbsenceRepository(IApplicationDbContext context, IStringLoc
     public async Task<CategoryAbsence> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         var categoryAbsence = await context
-                .CategoryAbsences
-                .SingleOrDefaultAsync(ca => ca.Id == id, cancellationToken)
-            ?? throw new NotFoundException(nameof(CategoryAbsence), nameof(CategoryAbsence.Id));
+            .CategoryAbsences
+            .SingleOrDefaultAsync(ca => ca.Id == id, cancellationToken)
+                ?? throw new NotFoundException(nameof(CategoryAbsence), nameof(CategoryAbsence.Id));
 
         return categoryAbsence;
     }
 
     public async Task<CategoryAbsence> CreateAsync(CategoryAbsence categoryAbsence, CancellationToken cancellationToken)
     {
-        var categoryExists = await context.CategoryAbsences.AnyAsync(
-            ca => ca.Description.ToLower() == categoryAbsence.Description.ToLower(),
-            cancellationToken);
+        var categoryExists = await context
+            .CategoryAbsences
+            .AnyAsync(
+                ca => ca.Description.ToLower() == categoryAbsence.Description.ToLower(),
+                cancellationToken);
 
         if (categoryExists)
         {
