@@ -159,20 +159,7 @@ public class UserRepository(
 
         try
         {
-            // Obtener todos los roles y eliminarlos del usuario.
-            var userRoles = await userManager.GetRolesAsync(user);
-
-            var result = Result.Create();
-            identityValidatorService.ValidateUpdateEmployeeRoles(user, userRoles, result);
-            result.RaiseBadRequestIfResultFailure();
-
-            // El rol de Employee es requerido.
-            if (!rolesToAdd.Exists(r => r.Equals(Roles.Employee)))
-            {
-                rolesToAdd.Add(Roles.Employee);
-            }
-
-            var removeRolesResult = await userManager.RemoveFromRolesAsync(user, userRoles);
+            var removeRolesResult = await RemoveRolesByUserIdAsync(user, rolesToAdd);
 
             if (!removeRolesResult.Succeeded)
             {
@@ -181,8 +168,7 @@ public class UserRepository(
                 return removeRolesResult;
             }
 
-            // Añade los nuevos roles al usuario.
-            var addRolesResult = await userManager.AddToRolesAsync(user, rolesToAdd);
+            var addRolesResult = await AddRolesByUserIdAsync(user, rolesToAdd);
 
             if (!addRolesResult.Succeeded)
             {
@@ -202,5 +188,32 @@ public class UserRepository(
 
             throw new OperationCanceledException(ex.Message);
         }
+    }
+
+    private async Task<IdentityResult> RemoveRolesByUserIdAsync(User user, List<string> rolesToAdd)
+    {
+        // Obtener todos los roles y eliminarlos del usuario.
+        var userRoles = await userManager.GetRolesAsync(user);
+
+        var result = Result.Create();
+        identityValidatorService.ValidateUpdateEmployeeRoles(user, userRoles, result);
+        result.RaiseBadRequestIfResultFailure();
+
+        // El rol de Employee es requerido.
+        if (!rolesToAdd.Exists(r => r.Equals(Roles.Employee)))
+        {
+            rolesToAdd.Add(Roles.Employee);
+        }
+
+        var identityResult = await userManager.RemoveFromRolesAsync(user, userRoles);
+
+        return identityResult;
+    }
+
+    private async Task<IdentityResult> AddRolesByUserIdAsync(User user, List<string> rolesToAdd)
+    {
+        var identityResult = await userManager.AddToRolesAsync(user, rolesToAdd);
+
+        return identityResult;
     }
 }
