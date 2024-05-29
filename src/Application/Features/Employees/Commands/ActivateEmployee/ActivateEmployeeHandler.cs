@@ -33,6 +33,6 @@ internal class ActivateEmployeeHandler(
         user.Active = true;
         var result = await userManager.UpdateAsync(user);
 
-        return result.ToApplicationResult();
+        return result.ToResult();
     }
 }

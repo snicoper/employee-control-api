@@ -27,6 +27,6 @@ internal class AddRoleHumanResourcesHandler(
 
         logger.LogError("{Errors}", identityResult.Errors);
 
-        return identityResult.ToApplicationResult();
+        return identityResult.ToResult();
     }
 }

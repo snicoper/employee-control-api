@@ -13,6 +13,6 @@ internal class UpdateEmployeeRolesHandler(IUserRepository userRepository)
         var user = await userRepository.GetByIdAsync(request.EmployeeId);
         var identityResult = await userRepository.UpdateRolesByUserIdAsync(user, request.RolesToAdd, cancellationToken);
 
-        return identityResult.ToApplicationResult();
+        return identityResult.ToResult();
     }
 }

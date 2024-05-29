@@ -43,6 +43,6 @@ internal class UpdateEmployeeHandler(
         var userUpdate = mapper.Map(request, user);
         var (identityResult, _) = await userRepository.UpdateAsync(userUpdate, cancellationToken);
 
-        return identityResult.ToApplicationResult();
+        return identityResult.ToResult();
     }
 }

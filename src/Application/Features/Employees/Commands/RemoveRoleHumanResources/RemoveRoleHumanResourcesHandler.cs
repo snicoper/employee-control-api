@@ -28,6 +28,6 @@ internal class RemoveRoleHumanResourcesHandler(
 
         logger.LogError("{Errors}", identityResult.Errors);
 
-        return identityResult.ToApplicationResult();
+        return identityResult.ToResult();
     }
 }

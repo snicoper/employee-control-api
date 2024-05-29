@@ -35,6 +35,6 @@ internal class DeactivateEmployeeHandler(
         user.Active = false;
         var result = await userManager.UpdateAsync(user);
 
-        return result.ToApplicationResult();
+        return result.ToResult();
     }
 }

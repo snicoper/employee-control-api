@@ -6,7 +6,7 @@ namespace EmployeeControl.Application.Common.Extensions;
 
 public static class IdentityResultExtensions
 {
-    public static Result ToApplicationResult(this IdentityResult result)
+    public static Result ToResult(this IdentityResult result)
     {
         var identityErrors = result
             .Errors
