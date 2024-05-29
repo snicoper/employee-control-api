@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeControl.Application.Features.IdentityRoles.Queries.GetAllIdentityRoles;

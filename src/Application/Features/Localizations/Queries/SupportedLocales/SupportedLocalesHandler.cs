@@ -1,6 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 
 namespace EmployeeControl.Application.Features.Localizations.Queries.SupportedLocales;
 

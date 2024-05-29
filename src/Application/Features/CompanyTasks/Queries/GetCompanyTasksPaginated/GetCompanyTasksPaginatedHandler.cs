@@ -2,6 +2,7 @@
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 
 namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetCompanyTasksPaginated;
 

@@ -1,7 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Companies;
 using EmployeeControl.Application.Common.Localization;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;

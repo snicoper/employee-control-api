@@ -1,6 +1,6 @@
-using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.Accounts.Commands.RecoveryPassword;
 using EmployeeControl.Application.Features.Accounts.Commands.RestorePassword;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

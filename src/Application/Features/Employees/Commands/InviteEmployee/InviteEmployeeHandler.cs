@@ -2,8 +2,8 @@
 using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Emails;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
-using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Common.Utils;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Repositories;

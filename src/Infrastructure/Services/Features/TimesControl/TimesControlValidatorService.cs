@@ -3,7 +3,7 @@ using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
 using EmployeeControl.Application.Common.Localization;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
 using Microsoft.EntityFrameworkCore;

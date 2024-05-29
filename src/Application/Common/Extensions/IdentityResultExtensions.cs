@@ -1,6 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Models;
-using FluentValidation.Results;
+using EmployeeControl.Domain.Common;
 using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeControl.Application.Common.Extensions;
@@ -12,11 +11,10 @@ public static class IdentityResultExtensions
         var identityErrors = result
             .Errors
             .Select(e => e.Description)
-            .Select(error => new ValidationFailure(ValidationErrorsKeys.IdentityError, error))
-            .ToList();
+            .ToArray();
 
         return result.Succeeded
             ? Result.Success()
-            : Result.Failure([.. identityErrors]);
+            : Result.Failure(ValidationErrorsKeys.IdentityError, identityErrors);
     }
 }

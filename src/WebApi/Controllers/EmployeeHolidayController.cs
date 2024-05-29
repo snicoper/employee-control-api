@@ -1,6 +1,7 @@
 ﻿using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.EmployeeHolidays.Queries.GetEmployeeHolidaysByYearPaginated;
 using EmployeeControl.Application.Features.EmployeeHolidays.Queries.GetOrCreateEmployeeHolidaysByYearAndEmployeeId;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;

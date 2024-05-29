@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Common.Models;
+﻿using EmployeeControl.Domain.Common;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

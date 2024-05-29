@@ -1,9 +1,9 @@
-﻿using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Features.CompanyCalendars.Commands.CreateCompanyCalendar;
+﻿using EmployeeControl.Application.Features.CompanyCalendars.Commands.CreateCompanyCalendar;
 using EmployeeControl.Application.Features.CompanyCalendars.Commands.SetDefaultCalendar;
 using EmployeeControl.Application.Features.CompanyCalendars.Commands.UpdateCompanyCalendar;
 using EmployeeControl.Application.Features.CompanyCalendars.Queries.GetCompanyCalendarById;
 using EmployeeControl.Application.Features.CompanyCalendars.Queries.GetCompanyCalendars;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;

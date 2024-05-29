@@ -1,4 +1,4 @@
-﻿using EmployeeControl.Application.Common.Models;
+﻿using EmployeeControl.Domain.Common;
 
 namespace EmployeeControl.Application.Common.Interfaces.Features.Companies;
 

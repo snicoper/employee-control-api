@@ -1,6 +1,7 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Data;
+﻿using EmployeeControl.Application.Common.Extensions;
+using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Departments;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
 using EmployeeControl.Domain.Repositories;
@@ -32,9 +33,9 @@ public class DepartmentRepository(IApplicationDbContext context, IDepartmentVali
     public async Task<Department> GetByIdAsync(string departmentId, CancellationToken cancellationToken)
     {
         var department = await context
-            .Departments
-            .SingleOrDefaultAsync(d => d.Id == departmentId, cancellationToken)
-                ?? throw new NotFoundException(nameof(Department), nameof(Department.Id));
+                             .Departments
+                             .SingleOrDefaultAsync(d => d.Id == departmentId, cancellationToken)
+                         ?? throw new NotFoundException(nameof(Department), nameof(Department.Id));
 
         return department;
     }
@@ -45,7 +46,7 @@ public class DepartmentRepository(IApplicationDbContext context, IDepartmentVali
         var result = Result.Create();
         result = await departmentValidatorService.ValidateNameAsync(department, result, cancellationToken);
         result = await departmentValidatorService.ValidateBackgroundAndColorAsync(department, result, cancellationToken);
-        result.RaiseBadRequestIfResultFailure();
+        result.RaiseBadRequest();
 
         // Crear departamento.
         context.Departments.Add(department);

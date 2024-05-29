@@ -1,6 +1,6 @@
-﻿using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Features.Localizations.Queries.CurrentLocale;
+﻿using EmployeeControl.Application.Features.Localizations.Queries.CurrentLocale;
 using EmployeeControl.Application.Features.Localizations.Queries.SupportedLocales;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,6 +1,6 @@
-using EmployeeControl.Application.Common.Models;
 using EmployeeControl.Application.Features.Auth.Commands.Login;
 using EmployeeControl.Application.Features.Auth.Commands.RefreshToken;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

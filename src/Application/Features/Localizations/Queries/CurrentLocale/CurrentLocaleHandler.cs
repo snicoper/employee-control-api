@@ -1,5 +1,5 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Messaging;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 

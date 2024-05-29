@@ -4,7 +4,7 @@ using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Interfaces.Users;
 using EmployeeControl.Application.Common.Localization;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Repositories;
 using Microsoft.Extensions.Localization;
@@ -37,7 +37,7 @@ internal class UpdateEmployeeHandler(
             result.AddError(ValidationErrorsKeys.NonFieldErrors, errorMessage);
         }
 
-        result.RaiseBadRequestIfResultFailure();
+        result.RaiseBadRequest();
 
         // Update employee.
         var userUpdate = mapper.Map(request, user);

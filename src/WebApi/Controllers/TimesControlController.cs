@@ -15,6 +15,7 @@ using EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlB
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlByRangePaginated;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeStateByEmployeeId;
 using EmployeeControl.Application.Features.TimesControl.Queries.GetTimeStateOpenByEmployeeId;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;

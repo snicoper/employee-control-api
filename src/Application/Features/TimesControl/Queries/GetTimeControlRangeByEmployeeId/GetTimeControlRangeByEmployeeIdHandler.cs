@@ -1,6 +1,6 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
 using EmployeeControl.Domain.Repositories;

@@ -3,6 +3,7 @@ using EmployeeControl.Application.Features.CategoryAbsences.Commands.CreateCateg
 using EmployeeControl.Application.Features.CategoryAbsences.Commands.UpdateCategoryAbsence;
 using EmployeeControl.Application.Features.CategoryAbsences.Queries.GetCategoryAbsenceById;
 using EmployeeControl.Application.Features.CategoryAbsences.Queries.GetCategoryAbsencePaginated;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;

@@ -13,5 +13,12 @@ public class CustomValidationException() : Exception("One or more validation fai
             .ToDictionary(failureGroup => failureGroup.Key.LowerCaseFirst(), failureGroup => failureGroup.ToArray());
     }
 
+    public CustomValidationException(IDictionary<string, string[]> errors)
+        : this()
+    {
+        Errors = errors
+            .ToDictionary(error => error.Key.LowerCaseFirst(), error => error.Value);
+    }
+
     public IDictionary<string, string[]> Errors { get; } = new Dictionary<string, string[]>();
 }

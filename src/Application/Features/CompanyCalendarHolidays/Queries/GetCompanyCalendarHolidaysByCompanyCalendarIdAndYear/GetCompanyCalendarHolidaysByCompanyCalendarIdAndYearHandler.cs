@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Features.CompanyCalendarHolidays.Queries.

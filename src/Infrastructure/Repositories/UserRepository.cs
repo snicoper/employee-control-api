@@ -1,8 +1,9 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Common;
+﻿using EmployeeControl.Application.Common.Extensions;
+using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Interfaces.Users;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
@@ -37,17 +38,17 @@ public class UserRepository(
     public async Task<User> GetByIdAsync(string userId)
     {
         return await userManager
-            .FindByIdAsync(userId)
-                ?? throw new NotFoundException(nameof(User), nameof(User.Id));
+                   .FindByIdAsync(userId)
+               ?? throw new NotFoundException(nameof(User), nameof(User.Id));
     }
 
     public async Task<User> GetByIdWithCompanyCalendarAsync(string userId)
     {
         var user = await userManager
-            .Users
-            .Include(u => u.CompanyCalendar)
-            .SingleOrDefaultAsync(u => u.Id == userId)
-                ?? throw new NotFoundException(nameof(User), nameof(User.Id));
+                       .Users
+                       .Include(u => u.CompanyCalendar)
+                       .SingleOrDefaultAsync(u => u.Id == userId)
+                   ?? throw new NotFoundException(nameof(User), nameof(User.Id));
 
         return user;
     }
@@ -62,8 +63,8 @@ public class UserRepository(
     public async Task<User> GetByEmailAsync(string email)
     {
         return await userManager
-            .FindByEmailAsync(email)
-                ?? throw new NotFoundException(nameof(User), nameof(User.Email));
+                   .FindByEmailAsync(email)
+               ?? throw new NotFoundException(nameof(User), nameof(User.Email));
     }
 
     public async Task<bool> IsInRoleAsync(string userId, string role)
@@ -117,7 +118,7 @@ public class UserRepository(
         await identityValidatorService.UserValidationAsync(user, result);
         await identityValidatorService.PasswordValidationAsync(user, password, result);
         await identityValidatorService.UniqueEmailValidationAsync(user, result, cancellationToken);
-        result.RaiseBadRequestIfResultFailure();
+        result.RaiseBadRequest();
 
         var identityResult = await userManager.CreateAsync(user, password);
 
@@ -132,7 +133,7 @@ public class UserRepository(
         var result = Result.Create();
         await identityValidatorService.UserValidationAsync(user, result);
         await identityValidatorService.UniqueEmailValidationAsync(user, result, cancellationToken);
-        result.RaiseBadRequestIfResultFailure();
+        result.RaiseBadRequest();
 
         user.UserName = user.Email;
 
@@ -197,7 +198,7 @@ public class UserRepository(
 
         var result = Result.Create();
         identityValidatorService.ValidateUpdateEmployeeRoles(user, userRoles, result);
-        result.RaiseBadRequestIfResultFailure();
+        result.RaiseBadRequest();
 
         // El rol de Employee es requerido.
         if (!rolesToAdd.Exists(r => r.Equals(Roles.Employee)))

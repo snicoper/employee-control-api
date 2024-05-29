@@ -1,5 +1,5 @@
-﻿using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Features.Companies.Queries.GetCompanyByCurrentUser;
+﻿using EmployeeControl.Application.Features.Companies.Queries.GetCompanyByCurrentUser;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 

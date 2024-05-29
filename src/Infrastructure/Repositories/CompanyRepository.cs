@@ -1,6 +1,7 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Data;
+﻿using EmployeeControl.Application.Common.Extensions;
+using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Interfaces.Features.Companies;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
 using EmployeeControl.Domain.Repositories;
@@ -14,9 +15,9 @@ public class CompanyRepository(IApplicationDbContext context, ICompanyValidatorS
     public async Task<Company> GetCompanyAsync(CancellationToken cancellationToken)
     {
         var result = await context
-            .Companies
-            .FirstOrDefaultAsync(cancellationToken)
-                ?? throw new NotFoundException(nameof(Company), nameof(Company));
+                         .Companies
+                         .FirstOrDefaultAsync(cancellationToken)
+                     ?? throw new NotFoundException(nameof(Company), nameof(Company));
 
         return result;
     }
@@ -24,9 +25,9 @@ public class CompanyRepository(IApplicationDbContext context, ICompanyValidatorS
     public async Task<Company> GetCompanyByIdAsync(string companyId, CancellationToken cancellationToken)
     {
         var result = await context
-            .Companies
-            .SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken)
-                ?? throw new NotFoundException(nameof(Company), nameof(Company));
+                         .Companies
+                         .SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken)
+                     ?? throw new NotFoundException(nameof(Company), nameof(Company));
 
         return result;
     }
@@ -36,7 +37,7 @@ public class CompanyRepository(IApplicationDbContext context, ICompanyValidatorS
         // Validaciones.
         var result = Result.Create();
         result = await companyValidatorService.UniqueNameValidationAsync(company.Name, result, cancellationToken);
-        result.RaiseBadRequestIfResultFailure();
+        result.RaiseBadRequest();
 
         // Crear Company y establecer valores de CompanySettings.
         company.CompanySettings = new CompanySettings { Timezone = timezone, PeriodTimeControlMax = 10 };

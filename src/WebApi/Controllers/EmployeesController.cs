@@ -12,6 +12,7 @@ using EmployeeControl.Application.Features.Employees.Queries.GetCurrentEmployeeS
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeeById;
 using EmployeeControl.Application.Features.Employees.Queries.GetEmployeesPaginated;
 using EmployeeControl.Application.Features.Employees.Queries.GetRolesByEmployeeId;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;

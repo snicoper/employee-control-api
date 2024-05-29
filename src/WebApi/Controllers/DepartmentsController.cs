@@ -9,6 +9,7 @@ using EmployeeControl.Application.Features.Departments.Queries.GetDepartmentsByE
 using EmployeeControl.Application.Features.Departments.Queries.GetDepartmentsPaginated;
 using EmployeeControl.Application.Features.Departments.Queries.GetEmployeesByDepartmentIdPaginated;
 using EmployeeControl.Application.Features.Departments.Queries.GetEmployeesUnassignedDepartmentByDepartmentId;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;

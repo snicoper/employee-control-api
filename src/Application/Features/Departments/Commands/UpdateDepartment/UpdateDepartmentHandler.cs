@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Features.Departments;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.Departments.Commands.UpdateDepartment;
@@ -21,7 +22,7 @@ internal class UpdateDepartmentHandler(
         var result = Result.Create();
         await departmentValidatorService.ValidateNameAsync(department, result, cancellationToken);
         await departmentValidatorService.ValidateBackgroundAndColorAsync(department, result, cancellationToken);
-        result.RaiseBadRequestIfResultFailure();
+        result.RaiseBadRequest();
 
         await departmentRepository.UpdateAsync(departmentUpdate, cancellationToken);
 

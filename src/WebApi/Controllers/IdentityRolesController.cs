@@ -1,5 +1,5 @@
-﻿using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Features.IdentityRoles.Queries.GetAllIdentityRoles;
+﻿using EmployeeControl.Application.Features.IdentityRoles.Queries.GetAllIdentityRoles;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;

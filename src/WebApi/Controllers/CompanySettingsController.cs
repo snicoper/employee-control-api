@@ -1,6 +1,6 @@
-﻿using EmployeeControl.Application.Common.Models;
-using EmployeeControl.Application.Features.CompanySettings.Commands.UpdateCompanySettings;
+﻿using EmployeeControl.Application.Features.CompanySettings.Commands.UpdateCompanySettings;
 using EmployeeControl.Application.Features.CompanySettings.Queries.GetCompanySettings;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.WebApi.Infrastructure;
 using Microsoft.AspNetCore.Mvc;

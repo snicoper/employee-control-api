@@ -1,6 +1,7 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Data;
+﻿using EmployeeControl.Application.Common.Extensions;
+using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Localization;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
 using EmployeeControl.Domain.Repositories;
@@ -15,9 +16,9 @@ public class CompanyTaskRepository(IStringLocalizer<TaskResource> localizer, IAp
     public async Task<CompanyTask> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         var result = await context
-            .CompanyTasks
-            .SingleOrDefaultAsync(cs => cs.Id == id, cancellationToken)
-                ?? throw new NotFoundException(nameof(CompanyTask), nameof(CompanyTask.Id));
+                         .CompanyTasks
+                         .SingleOrDefaultAsync(cs => cs.Id == id, cancellationToken)
+                     ?? throw new NotFoundException(nameof(CompanyTask), nameof(CompanyTask.Id));
 
         return result;
     }

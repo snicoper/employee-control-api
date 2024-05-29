@@ -1,6 +1,7 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Data;
+﻿using EmployeeControl.Application.Common.Extensions;
+using EmployeeControl.Application.Common.Interfaces.Data;
 using EmployeeControl.Application.Common.Localization;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
 using EmployeeControl.Domain.Repositories;
@@ -15,9 +16,9 @@ public class CategoryAbsenceRepository(IApplicationDbContext context, IStringLoc
     public async Task<CategoryAbsence> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         var categoryAbsence = await context
-            .CategoryAbsences
-            .SingleOrDefaultAsync(ca => ca.Id == id, cancellationToken)
-                ?? throw new NotFoundException(nameof(CategoryAbsence), nameof(CategoryAbsence.Id));
+                                  .CategoryAbsences
+                                  .SingleOrDefaultAsync(ca => ca.Id == id, cancellationToken)
+                              ?? throw new NotFoundException(nameof(CategoryAbsence), nameof(CategoryAbsence.Id));
 
         return categoryAbsence;
     }

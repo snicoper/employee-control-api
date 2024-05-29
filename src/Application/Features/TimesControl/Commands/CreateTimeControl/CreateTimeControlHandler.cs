@@ -1,8 +1,9 @@
 using AutoMapper;
 using EmployeeControl.Application.Common.Constants;
+using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Messaging;
 using EmployeeControl.Application.Common.Localization;
-using EmployeeControl.Application.Common.Models;
+using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
 using EmployeeControl.Domain.Repositories;
