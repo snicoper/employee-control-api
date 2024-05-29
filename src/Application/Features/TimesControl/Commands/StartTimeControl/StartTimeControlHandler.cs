@@ -5,9 +5,9 @@ using EmployeeControl.Domain.Repositories;
 namespace EmployeeControl.Application.Features.TimesControl.Commands.StartTimeControl;
 
 internal class StartTimeControlHandler(ITimeControlRepository timeControlRepository, IUserRepository userRepository)
-    : ICommandHandler<StartTimeControlCommand, string>
+    : ICommandHandler<StartTimeControlCommand, Guid>
 {
-    public async Task<Result<string>> Handle(StartTimeControlCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(StartTimeControlCommand request, CancellationToken cancellationToken)
     {
         var employee = await userRepository.GetByIdAsync(request.EmployeeId);
 

@@ -45,7 +45,7 @@ public class EmployeesController : ApiControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Result<GetEmployeeByIdResponse>>> GetEmployeeById(string id)
+    public async Task<ActionResult<Result<GetEmployeeByIdResponse>>> GetEmployeeById(Guid id)
     {
         var result = await Sender.Send(new GetEmployeeByIdQuery(id));
 
@@ -59,7 +59,7 @@ public class EmployeesController : ApiControllerBase
     /// <returns>Roles del empleado.</returns>
     [HttpGet("{id}/roles")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<ActionResult<Result<ICollection<GetRolesByEmployeeIdResponse>>>> GetRolesByEmployeeId(string id)
+    public async Task<ActionResult<Result<ICollection<GetRolesByEmployeeIdResponse>>>> GetRolesByEmployeeId(Guid id)
     {
         var result = await Sender.Send(new GetRolesByEmployeeIdQuery(id));
 

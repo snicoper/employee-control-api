@@ -5,4 +5,4 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimeStateOpenByEmployeeId;
 
 [Authorize(Roles = Roles.Employee)]
-public record GetTimeStateOpenByEmployeeIdQuery(string EmployeeId) : IQuery<GetTimeStateOpenByEmployeeIdResponse>;
+public record GetTimeStateOpenByEmployeeIdQuery(Guid EmployeeId) : IQuery<GetTimeStateOpenByEmployeeIdResponse>;

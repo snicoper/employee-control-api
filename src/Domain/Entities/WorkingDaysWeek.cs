@@ -21,7 +21,7 @@ public class WorkingDaysWeek : BaseAuditableEntity
 
     public bool Sunday { get; set; }
 
-    public string CompanyId { get; set; } = default!;
+    public Guid CompanyId { get; set; }
 
     public Company Company { get; set; } = null!;
 }

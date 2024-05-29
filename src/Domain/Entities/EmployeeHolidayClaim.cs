@@ -13,9 +13,9 @@ public class EmployeeHolidayClaim : BaseAuditableEntity
 
     public bool Accepted { get; set; }
 
-    public string UserId { get; set; } = default!;
+    public Guid UserId { get; set; }
 
     public User User { get; set; } = null!;
 
-    public ICollection<EmployeeHolidayClaimItem> EmployeeHolidayClaimLines { get; set; } = new List<EmployeeHolidayClaimItem>();
+    public ICollection<EmployeeHolidayClaimItem> EmployeeHolidayClaimLines { get; set; } = [];
 }

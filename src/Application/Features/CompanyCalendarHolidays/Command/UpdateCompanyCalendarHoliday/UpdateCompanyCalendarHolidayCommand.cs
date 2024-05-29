@@ -5,4 +5,5 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.CompanyCalendarHolidays.Command.UpdateCompanyCalendarHoliday;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record UpdateCompanyCalendarHolidayCommand(string Id, string Description) : ICommand;
+public record UpdateCompanyCalendarHolidayCommand(Guid Id, string Description)
+    : ICommand;

@@ -1,3 +1,3 @@
 ﻿namespace EmployeeControl.Application.Features.Departments.Queries.GetEmployeesUnassignedDepartmentByDepartmentId;
 
-public record GetEmployeesUnassignedDepartmentByDepartmentIdResponse(string Id, string Name);
+public record GetEmployeesUnassignedDepartmentByDepartmentIdResponse(Guid Id, string Name);

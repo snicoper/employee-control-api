@@ -11,7 +11,7 @@ public class CompanyCalendarHoliday : BaseAuditableEntity
 
     public string Description { get; set; } = default!;
 
-    public string CompanyCalendarId { get; set; } = default!;
+    public Guid CompanyCalendarId { get; set; } = default!;
 
     public CompanyCalendar CompanyCalendar { get; set; } = default!;
 }

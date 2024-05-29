@@ -5,4 +5,5 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.DeactivateCompanyTask;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record DeactivateCompanyTaskCommand(string CompanyTaskId) : ICommand;
+public record DeactivateCompanyTaskCommand(Guid CompanyTaskId)
+    : ICommand;

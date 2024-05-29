@@ -19,7 +19,7 @@ public class DepartmentRepository(IApplicationDbContext context, IDepartmentVali
         return departments;
     }
 
-    public IQueryable<Department> GetAllByEmployeeIdQueryable(string employeeId)
+    public IQueryable<Department> GetAllByEmployeeIdQueryable(Guid employeeId)
     {
         var department = context
             .EmployeeDepartments
@@ -30,7 +30,7 @@ public class DepartmentRepository(IApplicationDbContext context, IDepartmentVali
         return department;
     }
 
-    public async Task<Department> GetByIdAsync(string departmentId, CancellationToken cancellationToken)
+    public async Task<Department> GetByIdAsync(Guid departmentId, CancellationToken cancellationToken)
     {
         var department = await context
                              .Departments

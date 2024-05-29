@@ -5,5 +5,5 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.Employees.Commands.UpdateEmployeeRoles;
 
 [Authorize(Roles = Roles.Employee)]
-public record UpdateEmployeeRolesCommand(string EmployeeId, List<string> RolesToAdd)
+public record UpdateEmployeeRolesCommand(Guid EmployeeId, List<string> RolesToAdd)
     : ICommand;

@@ -13,7 +13,7 @@ public interface ITimeControlRepository
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <exception cref="NotFoundException">En caso de no encontrar el <see cref="TimeControl" />.</exception>
     /// <returns><see cref="TimeControl" />.</returns>
-    Task<TimeControl> GetByIdAsync(string id, CancellationToken cancellationToken);
+    Task<TimeControl> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
     /// <summary>
     /// Obtener un <see cref="TimeControl" /> por su Id con datos de <see cref="User" />.
@@ -22,7 +22,7 @@ public interface ITimeControlRepository
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <exception cref="NotFoundException">En caso de no encontrar el <see cref="TimeControl" />.</exception>
     /// <returns><see cref="TimeControl" />.</returns>
-    Task<TimeControl> GetWithEmployeeInfoByIdAsync(string id, CancellationToken cancellationToken);
+    Task<TimeControl> GetWithEmployeeInfoByIdAsync(Guid id, CancellationToken cancellationToken);
 
     /// <summary>
     /// Obtener un <see cref="TimeControl" /> con estado <see cref="TimeState.Open" /> de un empleado.
@@ -30,7 +30,7 @@ public interface ITimeControlRepository
     /// <param name="employeeId">Id del empleado.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns><see cref="TimeControl" />.</returns>
-    Task<TimeControl?> GetTimeStateOpenByEmployeeIdAsync(string employeeId, CancellationToken cancellationToken);
+    Task<TimeControl?> GetTimeStateOpenByEmployeeIdAsync(Guid employeeId, CancellationToken cancellationToken);
 
     /// <summary>
     /// Obtener un grupos por días de <see cref="TimeControl" /> en un rango de fechas de un
@@ -43,7 +43,7 @@ public interface ITimeControlRepository
     /// <param name="cancellationToken">Cancelation token.</param>
     /// <returns>Grupo por días de <see cref="TimeControl" />.</returns>
     Task<IEnumerable<IGrouping<int, TimeControl>>> GetRangeByEmployeeIdAsync(
-        string employeeId,
+        Guid employeeId,
         DateTimeOffset from,
         DateTimeOffset to,
         CancellationToken cancellationToken);
@@ -61,7 +61,7 @@ public interface ITimeControlRepository
     /// </summary>
     /// <param name="employeeId">Id <see cref="User" />.</param>
     /// <returns><see cref="IQueryable{T}" /> con los <see cref="TimeControl" />.</returns>
-    IQueryable<TimeControl> GetWithUserByEmployeeIdQueryable(string employeeId);
+    IQueryable<TimeControl> GetWithUserByEmployeeIdQueryable(Guid employeeId);
 
     /// <summary>
     /// Obtener si el empleado tiene algún <see cref="TimeControl" /> inicializado.
@@ -89,7 +89,7 @@ public interface ITimeControlRepository
     /// <param name="id">Id del <see cref="TimeControl" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns><see cref="TimeControl" />.</returns>
-    Task<TimeControl> CloseIncidenceByTimeControlIdAsync(string id, CancellationToken cancellationToken);
+    Task<TimeControl> CloseIncidenceByTimeControlIdAsync(Guid id, CancellationToken cancellationToken);
 
     /// <summary>
     /// Cerrar una incidencia.

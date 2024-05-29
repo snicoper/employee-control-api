@@ -21,7 +21,7 @@ public class CompanyCalendarHolidayController : ApiControllerBase
     [HttpGet("company-calendars/{companyCalendarId}/year/{year:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<Result<ICollection<GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearResponse>>>>
-        GetCompanyCalendarHolidaysByCompanyCalendarIdAndYear(string companyCalendarId, int year)
+        GetCompanyCalendarHolidaysByCompanyCalendarIdAndYear(Guid companyCalendarId, int year)
     {
         var result = await Sender.Send(new GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearQuery(companyCalendarId, year));
 
@@ -68,7 +68,7 @@ public class CompanyCalendarHolidayController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Result>> DeleteCompanyCalendarHoliday(string id)
+    public async Task<ActionResult<Result>> DeleteCompanyCalendarHoliday(Guid id)
     {
         var result = await Sender.Send(new DeleteCompanyCalendarHolidayCommand(id));
 

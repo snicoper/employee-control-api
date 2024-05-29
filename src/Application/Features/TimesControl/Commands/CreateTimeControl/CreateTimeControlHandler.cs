@@ -15,9 +15,9 @@ internal class CreateTimeControlHandler(
     IMapper mapper,
     ITimeControlRepository timeControlRepository,
     IStringLocalizer<TimeControlResource> localizer)
-    : ICommandHandler<CreateTimeControlCommand, string>
+    : ICommandHandler<CreateTimeControlCommand, Guid>
 {
-    public async Task<Result<string>> Handle(CreateTimeControlCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateTimeControlCommand request, CancellationToken cancellationToken)
     {
         // Si el empleado tiene algún tiempo iniciado, el nuevo deberá ser TimeState.close.
         var timeControlOpen = await timeControlRepository.GetTimeStateOpenByEmployeeIdAsync(request.UserId, cancellationToken);

@@ -35,7 +35,7 @@ public class CategoryAbsenceController : ApiControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Result<GetCategoryAbsenceByIdResponse>>> GetCategoryAbsenceById(string id)
+    public async Task<ActionResult<Result<GetCategoryAbsenceByIdResponse>>> GetCategoryAbsenceById(Guid id)
     {
         var result = await Sender.Send(new GetCategoryAbsenceByIdQuery(id));
 
@@ -50,7 +50,7 @@ public class CategoryAbsenceController : ApiControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Result<string>>> CreateCompanyAbsence(CreateCategoryAbsenceCommand command)
+    public async Task<ActionResult<Result<Guid>>> CreateCompanyAbsence(CreateCategoryAbsenceCommand command)
     {
         var result = await Sender.Send(command);
 

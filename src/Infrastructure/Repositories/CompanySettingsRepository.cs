@@ -15,12 +15,12 @@ public class CompanySettingsRepository(
     IDateTimeService dateTimeService)
     : ICompanySettingsRepository
 {
-    public async Task<CompanySettings> GetByIdAsync(string companySettingsId, CancellationToken cancellationToken)
+    public async Task<CompanySettings> GetByIdAsync(Guid companySettingsId, CancellationToken cancellationToken)
     {
         var result = await context
-            .CompanySettings
-            .SingleOrDefaultAsync(cs => cs.Id == companySettingsId, cancellationToken)
-                ?? throw new NotFoundException(nameof(CompanySettings), nameof(CompanySettings.Id));
+                         .CompanySettings
+                         .SingleOrDefaultAsync(cs => cs.Id == companySettingsId, cancellationToken)
+                     ?? throw new NotFoundException(nameof(CompanySettings), nameof(CompanySettings.Id));
 
         return result;
     }
@@ -28,9 +28,9 @@ public class CompanySettingsRepository(
     public async Task<CompanySettings> GetCompanySettingsAsync(CancellationToken cancellationToken)
     {
         var result = await context
-            .CompanySettings
-            .FirstOrDefaultAsync(cancellationToken)
-                ?? throw new NotFoundException(nameof(CompanySettings), nameof(CompanySettings.Id));
+                         .CompanySettings
+                         .FirstOrDefaultAsync(cancellationToken)
+                     ?? throw new NotFoundException(nameof(CompanySettings), nameof(CompanySettings.Id));
 
         return result;
     }
@@ -61,7 +61,7 @@ public class CompanySettingsRepository(
         return dateTimeZone;
     }
 
-    public async Task<string> GetIanaTimezoneCompanyAsync(string companyId, CancellationToken cancellationToken)
+    public async Task<string> GetIanaTimezoneCompanyAsync(Guid companyId, CancellationToken cancellationToken)
     {
         var companySettings = await GetCompanySettingsAsync(cancellationToken);
         var timezoneId = !string.IsNullOrEmpty(companySettings.Timezone)

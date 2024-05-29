@@ -5,4 +5,4 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.Employees.Commands.AddRoleHumanResources;
 
 [Authorize(Roles = Roles.Admin)]
-public record AddRoleHumanResourcesCommand(string EmployeeId) : ICommand;
+public record AddRoleHumanResourcesCommand(Guid EmployeeId) : ICommand;

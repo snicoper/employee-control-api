@@ -20,7 +20,7 @@ public class IdentityEmailsService(
     public async Task SendInviteEmployeeAsync(User user, Company company, string code)
     {
         // Url validación.
-        var queryParams = new Dictionary<string, string> { ["userId"] = user.Id, ["code"] = code };
+        var queryParams = new Dictionary<string, string> { ["userId"] = user.Id.ToString(), ["code"] = code };
         var callback = linkGeneratorService.GenerateWebApp(UrlsWebApp.InviteEmployee, queryParams);
 
         // View model.
@@ -36,7 +36,7 @@ public class IdentityEmailsService(
     public async Task SendRecoveryPasswordAsync(User user, string code)
     {
         // Url validación.
-        var queryParams = new Dictionary<string, string> { ["userId"] = user.Id, ["code"] = code };
+        var queryParams = new Dictionary<string, string> { ["userId"] = user.Id.ToString(), ["code"] = code };
         var callback = linkGeneratorService.GenerateWebApp(UrlsWebApp.RecoveryPasswordChange, queryParams);
 
         // View model.

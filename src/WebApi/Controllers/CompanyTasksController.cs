@@ -42,7 +42,7 @@ public class CompanyTasksController : ApiControllerBase
     [HttpGet("{id}/employees/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<Result<ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>>>>
-        GetEmployeesByCompanyTaskIdPaginated([FromQuery] RequestData request, string id)
+        GetEmployeesByCompanyTaskIdPaginated([FromQuery] RequestData request, Guid id)
     {
         var result = await Sender.Send(new GetEmployeesByCompanyTaskIdPaginatedQuery(request, id));
 
@@ -58,7 +58,7 @@ public class CompanyTasksController : ApiControllerBase
     [HttpGet("employees/{employeeId}/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<Result<ResponseData<GetCompanyTasksByEmployeeIdPaginatedResponse>>>>
-        GetCompanyTasksByEmployeeIdPaginated([FromQuery] RequestData request, string employeeId)
+        GetCompanyTasksByEmployeeIdPaginated([FromQuery] RequestData request, Guid employeeId)
     {
         var result = await Sender.Send(new GetCompanyTasksByEmployeeIdPaginatedQuery(request, employeeId));
 
@@ -73,7 +73,7 @@ public class CompanyTasksController : ApiControllerBase
     [HttpGet("{id}/employees/unassigned")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<Result<List<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>>> GetEmployeesUnassignedTaskByCompanyTaskId(
-        string id)
+        Guid id)
     {
         var result = await Sender.Send(new GetEmployeesUnassignedTaskByCompanyTaskIdQuery(id));
 
@@ -87,7 +87,7 @@ public class CompanyTasksController : ApiControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Result<GetCompanyTasksByIdResponse>>> GetCompanyTasksById(string id)
+    public async Task<ActionResult<Result<GetCompanyTasksByIdResponse>>> GetCompanyTasksById(Guid id)
     {
         var result = await Sender.Send(new GetCompanyTasksByIdQuery(id));
 

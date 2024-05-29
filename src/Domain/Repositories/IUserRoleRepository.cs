@@ -10,5 +10,5 @@ public interface IUserRoleRepository
     /// </summary>
     /// <param name="user">Usuario al que se quiere obtener sus roles.</param>
     /// <returns>Lista de <see cref="IdentityRole" />.</returns>
-    Task<List<IdentityRole>> GetRolesByUseAsync(User user);
+    Task<List<UserRole>> GetRolesByUseAsync(User user);
 }

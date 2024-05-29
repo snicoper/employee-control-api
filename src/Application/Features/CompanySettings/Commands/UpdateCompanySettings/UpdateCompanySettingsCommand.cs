@@ -7,7 +7,7 @@ namespace EmployeeControl.Application.Features.CompanySettings.Commands.UpdateCo
 
 [Authorize(Roles = Roles.Staff)]
 public record UpdateCompanySettingsCommand(
-    string Id,
+    Guid Id,
     string Timezone,
     int PeriodTimeControlMax,
     int WeeklyWorkingHours,

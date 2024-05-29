@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
+using EmployeeControl.Domain.Entities;
 
 namespace EmployeeControl.Application.Features.IdentityRoles.Queries.GetAllIdentityRoles;
 
@@ -9,7 +9,7 @@ public record GetAllIdentityRolesResponse(string Id, string Name)
     {
         public Mapping()
         {
-            CreateMap<IdentityRole, GetAllIdentityRolesResponse>();
+            CreateMap<UserRole, GetAllIdentityRolesResponse>();
         }
     }
 }

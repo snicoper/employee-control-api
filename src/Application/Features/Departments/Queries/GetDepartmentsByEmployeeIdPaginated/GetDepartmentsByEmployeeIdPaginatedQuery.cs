@@ -6,5 +6,5 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.Departments.Queries.GetDepartmentsByEmployeeIdPaginated;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record GetDepartmentsByEmployeeIdPaginatedQuery(string EmployeeId, RequestData RequestData)
+public record GetDepartmentsByEmployeeIdPaginatedQuery(Guid EmployeeId, RequestData RequestData)
     : IQuery<ResponseData<GetDepartmentsByEmployeeIdPaginatedResponse>>;

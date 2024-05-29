@@ -60,7 +60,7 @@ public class TimesControlController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result<ResponseData<GetTimesControlByEmployeeIdPaginatedResponse>>>>
         GetTimesControlByEmployeeIdPaginated(
-            string employeeId,
+            Guid employeeId,
             DateTimeOffset from,
             DateTimeOffset to,
             [FromQuery] RequestData requestData)
@@ -79,7 +79,7 @@ public class TimesControlController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Result<GetTimeControlByIdResponse>>> GetTimeControlById(string id)
+    public async Task<ActionResult<Result<GetTimeControlByIdResponse>>> GetTimeControlById(Guid id)
     {
         var result = await Sender.Send(new GetTimeControlByIdQuery(id));
 
@@ -96,7 +96,7 @@ public class TimesControlController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Result<GetTimeControlWithEmployeeByIdResponse>>> GetTimeControlWithEmployeeById(string id)
+    public async Task<ActionResult<Result<GetTimeControlWithEmployeeByIdResponse>>> GetTimeControlWithEmployeeById(Guid id)
     {
         var result = await Sender.Send(new GetTimeControlWithEmployeeByIdQuery(id));
 
@@ -116,7 +116,7 @@ public class TimesControlController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result<List<GetTimeControlRangeByEmployeeIdResponse>>>>
-        GetTimeControlRangeByEmployeeId(string employeeId, DateTimeOffset from, DateTimeOffset to)
+        GetTimeControlRangeByEmployeeId(Guid employeeId, DateTimeOffset from, DateTimeOffset to)
     {
         var result = await Sender.Send(new GetTimeControlRangeByEmployeeIdQuery(employeeId, from, to));
 
@@ -133,7 +133,7 @@ public class TimesControlController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Result<GetTimeStateByEmployeeIdResponse>>> GetTimeStateByEmployeeId(string employeeId)
+    public async Task<ActionResult<Result<GetTimeStateByEmployeeIdResponse>>> GetTimeStateByEmployeeId(Guid employeeId)
     {
         var result = await Sender.Send(new GetTimeStateByEmployeeIdQuery(employeeId));
 
@@ -152,7 +152,7 @@ public class TimesControlController : ApiControllerBase
     [HttpGet("employees/{employeeId}/time-state-open")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Result<GetTimeStateOpenByEmployeeIdResponse>>> GetTimeStateOpenByEmployeeId(string employeeId)
+    public async Task<ActionResult<Result<GetTimeStateOpenByEmployeeIdResponse>>> GetTimeStateOpenByEmployeeId(Guid employeeId)
     {
         var result = await Sender.Send(new GetTimeStateOpenByEmployeeIdQuery(employeeId));
 
@@ -179,7 +179,7 @@ public class TimesControlController : ApiControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Result<string>>> CreateTimeControl(CreateTimeControlCommand command)
+    public async Task<ActionResult<Result<Guid>>> CreateTimeControl(CreateTimeControlCommand command)
     {
         var result = await Sender.Send(command);
 
@@ -195,7 +195,7 @@ public class TimesControlController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Result<string>>> StartTimeControl(StartTimeControlCommand command)
+    public async Task<ActionResult<Result<Guid>>> StartTimeControl(StartTimeControlCommand command)
     {
         var result = await Sender.Send(command);
 
@@ -292,7 +292,7 @@ public class TimesControlController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Result>> DeleteTimeControl(string id)
+    public async Task<ActionResult<Result>> DeleteTimeControl(Guid id)
     {
         var result = await Sender.Send(new DeleteTimeControlCommand(id));
 

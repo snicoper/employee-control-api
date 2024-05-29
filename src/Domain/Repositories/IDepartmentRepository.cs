@@ -16,7 +16,7 @@ public interface IDepartmentRepository
     /// </summary>
     /// <param name="employeeId">Id empleado.</param>
     /// <returns><see cref="IQueryable{T}" /> de la consulta.</returns>
-    IQueryable<Department> GetAllByEmployeeIdQueryable(string employeeId);
+    IQueryable<Department> GetAllByEmployeeIdQueryable(Guid employeeId);
 
     /// <summary>
     /// Obtener un <see cref="Department" /> por su Id.
@@ -25,7 +25,7 @@ public interface IDepartmentRepository
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <exception cref="NotFoundException"> en caso de no existir.</exception>
     /// <returns><see cref="Department" />.</returns>
-    Task<Department> GetByIdAsync(string departmentId, CancellationToken cancellationToken);
+    Task<Department> GetByIdAsync(Guid departmentId, CancellationToken cancellationToken);
 
     /// <summary>
     /// Crea un nuevo <see cref="Department" />.

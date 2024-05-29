@@ -5,4 +5,5 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.ActivateCompanyTask;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record ActivateCompanyTaskCommand(string CompanyTaskId) : ICommand;
+public record ActivateCompanyTaskCommand(Guid CompanyTaskId)
+    : ICommand;

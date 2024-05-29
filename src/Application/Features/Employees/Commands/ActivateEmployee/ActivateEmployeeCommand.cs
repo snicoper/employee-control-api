@@ -5,4 +5,5 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.Employees.Commands.ActivateEmployee;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record ActivateEmployeeCommand(string EmployeeId) : ICommand;
+public record ActivateEmployeeCommand(Guid EmployeeId)
+    : ICommand;

@@ -8,7 +8,7 @@ namespace EmployeeControl.Application.Features.CompanyCalendarHolidays.Command.C
 
 [Authorize(Roles = Roles.HumanResources)]
 public record CreateCompanyCalendarHolidayCommand(DateOnly Date, string Description, string CompanyCalendarId)
-    : ICommand<string>
+    : ICommand<Guid>
 {
     internal class Mapper : Profile
     {

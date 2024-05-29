@@ -7,8 +7,8 @@ using EmployeeControl.Domain.Entities;
 namespace EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record InviteEmployeeCommand(string FirstName, string LastName, string Email, string TimeZone, string CompanyCalendarId)
-    : ICommand<string>
+public record InviteEmployeeCommand(string FirstName, string LastName, string Email, string TimeZone, Guid CompanyCalendarId)
+    : ICommand<Guid>
 {
     internal class Mapping : Profile
     {

@@ -7,11 +7,11 @@ namespace EmployeeControl.Domain.Entities;
 /// </summary>
 public class EmployeeDepartment : BaseAuditableEntity
 {
-    public string DepartmentId { get; set; } = default!;
+    public Guid DepartmentId { get; set; }
 
     public Department Department { get; set; } = null!;
 
-    public string UserId { get; set; } = default!;
+    public Guid UserId { get; set; } = default!;
 
     public User User { get; set; } = null!;
 }

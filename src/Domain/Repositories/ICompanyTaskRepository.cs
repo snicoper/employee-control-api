@@ -12,7 +12,7 @@ public interface ICompanyTaskRepository
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <exception cref="NotFoundException">Si no existe en la base de datos.</exception>
     /// <returns><see cref="Domain.Entities.CompanyTask" />.</returns>
-    Task<CompanyTask> GetByIdAsync(string id, CancellationToken cancellationToken);
+    Task<CompanyTask> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
     /// <summary>
     /// Crea una nueva <see cref="Domain.Entities.CompanyTask" />.

@@ -13,11 +13,11 @@ public class Company : BaseAuditableEntity
 
     public WorkingDaysWeek WorkingDaysWeek { get; set; } = null!;
 
-    public ICollection<Department> Departaments { get; set; } = new List<Department>();
+    public ICollection<Department> Departaments { get; set; } = [];
 
-    public ICollection<User> Users { get; set; } = new List<User>();
+    public ICollection<User> Users { get; set; } = [];
 
-    public ICollection<CompanyTask> CompanyTasks { get; set; } = new List<CompanyTask>();
+    public ICollection<CompanyTask> CompanyTasks { get; set; } = [];
 
-    public ICollection<CategoryAbsence> CategoryAbsences { get; set; } = new List<CategoryAbsence>();
+    public ICollection<CategoryAbsence> CategoryAbsences { get; set; } = [];
 }

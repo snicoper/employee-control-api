@@ -26,7 +26,7 @@ public class UserRepository(
     ILogger<UserRepository> logger)
     : IUserRepository
 {
-    public async Task<string?> GetUserNameAsync(string userId)
+    public async Task<string?> GetUserNameAsync(Guid userId)
     {
         var user = await userManager
             .Users
@@ -35,14 +35,13 @@ public class UserRepository(
         return user.UserName;
     }
 
-    public async Task<User> GetByIdAsync(string userId)
+    public async Task<User> GetByIdAsync(Guid userId)
     {
-        return await userManager
-                   .FindByIdAsync(userId)
+        return await userManager.FindByIdAsync(userId.ToString())
                ?? throw new NotFoundException(nameof(User), nameof(User.Id));
     }
 
-    public async Task<User> GetByIdWithCompanyCalendarAsync(string userId)
+    public async Task<User> GetByIdWithCompanyCalendarAsync(Guid userId)
     {
         var user = await userManager
                        .Users
@@ -67,7 +66,7 @@ public class UserRepository(
                ?? throw new NotFoundException(nameof(User), nameof(User.Email));
     }
 
-    public async Task<bool> IsInRoleAsync(string userId, string role)
+    public async Task<bool> IsInRoleAsync(Guid userId, string role)
     {
         var user = userManager
             .Users
@@ -78,7 +77,7 @@ public class UserRepository(
         return result;
     }
 
-    public async Task<bool> AuthorizeAsync(string userId, string policyName)
+    public async Task<bool> AuthorizeAsync(Guid userId, string policyName)
     {
         var user = userManager
             .Users

@@ -9,12 +9,12 @@ namespace EmployeeControl.Application.Features.TimesControl.Commands.CreateTimeC
 
 [Authorize(Roles = Roles.HumanResources)]
 public record CreateTimeControlCommand(
-    string UserId,
+    Guid UserId,
     DateTimeOffset Start,
     DateTimeOffset Finish,
     DeviceType DeviceType,
     TimeState TimeState)
-    : ICommand<string>
+    : ICommand<Guid>
 {
     internal class Mapping : Profile
     {

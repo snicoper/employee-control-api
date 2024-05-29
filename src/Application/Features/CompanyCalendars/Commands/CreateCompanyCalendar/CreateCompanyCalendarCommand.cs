@@ -8,7 +8,7 @@ namespace EmployeeControl.Application.Features.CompanyCalendars.Commands.CreateC
 
 [Authorize(Roles = Roles.HumanResources)]
 public record CreateCompanyCalendarCommand(string Name, string Description, bool Default)
-    : ICommand<string>
+    : ICommand<Guid>
 {
     internal class Mapping : Profile
     {

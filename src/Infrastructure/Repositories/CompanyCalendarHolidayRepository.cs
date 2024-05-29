@@ -12,12 +12,12 @@ public class CompanyCalendarHolidayRepository(
     ICompanyCalendarHolidaysValidator companyCalendarHolidaysValidator)
     : ICompanyCalendarHolidayRepository
 {
-    public async Task<CompanyCalendarHoliday> GetByIdAsync(string id, CancellationToken cancellationToken)
+    public async Task<CompanyCalendarHoliday> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var companyHoliday = await context
-            .CompanyCalendarHoliday
-            .FirstOrDefaultAsync(ch => ch.Id == id, cancellationToken)
-                ?? throw new NotFoundException(nameof(CompanyCalendarHoliday), nameof(CompanyCalendarHoliday.Id));
+                                 .CompanyCalendarHoliday
+                                 .FirstOrDefaultAsync(ch => ch.Id == id, cancellationToken)
+                             ?? throw new NotFoundException(nameof(CompanyCalendarHoliday), nameof(CompanyCalendarHoliday.Id));
 
         return companyHoliday;
     }

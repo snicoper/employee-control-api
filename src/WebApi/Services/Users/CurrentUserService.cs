@@ -7,10 +7,26 @@ namespace EmployeeControl.WebApi.Services.Users;
 public class CurrentUserService(IHttpContextAccessor httpContextAccessor)
     : ICurrentUserService
 {
-    public string Id => httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Sid) ?? string.Empty;
+    public Guid Id
+    {
+        get
+        {
+            var id = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Sid);
 
-    public string CompanyId => httpContextAccessor.HttpContext?.User.FindFirstValue(CustomClaims.CompanyId) ?? string.Empty;
+            return id is null ? Guid.Empty : Guid.Parse(id);
+        }
+    }
+
+    public Guid CompanyId
+    {
+        get
+        {
+            var companyId = httpContextAccessor.HttpContext?.User.FindFirstValue(CustomClaims.CompanyId);
+
+            return companyId is null ? Guid.Empty : Guid.Parse(companyId);
+        }
+    }
 
     public IEnumerable<string> Roles =>
-        httpContextAccessor.HttpContext?.User.FindAll(ClaimTypes.Role).Select(r => r.Value) ?? new List<string>();
+        httpContextAccessor.HttpContext?.User.FindAll(ClaimTypes.Role).Select(r => r.Value) ?? [];
 }

@@ -42,7 +42,7 @@ public class EmployeeHolidayController : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result<GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse>>>
-        GetOrCreateEmployeeHolidaysByYearAndEmployeeId(int year, string employeeId)
+        GetOrCreateEmployeeHolidaysByYearAndEmployeeId(int year, Guid employeeId)
     {
         var result = await Sender.Send(new GetOrCreateEmployeeHolidaysByYearAndEmployeeIdQuery(year, employeeId));
 

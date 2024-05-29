@@ -12,7 +12,7 @@ public interface ICompanySettingsRepository
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <exception cref="NotFoundException">Si no encuentra la <see cref="CompanySettings" />.</exception>
     /// <returns><see cref="CompanySettings" />.</returns>
-    Task<CompanySettings> GetByIdAsync(string companySettingsId, CancellationToken cancellationToken);
+    Task<CompanySettings> GetByIdAsync(Guid companySettingsId, CancellationToken cancellationToken);
 
     /// <summary>
     /// Obtener <see cref="CompanySettings" />.
@@ -31,7 +31,7 @@ public interface ICompanySettingsRepository
     /// <param name="companyId">Id compañía.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns>Timezone Iana.</returns>
-    Task<string> GetIanaTimezoneCompanyAsync(string companyId, CancellationToken cancellationToken);
+    Task<string> GetIanaTimezoneCompanyAsync(Guid companyId, CancellationToken cancellationToken);
 
     /// <summary>
     /// Convertir un <see cref="DateTimeOffset" /> a la zona horaria según el timezone de la compañía.

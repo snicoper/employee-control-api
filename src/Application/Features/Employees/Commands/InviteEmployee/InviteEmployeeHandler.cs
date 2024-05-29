@@ -18,9 +18,9 @@ internal class InviteEmployeeHandler(
     ICompanyRepository companyRepository,
     UserManager<User> userManager,
     IEmployeeSettingsRepository employeeSettingsRepository)
-    : ICommandHandler<InviteEmployeeCommand, string>
+    : ICommandHandler<InviteEmployeeCommand, Guid>
 {
-    public async Task<Result<string>> Handle(InviteEmployeeCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(InviteEmployeeCommand request, CancellationToken cancellationToken)
     {
         var company = await companyRepository.GetCompanyAsync(cancellationToken);
         var user = mapper.Map<InviteEmployeeCommand, User>(request);
@@ -44,7 +44,7 @@ internal class InviteEmployeeHandler(
 
         var resultResponse = identityResult.Succeeded
             ? Result.Success(newUser.Id)
-            : Result.Failure<string>(ValidationErrorsKeys.IdentityError, identityResult.Errors.First().Description);
+            : Result.Failure<Guid>(ValidationErrorsKeys.IdentityError, identityResult.Errors.First().Description);
 
         return resultResponse;
     }

@@ -5,7 +5,7 @@ namespace EmployeeControl.Application.Features.EmployeeHolidays.Queries.GetOrCre
 
 public record GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse
 {
-    public string Id { get; set; } = default!;
+    public Guid Id { get; set; }
 
     public int Year { get; set; }
 
@@ -15,7 +15,7 @@ public record GetOrCreateEmployeeHolidaysByYearAndEmployeeIdResponse
 
     public int Available { get; set; }
 
-    public string UserId { get; set; } = default!;
+    public Guid UserId { get; set; }
 
     public bool Created { get; set; }
 

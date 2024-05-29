@@ -7,7 +7,7 @@ namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimesCont
 
 [Authorize(Roles = Roles.Staff)]
 public record GetTimesControlByEmployeeIdPaginatedQuery(
-    string EmployeeId,
+    Guid EmployeeId,
     DateTimeOffset? From,
     DateTimeOffset? To,
     RequestData RequestData)

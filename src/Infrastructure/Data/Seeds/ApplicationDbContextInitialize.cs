@@ -14,7 +14,7 @@ public class ApplicationDbContextInitialize(
     IDateTimeService dateTimeService,
     ICompanyRepository companyRepository,
     UserManager<User> userManager,
-    RoleManager<IdentityRole> roleManager)
+    RoleManager<UserRole> roleManager)
 {
     private const string Password = "Password4!";
     private const string Timezone = "Europe/Madrid";
@@ -145,7 +145,7 @@ public class ApplicationDbContextInitialize(
     private async Task CreateRolesAsync()
     {
         // Default roles.
-        var createRole = new List<IdentityRole>
+        var createRole = new List<UserRole>
         {
             new(Roles.Admin), new(Roles.Staff), new(Roles.HumanResources), new(Roles.Employee)
         };

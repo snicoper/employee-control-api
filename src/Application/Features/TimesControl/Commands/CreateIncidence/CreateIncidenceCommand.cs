@@ -5,5 +5,5 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.TimesControl.Commands.CreateIncidence;
 
 [Authorize(Roles = Roles.Employee)]
-public record CreateIncidenceCommand(string TimeControlId, string IncidenceDescription)
+public record CreateIncidenceCommand(Guid TimeControlId, string IncidenceDescription)
     : ICommand;

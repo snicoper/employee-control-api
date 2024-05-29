@@ -13,7 +13,7 @@ public class EmployeeHoliday : BaseAuditableEntity
 
     public int ConsumedDays { get; set; }
 
-    public string UserId { get; set; } = default!;
+    public Guid UserId { get; set; }
 
     public User User { get; set; } = null!;
 }

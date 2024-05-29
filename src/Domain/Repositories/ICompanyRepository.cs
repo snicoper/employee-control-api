@@ -20,7 +20,7 @@ public interface ICompanyRepository
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <exception cref="NotFoundException">Si no encuentra la <see cref="Domain.Entities.Company" />.</exception>
     /// <returns><see cref="Domain.Entities.Company" />.</returns>
-    Task<Company> GetCompanyByIdAsync(string companyId, CancellationToken cancellationToken);
+    Task<Company> GetCompanyByIdAsync(Guid companyId, CancellationToken cancellationToken);
 
     /// <summary>
     /// Crea una compañía.

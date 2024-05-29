@@ -5,4 +5,4 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.Employees.Commands.DeactivateEmployee;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record DeactivateEmployeeCommand(string EmployeeId) : ICommand;
+public record DeactivateEmployeeCommand(Guid EmployeeId) : ICommand;

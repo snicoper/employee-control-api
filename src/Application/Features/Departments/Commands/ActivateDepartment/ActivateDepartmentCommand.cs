@@ -5,4 +5,4 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.Departments.Commands.ActivateDepartment;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record ActivateDepartmentCommand(string DepartmentId) : ICommand;
+public record ActivateDepartmentCommand(Guid DepartmentId) : ICommand;

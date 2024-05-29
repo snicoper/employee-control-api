@@ -15,5 +15,5 @@ public class CompanyTask : BaseAuditableEntity
 
     public string Color { get; set; } = default!;
 
-    public ICollection<EmployeeCompanyTask> EmployeeCompanyTasks { get; set; } = new List<EmployeeCompanyTask>();
+    public ICollection<EmployeeCompanyTask> EmployeeCompanyTasks { get; set; } = [];
 }

@@ -2,9 +2,9 @@
 
 public interface ICurrentUserService
 {
-    string Id { get; }
+    Guid Id { get; }
 
-    string CompanyId { get; }
+    Guid CompanyId { get; }
 
     IEnumerable<string> Roles { get; }
 }

@@ -10,21 +10,21 @@ public interface IUserRepository
     /// </summary>
     /// <param name="userId">Id usuario.</param>
     /// <returns>Nombre del usuario.</returns>
-    Task<string?> GetUserNameAsync(string userId);
+    Task<string?> GetUserNameAsync(Guid userId);
 
     /// <summary>
     /// Obtener usuario por su Id.
     /// </summary>
     /// <param name="userId">Id del usuario.</param>
     /// <returns><see cref="User" />.</returns>
-    Task<User> GetByIdAsync(string userId);
+    Task<User> GetByIdAsync(Guid userId);
 
     /// <summary>
     /// Obtener <see cref="User" /> con <see cref="CompanyCalendar" /> por el Id del usuario.
     /// </summary>
     /// <param name="userId">Id del usuario a obtener.</param>
     /// <returns><see cref="User" />.</returns>
-    Task<User> GetByIdWithCompanyCalendarAsync(string userId);
+    Task<User> GetByIdWithCompanyCalendarAsync(Guid userId);
 
     /// <summary>
     /// Obtener usuario actual.
@@ -45,9 +45,9 @@ public interface IUserRepository
     /// <param name="userId">Id de usuario.</param>
     /// <param name="role">Role a verificar.</param>
     /// <returns>True si tiene el role asignado, false en caso contrario.</returns>
-    Task<bool> IsInRoleAsync(string userId, string role);
+    Task<bool> IsInRoleAsync(Guid userId, string role);
 
-    Task<bool> AuthorizeAsync(string userId, string policyName);
+    Task<bool> AuthorizeAsync(Guid userId, string policyName);
 
     /// <summary>
     /// Obtener un <see cref="IQueryable" /> de <see cref="User" />.

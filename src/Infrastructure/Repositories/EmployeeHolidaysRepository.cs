@@ -6,22 +6,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Infrastructure.Repositories;
 
-public class EmployeeHolidaysRepository(IApplicationDbContext context) : IEmployeeHolidaysRepository
+public class EmployeeHolidaysRepository(IApplicationDbContext context)
+    : IEmployeeHolidaysRepository
 {
     public async Task<EmployeeHoliday> GetByEmployeeIdAndYearAsync(
         int year,
-        string employeeId,
+        Guid employeeId,
         CancellationToken cancellationToken)
     {
         var employeeHoliday = await context
-            .EmployeeHolidays
-            .SingleOrDefaultAsync(eh => eh.UserId == employeeId && eh.Year == year, cancellationToken)
-                ?? throw new NotFoundException(nameof(EmployeeHoliday), nameof(EmployeeHoliday.UserId));
+                                  .EmployeeHolidays
+                                  .SingleOrDefaultAsync(eh => eh.UserId == employeeId && eh.Year == year, cancellationToken)
+                              ?? throw new NotFoundException(nameof(EmployeeHoliday), nameof(EmployeeHoliday.UserId));
 
         return employeeHoliday;
     }
 
-    public async Task<bool> ExistsByYearAndEmployeeId(int year, string employeeId, CancellationToken cancellationToken)
+    public async Task<bool> ExistsByYearAndEmployeeId(int year, Guid employeeId, CancellationToken cancellationToken)
     {
         var exists = await context
             .EmployeeHolidays
@@ -32,7 +33,7 @@ public class EmployeeHolidaysRepository(IApplicationDbContext context) : IEmploy
 
     public async Task<EmployeeHoliday> CreateAsync(
         int year,
-        string employeeId,
+        Guid employeeId,
         CancellationToken cancellationToken)
     {
         var employeeHoliday = new EmployeeHoliday { Year = year, TotalDays = 0, ConsumedDays = 0, UserId = employeeId };

@@ -15,7 +15,7 @@ public class CompanySettings : BaseAuditableEntity
 
     public bool GeolocationRequired { get; set; }
 
-    public string CompanyId { get; set; } = default!;
+    public Guid CompanyId { get; set; }
 
     public Company Company { get; set; } = null!;
 }

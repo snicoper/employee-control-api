@@ -5,4 +5,4 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.Employees.Queries.GetEmployeeById;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record GetEmployeeByIdQuery(string Id) : IQuery<GetEmployeeByIdResponse>;
+public record GetEmployeeByIdQuery(Guid Id) : IQuery<GetEmployeeByIdResponse>;

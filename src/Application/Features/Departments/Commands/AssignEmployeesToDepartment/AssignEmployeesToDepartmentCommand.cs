@@ -5,4 +5,4 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.Departments.Commands.AssignEmployeesToDepartment;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record AssignEmployeesToDepartmentCommand(string Id, List<string> EmployeeIds) : ICommand;
+public record AssignEmployeesToDepartmentCommand(Guid Id, List<Guid> EmployeeIds) : ICommand;

@@ -5,4 +5,4 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.AssignEmployeesToTask;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record AssignEmployeesToTaskCommand(string Id, List<string> EmployeeIds) : ICommand;
+public record AssignEmployeesToTaskCommand(Guid Id, List<Guid> EmployeeIds) : ICommand;

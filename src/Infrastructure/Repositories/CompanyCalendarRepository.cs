@@ -19,12 +19,12 @@ public class CompanyCalendarRepository(
         return companyCalendars;
     }
 
-    public async Task<CompanyCalendar> GetByIdAsync(string id, CancellationToken cancellationToken)
+    public async Task<CompanyCalendar> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var companyCalendar = await context
-            .CompanyCalendars
-            .FirstOrDefaultAsync(cc => cc.Id == id, cancellationToken) ??
-                throw new NotFoundException(nameof(CompanyCalendar), nameof(CompanyCalendar.Id));
+                                  .CompanyCalendars
+                                  .FirstOrDefaultAsync(cc => cc.Id == id, cancellationToken) ??
+                              throw new NotFoundException(nameof(CompanyCalendar), nameof(CompanyCalendar.Id));
 
         return companyCalendar;
     }

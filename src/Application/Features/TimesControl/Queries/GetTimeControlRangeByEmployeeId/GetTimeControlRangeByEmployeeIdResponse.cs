@@ -10,10 +10,10 @@ public record GetTimeControlRangeByEmployeeIdResponse
 
     public int TotalMinutes { get; set; }
 
-    public ICollection<TimeControlResponse> Times { get; set; } = new List<TimeControlResponse>();
+    public ICollection<TimeControlResponse> Times { get; set; } = [];
 
     public record TimeControlResponse(
-        string Id,
+        Guid Id,
         DateTimeOffset Start,
         DateTimeOffset Finish,
         bool Incidence,

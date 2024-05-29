@@ -43,7 +43,7 @@ public class DepartmentsController : ApiControllerBase
     [HttpGet("{id}/employees/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<Result<ResponseData<GetEmployeesByDepartmentIdPaginatedResponse>>>>
-        GetEmployeesByDepartmentIdPaginated([FromQuery] RequestData request, string id)
+        GetEmployeesByDepartmentIdPaginated([FromQuery] RequestData request, Guid id)
     {
         var result = await Sender.Send(new GetEmployeesByDepartmentIdPaginatedQuery(id, request));
 
@@ -59,7 +59,7 @@ public class DepartmentsController : ApiControllerBase
     [HttpGet("employees/{employeeId}/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<Result<ResponseData<GetDepartmentsByEmployeeIdPaginatedResponse>>>>
-        GetDepartmentsByEmployeeIdPaginated([FromQuery] RequestData request, string employeeId)
+        GetDepartmentsByEmployeeIdPaginated([FromQuery] RequestData request, Guid employeeId)
     {
         var result = await Sender.Send(new GetDepartmentsByEmployeeIdPaginatedQuery(employeeId, request));
 
@@ -74,7 +74,7 @@ public class DepartmentsController : ApiControllerBase
     [HttpGet("{id}/employees/unassigned")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<Result<List<GetEmployeesUnassignedDepartmentByDepartmentIdResponse>>>
-        GetEmployeesUnassignedDepartmentByDepartmentId(string id)
+        GetEmployeesUnassignedDepartmentByDepartmentId(Guid id)
     {
         var result = await Sender.Send(new GetEmployeesUnassignedDepartmentByDepartmentIdQuery(id));
 
@@ -88,7 +88,7 @@ public class DepartmentsController : ApiControllerBase
     [HttpGet("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Result<GetDepartmentByIdResponse>>> GetDepartmentById(string id)
+    public async Task<ActionResult<Result<GetDepartmentByIdResponse>>> GetDepartmentById(Guid id)
     {
         var result = await Sender.Send(new GetDepartmentByIdQuery(id));
 
@@ -103,7 +103,7 @@ public class DepartmentsController : ApiControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<Result<string>>> CreateDepartment(CreateDepartmentCommand command)
+    public async Task<ActionResult<Result<Guid>>> CreateDepartment(CreateDepartmentCommand command)
     {
         var result = await Sender.Send(command);
 

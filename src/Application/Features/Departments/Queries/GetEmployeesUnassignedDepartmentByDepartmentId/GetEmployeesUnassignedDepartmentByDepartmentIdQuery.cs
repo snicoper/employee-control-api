@@ -5,5 +5,5 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.Departments.Queries.GetEmployeesUnassignedDepartmentByDepartmentId;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record GetEmployeesUnassignedDepartmentByDepartmentIdQuery(string Id)
+public record GetEmployeesUnassignedDepartmentByDepartmentIdQuery(Guid Id)
     : IQuery<List<GetEmployeesUnassignedDepartmentByDepartmentIdResponse>>;

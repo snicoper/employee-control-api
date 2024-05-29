@@ -13,7 +13,7 @@ namespace EmployeeControl.Infrastructure.Repositories;
 public class CategoryAbsenceRepository(IApplicationDbContext context, IStringLocalizer<CategoryAbsenceResource> localizer)
     : ICategoryAbsenceRepository
 {
-    public async Task<CategoryAbsence> GetByIdAsync(string id, CancellationToken cancellationToken)
+    public async Task<CategoryAbsence> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var categoryAbsence = await context
                                   .CategoryAbsences

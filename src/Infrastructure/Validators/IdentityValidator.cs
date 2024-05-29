@@ -22,7 +22,7 @@ public class IdentityValidator(
     public async Task<Result> UniqueEmailValidationAsync(User user, Result result, CancellationToken cancellationToken)
     {
         // Si es un update, omitir el email actual del usuario.
-        var emailExists = string.IsNullOrEmpty(user.Id)
+        var emailExists = user.Id == default
             ? await userManager.Users.AnyAsync(au => au.Email == user.Email, cancellationToken)
             : await userManager.Users.AnyAsync(au => au.Email == user.Email && au.Id != user.Id, cancellationToken);
 

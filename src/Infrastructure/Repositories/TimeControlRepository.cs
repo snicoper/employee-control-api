@@ -32,7 +32,7 @@ public class TimeControlRepository(
         return incidences;
     }
 
-    public async Task<TimeControl> GetByIdAsync(string id, CancellationToken cancellationToken)
+    public async Task<TimeControl> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var result = await context
                          .TimeControls
@@ -42,18 +42,7 @@ public class TimeControlRepository(
         return result;
     }
 
-    public async Task<TimeControl> GetWithEmployeeInfoByIdAsync(string id, CancellationToken cancellationToken)
-    {
-        var result = await context
-                         .TimeControls
-                         .Include(tc => tc.User)
-                         .SingleOrDefaultAsync(tc => tc.Id.Equals(id), cancellationToken)
-                     ?? throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.Id));
-
-        return result;
-    }
-
-    public async Task<TimeControl?> GetTimeStateOpenByEmployeeIdAsync(string employeeId, CancellationToken cancellationToken)
+    public async Task<TimeControl?> GetTimeStateOpenByEmployeeIdAsync(Guid employeeId, CancellationToken cancellationToken)
     {
         var timeControl = await context
             .TimeControls
@@ -63,7 +52,7 @@ public class TimeControlRepository(
     }
 
     public async Task<IEnumerable<IGrouping<int, TimeControl>>> GetRangeByEmployeeIdAsync(
-        string employeeId,
+        Guid employeeId,
         DateTimeOffset from,
         DateTimeOffset to,
         CancellationToken cancellationToken)
@@ -84,16 +73,6 @@ public class TimeControlRepository(
         var timesControl = context
             .TimeControls
             .Include(tc => tc.User);
-
-        return timesControl;
-    }
-
-    public IQueryable<TimeControl> GetWithUserByEmployeeIdQueryable(string employeeId)
-    {
-        var timesControl = context
-            .TimeControls
-            .Include(tc => tc.User)
-            .Where(tc => tc.UserId == employeeId);
 
         return timesControl;
     }
@@ -128,14 +107,6 @@ public class TimeControlRepository(
         var timesControl = context.TimeControls.Where(tc => tc.Incidence);
 
         return timesControl;
-    }
-
-    public async Task<TimeControl> CloseIncidenceByTimeControlIdAsync(string id, CancellationToken cancellationToken)
-    {
-        var timeControl = await GetByIdAsync(id, cancellationToken);
-        await CloseIncidenceByTimeControlAsync(timeControl, cancellationToken);
-
-        return timeControl;
     }
 
     public async Task<TimeControl> CloseIncidenceByTimeControlAsync(TimeControl timeControl, CancellationToken cancellationToken)
@@ -246,5 +217,34 @@ public class TimeControlRepository(
         await UpdateAsync(timeControl, cancellationToken);
 
         return timeControl;
+    }
+
+    public IQueryable<TimeControl> GetWithUserByEmployeeIdQueryable(Guid employeeId)
+    {
+        var timesControl = context
+            .TimeControls
+            .Include(tc => tc.User)
+            .Where(tc => tc.UserId == employeeId);
+
+        return timesControl;
+    }
+
+    public async Task<TimeControl> CloseIncidenceByTimeControlIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var timeControl = await GetByIdAsync(id, cancellationToken);
+        await CloseIncidenceByTimeControlAsync(timeControl, cancellationToken);
+
+        return timeControl;
+    }
+
+    public async Task<TimeControl> GetWithEmployeeInfoByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        var result = await context
+                         .TimeControls
+                         .Include(tc => tc.User)
+                         .SingleOrDefaultAsync(tc => tc.Id.Equals(id), cancellationToken)
+                     ?? throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.Id));
+
+        return result;
     }
 }

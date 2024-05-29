@@ -14,7 +14,7 @@ public interface ICategoryAbsenceRepository
     /// <param name="id">Id de <see cref="CategoryAbsence" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns><see cref="CategoryAbsence" /> en caso de existir.</returns>
-    Task<CategoryAbsence> GetByIdAsync(string id, CancellationToken cancellationToken);
+    Task<CategoryAbsence> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
     /// <summary>
     /// Creación de una nueva <see cref="CategoryAbsence" />.

@@ -13,7 +13,7 @@ public class CustomClaimsPrincipalFactory(UserManager<User> userManager, IOption
     {
         var identity = await base.GenerateClaimsAsync(user);
 
-        identity.AddClaim(new Claim(CustomClaims.CompanyId, user.CompanyId));
+        identity.AddClaim(new Claim(CustomClaims.CompanyId, user.CompanyId.ToString()));
 
         return identity;
     }

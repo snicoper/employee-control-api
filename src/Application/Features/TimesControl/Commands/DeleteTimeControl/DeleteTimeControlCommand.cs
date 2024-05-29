@@ -5,5 +5,5 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.TimesControl.Commands.DeleteTimeControl;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record DeleteTimeControlCommand(string Id)
+public record DeleteTimeControlCommand(Guid Id)
     : ICommand;

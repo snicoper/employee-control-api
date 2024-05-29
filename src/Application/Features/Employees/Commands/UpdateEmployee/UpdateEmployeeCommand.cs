@@ -8,7 +8,7 @@ namespace EmployeeControl.Application.Features.Employees.Commands.UpdateEmployee
 
 [Authorize(Roles = Roles.HumanResources)]
 public record UpdateEmployeeCommand(
-    string Id,
+    Guid Id,
     string FirstName,
     string LastName,
     string Email,

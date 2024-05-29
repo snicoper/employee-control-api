@@ -15,5 +15,5 @@ public class Department : BaseAuditableEntity
 
     public string Color { get; set; } = default!;
 
-    public ICollection<EmployeeDepartment> EmployeeDepartments { get; set; } = new List<EmployeeDepartment>();
+    public ICollection<EmployeeDepartment> EmployeeDepartments { get; set; } = [];
 }

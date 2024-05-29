@@ -20,9 +20,9 @@ public class TokenService(IOptions<JwtSettings> jwtSettings, UserManager<User> u
         // Añadir claims.
         var claims = new List<Claim>
         {
-            new(ClaimTypes.Sid, user.Id),
+            new(ClaimTypes.Sid, user.Id.ToString()),
             new(ClaimTypes.Name, user.UserName ?? string.Empty),
-            new(CustomClaims.CompanyId, user.CompanyId)
+            new(CustomClaims.CompanyId, user.CompanyId.ToString())
         };
 
         var roles = await userManager.GetRolesAsync(user);

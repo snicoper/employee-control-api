@@ -22,7 +22,7 @@ public class CompanyRepository(IApplicationDbContext context, ICompanyValidator 
         return result;
     }
 
-    public async Task<Company> GetCompanyByIdAsync(string companyId, CancellationToken cancellationToken)
+    public async Task<Company> GetCompanyByIdAsync(Guid companyId, CancellationToken cancellationToken)
     {
         var result = await context
                          .Companies

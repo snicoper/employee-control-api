@@ -6,9 +6,9 @@ namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimeContr
 
 public record GetTimeControlByIdResponse
 {
-    public string Id { get; set; } = default!;
+    public Guid Id { get; set; }
 
-    public string UserId { get; set; } = default!;
+    public Guid UserId { get; set; }
 
     public bool Incidence { get; set; }
 

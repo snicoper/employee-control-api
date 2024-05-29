@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeControl.Infrastructure.Repositories;
 
-public class UserRoleRepository(RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
+public class UserRoleRepository(RoleManager<UserRole> roleManager, UserManager<User> userManager)
     : IUserRoleRepository
 {
-    public async Task<List<IdentityRole>> GetRolesByUseAsync(User user)
+    public async Task<List<UserRole>> GetRolesByUseAsync(User user)
     {
-        var identityRoles = new List<IdentityRole>();
+        var identityRoles = new List<UserRole>();
         var userRoles = await userManager.GetRolesAsync(user);
 
         if (userRoles.Count == 0)

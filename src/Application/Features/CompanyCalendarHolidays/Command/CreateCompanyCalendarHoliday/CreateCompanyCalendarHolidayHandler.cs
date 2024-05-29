@@ -9,9 +9,9 @@ namespace EmployeeControl.Application.Features.CompanyCalendarHolidays.Command.C
 internal class CreateCompanyCalendarHolidayHandler(
     ICompanyCalendarHolidayRepository companyCalendarHolidayRepository,
     IMapper mapper)
-    : ICommandHandler<CreateCompanyCalendarHolidayCommand, string>
+    : ICommandHandler<CreateCompanyCalendarHolidayCommand, Guid>
 {
-    public async Task<Result<string>> Handle(
+    public async Task<Result<Guid>> Handle(
         CreateCompanyCalendarHolidayCommand request,
         CancellationToken cancellationToken)
     {

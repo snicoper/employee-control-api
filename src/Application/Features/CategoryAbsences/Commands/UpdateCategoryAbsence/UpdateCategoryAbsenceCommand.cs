@@ -7,7 +7,7 @@ using EmployeeControl.Domain.Entities;
 namespace EmployeeControl.Application.Features.CategoryAbsences.Commands.UpdateCategoryAbsence;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record UpdateCategoryAbsenceCommand(string Id, string Description, string Background, string Color, bool Active)
+public record UpdateCategoryAbsenceCommand(Guid Id, string Description, string Background, string Color, bool Active)
     : ICommand
 {
     internal class Mapping : Profile

@@ -9,11 +9,11 @@ public class EmployeeHolidayClaimItem : BaseAuditableEntity
 {
     public DateOnly Date { get; set; }
 
-    public string UserId { get; set; } = default!;
+    public Guid UserId { get; set; }
 
     public User User { get; set; } = null!;
 
-    public string EmployeeHolidayClaimId { get; set; } = null!;
+    public Guid EmployeeHolidayClaimId { get; set; }
 
     public EmployeeHolidayClaim EmployeeHolidayClaim { get; set; } = null!;
 }

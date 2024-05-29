@@ -17,7 +17,7 @@ public interface ICompanyCalendarRepository
     /// <param name="id">Id del <see cref="CompanyCalendar" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns><see cref="CompanyCalendar" />.</returns>
-    Task<CompanyCalendar> GetByIdAsync(string id, CancellationToken cancellationToken);
+    Task<CompanyCalendar> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
     /// <summary>
     /// Crea un <see cref="CompanyCalendar" />.

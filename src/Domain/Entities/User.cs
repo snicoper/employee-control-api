@@ -8,21 +8,9 @@ namespace EmployeeControl.Domain.Entities;
 /// <summary>
 /// Empleados de la aplicación.
 /// </summary>
-public class User : IdentityUser, IEntityDomainEvent
+public class User : IdentityUser<Guid>, IEntityDomainEvent
 {
-    private readonly List<BaseEvent> _domainEvents;
-
-    public User()
-    {
-        _domainEvents = new List<BaseEvent>();
-
-        EmployeeHolidays = new List<EmployeeHoliday>();
-        EmployeeHolidayClaims = new List<EmployeeHolidayClaim>();
-        EmployeeHolidayClaimItems = new List<EmployeeHolidayClaimItem>();
-        TimeControls = new List<TimeControl>();
-        EmployeeDepartments = new List<EmployeeDepartment>();
-        EmployeeCompanyTasks = new List<EmployeeCompanyTask>();
-    }
+    private readonly List<BaseEvent> _domainEvents = new();
 
     public string? FirstName { get; set; }
 
@@ -38,25 +26,25 @@ public class User : IdentityUser, IEntityDomainEvent
 
     public EmployeeSettings EmployeeSettings { get; set; } = null!;
 
-    public string CompanyId { get; set; } = default!;
+    public Guid CompanyId { get; set; }
 
     public Company Company { get; set; } = null!;
 
-    public string CompanyCalendarId { get; set; } = default!;
+    public Guid CompanyCalendarId { get; set; }
 
     public CompanyCalendar CompanyCalendar { get; set; } = null!;
 
-    public ICollection<EmployeeHoliday> EmployeeHolidays { get; set; }
+    public ICollection<EmployeeHoliday> EmployeeHolidays { get; set; } = [];
 
-    public ICollection<EmployeeHolidayClaim> EmployeeHolidayClaims { get; set; }
+    public ICollection<EmployeeHolidayClaim> EmployeeHolidayClaims { get; set; } = [];
 
-    public ICollection<EmployeeHolidayClaimItem> EmployeeHolidayClaimItems { get; set; }
+    public ICollection<EmployeeHolidayClaimItem> EmployeeHolidayClaimItems { get; set; } = [];
 
-    public ICollection<TimeControl> TimeControls { get; set; }
+    public ICollection<TimeControl> TimeControls { get; set; } = [];
 
-    public ICollection<EmployeeDepartment> EmployeeDepartments { get; set; }
+    public ICollection<EmployeeDepartment> EmployeeDepartments { get; set; } = [];
 
-    public ICollection<EmployeeCompanyTask> EmployeeCompanyTasks { get; set; }
+    public ICollection<EmployeeCompanyTask> EmployeeCompanyTasks { get; set; } = [];
 
     [NotMapped]
     public IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();

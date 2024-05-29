@@ -7,7 +7,8 @@ using EmployeeControl.Domain.Entities;
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.CreateCompanyTask;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record CreateCompanyTaskCommand(string Name, string Background, string Color) : ICommand<string>
+public record CreateCompanyTaskCommand(string Name, string Background, string Color)
+    : ICommand<Guid>
 {
     internal class Mapping : Profile
     {

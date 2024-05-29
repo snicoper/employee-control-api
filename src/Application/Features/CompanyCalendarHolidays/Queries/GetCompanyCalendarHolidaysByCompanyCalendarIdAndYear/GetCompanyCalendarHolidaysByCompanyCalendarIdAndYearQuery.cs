@@ -6,5 +6,5 @@ namespace EmployeeControl.Application.Features.CompanyCalendarHolidays.Queries.
     GetCompanyCalendarHolidaysByCompanyCalendarIdAndYear;
 
 [Authorize(Roles = Roles.Employee)]
-public record GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearQuery(string CompanyCalendarId, int Year)
+public record GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearQuery(Guid CompanyCalendarId, int Year)
     : IQuery<ICollection<GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearResponse>>;

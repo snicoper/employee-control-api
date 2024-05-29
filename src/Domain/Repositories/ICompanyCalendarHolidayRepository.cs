@@ -10,7 +10,7 @@ public interface ICompanyCalendarHolidayRepository
     /// <param name="id">Id del <see cref="CompanyCalendarHoliday" /> a obtener.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns><see cref="CompanyCalendarHoliday" /> creado.</returns>
-    Task<CompanyCalendarHoliday> GetByIdAsync(string id, CancellationToken cancellationToken);
+    Task<CompanyCalendarHoliday> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
     /// <summary>
     /// Crea un <see cref="CompanyCalendarHoliday" /> para la empresa.

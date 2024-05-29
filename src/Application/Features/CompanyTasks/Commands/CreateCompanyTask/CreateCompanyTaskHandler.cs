@@ -7,9 +7,9 @@ using EmployeeControl.Domain.Repositories;
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.CreateCompanyTask;
 
 internal class CreateCompanyTaskHandler(ICompanyTaskRepository companyTaskRepository, IMapper mapper)
-    : ICommandHandler<CreateCompanyTaskCommand, string>
+    : ICommandHandler<CreateCompanyTaskCommand, Guid>
 {
-    public async Task<Result<string>> Handle(CreateCompanyTaskCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateCompanyTaskCommand request, CancellationToken cancellationToken)
     {
         var newCompanyTask = mapper.Map<CreateCompanyTaskCommand, CompanyTask>(request);
         var companyTask = await companyTaskRepository.CreateAsync(newCompanyTask, cancellationToken);

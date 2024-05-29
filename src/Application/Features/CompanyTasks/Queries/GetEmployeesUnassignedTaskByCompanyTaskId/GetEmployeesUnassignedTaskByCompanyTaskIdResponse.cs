@@ -1,3 +1,3 @@
 ﻿namespace EmployeeControl.Application.Features.CompanyTasks.Queries.GetEmployeesUnassignedTaskByCompanyTaskId;
 
-public record GetEmployeesUnassignedTaskByCompanyTaskIdResponse(string Id, string Name);
+public record GetEmployeesUnassignedTaskByCompanyTaskIdResponse(Guid Id, string Name);

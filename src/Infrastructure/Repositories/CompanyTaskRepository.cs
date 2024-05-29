@@ -13,7 +13,7 @@ namespace EmployeeControl.Infrastructure.Repositories;
 public class CompanyTaskRepository(IStringLocalizer<TaskResource> localizer, IApplicationDbContext context)
     : ICompanyTaskRepository
 {
-    public async Task<CompanyTask> GetByIdAsync(string id, CancellationToken cancellationToken)
+    public async Task<CompanyTask> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var result = await context
                          .CompanyTasks

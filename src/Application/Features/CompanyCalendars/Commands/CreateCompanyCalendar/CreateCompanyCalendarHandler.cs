@@ -7,9 +7,9 @@ using EmployeeControl.Domain.Repositories;
 namespace EmployeeControl.Application.Features.CompanyCalendars.Commands.CreateCompanyCalendar;
 
 internal class CreateCompanyCalendarHandler(ICompanyCalendarRepository companyCalendarRepository, IMapper mapper)
-    : ICommandHandler<CreateCompanyCalendarCommand, string>
+    : ICommandHandler<CreateCompanyCalendarCommand, Guid>
 {
-    public async Task<Result<string>> Handle(CreateCompanyCalendarCommand request, CancellationToken cancellationToken)
+    public async Task<Result<Guid>> Handle(CreateCompanyCalendarCommand request, CancellationToken cancellationToken)
     {
         var companyCalendar = mapper.Map<CompanyCalendar>(request);
 

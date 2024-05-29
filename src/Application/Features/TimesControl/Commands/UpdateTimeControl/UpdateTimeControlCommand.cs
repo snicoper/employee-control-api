@@ -5,5 +5,5 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.TimesControl.Commands.UpdateTimeControl;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record UpdateTimeControlCommand(string Id, DateTimeOffset Start, DateTimeOffset Finish, bool CloseIncidence)
+public record UpdateTimeControlCommand(Guid Id, DateTimeOffset Start, DateTimeOffset Finish, bool CloseIncidence)
     : ICommand;

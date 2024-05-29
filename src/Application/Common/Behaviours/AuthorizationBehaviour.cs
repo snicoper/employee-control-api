@@ -25,7 +25,7 @@ public class AuthorizationBehaviour<TRequest, TResponse>(ICurrentUserService cur
         }
 
         // Must be authenticated user.
-        if (currentUserService.Id is null)
+        if (currentUserService.Id == default)
         {
             throw new UnauthorizedAccessException();
         }
@@ -40,7 +40,7 @@ public class AuthorizationBehaviour<TRequest, TResponse>(ICurrentUserService cur
         return await next();
     }
 
-    private async Task RoleBasedAuthorization(IEnumerable<AuthorizeAttribute> attributes, string userId)
+    private async Task RoleBasedAuthorization(IEnumerable<AuthorizeAttribute> attributes, Guid userId)
     {
         var authorizeAttributesWithRoles = attributes.Where(a => !string.IsNullOrWhiteSpace(a.Roles));
         var attributesWithRoles = authorizeAttributesWithRoles as AuthorizeAttribute[] ?? authorizeAttributesWithRoles.ToArray();
@@ -73,7 +73,7 @@ public class AuthorizationBehaviour<TRequest, TResponse>(ICurrentUserService cur
         }
     }
 
-    private async Task PolicyBasedAuthorization(IEnumerable<AuthorizeAttribute> attributes, string userId)
+    private async Task PolicyBasedAuthorization(IEnumerable<AuthorizeAttribute> attributes, Guid userId)
     {
         var authorizeAttributesWithPolicies = attributes.Where(a => !string.IsNullOrWhiteSpace(a.Policy));
 
