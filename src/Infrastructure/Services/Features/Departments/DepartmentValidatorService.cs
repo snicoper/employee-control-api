@@ -47,7 +47,7 @@ public class DepartmentValidatorService(
 
         if (!company)
         {
-            return Result.Success();
+            return result;
         }
 
         var errorMessage = localizer["Ya existe una combinación de colores así en los departamentos."];
