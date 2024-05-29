@@ -1,21 +1,21 @@
 ﻿using EmployeeControl.Application.Common.Constants;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
+using EmployeeControl.Domain.Validators;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 
-namespace EmployeeControl.Infrastructure.Services.Features.TimesControl;
+namespace EmployeeControl.Infrastructure.Validators;
 
-public class TimesControlValidatorService(
+public class TimesControlValidator(
     IApplicationDbContext context,
     IStringLocalizer<TimeControlResource> localizer,
     IDateTimeService dateTimeService)
-    : ITimesControlValidatorService
+    : ITimesControlValidator
 {
     public async Task<Result> ValidateCreateAsync(TimeControl timeControl, Result result, CancellationToken cancellationToken)
     {

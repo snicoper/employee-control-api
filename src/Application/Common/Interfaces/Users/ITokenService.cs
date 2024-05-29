@@ -1,6 +1,6 @@
 ﻿using EmployeeControl.Domain.Entities;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.Identity;
+namespace EmployeeControl.Application.Common.Interfaces.Users;
 
 public interface ITokenService
 {

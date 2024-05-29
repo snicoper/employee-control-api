@@ -1,4 +1,4 @@
-﻿namespace EmployeeControl.Application.Common.Interfaces.Features.Identity;
+﻿namespace EmployeeControl.Application.Common.Interfaces.Users;
 
 public interface IAuthService
 {

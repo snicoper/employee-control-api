@@ -1,23 +1,23 @@
 using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Interfaces.Users;
 using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
+using EmployeeControl.Domain.Validators;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
-namespace EmployeeControl.Infrastructure.Services.Features.Identity;
+namespace EmployeeControl.Infrastructure.Validators;
 
-public class IdentityValidatorService(
+public class IdentityValidator(
     UserManager<User> userManager,
     IUserValidator<User> userValidator,
     IPasswordValidator<User> passwordValidator,
     IStringLocalizer<User> localizer,
     ICurrentUserService currentUserService,
-    ILogger<IdentityValidatorService> logger)
-    : IIdentityValidatorService
+    ILogger<IdentityValidator> logger)
+    : IIdentityValidator
 {
     public async Task<Result> UniqueEmailValidationAsync(User user, Result result, CancellationToken cancellationToken)
     {

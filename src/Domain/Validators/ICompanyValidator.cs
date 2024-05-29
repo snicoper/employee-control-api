@@ -1,8 +1,8 @@
 ﻿using EmployeeControl.Domain.Common;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.Companies;
+namespace EmployeeControl.Domain.Validators;
 
-public interface ICompanyValidatorService
+public interface ICompanyValidator
 {
     Task<Result> UniqueNameValidationAsync(string companyName, Result result, CancellationToken cancellationToken);
 }

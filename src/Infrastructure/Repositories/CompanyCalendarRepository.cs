@@ -1,15 +1,15 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendars;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
 using EmployeeControl.Domain.Repositories;
+using EmployeeControl.Domain.Validators;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Infrastructure.Repositories;
 
 public class CompanyCalendarRepository(
     IApplicationDbContext context,
-    ICompanyCalendarValidatorService companyCalendarValidatorService)
+    ICompanyCalendarValidator companyCalendarValidator)
     : ICompanyCalendarRepository
 {
     public async Task<ICollection<CompanyCalendar>> GetAllAsync(CancellationToken cancellationToken)
@@ -31,7 +31,7 @@ public class CompanyCalendarRepository(
 
     public async Task<CompanyCalendar> CreateAsync(CompanyCalendar companyCalendar, CancellationToken cancellationToken)
     {
-        await companyCalendarValidatorService.CreateValidationAsync(companyCalendar, cancellationToken);
+        await companyCalendarValidator.CreateValidationAsync(companyCalendar, cancellationToken);
 
         context.CompanyCalendars.Add(companyCalendar);
         await context.SaveChangesAsync(cancellationToken);
@@ -46,7 +46,7 @@ public class CompanyCalendarRepository(
 
     public async Task<CompanyCalendar> UpdateAsync(CompanyCalendar companyCalendar, CancellationToken cancellationToken)
     {
-        await companyCalendarValidatorService.UpdateValidationAsync(companyCalendar, cancellationToken);
+        await companyCalendarValidator.UpdateValidationAsync(companyCalendar, cancellationToken);
 
         context.CompanyCalendars.Update(companyCalendar);
         await context.SaveChangesAsync(cancellationToken);

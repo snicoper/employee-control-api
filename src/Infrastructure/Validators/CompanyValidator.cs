@@ -1,18 +1,18 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.Companies;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Domain.Common;
+using EmployeeControl.Domain.Validators;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
-namespace EmployeeControl.Infrastructure.Services.Features.Companies;
+namespace EmployeeControl.Infrastructure.Validators;
 
-public class CompanyValidatorService(
+public class CompanyValidator(
     IApplicationDbContext context,
-    ILogger<CompanyValidatorService> logger,
+    ILogger<CompanyValidator> logger,
     IStringLocalizer<CompanyResource> localizer)
-    : ICompanyValidatorService
+    : ICompanyValidator
 {
     public async Task<Result> UniqueNameValidationAsync(string companyName, Result result, CancellationToken cancellationToken)
     {

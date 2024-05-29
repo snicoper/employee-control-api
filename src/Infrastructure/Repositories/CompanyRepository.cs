@@ -1,15 +1,15 @@
 ﻿using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.Companies;
 using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
 using EmployeeControl.Domain.Repositories;
+using EmployeeControl.Domain.Validators;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Infrastructure.Repositories;
 
-public class CompanyRepository(IApplicationDbContext context, ICompanyValidatorService companyValidatorService)
+public class CompanyRepository(IApplicationDbContext context, ICompanyValidator companyValidator)
     : ICompanyRepository
 {
     public async Task<Company> GetCompanyAsync(CancellationToken cancellationToken)
@@ -36,7 +36,7 @@ public class CompanyRepository(IApplicationDbContext context, ICompanyValidatorS
     {
         // Validaciones.
         var result = Result.Create();
-        result = await companyValidatorService.UniqueNameValidationAsync(company.Name, result, cancellationToken);
+        result = await companyValidator.UniqueNameValidationAsync(company.Name, result, cancellationToken);
         result.RaiseBadRequest();
 
         // Crear Company y establecer valores de CompanySettings.

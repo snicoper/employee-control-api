@@ -1,15 +1,15 @@
 ﻿using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendarHolidays;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
 using EmployeeControl.Domain.Repositories;
+using EmployeeControl.Domain.Validators;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeControl.Infrastructure.Repositories;
 
 public class CompanyCalendarHolidayRepository(
     IApplicationDbContext context,
-    ICompanyCalendarHolidaysValidatorService companyCalendarHolidaysValidatorService)
+    ICompanyCalendarHolidaysValidator companyCalendarHolidaysValidator)
     : ICompanyCalendarHolidayRepository
 {
     public async Task<CompanyCalendarHoliday> GetByIdAsync(string id, CancellationToken cancellationToken)
@@ -26,7 +26,7 @@ public class CompanyCalendarHolidayRepository(
         CompanyCalendarHoliday companyCalendarHoliday,
         CancellationToken cancellationToken)
     {
-        await companyCalendarHolidaysValidatorService
+        await companyCalendarHolidaysValidator
             .ValidateCreateHolidayInDateAsync(companyCalendarHoliday, cancellationToken);
 
         context.CompanyCalendarHoliday.Add(companyCalendarHoliday);
@@ -39,7 +39,7 @@ public class CompanyCalendarHolidayRepository(
         CompanyCalendarHoliday companyCalendarHoliday,
         CancellationToken cancellationToken)
     {
-        await companyCalendarHolidaysValidatorService
+        await companyCalendarHolidaysValidator
             .ValidateUpdateHolidayInDateAsync(companyCalendarHoliday, cancellationToken);
 
         context.CompanyCalendarHoliday.Update(companyCalendarHoliday);

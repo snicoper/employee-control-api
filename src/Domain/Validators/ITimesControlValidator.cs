@@ -1,9 +1,9 @@
 ﻿using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
+namespace EmployeeControl.Domain.Validators;
 
-public interface ITimesControlValidatorService
+public interface ITimesControlValidator
 {
     /// <summary>
     /// Reglas de validación de un <see cref="TimeControl" /> en la creación.

@@ -1,9 +1,9 @@
 ﻿using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.Departments;
+namespace EmployeeControl.Domain.Validators;
 
-public interface IDepartmentValidatorService
+public interface IDepartmentValidator
 {
     /// <summary>
     /// Valida el nombre de un <see cref="Department" />.

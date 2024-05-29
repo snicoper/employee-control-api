@@ -1,8 +1,8 @@
 ﻿using EmployeeControl.Domain.Entities;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendars;
+namespace EmployeeControl.Domain.Validators;
 
-public interface ICompanyCalendarValidatorService
+public interface ICompanyCalendarValidator
 {
     /// <summary>
     /// Validaciones para crear un <see cref="CompanyCalendar" />.

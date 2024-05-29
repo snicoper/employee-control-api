@@ -3,14 +3,14 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using EmployeeControl.Application.Common.Constants;
-using EmployeeControl.Application.Common.Interfaces.Features.Identity;
+using EmployeeControl.Application.Common.Interfaces.Users;
 using EmployeeControl.Application.Common.Models.Settings;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
-namespace EmployeeControl.Infrastructure.Services.Features.Identity;
+namespace EmployeeControl.Infrastructure.Services.Users;
 
 public class TokenService(IOptions<JwtSettings> jwtSettings, UserManager<User> userManager)
     : ITokenService

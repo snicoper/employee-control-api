@@ -1,5 +1,5 @@
-﻿using EmployeeControl.Application.Common.Interfaces.Features.Identity;
-using EmployeeControl.Application.Common.Interfaces.Messaging;
+﻿using EmployeeControl.Application.Common.Interfaces.Messaging;
+using EmployeeControl.Application.Common.Interfaces.Users;
 using EmployeeControl.Domain.Common;
 
 namespace EmployeeControl.Application.Features.Auth.Commands.RefreshToken;

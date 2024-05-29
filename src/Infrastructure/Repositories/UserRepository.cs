@@ -1,13 +1,13 @@
 ﻿using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.Identity;
 using EmployeeControl.Application.Common.Interfaces.Users;
 using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Constants;
 using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Exceptions;
 using EmployeeControl.Domain.Repositories;
+using EmployeeControl.Domain.Validators;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +21,7 @@ public class UserRepository(
     IUserClaimsPrincipalFactory<User> userClaimsPrincipalFactory,
     IAuthorizationService authorizationService,
     ICurrentUserService currentUserService,
-    IIdentityValidatorService identityValidatorService,
+    IIdentityValidator identityValidator,
     IDateTimeService dateTimeService,
     ILogger<UserRepository> logger)
     : IUserRepository
@@ -115,9 +115,9 @@ public class UserRepository(
 
         // Validaciones.
         var result = Result.Create();
-        await identityValidatorService.UserValidationAsync(user, result);
-        await identityValidatorService.PasswordValidationAsync(user, password, result);
-        await identityValidatorService.UniqueEmailValidationAsync(user, result, cancellationToken);
+        await identityValidator.UserValidationAsync(user, result);
+        await identityValidator.PasswordValidationAsync(user, password, result);
+        await identityValidator.UniqueEmailValidationAsync(user, result, cancellationToken);
         result.RaiseBadRequest();
 
         var identityResult = await userManager.CreateAsync(user, password);
@@ -131,8 +131,8 @@ public class UserRepository(
     {
         // Validaciones.
         var result = Result.Create();
-        await identityValidatorService.UserValidationAsync(user, result);
-        await identityValidatorService.UniqueEmailValidationAsync(user, result, cancellationToken);
+        await identityValidator.UserValidationAsync(user, result);
+        await identityValidator.UniqueEmailValidationAsync(user, result, cancellationToken);
         result.RaiseBadRequest();
 
         user.UserName = user.Email;
@@ -197,7 +197,7 @@ public class UserRepository(
         var userRoles = await userManager.GetRolesAsync(user);
 
         var result = Result.Create();
-        identityValidatorService.ValidateUpdateEmployeeRoles(user, userRoles, result);
+        identityValidator.ValidateUpdateEmployeeRoles(user, userRoles, result);
         result.RaiseBadRequest();
 
         // El rol de Employee es requerido.

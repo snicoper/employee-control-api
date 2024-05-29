@@ -2,9 +2,9 @@ using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.Identity;
+namespace EmployeeControl.Domain.Validators;
 
-public interface IIdentityValidatorService
+public interface IIdentityValidator
 {
     /// <summary>
     /// Comprueba si el Email esta en uso.

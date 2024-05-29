@@ -1,8 +1,8 @@
 ﻿using EmployeeControl.Domain.Entities;
 
-namespace EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendarHolidays;
+namespace EmployeeControl.Domain.Validators;
 
-public interface ICompanyCalendarHolidaysValidatorService
+public interface ICompanyCalendarHolidaysValidator
 {
     /// <summary>
     /// Comprueba si la compañía ya tiene un día festivo.

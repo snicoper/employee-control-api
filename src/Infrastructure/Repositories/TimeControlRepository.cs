@@ -2,7 +2,6 @@
 using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Common;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.TimesControl;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Application.Common.Services.Hubs;
 using EmployeeControl.Domain.Common;
@@ -10,6 +9,7 @@ using EmployeeControl.Domain.Entities;
 using EmployeeControl.Domain.Enums;
 using EmployeeControl.Domain.Exceptions;
 using EmployeeControl.Domain.Repositories;
+using EmployeeControl.Domain.Validators;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
@@ -18,7 +18,7 @@ namespace EmployeeControl.Infrastructure.Repositories;
 
 public class TimeControlRepository(
     IDateTimeService dateTimeService,
-    ITimesControlValidatorService timesControlValidatorService,
+    ITimesControlValidator timesControlValidator,
     IApplicationDbContext context,
     ICompanySettingsRepository companySettingsRepository,
     IHubContext<NotificationTimeControlIncidenceHub> hubContext,
@@ -154,7 +154,7 @@ public class TimeControlRepository(
     public async Task<TimeControl> CreateWithOutFinishAsync(TimeControl timeControl, CancellationToken cancellationToken)
     {
         var result = Result.Create();
-        result = await timesControlValidatorService.ValidateCreateAsync(timeControl, result, cancellationToken);
+        result = await timesControlValidator.ValidateCreateAsync(timeControl, result, cancellationToken);
         result.RaiseBadRequest();
 
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
@@ -166,7 +166,7 @@ public class TimeControlRepository(
     public async Task<TimeControl> CreateWithFinishAsync(TimeControl timeControl, CancellationToken cancellationToken)
     {
         var result = Result.Create();
-        result = await timesControlValidatorService.ValidateUpdateAsync(timeControl, result, cancellationToken);
+        result = await timesControlValidator.ValidateUpdateAsync(timeControl, result, cancellationToken);
         result.RaiseBadRequest();
 
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
@@ -194,7 +194,7 @@ public class TimeControlRepository(
 
         // Validaciones.
         var result = Result.Create();
-        result = await timesControlValidatorService.ValidateCreateAsync(timeControl, result, cancellationToken);
+        result = await timesControlValidator.ValidateCreateAsync(timeControl, result, cancellationToken);
         result.RaiseBadRequest();
 
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
@@ -206,7 +206,7 @@ public class TimeControlRepository(
     public async Task<TimeControl> UpdateAsync(TimeControl timeControl, CancellationToken cancellationToken)
     {
         var result = Result.Create();
-        result = await timesControlValidatorService.ValidateUpdateAsync(timeControl, result, cancellationToken);
+        result = await timesControlValidator.ValidateUpdateAsync(timeControl, result, cancellationToken);
         result.RaiseBadRequest();
 
         context.TimeControls.Update(timeControl);

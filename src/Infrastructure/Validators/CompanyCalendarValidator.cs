@@ -1,20 +1,20 @@
 ﻿using EmployeeControl.Application.Common.Extensions;
 using EmployeeControl.Application.Common.Interfaces.Data;
-using EmployeeControl.Application.Common.Interfaces.Features.CompanyCalendars;
 using EmployeeControl.Application.Common.Localization;
 using EmployeeControl.Domain.Common;
 using EmployeeControl.Domain.Entities;
+using EmployeeControl.Domain.Validators;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 
-namespace EmployeeControl.Infrastructure.Services.Features.CompanyCalendars;
+namespace EmployeeControl.Infrastructure.Validators;
 
-public class CompanyCalendarValidatorService(
-    ILogger<CompanyCalendarValidatorService> logger,
+public class CompanyCalendarValidator(
+    ILogger<CompanyCalendarValidator> logger,
     IStringLocalizer<CalendarResource> localizer,
     IApplicationDbContext context)
-    : ICompanyCalendarValidatorService
+    : ICompanyCalendarValidator
 {
     public async Task CreateValidationAsync(CompanyCalendar companyCalendar, CancellationToken cancellationToken)
     {
