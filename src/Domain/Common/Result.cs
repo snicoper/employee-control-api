@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace EmployeeControl.Domain.Common;
+﻿namespace EmployeeControl.Domain.Common;
 
 public class Result
 {
@@ -8,7 +6,6 @@ public class Result
     {
         Succeeded = succeeded;
         Errors = errors;
-        Status = StatusCodes.Status200OK;
     }
 
     public bool Succeeded { get; private set; }
