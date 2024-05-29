@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.Departments.Commands.AssignEmployeesToDepartment;
 
-public class AssignEmployeesToDepartmentValidator : AbstractValidator<AssignEmployeesToDepartmentCommand>
+internal class AssignEmployeesToDepartmentValidator : AbstractValidator<AssignEmployeesToDepartmentCommand>
 {
     public AssignEmployeesToDepartmentValidator()
     {

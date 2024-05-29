@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimeStateByEmployeeId;
 
-public class GetTimeStateByEmployeeIdValidator : AbstractValidator<GetTimeStateByEmployeeIdQuery>
+internal class GetTimeStateByEmployeeIdValidator : AbstractValidator<GetTimeStateByEmployeeIdQuery>
 {
     public GetTimeStateByEmployeeIdValidator()
     {

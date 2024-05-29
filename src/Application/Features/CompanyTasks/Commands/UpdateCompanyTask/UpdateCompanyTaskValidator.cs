@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.UpdateCompanyTask;
 
-public class UpdateCompanyTaskValidator : AbstractValidator<UpdateCompanyTaskCommand>
+internal class UpdateCompanyTaskValidator : AbstractValidator<UpdateCompanyTaskCommand>
 {
     public UpdateCompanyTaskValidator()
     {

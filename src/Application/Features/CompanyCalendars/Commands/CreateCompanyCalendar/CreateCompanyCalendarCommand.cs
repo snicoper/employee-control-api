@@ -7,8 +7,7 @@ using EmployeeControl.Domain.Entities;
 namespace EmployeeControl.Application.Features.CompanyCalendars.Commands.CreateCompanyCalendar;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record CreateCompanyCalendarCommand(string Name, string Description, bool Default)
-    : ICommand<Guid>
+public record CreateCompanyCalendarCommand(string Name, string Description, bool Default) : ICommand<Guid>
 {
     internal class Mapping : Profile
     {

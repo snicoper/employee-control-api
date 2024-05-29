@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.Departments.Queries.GetDepartmentsByEmployeeIdPaginated;
 
-public class GetDepartmentsByEmployeeIdPaginatedValidator : AbstractValidator<GetDepartmentsByEmployeeIdPaginatedQuery>
+internal class GetDepartmentsByEmployeeIdPaginatedValidator : AbstractValidator<GetDepartmentsByEmployeeIdPaginatedQuery>
 {
     public GetDepartmentsByEmployeeIdPaginatedValidator()
     {

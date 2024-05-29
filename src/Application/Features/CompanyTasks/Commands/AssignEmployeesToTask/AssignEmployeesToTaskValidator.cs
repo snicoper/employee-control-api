@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.AssignEmployeesToTask;
 
-public class AssignEmployeesToTaskValidator : AbstractValidator<AssignEmployeesToTaskCommand>
+internal class AssignEmployeesToTaskValidator : AbstractValidator<AssignEmployeesToTaskCommand>
 {
     public AssignEmployeesToTaskValidator()
     {

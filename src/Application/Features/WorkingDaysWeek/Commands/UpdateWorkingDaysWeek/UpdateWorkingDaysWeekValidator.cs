@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.WorkingDaysWeek.Commands.UpdateWorkingDaysWeek;
 
-public class UpdateWorkingDaysWeekValidator : AbstractValidator<UpdateWorkingDaysWeekCommand>
+internal class UpdateWorkingDaysWeekValidator : AbstractValidator<UpdateWorkingDaysWeekCommand>
 {
     public UpdateWorkingDaysWeekValidator()
     {

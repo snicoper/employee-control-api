@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.Employees.Commands.RemoveRoleHumanResources;
 
-public class RemoveRoleHumanResourcesValidator : AbstractValidator<RemoveRoleHumanResourcesCommand>
+internal class RemoveRoleHumanResourcesValidator : AbstractValidator<RemoveRoleHumanResourcesCommand>
 {
     public RemoveRoleHumanResourcesValidator()
     {

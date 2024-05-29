@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.DeactivateCompanyTask;
 
-public class DeactivateCompanyTaskValidator : AbstractValidator<DeactivateCompanyTaskCommand>
+internal class DeactivateCompanyTaskValidator : AbstractValidator<DeactivateCompanyTaskCommand>
 {
     public DeactivateCompanyTaskValidator()
     {

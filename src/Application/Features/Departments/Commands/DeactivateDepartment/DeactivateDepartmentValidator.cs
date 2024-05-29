@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.Departments.Commands.DeactivateDepartment;
 
-public class DeactivateDepartmentValidator : AbstractValidator<DeactivateDepartmentCommand>
+internal class DeactivateDepartmentValidator : AbstractValidator<DeactivateDepartmentCommand>
 {
     public DeactivateDepartmentValidator()
     {

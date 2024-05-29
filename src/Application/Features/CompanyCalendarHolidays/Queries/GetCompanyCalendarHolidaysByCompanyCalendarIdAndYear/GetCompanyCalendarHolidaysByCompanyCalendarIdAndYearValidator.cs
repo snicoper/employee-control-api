@@ -3,7 +3,7 @@
 namespace EmployeeControl.Application.Features.CompanyCalendarHolidays.Queries.
     GetCompanyCalendarHolidaysByCompanyCalendarIdAndYear;
 
-public class GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearValidator
+internal class GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearValidator
     : AbstractValidator<GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearQuery>
 {
     public GetCompanyCalendarHolidaysByCompanyCalendarIdAndYearValidator()

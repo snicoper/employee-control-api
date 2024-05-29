@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.Departments.Commands.UpdateDepartment;
 
-public class UpdateDepartmentValidator : AbstractValidator<UpdateDepartmentCommand>
+internal class UpdateDepartmentValidator : AbstractValidator<UpdateDepartmentCommand>
 {
     public UpdateDepartmentValidator()
     {

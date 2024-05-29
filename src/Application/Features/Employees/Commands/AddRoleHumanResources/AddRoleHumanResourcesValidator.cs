@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.Employees.Commands.AddRoleHumanResources;
 
-public class AddRoleHumanResourcesValidator : AbstractValidator<AddRoleHumanResourcesCommand>
+internal class AddRoleHumanResourcesValidator : AbstractValidator<AddRoleHumanResourcesCommand>
 {
     public AddRoleHumanResourcesValidator()
     {

@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.Accounts.Commands.RecoveryPassword;
 
-public class RecoveryPasswordValidator : AbstractValidator<RecoveryPasswordCommand>
+internal class RecoveryPasswordValidator : AbstractValidator<RecoveryPasswordCommand>
 {
     public RecoveryPasswordValidator()
     {

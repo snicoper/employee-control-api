@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlByEmployeeIdPaginated;
 
-public class GetTimesControlByEmployeeIdPaginatedValidator : AbstractValidator<GetTimesControlByEmployeeIdPaginatedQuery>
+internal class GetTimesControlByEmployeeIdPaginatedValidator : AbstractValidator<GetTimesControlByEmployeeIdPaginatedQuery>
 {
     public GetTimesControlByEmployeeIdPaginatedValidator()
     {

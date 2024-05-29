@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.CompanyCalendarHolidays.Command.CreateCompanyCalendarHoliday;
 
-public class CreateCompanyCalendarHolidayValidator : AbstractValidator<CreateCompanyCalendarHolidayCommand>
+internal class CreateCompanyCalendarHolidayValidator : AbstractValidator<CreateCompanyCalendarHolidayCommand>
 {
     public CreateCompanyCalendarHolidayValidator()
     {

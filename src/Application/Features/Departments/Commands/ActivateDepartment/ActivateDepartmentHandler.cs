@@ -4,8 +4,7 @@ using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.Departments.Commands.ActivateDepartment;
 
-internal class ActivateDepartmentHandler(IDepartmentRepository departmentRepository)
-    : ICommandHandler<ActivateDepartmentCommand>
+internal class ActivateDepartmentHandler(IDepartmentRepository departmentRepository) : ICommandHandler<ActivateDepartmentCommand>
 {
     public async Task<Result> Handle(ActivateDepartmentCommand request, CancellationToken cancellationToken)
     {

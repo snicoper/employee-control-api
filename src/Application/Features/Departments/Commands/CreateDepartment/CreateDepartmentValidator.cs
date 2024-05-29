@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.Departments.Commands.CreateDepartment;
 
-public class CreateDepartmentValidator : AbstractValidator<CreateDepartmentCommand>
+internal class CreateDepartmentValidator : AbstractValidator<CreateDepartmentCommand>
 {
     public CreateDepartmentValidator()
     {

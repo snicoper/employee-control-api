@@ -21,7 +21,6 @@ internal class RecoveryPasswordHandler(
     {
         var user = await userRepository.GetByEmailAsync(request.Email);
 
-        // El usuario debe estar activo.
         if (!user.Active)
         {
             var errorMessage = localizer["La cuenta no esta activa."];
@@ -30,7 +29,6 @@ internal class RecoveryPasswordHandler(
             result.RaiseBadRequest();
         }
 
-        // El usuario ha debido confirmar el email.
         if (!user.EmailConfirmed)
         {
             var errorMessage = localizer["Correo electrónico no confirmado."];
@@ -39,7 +37,6 @@ internal class RecoveryPasswordHandler(
             result.RaiseBadRequest();
         }
 
-        // Generar code de validación y enviar correo electrónico.
         var code = await userManager.GeneratePasswordResetTokenAsync(user);
         await identityEmailsService.SendRecoveryPasswordAsync(user, code);
 

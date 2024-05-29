@@ -7,8 +7,7 @@ using EmployeeControl.Domain.Entities;
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.UpdateCompanyTask;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record UpdateCompanyTaskCommand(Guid Id, string Name, string Background, string Color, bool Active)
-    : ICommand
+public record UpdateCompanyTaskCommand(Guid Id, string Name, string Background, string Color, bool Active) : ICommand
 {
     internal class Mapping : Profile
     {

@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlById;
 
-public class GetTimeControlByIdValidator : AbstractValidator<GetTimeControlByIdQuery>
+internal class GetTimeControlByIdValidator : AbstractValidator<GetTimeControlByIdQuery>
 {
     public GetTimeControlByIdValidator()
     {

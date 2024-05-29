@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.CompanySettings.Commands.UpdateCompanySettings;
 
-public class UpdateCompanySettingsValidator : AbstractValidator<UpdateCompanySettingsCommand>
+internal class UpdateCompanySettingsValidator : AbstractValidator<UpdateCompanySettingsCommand>
 {
     public UpdateCompanySettingsValidator()
     {

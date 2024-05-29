@@ -5,8 +5,7 @@ using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.Employees.Commands.UpdateEmployeeRoles;
 
-internal class UpdateEmployeeRolesHandler(IUserRepository userRepository)
-    : ICommandHandler<UpdateEmployeeRolesCommand>
+internal class UpdateEmployeeRolesHandler(IUserRepository userRepository) : ICommandHandler<UpdateEmployeeRolesCommand>
 {
     public async Task<Result> Handle(UpdateEmployeeRolesCommand request, CancellationToken cancellationToken)
     {

@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.TimesControl.Commands.CreateTimeControl;
 
-public class CreateTimeControlValidator : AbstractValidator<CreateTimeControlCommand>
+internal class CreateTimeControlValidator : AbstractValidator<CreateTimeControlCommand>
 {
     public CreateTimeControlValidator()
     {

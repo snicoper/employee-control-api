@@ -2,5 +2,4 @@
 
 namespace EmployeeControl.Application.Features.Auth.Commands.RefreshToken;
 
-public record RefreshTokenCommand(string RefreshToken)
-    : ICommand<RefreshTokenResponse>;
+public record RefreshTokenCommand(string RefreshToken) : ICommand<RefreshTokenResponse>;

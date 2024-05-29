@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.TimesControl.Commands.UpdateTimeControl;
 
-public class UpdateTimeControlValidator : AbstractValidator<UpdateTimeControlCommand>
+internal class UpdateTimeControlValidator : AbstractValidator<UpdateTimeControlCommand>
 {
     public UpdateTimeControlValidator()
     {

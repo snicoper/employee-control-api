@@ -5,7 +5,7 @@ using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlWithEmployeeById;
 
-public class GetTimeControlWithEmployeeByIdHandler(ITimeControlRepository timeControlRepository, IMapper mapper)
+internal class GetTimeControlWithEmployeeByIdHandler(ITimeControlRepository timeControlRepository, IMapper mapper)
     : IQueryHandler<GetTimeControlWithEmployeeByIdQuery, GetTimeControlWithEmployeeByIdResponse>
 {
     public async Task<Result<GetTimeControlWithEmployeeByIdResponse>> Handle(

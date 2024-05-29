@@ -6,7 +6,7 @@ using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.Departments.Queries.GetDepartmentsByEmployeeIdPaginated;
 
-public class GetDepartmentsByEmployeeIdPaginatedHandler(IDepartmentRepository departmentRepository, IMapper mapper)
+internal class GetDepartmentsByEmployeeIdPaginatedHandler(IDepartmentRepository departmentRepository, IMapper mapper)
     : IQueryHandler<GetDepartmentsByEmployeeIdPaginatedQuery, ResponseData<GetDepartmentsByEmployeeIdPaginatedResponse>>
 {
     public async Task<Result<ResponseData<GetDepartmentsByEmployeeIdPaginatedResponse>>> Handle(

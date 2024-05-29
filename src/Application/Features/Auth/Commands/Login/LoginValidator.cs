@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.Auth.Commands.Login;
 
-public class LoginValidator : AbstractValidator<LoginCommand>
+internal class LoginValidator : AbstractValidator<LoginCommand>
 {
     public LoginValidator()
     {

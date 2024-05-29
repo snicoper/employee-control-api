@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.CompanyCalendars.Commands.SetDefaultCalendar;
 
-public class SetDefaultCalendarValidator : AbstractValidator<SetDefaultCalendarCommand>
+internal class SetDefaultCalendarValidator : AbstractValidator<SetDefaultCalendarCommand>
 {
     public SetDefaultCalendarValidator()
     {

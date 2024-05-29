@@ -6,7 +6,7 @@ using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlByEmployeeIdPaginated;
 
-public class GetTimesControlByEmployeeIdPaginatedHandler(ITimeControlRepository timeControlRepository, IMapper mapper)
+internal class GetTimesControlByEmployeeIdPaginatedHandler(ITimeControlRepository timeControlRepository, IMapper mapper)
     : IQueryHandler<GetTimesControlByEmployeeIdPaginatedQuery, ResponseData<GetTimesControlByEmployeeIdPaginatedResponse>>
 {
     public async Task<Result<ResponseData<GetTimesControlByEmployeeIdPaginatedResponse>>> Handle(

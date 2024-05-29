@@ -7,8 +7,7 @@ using EmployeeControl.Domain.Entities;
 namespace EmployeeControl.Application.Features.Employees.Commands.UpdateEmployeeSettings;
 
 [Authorize(Roles = Roles.Employee)]
-public record UpdateEmployeeSettingsCommand(Guid Id, Guid UserId, string Timezone)
-    : ICommand<EmployeeSettings>
+public record UpdateEmployeeSettingsCommand(Guid Id, Guid UserId, string Timezone) : ICommand<EmployeeSettings>
 {
     internal class Mapping : Profile
     {

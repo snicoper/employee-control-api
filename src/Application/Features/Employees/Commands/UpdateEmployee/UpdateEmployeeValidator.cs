@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.Employees.Commands.UpdateEmployee;
 
-public class UpdateEmployeeValidator : AbstractValidator<UpdateEmployeeCommand>
+internal class UpdateEmployeeValidator : AbstractValidator<UpdateEmployeeCommand>
 {
     public UpdateEmployeeValidator()
     {

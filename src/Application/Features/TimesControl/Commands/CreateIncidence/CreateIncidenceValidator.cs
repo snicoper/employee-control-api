@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.TimesControl.Commands.CreateIncidence;
 
-public class CreateIncidenceValidator : AbstractValidator<CreateIncidenceCommand>
+internal class CreateIncidenceValidator : AbstractValidator<CreateIncidenceCommand>
 {
     public CreateIncidenceValidator()
     {

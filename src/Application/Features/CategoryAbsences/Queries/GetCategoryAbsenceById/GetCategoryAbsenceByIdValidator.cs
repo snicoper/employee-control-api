@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.CategoryAbsences.Queries.GetCategoryAbsenceById;
 
-public class GetCategoryAbsenceByIdValidator : AbstractValidator<GetCategoryAbsenceByIdQuery>
+internal class GetCategoryAbsenceByIdValidator : AbstractValidator<GetCategoryAbsenceByIdQuery>
 {
     public GetCategoryAbsenceByIdValidator()
     {

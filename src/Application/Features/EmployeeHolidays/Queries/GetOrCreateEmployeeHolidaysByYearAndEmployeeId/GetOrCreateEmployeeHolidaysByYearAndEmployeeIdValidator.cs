@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.EmployeeHolidays.Queries.GetOrCreateEmployeeHolidaysByYearAndEmployeeId;
 
-public class GetOrCreateEmployeeHolidaysByYearAndEmployeeIdValidator : AbstractValidator<
+internal class GetOrCreateEmployeeHolidaysByYearAndEmployeeIdValidator : AbstractValidator<
     GetOrCreateEmployeeHolidaysByYearAndEmployeeIdQuery>
 {
     public GetOrCreateEmployeeHolidaysByYearAndEmployeeIdValidator()

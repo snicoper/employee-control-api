@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.CategoryAbsences.Commands.UpdateCategoryAbsence;
 
-public class UpdateCategoryAbsenceValidator : AbstractValidator<UpdateCategoryAbsenceCommand>
+internal class UpdateCategoryAbsenceValidator : AbstractValidator<UpdateCategoryAbsenceCommand>
 {
     public UpdateCategoryAbsenceValidator()
     {

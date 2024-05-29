@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace EmployeeControl.Application.Features.TimesControl.Commands.FinishTimeControl;
 
-public class FinishTimeControlValidator : AbstractValidator<StartTimeControlCommand>
+internal class FinishTimeControlValidator : AbstractValidator<StartTimeControlCommand>
 {
     public FinishTimeControlValidator()
     {

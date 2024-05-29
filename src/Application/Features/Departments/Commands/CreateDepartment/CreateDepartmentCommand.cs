@@ -7,8 +7,7 @@ using EmployeeControl.Domain.Entities;
 namespace EmployeeControl.Application.Features.Departments.Commands.CreateDepartment;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record CreateDepartmentCommand(string Name, string Background, string Color)
-    : ICommand<Guid>
+public record CreateDepartmentCommand(string Name, string Background, string Color) : ICommand<Guid>
 {
     internal class Mapping : Profile
     {

@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.Employees.Commands.ActivateEmployee;
 
-public class ActivateEmployeeValidator : AbstractValidator<ActivateEmployeeCommand>
+internal class ActivateEmployeeValidator : AbstractValidator<ActivateEmployeeCommand>
 {
     public ActivateEmployeeValidator()
     {

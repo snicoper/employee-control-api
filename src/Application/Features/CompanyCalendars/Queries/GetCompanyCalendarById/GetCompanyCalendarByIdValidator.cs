@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.CompanyCalendars.Queries.GetCompanyCalendarById;
 
-public class GetCompanyCalendarByIdValidator : AbstractValidator<GetCompanyCalendarByIdQuery>
+internal class GetCompanyCalendarByIdValidator : AbstractValidator<GetCompanyCalendarByIdQuery>
 {
     public GetCompanyCalendarByIdValidator()
     {

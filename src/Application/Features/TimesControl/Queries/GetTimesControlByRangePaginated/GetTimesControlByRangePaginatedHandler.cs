@@ -6,7 +6,7 @@ using EmployeeControl.Domain.Repositories;
 
 namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimesControlByRangePaginated;
 
-public class GetTimesControlByRangePaginatedHandler(ITimeControlRepository timeControlRepository, IMapper mapper)
+internal class GetTimesControlByRangePaginatedHandler(ITimeControlRepository timeControlRepository, IMapper mapper)
     : IQueryHandler<GetTimesControlByRangePaginatedQuery, ResponseData<GetTimesControlByRangePaginatedResponse>>
 {
     public async Task<Result<ResponseData<GetTimesControlByRangePaginatedResponse>>> Handle(

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Localization;
 
 namespace EmployeeControl.Application.Features.Accounts.Commands.RestorePassword;
 
-public class RestorePasswordValidator : AbstractValidator<RestorePasswordCommand>
+internal class RestorePasswordValidator : AbstractValidator<RestorePasswordCommand>
 {
     public RestorePasswordValidator(IStringLocalizer<IdentityResource> localizer)
     {

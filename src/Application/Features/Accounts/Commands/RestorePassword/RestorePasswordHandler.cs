@@ -20,7 +20,7 @@ internal class RestorePasswordHandler(
     public async Task<Result> Handle(RestorePasswordCommand request, CancellationToken cancellationToken)
     {
         var code = Base64UrlEncoder.Decode(request.Code);
-        var userId = Base64UrlEncoder.Decode(request.UserId);
+        var userId = Base64UrlEncoder.Decode(request.UserId.ToString());
         var result = Result.Create();
 
         var user = await userManager.FindByIdAsync(userId);

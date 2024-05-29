@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.EmployeeHolidays.Queries.GetEmployeeHolidaysByYearPaginated;
 
-public class GetEmployeeHolidaysByYearPaginatedValidator : AbstractValidator<GetEmployeeHolidaysByYearPaginatedQuery>
+internal class GetEmployeeHolidaysByYearPaginatedValidator : AbstractValidator<GetEmployeeHolidaysByYearPaginatedQuery>
 {
     public GetEmployeeHolidaysByYearPaginatedValidator()
     {

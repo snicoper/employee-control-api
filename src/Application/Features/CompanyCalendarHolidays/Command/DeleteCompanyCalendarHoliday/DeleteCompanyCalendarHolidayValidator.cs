@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.CompanyCalendarHolidays.Command.DeleteCompanyCalendarHoliday;
 
-public class DeleteCompanyCalendarHolidayValidator : AbstractValidator<DeleteCompanyCalendarHolidayCommand>
+internal class DeleteCompanyCalendarHolidayValidator : AbstractValidator<DeleteCompanyCalendarHolidayCommand>
 {
     public DeleteCompanyCalendarHolidayValidator()
     {

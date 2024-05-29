@@ -5,5 +5,4 @@ using EmployeeControl.Domain.Constants;
 namespace EmployeeControl.Application.Features.CompanyCalendars.Commands.SetDefaultCalendar;
 
 [Authorize(Roles = Roles.HumanResources)]
-public record SetDefaultCalendarCommand(Guid Id)
-    : ICommand;
+public record SetDefaultCalendarCommand(Guid Id) : ICommand;

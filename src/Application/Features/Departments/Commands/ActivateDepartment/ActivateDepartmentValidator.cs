@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.Departments.Commands.ActivateDepartment;
 
-public class ActivateDepartmentValidator : AbstractValidator<ActivateDepartmentCommand>
+internal class ActivateDepartmentValidator : AbstractValidator<ActivateDepartmentCommand>
 {
     public ActivateDepartmentValidator()
     {

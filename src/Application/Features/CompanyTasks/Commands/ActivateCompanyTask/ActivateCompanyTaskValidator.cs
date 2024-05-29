@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.CompanyTasks.Commands.ActivateCompanyTask;
 
-public class ActivateCompanyTaskValidator : AbstractValidator<ActivateCompanyTaskCommand>
+internal class ActivateCompanyTaskValidator : AbstractValidator<ActivateCompanyTaskCommand>
 {
     public ActivateCompanyTaskValidator()
     {

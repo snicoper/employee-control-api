@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.TimesControl.Commands.DeleteTimeControl;
 
-public class DeleteTimeControlValidator : AbstractValidator<DeleteTimeControlCommand>
+internal class DeleteTimeControlValidator : AbstractValidator<DeleteTimeControlCommand>
 {
     public DeleteTimeControlValidator()
     {

@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.CompanyCalendars.Commands.UpdateCompanyCalendar;
 
-public class UpdateCompanyCalendarValidator : AbstractValidator<UpdateCompanyCalendarCommand>
+internal class UpdateCompanyCalendarValidator : AbstractValidator<UpdateCompanyCalendarCommand>
 {
     public UpdateCompanyCalendarValidator()
     {

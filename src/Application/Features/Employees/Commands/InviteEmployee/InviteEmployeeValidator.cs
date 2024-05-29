@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.Employees.Commands.InviteEmployee;
 
-public class InviteEmployeeValidator : AbstractValidator<InviteEmployeeCommand>
+internal class InviteEmployeeValidator : AbstractValidator<InviteEmployeeCommand>
 {
     public InviteEmployeeValidator()
     {

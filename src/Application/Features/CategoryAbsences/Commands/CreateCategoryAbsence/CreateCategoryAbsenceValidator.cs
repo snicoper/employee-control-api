@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.CategoryAbsences.Commands.CreateCategoryAbsence;
 
-public class CreateCategoryAbsenceValidator : AbstractValidator<CreateCategoryAbsenceCommand>
+internal class CreateCategoryAbsenceValidator : AbstractValidator<CreateCategoryAbsenceCommand>
 {
     public CreateCategoryAbsenceValidator()
     {

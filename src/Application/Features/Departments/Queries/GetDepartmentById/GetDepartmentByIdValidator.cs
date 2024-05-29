@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Application.Features.Departments.Queries.GetDepartmentById;
 
-public class GetDepartmentByIdValidator : AbstractValidator<GetDepartmentByIdQuery>
+internal class GetDepartmentByIdValidator : AbstractValidator<GetDepartmentByIdQuery>
 {
     public GetDepartmentByIdValidator()
     {
