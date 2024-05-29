@@ -8,5 +8,5 @@ public interface ICloseTimeControlJob
     /// Cierra <see cref="TimeControl" /> que superen el tiempo abierto establecido
     /// por la configuración de la compañía.
     /// </summary>
-    Task Process();
+    Task ProcessAsync();
 }

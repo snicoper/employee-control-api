@@ -5,8 +5,6 @@
 /// </summary>
 public static class EmailViews
 {
-    public const string ValidateEmailRegistration = nameof(ValidateEmailRegistration);
-
     public const string InviteEmployee = nameof(InviteEmployee);
 
     public const string RecoveryPassword = nameof(RecoveryPassword);

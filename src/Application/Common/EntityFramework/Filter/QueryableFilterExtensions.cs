@@ -73,9 +73,9 @@ public static class QueryableFilterExtensions
             : string.Empty;
 
         // Comprobar si es un operador de string o lógico.
-        var filterResult = filter.RelationalOperator != FilterOperator.Contains &&
-                           filter.RelationalOperator != FilterOperator.StartsWith &&
-                           filter.RelationalOperator != FilterOperator.EndsWith
+        var filterResult = filter.RelationalOperator != FilterOperator.Contains
+                           && filter.RelationalOperator != FilterOperator.StartsWith
+                           && filter.RelationalOperator != FilterOperator.EndsWith
             ? $"{logicalOperator} {propertyName} {relationalOperator} @{valuePosition}"
             : $"{logicalOperator} {string.Format(propertyName + relationalOperator, valuePosition)}";
 

@@ -13,10 +13,10 @@ namespace EmployeeControl.Infrastructure.Services.Emails;
 
 public class EmailService : IEmailService
 {
-    private readonly EmailSenderSettings emailSenderSettings;
-    private readonly IHostEnvironment environment;
-    private readonly ILogger<EmailService> logger;
-    private readonly IRazorViewToStringRendererService razorViewToStringRendererService;
+    private readonly EmailSenderSettings _emailSenderSettings;
+    private readonly IHostEnvironment _environment;
+    private readonly ILogger<EmailService> _logger;
+    private readonly IRazorViewToStringRendererService _razorViewToStringRendererService;
 
     public EmailService(
         IOptions<EmailSenderSettings> options,
@@ -24,13 +24,13 @@ public class EmailService : IEmailService
         IHostEnvironment environment,
         IRazorViewToStringRendererService razorViewToStringRendererService)
     {
-        this.logger = logger;
-        this.environment = environment;
-        this.razorViewToStringRendererService = razorViewToStringRendererService;
-        emailSenderSettings = options.Value;
+        _logger = logger;
+        _environment = environment;
+        _razorViewToStringRendererService = razorViewToStringRendererService;
+        _emailSenderSettings = options.Value;
 
         MailPriority = MailPriority.High;
-        From = emailSenderSettings.DefaultFrom;
+        From = _emailSenderSettings.DefaultFrom;
         IsBodyHtml = true;
     }
 
@@ -51,7 +51,7 @@ public class EmailService : IEmailService
     {
         IsBodyHtml = true;
 
-        Body = await razorViewToStringRendererService.RenderViewToStringAsync(
+        Body = await _razorViewToStringRendererService.RenderViewToStringAsync(
             viewName,
             model,
             new Dictionary<string, object?>());
@@ -73,16 +73,16 @@ public class EmailService : IEmailService
         mailMessage.Priority = MailPriority;
 
         using var client = new SmtpClient();
-        client.Host = emailSenderSettings.Host ?? string.Empty;
-        client.Port = emailSenderSettings.Port;
-        client.Credentials = new NetworkCredential(emailSenderSettings.Username, emailSenderSettings.Password);
+        client.Host = _emailSenderSettings.Host ?? string.Empty;
+        client.Port = _emailSenderSettings.Port;
+        client.Credentials = new NetworkCredential(_emailSenderSettings.Username, _emailSenderSettings.Password);
         client.UseDefaultCredentials = false;
         client.EnableSsl = true;
 
         ValidateEmail();
 
         // Solo en Production se envían los mensajes por SMTP.
-        if (!environment.IsProduction())
+        if (!_environment.IsProduction())
         {
             LoggerMessage();
             return;
@@ -112,7 +112,7 @@ public class EmailService : IEmailService
     private void LoggerMessage()
     {
         var to = string.Join(", ", To);
-        var body = !environment.IsProduction() ? Body : "Body here.....";
+        var body = !_environment.IsProduction() ? Body : "Body here.....";
 
         var stringBuilder = new StringBuilder();
         stringBuilder.Append("=========================================================\n");
@@ -123,6 +123,6 @@ public class EmailService : IEmailService
         stringBuilder.Append($"Body: {body}\n");
         stringBuilder.Append("=========================================================\n");
 
-        logger.LogDebug("{LogEmail}", stringBuilder);
+        _logger.LogDebug("{LogEmail}", stringBuilder);
     }
 }

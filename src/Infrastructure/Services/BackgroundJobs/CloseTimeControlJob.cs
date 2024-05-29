@@ -21,7 +21,7 @@ public class CloseTimeControlJob(
     ILogger<CloseTimeControlJob> logger)
     : ICloseTimeControlJob
 {
-    public async Task Process()
+    public async Task ProcessAsync()
     {
         logger.LogInformation("Procesando {ControlJob}.", nameof(CloseTimeControlJob));
         var companySettings = await companySettingsRepository.GetCompanySettingsAsync(CancellationToken.None);

@@ -54,7 +54,7 @@ app.UseAuthorization();
 
 // Hangfire.
 app.UseHangfireDashboard();
-RecurringJob.AddOrUpdate<ICloseTimeControlJob>("close-time-control-job", service => service.Process(), "*/30 * * * *");
+RecurringJob.AddOrUpdate<ICloseTimeControlJob>("close-time-control-job", service => service.ProcessAsync(), "*/30 * * * *");
 
 app.MapControllers();
 
