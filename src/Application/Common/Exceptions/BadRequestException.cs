@@ -3,9 +3,10 @@ using FluentValidation.Results;
 
 namespace EmployeeControl.Application.Common.Exceptions;
 
-public class CustomValidationException() : Exception("One or more validation failures have occurred.")
+public class BadRequestException()
+    : Exception("One or more validation failures have occurred.")
 {
-    public CustomValidationException(IReadOnlyCollection<ValidationFailure> failures)
+    public BadRequestException(IReadOnlyCollection<ValidationFailure> failures)
         : this()
     {
         Errors = failures
@@ -13,7 +14,7 @@ public class CustomValidationException() : Exception("One or more validation fai
             .ToDictionary(failureGroup => failureGroup.Key.LowerCaseFirst(), failureGroup => failureGroup.ToArray());
     }
 
-    public CustomValidationException(IDictionary<string, string[]> errors)
+    public BadRequestException(IDictionary<string, string[]> errors)
         : this()
     {
         Errors = errors

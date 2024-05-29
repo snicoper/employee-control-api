@@ -7,21 +7,21 @@ public static class ResultExtensions
 {
     public static void RaiseBadRequest(this Result result)
     {
-        Raise(result.Succeeded, result.Errors);
+        RaiseBadRequestExceptionIfErrorsExists(result.Succeeded, result.Errors);
     }
 
     public static void RaiseBadRequest<TResult>(this Result<TResult> result)
     {
-        Raise(result.Succeeded, result.Errors);
+        RaiseBadRequestExceptionIfErrorsExists(result.Succeeded, result.Errors);
     }
 
-    private static void Raise(bool succeeded, IDictionary<string, string[]> errors)
+    private static void RaiseBadRequestExceptionIfErrorsExists(bool succeeded, IDictionary<string, string[]> errors)
     {
         if (succeeded)
         {
             return;
         }
 
-        throw new CustomValidationException(errors);
+        throw new BadRequestException(errors);
     }
 }

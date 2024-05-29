@@ -14,7 +14,7 @@ public class CustomExceptionHandler : IExceptionHandler
         // Register known exception types and handlers.
         _exceptionHandlers = new Dictionary<Type, Func<HttpContext, Exception, Task>>
         {
-            { typeof(CustomValidationException), HandleValidationException },
+            { typeof(BadRequestException), HandleValidationException },
             { typeof(NotFoundException), HandleNotFoundException },
             { typeof(UnauthorizedAccessException), HandleUnauthorizedAccessException },
             { typeof(ForbiddenAccessException), HandleForbiddenAccessException }
@@ -39,7 +39,7 @@ public class CustomExceptionHandler : IExceptionHandler
 
     private async Task HandleValidationException(HttpContext httpContext, Exception exception)
     {
-        var customValidationException = (CustomValidationException)exception;
+        var customValidationException = (BadRequestException)exception;
 
         httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
 

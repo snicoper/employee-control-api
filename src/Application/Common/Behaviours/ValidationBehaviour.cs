@@ -29,7 +29,7 @@ public class ValidationBehaviour<TRequest, TResponse>(IEnumerable<IValidator<TRe
 
         if (failures.Count != 0)
         {
-            throw new CustomValidationException(failures);
+            throw new BadRequestException(failures);
         }
 
         return await next();
