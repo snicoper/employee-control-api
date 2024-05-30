@@ -15,9 +15,9 @@ public class CompanyRepository(IApplicationDbContext context, ICompanyValidator 
     public async Task<Company> GetCompanyAsync(CancellationToken cancellationToken)
     {
         var result = await context
-                         .Companies
-                         .FirstOrDefaultAsync(cancellationToken)
-                     ?? throw new NotFoundException(nameof(Company), nameof(Company));
+            .Companies
+            .FirstOrDefaultAsync(cancellationToken)
+                ?? throw new NotFoundException(nameof(Company), nameof(Company));
 
         return result;
     }
@@ -25,9 +25,9 @@ public class CompanyRepository(IApplicationDbContext context, ICompanyValidator 
     public async Task<Company> GetCompanyByIdAsync(Guid companyId, CancellationToken cancellationToken)
     {
         var result = await context
-                         .Companies
-                         .SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken)
-                     ?? throw new NotFoundException(nameof(Company), nameof(Company));
+            .Companies
+            .SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken)
+                ?? throw new NotFoundException(nameof(Company), nameof(Company));
 
         return result;
     }
@@ -37,12 +37,10 @@ public class CompanyRepository(IApplicationDbContext context, ICompanyValidator 
         // Validaciones.
         var result = Result.Create();
         result = await companyValidator.UniqueNameValidationAsync(company.Name, result, cancellationToken);
-        result.RaiseBadRequest();
+        result.RaiseBadRequestIfErrorsExist();
 
-        // Crear Company y establecer valores de CompanySettings.
         company.CompanySettings = new CompanySettings { Timezone = timezone, PeriodTimeControlMax = 10 };
 
-        // Crear los días de trabajo para la compañía.
         company.WorkingDaysWeek = new WorkingDaysWeek
         {
             Monday = true,

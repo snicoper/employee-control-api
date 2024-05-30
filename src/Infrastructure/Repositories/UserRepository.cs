@@ -38,16 +38,16 @@ public class UserRepository(
     public async Task<User> GetByIdAsync(Guid userId)
     {
         return await userManager.FindByIdAsync(userId.ToString())
-               ?? throw new NotFoundException(nameof(User), nameof(User.Id));
+            ?? throw new NotFoundException(nameof(User), nameof(User.Id));
     }
 
     public async Task<User> GetByIdWithCompanyCalendarAsync(Guid userId)
     {
         var user = await userManager
-                       .Users
-                       .Include(u => u.CompanyCalendar)
-                       .SingleOrDefaultAsync(u => u.Id == userId)
-                   ?? throw new NotFoundException(nameof(User), nameof(User.Id));
+            .Users
+            .Include(u => u.CompanyCalendar)
+            .SingleOrDefaultAsync(u => u.Id == userId)
+                ?? throw new NotFoundException(nameof(User), nameof(User.Id));
 
         return user;
     }
@@ -62,8 +62,8 @@ public class UserRepository(
     public async Task<User> GetByEmailAsync(string email)
     {
         return await userManager
-                   .FindByEmailAsync(email)
-               ?? throw new NotFoundException(nameof(User), nameof(User.Email));
+            .FindByEmailAsync(email)
+                ?? throw new NotFoundException(nameof(User), nameof(User.Email));
     }
 
     public async Task<bool> IsInRoleAsync(Guid userId, string role)
@@ -117,7 +117,7 @@ public class UserRepository(
         await identityValidator.UserValidationAsync(user, result);
         await identityValidator.PasswordValidationAsync(user, password, result);
         await identityValidator.UniqueEmailValidationAsync(user, result, cancellationToken);
-        result.RaiseBadRequest();
+        result.RaiseBadRequestIfErrorsExist();
 
         var identityResult = await userManager.CreateAsync(user, password);
 
@@ -132,7 +132,7 @@ public class UserRepository(
         var result = Result.Create();
         await identityValidator.UserValidationAsync(user, result);
         await identityValidator.UniqueEmailValidationAsync(user, result, cancellationToken);
-        result.RaiseBadRequest();
+        result.RaiseBadRequestIfErrorsExist();
 
         user.UserName = user.Email;
 
@@ -192,12 +192,11 @@ public class UserRepository(
 
     private async Task<IdentityResult> RemoveRolesByUserIdAsync(User user, List<string> rolesToAdd)
     {
-        // Obtener todos los roles y eliminarlos del usuario.
         var userRoles = await userManager.GetRolesAsync(user);
 
         var result = Result.Create();
         identityValidator.ValidateUpdateEmployeeRoles(user, userRoles, result);
-        result.RaiseBadRequest();
+        result.RaiseBadRequestIfErrorsExist();
 
         // El rol de Employee es requerido.
         if (!rolesToAdd.Exists(r => r.Equals(Roles.Employee)))

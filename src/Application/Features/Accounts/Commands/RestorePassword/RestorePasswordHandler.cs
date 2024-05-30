@@ -30,21 +30,21 @@ internal class RestorePasswordHandler(
             var message = localizer["El usuario no existe."];
             logger.LogDebug("{Message}", message);
             result.AddError(ValidationErrorsKeys.NonFieldErrors, message);
-            result.RaiseBadRequest();
+            result.RaiseBadRequestIfErrorsExist();
         }
 
         if (!user!.EmailConfirmed)
         {
             var message = localizer["Correo electrónico no confirmado."];
             result.AddError(ValidationErrorsKeys.NonFieldErrors, message);
-            result.RaiseBadRequest();
+            result.RaiseBadRequestIfErrorsExist();
         }
 
         if (!user.Active)
         {
             var message = localizer["La cuenta no esta activa."];
             result.AddError(ValidationErrorsKeys.NonFieldErrors, message);
-            result.RaiseBadRequest();
+            result.RaiseBadRequestIfErrorsExist();
         }
 
         var resetResult = await userManager.ResetPasswordAsync(user, code, request.Password);

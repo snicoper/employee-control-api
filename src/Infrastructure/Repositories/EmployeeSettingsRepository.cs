@@ -11,10 +11,12 @@ public class EmployeeSettingsRepository(IApplicationDbContext context)
 {
     public async Task<EmployeeSettings> GetByEmployeeIdAsync(Guid employeeId, CancellationToken cancellationToken)
     {
-        return await context
-                   .EmployeeSettings
-                   .SingleOrDefaultAsync(es => es.UserId == employeeId, cancellationToken)
-               ?? throw new NotFoundException(nameof(EmployeeSettings), nameof(EmployeeSettings.UserId));
+        var employee = await context
+            .EmployeeSettings
+            .SingleOrDefaultAsync(es => es.UserId == employeeId, cancellationToken)
+                ?? throw new NotFoundException(nameof(EmployeeSettings), nameof(EmployeeSettings.UserId));
+
+        return employee;
     }
 
     public async Task<int> CreateAsync(EmployeeSettings employeeSettings, CancellationToken cancellationToken)

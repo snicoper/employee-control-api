@@ -33,9 +33,9 @@ public class DepartmentRepository(IApplicationDbContext context, IDepartmentVali
     public async Task<Department> GetByIdAsync(Guid departmentId, CancellationToken cancellationToken)
     {
         var department = await context
-                             .Departments
-                             .SingleOrDefaultAsync(d => d.Id == departmentId, cancellationToken)
-                         ?? throw new NotFoundException(nameof(Department), nameof(Department.Id));
+            .Departments
+            .SingleOrDefaultAsync(d => d.Id == departmentId, cancellationToken)
+                ?? throw new NotFoundException(nameof(Department), nameof(Department.Id));
 
         return department;
     }
@@ -46,7 +46,7 @@ public class DepartmentRepository(IApplicationDbContext context, IDepartmentVali
         var result = Result.Create();
         result = await departmentValidator.ValidateNameAsync(department, result, cancellationToken);
         result = await departmentValidator.ValidateBackgroundAndColorAsync(department, result, cancellationToken);
-        result.RaiseBadRequest();
+        result.RaiseBadRequestIfErrorsExist();
 
         // Crear departamento.
         context.Departments.Add(department);

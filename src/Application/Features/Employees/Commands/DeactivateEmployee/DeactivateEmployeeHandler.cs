@@ -29,7 +29,7 @@ internal class DeactivateEmployeeHandler(
         if (isAdministrator)
         {
             var message = localizer["No tiene permisos para desactivar esta cuenta"];
-            Result.Failure(ValidationErrorsKeys.NotificationErrors, message).RaiseBadRequest();
+            Result.Failure(ValidationErrorsKeys.NotificationErrors, message).RaiseBadRequestIfErrorsExist();
         }
 
         user.Active = false;

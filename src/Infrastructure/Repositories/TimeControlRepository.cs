@@ -34,12 +34,12 @@ public class TimeControlRepository(
 
     public async Task<TimeControl> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        var result = await context
-                         .TimeControls
-                         .SingleOrDefaultAsync(tc => tc.Id.Equals(id), cancellationToken)
-                     ?? throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.Id));
+        var timeControl = await context
+            .TimeControls
+            .SingleOrDefaultAsync(tc => tc.Id.Equals(id), cancellationToken)
+                ?? throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.Id));
 
-        return result;
+        return timeControl;
     }
 
     public async Task<TimeControl?> GetTimeStateOpenByEmployeeIdAsync(Guid employeeId, CancellationToken cancellationToken)
@@ -90,9 +90,8 @@ public class TimeControlRepository(
 
         // Si el tiempo ha superado las 23:59:59 respecto al día que se inicializó el sistema lo cierra y lo reporta como alerta.
         // El tiempo es en base al timezone de la compañía.
-        var dateTimeZone = await companySettingsRepository.ConvertToTimezoneCurrentCompanyAsync(
-            dateTimeProvider.EndOfDay(dateTimeProvider.UtcNow),
-            cancellationToken);
+        var dateTimeZone = await companySettingsRepository
+            .ConvertToTimezoneCurrentCompanyAsync(dateTimeProvider.EndOfDay(dateTimeProvider.UtcNow), cancellationToken);
 
         if (timeControl.Start.Day != dateTimeZone.Day)
         {
@@ -126,7 +125,7 @@ public class TimeControlRepository(
     {
         var result = Result.Create();
         result = await timesControlValidator.ValidateCreateAsync(timeControl, result, cancellationToken);
-        result.RaiseBadRequest();
+        result.RaiseBadRequestIfErrorsExist();
 
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
@@ -138,7 +137,7 @@ public class TimeControlRepository(
     {
         var result = Result.Create();
         result = await timesControlValidator.ValidateUpdateAsync(timeControl, result, cancellationToken);
-        result.RaiseBadRequest();
+        result.RaiseBadRequestIfErrorsExist();
 
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
@@ -166,7 +165,7 @@ public class TimeControlRepository(
         // Validaciones.
         var result = Result.Create();
         result = await timesControlValidator.ValidateCreateAsync(timeControl, result, cancellationToken);
-        result.RaiseBadRequest();
+        result.RaiseBadRequestIfErrorsExist();
 
         await context.TimeControls.AddAsync(timeControl, cancellationToken);
         await context.SaveChangesAsync(cancellationToken);
@@ -178,7 +177,7 @@ public class TimeControlRepository(
     {
         var result = Result.Create();
         result = await timesControlValidator.ValidateUpdateAsync(timeControl, result, cancellationToken);
-        result.RaiseBadRequest();
+        result.RaiseBadRequestIfErrorsExist();
 
         context.TimeControls.Update(timeControl);
         await context.SaveChangesAsync(cancellationToken);
@@ -195,16 +194,16 @@ public class TimeControlRepository(
         CancellationToken cancellationToken)
     {
         var timeControl = await context
-                              .TimeControls
-                              .SingleOrDefaultAsync(
-                                  tc => tc.TimeState == TimeState.Open && tc.UserId == user.Id,
-                                  cancellationToken)
-                          ?? throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.UserId));
+            .TimeControls
+            .SingleOrDefaultAsync(tc => tc.TimeState == TimeState.Open && tc.UserId == user.Id, cancellationToken)
+                ?? throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.UserId));
 
         if (timeControl.ClosedBy != ClosedBy.Unclosed)
         {
             var message = localizer["No hay un tiempo inicializado."];
-            Result.Failure(ValidationErrorsKeys.NotificationErrors, message).RaiseBadRequest();
+            Result
+                .Failure(ValidationErrorsKeys.NotificationErrors, message)
+                .RaiseBadRequestIfErrorsExist();
         }
 
         timeControl.Finish = dateTimeProvider.UtcNow;
@@ -240,10 +239,10 @@ public class TimeControlRepository(
     public async Task<TimeControl> GetWithEmployeeInfoByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var result = await context
-                         .TimeControls
-                         .Include(tc => tc.User)
-                         .SingleOrDefaultAsync(tc => tc.Id.Equals(id), cancellationToken)
-                     ?? throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.Id));
+            .TimeControls
+            .Include(tc => tc.User)
+            .SingleOrDefaultAsync(tc => tc.Id.Equals(id), cancellationToken)
+                ?? throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.Id));
 
         return result;
     }

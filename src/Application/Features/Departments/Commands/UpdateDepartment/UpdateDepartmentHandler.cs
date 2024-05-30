@@ -22,7 +22,7 @@ internal class UpdateDepartmentHandler(
         var result = Result.Create();
         await departmentValidator.ValidateNameAsync(department, result, cancellationToken);
         await departmentValidator.ValidateBackgroundAndColorAsync(department, result, cancellationToken);
-        result.RaiseBadRequest();
+        result.RaiseBadRequestIfErrorsExist();
 
         await departmentRepository.UpdateAsync(departmentUpdate, cancellationToken);
 

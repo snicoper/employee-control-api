@@ -31,7 +31,7 @@ public class CompanyCalendarValidator(
 
         var errorMessage = localizer["El nombre del calendario ya existe."];
         logger.LogDebug("{Message}", errorMessage);
-        Result.Failure(nameof(CompanyCalendar.Name), errorMessage).RaiseBadRequest();
+        Result.Failure(nameof(CompanyCalendar.Name), errorMessage).RaiseBadRequestIfErrorsExist();
     }
 
     public async Task UpdateValidationAsync(CompanyCalendar companyCalendar, CancellationToken cancellationToken)
@@ -49,6 +49,6 @@ public class CompanyCalendarValidator(
 
         var errorMessage = localizer["El nombre del calendario ya existe."];
         logger.LogDebug("{Message}", errorMessage);
-        Result.Failure(nameof(CompanyCalendar.Name), errorMessage).RaiseBadRequest();
+        Result.Failure(nameof(CompanyCalendar.Name), errorMessage).RaiseBadRequestIfErrorsExist();
     }
 }

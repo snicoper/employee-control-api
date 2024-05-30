@@ -16,9 +16,9 @@ public class CompanyTaskRepository(IStringLocalizer<TaskResource> localizer, IAp
     public async Task<CompanyTask> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var result = await context
-                         .CompanyTasks
-                         .SingleOrDefaultAsync(cs => cs.Id == id, cancellationToken)
-                     ?? throw new NotFoundException(nameof(CompanyTask), nameof(CompanyTask.Id));
+            .CompanyTasks
+            .SingleOrDefaultAsync(cs => cs.Id == id, cancellationToken)
+                ?? throw new NotFoundException(nameof(CompanyTask), nameof(CompanyTask.Id));
 
         return result;
     }
@@ -34,7 +34,9 @@ public class CompanyTaskRepository(IStringLocalizer<TaskResource> localizer, IAp
         if (companyTaskExists.Any())
         {
             var message = localizer["El nombre de compañía ya existe."];
-            Result.Failure(nameof(CompanyTask.Name), message).RaiseBadRequest();
+            Result
+                .Failure(nameof(CompanyTask.Name), message)
+                .RaiseBadRequestIfErrorsExist();
         }
 
         newCompanyTask.Active = true;

@@ -26,7 +26,7 @@ internal class CreateTimeControlHandler(
         {
             var errorMessage =
                 localizer["El empleado ya tiene un tiempo abierto y no es posible abrir otro, debe cerrar el tiempo."];
-            Result.Failure(ValidationErrorsKeys.NotificationErrors, errorMessage).RaiseBadRequest();
+            Result.Failure(ValidationErrorsKeys.NotificationErrors, errorMessage).RaiseBadRequestIfErrorsExist();
         }
 
         TimeControl resultResponse;

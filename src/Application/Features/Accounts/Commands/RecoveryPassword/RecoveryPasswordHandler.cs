@@ -26,7 +26,7 @@ internal class RecoveryPasswordHandler(
             var errorMessage = localizer["La cuenta no esta activa."];
             var result = Result.Failure(nameof(user.Email), errorMessage);
 
-            result.RaiseBadRequest();
+            result.RaiseBadRequestIfErrorsExist();
         }
 
         if (!user.EmailConfirmed)
@@ -34,7 +34,7 @@ internal class RecoveryPasswordHandler(
             var errorMessage = localizer["Correo electrónico no confirmado."];
             var result = Result.Failure(nameof(user.Email), errorMessage);
 
-            result.RaiseBadRequest();
+            result.RaiseBadRequestIfErrorsExist();
         }
 
         var code = await userManager.GeneratePasswordResetTokenAsync(user);

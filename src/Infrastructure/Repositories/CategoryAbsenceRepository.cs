@@ -16,9 +16,9 @@ public class CategoryAbsenceRepository(IApplicationDbContext context, IStringLoc
     public async Task<CategoryAbsence> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var categoryAbsence = await context
-                                  .CategoryAbsences
-                                  .SingleOrDefaultAsync(ca => ca.Id == id, cancellationToken)
-                              ?? throw new NotFoundException(nameof(CategoryAbsence), nameof(CategoryAbsence.Id));
+            .CategoryAbsences
+            .SingleOrDefaultAsync(ca => ca.Id == id, cancellationToken)
+                ?? throw new NotFoundException(nameof(CategoryAbsence), nameof(CategoryAbsence.Id));
 
         return categoryAbsence;
     }
@@ -34,7 +34,10 @@ public class CategoryAbsenceRepository(IApplicationDbContext context, IStringLoc
         if (categoryExists)
         {
             var errorMessage = localizer["La descripción ya existe en la base de datos."];
-            Result.Failure(nameof(CategoryAbsence.Description), errorMessage).RaiseBadRequest();
+
+            Result
+                .Failure(nameof(CategoryAbsence.Description), errorMessage)
+                .RaiseBadRequestIfErrorsExist();
         }
 
         categoryAbsence.Active = true;
@@ -56,7 +59,9 @@ public class CategoryAbsenceRepository(IApplicationDbContext context, IStringLoc
         if (categoryAbsenceExist)
         {
             var errorMessage = localizer["La descripción ya existe en la base de datos."];
-            Result.Failure(nameof(CategoryAbsence.Description), errorMessage).RaiseBadRequest();
+            Result
+                .Failure(nameof(CategoryAbsence.Description), errorMessage)
+                .RaiseBadRequestIfErrorsExist();
         }
 
         context.CategoryAbsences.Update(categoryAbsence);

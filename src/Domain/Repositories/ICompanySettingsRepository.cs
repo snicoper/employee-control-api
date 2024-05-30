@@ -36,10 +36,10 @@ public interface ICompanySettingsRepository
     /// <summary>
     /// Convertir un <see cref="DateTimeOffset" /> a la zona horaria según el timezone de la compañía.
     /// </summary>
-    /// <param name="datetime"><see cref="DateTimeOffset" />.</param>
+    /// <param name="dateTime"><see cref="DateTimeOffset" />.</param>
     /// <param name="cancellationToken"><see cref="CancellationToken" />.</param>
     /// <returns><see cref="DateTimeOffset" /> con el timezone de la actual compañía.</returns>
-    Task<DateTimeOffset> ConvertToTimezoneCurrentCompanyAsync(DateTimeOffset datetime, CancellationToken cancellationToken);
+    Task<DateTimeOffset> ConvertToTimezoneCurrentCompanyAsync(DateTimeOffset dateTime, CancellationToken cancellationToken);
 
     /// <summary>
     /// Crea una fila de configuración para una compañía.

@@ -5,17 +5,17 @@ namespace EmployeeControl.Application.Common.Extensions;
 
 public static class ResultExtensions
 {
-    public static void RaiseBadRequest(this Result result)
+    public static void RaiseBadRequestIfErrorsExist(this Result result)
     {
-        RaiseBadRequestExceptionIfErrorsExists(result.Succeeded, result.Errors);
+        RaiseBadRequestExceptionIfErrorsExist(result.Succeeded, result.Errors);
     }
 
     public static void RaiseBadRequest<TResult>(this Result<TResult> result)
     {
-        RaiseBadRequestExceptionIfErrorsExists(result.Succeeded, result.Errors);
+        RaiseBadRequestExceptionIfErrorsExist(result.Succeeded, result.Errors);
     }
 
-    private static void RaiseBadRequestExceptionIfErrorsExists(bool succeeded, IDictionary<string, string[]> errors)
+    private static void RaiseBadRequestExceptionIfErrorsExist(bool succeeded, IDictionary<string, string[]> errors)
     {
         if (succeeded)
         {

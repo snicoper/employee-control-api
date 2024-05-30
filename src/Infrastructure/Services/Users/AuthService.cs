@@ -37,7 +37,7 @@ public class AuthService(
 
             Result
                 .Failure(ValidationErrorsKeys.NonFieldErrors, errorMessage)
-                .RaiseBadRequest();
+                .RaiseBadRequestIfErrorsExist();
         }
 
         // Validación cuenta activa.
@@ -47,7 +47,7 @@ public class AuthService(
 
             Result
                 .Failure(ValidationErrorsKeys.NotificationErrors, errorMessage)
-                .RaiseBadRequest();
+                .RaiseBadRequestIfErrorsExist();
         }
 
         var tokensResult = await GenerateUserTokenAsync(user);

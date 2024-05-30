@@ -37,7 +37,7 @@ internal class UpdateEmployeeHandler(
             result.AddError(ValidationErrorsKeys.NonFieldErrors, errorMessage);
         }
 
-        result.RaiseBadRequest();
+        result.RaiseBadRequestIfErrorsExist();
 
         // Update employee.
         var userUpdate = mapper.Map(request, user);
