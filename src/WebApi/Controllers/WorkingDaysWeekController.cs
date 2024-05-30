@@ -29,7 +29,7 @@ public class WorkingDaysWeekController : ApiControllerBase
     /// </summary>
     /// <param name="weekCommand">Datos del <see cref="WorkingDaysWeek" />.</param>
     /// <returns>Result con el estado del proceso.</returns>
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

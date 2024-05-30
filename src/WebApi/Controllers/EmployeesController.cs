@@ -42,7 +42,7 @@ public class EmployeesController : ApiControllerBase
     /// </summary>
     /// <param name="id">Id empleado.</param>
     /// <returns>Datos del empleado.</returns>
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result<GetEmployeeByIdResponse>>> GetEmployeeById(Guid id)
@@ -57,7 +57,7 @@ public class EmployeesController : ApiControllerBase
     /// </summary>
     /// <param name="id">Id empleado.</param>
     /// <returns>Roles del empleado.</returns>
-    [HttpGet("{id}/roles")]
+    [HttpGet("{id:guid}/roles")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<Result<ICollection<GetRolesByEmployeeIdResponse>>>> GetRolesByEmployeeId(Guid id)
     {
@@ -130,7 +130,7 @@ public class EmployeesController : ApiControllerBase
     /// </summary>
     /// <param name="command">Lista de roles a asignar.</param>
     /// <returns>Roles del empleado.</returns>
-    [HttpPut("{id}/roles")]
+    [HttpPut("{id:guid}/roles")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> UpdateEmployeeRoles(UpdateEmployeeRolesCommand command)
@@ -145,7 +145,7 @@ public class EmployeesController : ApiControllerBase
     /// </summary>
     /// <param name="command">Datos del empleado a desactivar.</param>
     /// <returns>Result.</returns>
-    [HttpPut("{id}/deactivate")]
+    [HttpPut("{id:guid}/deactivate")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -161,7 +161,7 @@ public class EmployeesController : ApiControllerBase
     /// </summary>
     /// <param name="command">Datos del empleado a activar.</param>
     /// <returns>Result.</returns>
-    [HttpPut("{id}/activate")]
+    [HttpPut("{id:guid}/activate")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -177,7 +177,7 @@ public class EmployeesController : ApiControllerBase
     /// </summary>
     /// <param name="command">Id empleado.</param>
     /// <returns>Result.</returns>
-    [HttpPut("{id}/add-role-rrhh")]
+    [HttpPut("{id:guid}/add-role-rrhh")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -193,7 +193,7 @@ public class EmployeesController : ApiControllerBase
     /// </summary>
     /// <param name="command">Id empleado.</param>
     /// <returns>Result.</returns>
-    [HttpPut("{id}/remove-role-rrhh")]
+    [HttpPut("{id:guid}/remove-role-rrhh")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -209,7 +209,7 @@ public class EmployeesController : ApiControllerBase
     /// </summary>
     /// <param name="command">Datos a actualizar.</param>
     /// <returns><see cref="EmployeeSettings" /> con los datos actualizados.</returns>
-    [HttpPut("{id}/employee-settings")]
+    [HttpPut("{id:guid}/employee-settings")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

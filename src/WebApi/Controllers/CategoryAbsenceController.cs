@@ -32,7 +32,7 @@ public class CategoryAbsenceController : ApiControllerBase
     /// Obtener una <see cref="CategoryAbsence" /> por su Id.
     /// </summary>
     /// <param name="id">Id de la <see cref="CategoryAbsence" />.</param>
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result<GetCategoryAbsenceByIdResponse>>> GetCategoryAbsenceById(Guid id)
@@ -61,7 +61,7 @@ public class CategoryAbsenceController : ApiControllerBase
     /// Actualizar una <see cref="CategoryAbsence" />.
     /// </summary>
     /// <param name="command">Datos a actualizar de la <see cref="CategoryAbsence" />.</param>
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> UpdateCategoryAbsence(UpdateCategoryAbsenceCommand command)

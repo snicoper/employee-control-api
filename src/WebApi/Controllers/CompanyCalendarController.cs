@@ -30,7 +30,7 @@ public class CompanyCalendarController : ApiControllerBase
     /// Obtener un <see cref="CompanyCalendar" /> por su Id.
     /// </summary>
     /// <returns><see cref="CompanyCalendar" />.</returns>
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result<GetCompanyCalendarByIdResponse>>> GetCompanyCalendarById(Guid id)
@@ -60,7 +60,7 @@ public class CompanyCalendarController : ApiControllerBase
     /// </summary>
     /// <param name="command">Datos actualizados de <see cref="CompanyCalendar" />.</param>
     /// <returns><see cref="Result" />.</returns>
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -75,7 +75,7 @@ public class CompanyCalendarController : ApiControllerBase
     /// Establecer un <see cref="CompanyCalendar" /> como default por su Id.
     /// </summary>
     /// <returns><see cref="Result" />.</returns>
-    [HttpPut("{id}/default")]
+    [HttpPut("{id:guid}/default")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> SetDefaultCalendar(Guid id)

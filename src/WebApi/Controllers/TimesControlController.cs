@@ -75,7 +75,7 @@ public class TimesControlController : ApiControllerBase
     /// </summary>
     /// <param name="id">Id del <see cref="TimeControl" />.</param>
     /// <returns><see cref="TimeControl" />.</returns>
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -92,7 +92,7 @@ public class TimesControlController : ApiControllerBase
     /// </summary>
     /// <param name="id">Id del <see cref="TimeControl" />.</param>
     /// <returns><see cref="TimeControl" />.</returns>
-    [HttpGet("{id}/employees")]
+    [HttpGet("{id:guid}/employees")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -111,7 +111,7 @@ public class TimesControlController : ApiControllerBase
     /// <param name="from">Fecha inicial.</param>
     /// <param name="to">Fecha final.</param>
     /// <returns>IsOpen, true si tiene abierto un tiempo, false en caso contrario.</returns>
-    [HttpGet("employees/{employeeId}/from/{from}/to/{to}")]
+    [HttpGet("employees/{employeeId:guid}/from/{from}/to/{to}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -129,7 +129,7 @@ public class TimesControlController : ApiControllerBase
     /// </summary>
     /// <param name="employeeId">Id empleado.</param>
     /// <returns>IsOpen, true si tiene abierto un tiempo, false en caso contrario.</returns>
-    [HttpGet("employees/{employeeId}/time-state")]
+    [HttpGet("employees/{employeeId:guid}/time-state")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -149,7 +149,7 @@ public class TimesControlController : ApiControllerBase
     /// </summary>
     /// <param name="employeeId">Id empleado.</param>
     /// <returns>El estado de <see cref="TimeControl.TimeState" /> y <see cref="TimeControl.Start" />.</returns>
-    [HttpGet("employees/{employeeId}/time-state-open")]
+    [HttpGet("employees/{employeeId:guid}/time-state-open")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Result<GetTimeStateOpenByEmployeeIdResponse>>> GetTimeStateOpenByEmployeeId(Guid employeeId)
@@ -208,7 +208,7 @@ public class TimesControlController : ApiControllerBase
     /// </summary>
     /// <param name="command">Datos del <see cref="TimeControl" />.</param>
     /// <returns>Result con el estado del proceso.</returns>
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -224,7 +224,7 @@ public class TimesControlController : ApiControllerBase
     /// </summary>
     /// <param name="command">Datos del Id <see cref="TimeControl" />.</param>
     /// <returns>Result con el estado del proceso.</returns>
-    [HttpPut("{id}/close-incidence")]
+    [HttpPut("{id:guid}/close-incidence")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -272,7 +272,7 @@ public class TimesControlController : ApiControllerBase
     /// </summary>
     /// <param name="command">Employee Id.</param>
     /// <returns>Result con el estado del proceso.</returns>
-    [HttpPut("{id}/create-incidence")]
+    [HttpPut("{id:guid}/create-incidence")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -288,7 +288,7 @@ public class TimesControlController : ApiControllerBase
     /// </summary>
     /// <param name="id">Id del <see cref="TimeControl" /> a eliminar.</param>
     /// <returns>Result con el estado del proceso.</returns>
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

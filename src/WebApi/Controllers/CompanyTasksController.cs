@@ -39,7 +39,7 @@ public class CompanyTasksController : ApiControllerBase
     /// <param name="request">RequestData.</param>
     /// <param name="id">Id tarea.</param>
     /// <returns>Lista de usuarios paginádos.</returns>
-    [HttpGet("{id}/employees/paginated")]
+    [HttpGet("{id:guid}/employees/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<Result<ResponseData<GetEmployeesByCompanyTaskIdPaginatedResponse>>>>
         GetEmployeesByCompanyTaskIdPaginated([FromQuery] RequestData request, Guid id)
@@ -55,7 +55,7 @@ public class CompanyTasksController : ApiControllerBase
     /// <param name="request">RequestData.</param>
     /// <param name="employeeId">Id empleado.</param>
     /// <returns>Lista de tareas paginádas.</returns>
-    [HttpGet("employees/{employeeId}/paginated")]
+    [HttpGet("employees/{employeeId:guid}/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<Result<ResponseData<GetCompanyTasksByEmployeeIdPaginatedResponse>>>>
         GetCompanyTasksByEmployeeIdPaginated([FromQuery] RequestData request, Guid employeeId)
@@ -70,7 +70,7 @@ public class CompanyTasksController : ApiControllerBase
     /// </summary>
     /// <param name="id">Id tarea.</param>
     /// <returns>Lista empleados que no pertenecen a una tarea concreta.</returns>
-    [HttpGet("{id}/employees/unassigned")]
+    [HttpGet("{id:guid}/employees/unassigned")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<Result<List<GetEmployeesUnassignedTaskByCompanyTaskIdResponse>>> GetEmployeesUnassignedTaskByCompanyTaskId(
         Guid id)
@@ -84,7 +84,7 @@ public class CompanyTasksController : ApiControllerBase
     /// Obtener una tarea por su Id.
     /// </summary>
     /// <param name="id">Id de la tarea.</param>
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result<GetCompanyTasksByIdResponse>>> GetCompanyTasksById(Guid id)
@@ -113,7 +113,7 @@ public class CompanyTasksController : ApiControllerBase
     /// Asignar empleados a una tarea concreta.
     /// </summary>
     /// <param name="command">Lista de Ids de empleado a asignar y la Id de la tarea.</param>
-    [HttpPut("{id}/employees/assign")]
+    [HttpPut("{id:guid}/employees/assign")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -128,7 +128,7 @@ public class CompanyTasksController : ApiControllerBase
     /// Actualizar una tarea.
     /// </summary>
     /// <param name="command">Datos a actualizar de la tarea.</param>
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> UpdateCompanyTask(UpdateCompanyTaskCommand command)
@@ -142,7 +142,7 @@ public class CompanyTasksController : ApiControllerBase
     /// Activar una tarea de compañía.
     /// </summary>
     /// <param name="command">Id tarea a activar.</param>
-    [HttpPut("{id}/activate")]
+    [HttpPut("{id:guid}/activate")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> ActivateCompanyTask(ActivateCompanyTaskCommand command)
@@ -156,7 +156,7 @@ public class CompanyTasksController : ApiControllerBase
     /// Desactivar una tarea de compañía.
     /// </summary>
     /// <param name="command">Id tarea a activar.</param>
-    [HttpPut("{id}/deactivate")]
+    [HttpPut("{id:guid}/deactivate")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result>> DeactivateCompanyTask(DeactivateCompanyTaskCommand command)

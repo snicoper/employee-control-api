@@ -40,7 +40,7 @@ public class DepartmentsController : ApiControllerBase
     /// <param name="request"><see cref="RequestData" />.</param>
     /// <param name="id">Id del <see cref="Department" />.</param>
     /// <returns>Lista de usuarios paginádos.</returns>
-    [HttpGet("{id}/employees/paginated")]
+    [HttpGet("{id:guid}/employees/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<Result<ResponseData<GetEmployeesByDepartmentIdPaginatedResponse>>>>
         GetEmployeesByDepartmentIdPaginated([FromQuery] RequestData request, Guid id)
@@ -56,7 +56,7 @@ public class DepartmentsController : ApiControllerBase
     /// <param name="request"><see cref="RequestData" />.</param>
     /// <param name="employeeId">Id del <see cref="Department" />.</param>
     /// <returns>Lista de usuarios paginádos.</returns>
-    [HttpGet("employees/{employeeId}/paginated")]
+    [HttpGet("employees/{employeeId:guid}/paginated")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<ActionResult<Result<ResponseData<GetDepartmentsByEmployeeIdPaginatedResponse>>>>
         GetDepartmentsByEmployeeIdPaginated([FromQuery] RequestData request, Guid employeeId)
@@ -71,7 +71,7 @@ public class DepartmentsController : ApiControllerBase
     /// </summary>
     /// <param name="id">Id departamento.</param>
     /// <returns>Lista empleados que no pertenecen a un departamento concreta.</returns>
-    [HttpGet("{id}/employees/unassigned")]
+    [HttpGet("{id:guid}/employees/unassigned")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<Result<List<GetEmployeesUnassignedDepartmentByDepartmentIdResponse>>>
         GetEmployeesUnassignedDepartmentByDepartmentId(Guid id)
@@ -85,7 +85,7 @@ public class DepartmentsController : ApiControllerBase
     /// Obtener un <see cref="Department" /> por su Id.
     /// </summary>
     /// <param name="id">Id del departamento.</param>
-    [HttpGet("{id}")]
+    [HttpGet("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Result<GetDepartmentByIdResponse>>> GetDepartmentById(Guid id)
@@ -114,7 +114,7 @@ public class DepartmentsController : ApiControllerBase
     /// Asignar empleados a un <see cref="Department" /> concreto.
     /// </summary>
     /// <param name="command">Lista de Ids de empleado a asignar y la Id del departamento.</param>
-    [HttpPost("{id}/employees/assign")]
+    [HttpPost("{id:guid}/employees/assign")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -130,7 +130,7 @@ public class DepartmentsController : ApiControllerBase
     /// </summary>
     /// <param name="command">Datos del <see cref="Department" />.</param>
     /// <returns><see cref="Result" />.</returns>
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<Result>> UpdateDepartment(UpdateDepartmentCommand command)

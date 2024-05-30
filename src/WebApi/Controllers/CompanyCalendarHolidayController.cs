@@ -48,7 +48,7 @@ public class CompanyCalendarHolidayController : ApiControllerBase
     /// </summary>
     /// <param name="command">Datos del <see cref="CompanyCalendarHoliday" />.</param>
     /// <returns><see cref="Result" />.</returns>
-    [HttpPut("{id}")]
+    [HttpPut("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -64,7 +64,7 @@ public class CompanyCalendarHolidayController : ApiControllerBase
     /// </summary>
     /// <param name="id">Id <see cref="CompanyCalendarHoliday" /> a eliminar.</param>
     /// <returns><see cref="Result" />.</returns>
-    [HttpDelete("{id}")]
+    [HttpDelete("{id:guid}")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
