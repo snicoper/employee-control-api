@@ -21,7 +21,7 @@ public class IdentityValidator(
 {
     public async Task<Result> UniqueEmailValidationAsync(User user, Result result, CancellationToken cancellationToken)
     {
-        // Si es un update, omitir el email actual del usuario.
+        // Si es un update, omitir el email del usuario actual.
         var emailExists = user.Id == default
             ? await userManager.Users.AnyAsync(au => au.Email == user.Email, cancellationToken)
             : await userManager.Users.AnyAsync(au => au.Email == user.Email && au.Id != user.Id, cancellationToken);
@@ -32,7 +32,7 @@ public class IdentityValidator(
         }
 
         var errorMessage = localizer["El email ya esta registrado."];
-        logger.LogError(errorMessage);
+        logger.LogError("{ErrorMessage}", errorMessage);
         result.AddError(nameof(user.Email), errorMessage);
 
         return result;
@@ -48,7 +48,7 @@ public class IdentityValidator(
         }
 
         var errorMessage = localizer["El usuario no es valido."];
-        logger.LogWarning(errorMessage);
+        logger.LogError("{ErrorMessage}", errorMessage);
         result.AddError(nameof(user.UserName), errorMessage);
 
         return result;
@@ -57,12 +57,14 @@ public class IdentityValidator(
     public async Task<Result> PasswordValidationAsync(User user, string password, Result result)
     {
         var validPassword = await passwordValidator.ValidateAsync(userManager, user, password);
-        if (!validPassword.Succeeded)
+        if (validPassword.Succeeded)
         {
-            var errorMessage = localizer["La contraseña no es valida."];
-            logger.LogWarning(errorMessage);
-            result.AddError("Password", errorMessage);
+            return result;
         }
+
+        var errorMessage = localizer["La contraseña no es valida."];
+        logger.LogError("{ErrorMessage}", errorMessage);
+        result.AddError("Password", errorMessage);
 
         return result;
     }
@@ -75,7 +77,7 @@ public class IdentityValidator(
         }
 
         var errorMessage = localizer["Un usuario no puede editar sus propios Roles."];
-        logger.LogWarning(errorMessage);
+        logger.LogError("{ErrorMessage}", errorMessage);
         result.AddError(ValidationErrorsKeys.NotificationErrors, errorMessage);
 
         return result;

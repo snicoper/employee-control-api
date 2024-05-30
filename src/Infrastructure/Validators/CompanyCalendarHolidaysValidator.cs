@@ -24,7 +24,10 @@ public class CompanyCalendarHolidaysValidator(IApplicationDbContext context, ISt
         if (dateExists)
         {
             var errorMessage = localizer["La fecha seleccionada ya tiene asignado un día festivo."];
-            Result.Failure(nameof(CompanyCalendarHoliday.Date), errorMessage).RaiseBadRequestIfErrorsExist();
+
+            Result
+                .Failure(nameof(CompanyCalendarHoliday.Date), errorMessage)
+                .RaiseBadRequestIfErrorsExist();
         }
 
         // Comprueba si la descripción ya existe en el mismo año.
@@ -38,7 +41,10 @@ public class CompanyCalendarHolidaysValidator(IApplicationDbContext context, ISt
         if (dateExists)
         {
             var errorMessage = localizer["La descripción ya existe en el año {0}.", companyCalendarHoliday.Date.Year];
-            Result.Failure(nameof(CompanyCalendarHoliday.Description), errorMessage).RaiseBadRequestIfErrorsExist();
+
+            Result
+                .Failure(nameof(CompanyCalendarHoliday.Description), errorMessage)
+                .RaiseBadRequestIfErrorsExist();
         }
     }
 
@@ -53,7 +59,10 @@ public class CompanyCalendarHolidaysValidator(IApplicationDbContext context, ISt
         if (dateExists)
         {
             var errorMessage = localizer["La fecha seleccionada ya tiene asignado un día festivo."];
-            Result.Failure(nameof(CompanyCalendarHoliday.Date), errorMessage).RaiseBadRequestIfErrorsExist();
+
+            Result
+                .Failure(nameof(CompanyCalendarHoliday.Date), errorMessage)
+                .RaiseBadRequestIfErrorsExist();
         }
 
         // Comprueba si la descripción ya existe en el mismo año.
@@ -68,7 +77,10 @@ public class CompanyCalendarHolidaysValidator(IApplicationDbContext context, ISt
         if (dateExists)
         {
             var errorMessage = localizer["La descripción ya existe en el año {0}.", companyCalendarHoliday.Date.Year];
-            Result.Failure(nameof(CompanyCalendarHoliday.Description), errorMessage).RaiseBadRequestIfErrorsExist();
+
+            Result
+                .Failure(nameof(CompanyCalendarHoliday.Description), errorMessage)
+                .RaiseBadRequestIfErrorsExist();
         }
     }
 }

@@ -15,9 +15,9 @@ public class CompanyRepository(IApplicationDbContext context, ICompanyValidator 
     public async Task<Company> GetCompanyAsync(CancellationToken cancellationToken)
     {
         var result = await context
-            .Companies
-            .FirstOrDefaultAsync(cancellationToken)
-                ?? throw new NotFoundException(nameof(Company), nameof(Company));
+                .Companies
+                .FirstOrDefaultAsync(cancellationToken)
+            ?? throw new NotFoundException(nameof(Company), nameof(Company));
 
         return result;
     }
@@ -25,9 +25,9 @@ public class CompanyRepository(IApplicationDbContext context, ICompanyValidator 
     public async Task<Company> GetCompanyByIdAsync(Guid companyId, CancellationToken cancellationToken)
     {
         var result = await context
-            .Companies
-            .SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken)
-                ?? throw new NotFoundException(nameof(Company), nameof(Company));
+                .Companies
+                .SingleOrDefaultAsync(c => c.Id == companyId, cancellationToken)
+            ?? throw new NotFoundException(nameof(Company), nameof(Company));
 
         return result;
     }

@@ -35,9 +35,9 @@ public class TimeControlRepository(
     public async Task<TimeControl> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var timeControl = await context
-            .TimeControls
-            .SingleOrDefaultAsync(tc => tc.Id.Equals(id), cancellationToken)
-                ?? throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.Id));
+                .TimeControls
+                .SingleOrDefaultAsync(tc => tc.Id.Equals(id), cancellationToken)
+            ?? throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.Id));
 
         return timeControl;
     }
@@ -61,7 +61,7 @@ public class TimeControlRepository(
             .TimeControls
             .Where(
                 tc => (tc.UserId == employeeId && tc.Start >= from && tc.Start <= to)
-                      || (tc.UserId == employeeId && tc.Finish <= to && tc.Finish >= from))
+                    || (tc.UserId == employeeId && tc.Finish <= to && tc.Finish >= from))
             .GroupBy(tc => tc.Start.Day)
             .ToListAsync(cancellationToken);
 
@@ -194,9 +194,9 @@ public class TimeControlRepository(
         CancellationToken cancellationToken)
     {
         var timeControl = await context
-            .TimeControls
-            .SingleOrDefaultAsync(tc => tc.TimeState == TimeState.Open && tc.UserId == user.Id, cancellationToken)
-                ?? throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.UserId));
+                .TimeControls
+                .SingleOrDefaultAsync(tc => tc.TimeState == TimeState.Open && tc.UserId == user.Id, cancellationToken)
+            ?? throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.UserId));
 
         if (timeControl.ClosedBy != ClosedBy.Unclosed)
         {
@@ -239,10 +239,10 @@ public class TimeControlRepository(
     public async Task<TimeControl> GetWithEmployeeInfoByIdAsync(Guid id, CancellationToken cancellationToken)
     {
         var result = await context
-            .TimeControls
-            .Include(tc => tc.User)
-            .SingleOrDefaultAsync(tc => tc.Id.Equals(id), cancellationToken)
-                ?? throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.Id));
+                .TimeControls
+                .Include(tc => tc.User)
+                .SingleOrDefaultAsync(tc => tc.Id.Equals(id), cancellationToken)
+            ?? throw new NotFoundException(nameof(TimeControl), nameof(TimeControl.Id));
 
         return result;
     }
