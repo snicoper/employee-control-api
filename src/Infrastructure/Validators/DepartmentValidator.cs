@@ -40,9 +40,9 @@ public class DepartmentValidator(
         var company = await context
             .Departments
             .AnyAsync(
-                d => string.Equals(d.Background.ToLower(), department.Background.ToLower()) &&
-                     string.Equals(d.Color.ToLower(), department.Color.ToLower()) &&
-                     d.Id != department.Id,
+                d => string.Equals(d.Background.ToLower(), department.Background.ToLower())
+                    && string.Equals(d.Color.ToLower(), department.Color.ToLower())
+                    && d.Id != department.Id,
                 cancellationToken);
 
         if (!company)

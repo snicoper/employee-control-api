@@ -20,8 +20,8 @@ internal class GetTimesControlByRangePaginatedHandler(ITimeControlRepository tim
         {
             timeControls = timeControls
                 .Where(
-                    tc => (tc.Start >= request.From && tc.Start <= request.To) ||
-                          (tc.Finish <= request.To && tc.Finish >= request.From));
+                    tc => (tc.Start >= request.From && tc.Start <= request.To)
+                        || (tc.Finish <= request.To && tc.Finish >= request.From));
         }
         else if (request.To == DateTimeOffset.MinValue && request.From != DateTimeOffset.MinValue)
         {

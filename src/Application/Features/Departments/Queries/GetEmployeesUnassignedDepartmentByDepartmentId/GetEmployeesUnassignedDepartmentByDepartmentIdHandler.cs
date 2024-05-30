@@ -21,11 +21,11 @@ internal class GetEmployeesUnassignedDepartmentByDepartmentIdHandler(
     {
         // Obtener el departamento por su Id.
         var department = await context
-                             .Departments
-                             .Include(ct => ct.EmployeeDepartments)
-                             .ThenInclude(uct => uct.User)
-                             .SingleOrDefaultAsync(ct => ct.Id == request.Id, cancellationToken) ??
-                         throw new NotFoundException(nameof(Department), nameof(Department.Id));
+                .Departments
+                .Include(ct => ct.EmployeeDepartments)
+                .ThenInclude(uct => uct.User)
+                .SingleOrDefaultAsync(ct => ct.Id == request.Id, cancellationToken)
+            ?? throw new NotFoundException(nameof(Department), nameof(Department.Id));
 
         // Filtrar los Ids de los empleados que ya tienen asignado el departamento.
         var userIdsInDepartment = department

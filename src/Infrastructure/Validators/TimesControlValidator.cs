@@ -33,10 +33,10 @@ public class TimesControlValidator(
         var checkTime = await context
             .TimeControls
             .AnyAsync(
-                tc => tc.UserId == timeControl.UserId &&
-                      tc.TimeState == TimeState.Close &&
-                      timeControl.Start >= tc.Start &&
-                      timeControl.Start <= tc.Finish,
+                tc => tc.UserId == timeControl.UserId
+                    && tc.TimeState == TimeState.Close
+                    && timeControl.Start >= tc.Start
+                    && timeControl.Start <= tc.Finish,
                 cancellationToken);
 
         if (checkTime)
@@ -52,8 +52,8 @@ public class TimesControlValidator(
         checkTime = await context
             .TimeControls
             .AnyAsync(
-                tc => tc.UserId == timeControl.UserId && tc.TimeState == TimeState.Open &&
-                      timeControl.Start >= tc.Start && timeControl.Start <= dateTimeProvider.UtcNow,
+                tc => tc.UserId == timeControl.UserId && tc.TimeState == TimeState.Open
+                    && timeControl.Start >= tc.Start && timeControl.Start <= dateTimeProvider.UtcNow,
                 cancellationToken);
 
         if (!checkTime)
@@ -98,8 +98,8 @@ public class TimesControlValidator(
                     tc.Id != timeControl.Id &&
                     tc.UserId == timeControl.UserId &&
                     tc.TimeState == TimeState.Close &&
-                    ((timeControl.Start >= tc.Start && timeControl.Start <= tc.Finish) ||
-                     (timeControl.Finish >= tc.Start && timeControl.Finish <= tc.Finish)),
+                    ((timeControl.Start >= tc.Start && timeControl.Start <= tc.Finish)
+                        || (timeControl.Finish >= tc.Start && timeControl.Finish <= tc.Finish)),
                 cancellationToken);
 
         if (checkTime)
@@ -115,9 +115,9 @@ public class TimesControlValidator(
         checkTime = await context
             .TimeControls
             .AnyAsync(
-                tc => tc.UserId == timeControl.UserId && tc.Id != timeControl.Id && tc.TimeState == TimeState.Open &&
-                      ((timeControl.Start >= tc.Start && timeControl.Start <= dateTimeProvider.UtcNow) ||
-                       (timeControl.Finish >= tc.Start && timeControl.Finish <= dateTimeProvider.UtcNow)),
+                tc => tc.UserId == timeControl.UserId && tc.Id != timeControl.Id && tc.TimeState == TimeState.Open
+                    && ((timeControl.Start >= tc.Start && timeControl.Start <= dateTimeProvider.UtcNow)
+                        || (timeControl.Finish >= tc.Start && timeControl.Finish <= dateTimeProvider.UtcNow)),
                 cancellationToken);
 
         if (!checkTime)

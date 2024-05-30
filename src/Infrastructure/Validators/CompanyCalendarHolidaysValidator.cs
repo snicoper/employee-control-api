@@ -35,7 +35,7 @@ public class CompanyCalendarHolidaysValidator(IApplicationDbContext context, ISt
             .CompanyCalendarHoliday
             .AnyAsync(
                 ch => ch.Date.Year == companyCalendarHoliday.Date.Year
-                      && ch.Description == companyCalendarHoliday.Description,
+                    && ch.Description == companyCalendarHoliday.Description,
                 cancellationToken);
 
         if (dateExists)
@@ -70,8 +70,8 @@ public class CompanyCalendarHolidaysValidator(IApplicationDbContext context, ISt
             .CompanyCalendarHoliday
             .AnyAsync(
                 ch => ch.Date.Year == companyCalendarHoliday.Date.Year
-                      && ch.Description == companyCalendarHoliday.Description
-                      && ch.Id != companyCalendarHoliday.Id,
+                    && ch.Description == companyCalendarHoliday.Description
+                    && ch.Id != companyCalendarHoliday.Id,
                 cancellationToken);
 
         if (dateExists)

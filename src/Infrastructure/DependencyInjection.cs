@@ -36,9 +36,9 @@ public static class DependencyInjection
                     .AddClasses(
                         classes => classes.Where(
                             type => type.Name.EndsWith("Service")
-                                    || type.Name.EndsWith("Job")
-                                    || type.Name.EndsWith("Repository")
-                                    || type.Name.EndsWith("Validator")))
+                                || type.Name.EndsWith("Job")
+                                || type.Name.EndsWith("Repository")
+                                || type.Name.EndsWith("Validator")))
                     .AsImplementedInterfaces()
                     .WithTransientLifetime());
 

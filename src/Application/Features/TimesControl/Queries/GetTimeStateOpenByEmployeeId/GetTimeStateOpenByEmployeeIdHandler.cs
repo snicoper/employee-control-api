@@ -15,11 +15,11 @@ internal class GetTimeStateOpenByEmployeeIdHandler(IApplicationDbContext context
         CancellationToken cancellationToken)
     {
         var timeControl = await context
-                              .TimeControls
-                              .SingleOrDefaultAsync(
-                                  ct => ct.UserId == request.EmployeeId && ct.TimeState == TimeState.Open,
-                                  cancellationToken) ??
-                          new TimeControl { TimeState = TimeState.Close };
+                .TimeControls
+                .SingleOrDefaultAsync(
+                    ct => ct.UserId == request.EmployeeId && ct.TimeState == TimeState.Open,
+                    cancellationToken)
+            ?? new TimeControl { TimeState = TimeState.Close };
 
         var resultResponse = new GetTimeStateOpenByEmployeeIdResponse(timeControl.Start, timeControl.TimeState);
 

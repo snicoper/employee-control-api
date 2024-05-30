@@ -21,7 +21,7 @@ internal class DeactivateEmployeeHandler(
     public async Task<Result> Handle(DeactivateEmployeeCommand request, CancellationToken cancellationToken)
     {
         var user = userManager.Users.SingleOrDefault(au => au.Id == request.EmployeeId)
-                   ?? throw new NotFoundException(nameof(User), nameof(User.Id));
+            ?? throw new NotFoundException(nameof(User), nameof(User.Id));
 
         // La cuenta del Administrator no se puede modificar el estado.
         var isAdministrator = await userRepository.IsInRoleAsync(user.Id, Roles.Admin);

@@ -12,9 +12,9 @@ using Microsoft.AspNetCore.Routing;
 namespace EmployeeControl.Infrastructure.Services.Views;
 
 public class RazorViewToStringRendererService(
-        IRazorViewEngine viewEngine,
-        ITempDataProvider tempDataProvider,
-        IServiceProvider serviceProvider)
+    IRazorViewEngine viewEngine,
+    ITempDataProvider tempDataProvider,
+    IServiceProvider serviceProvider)
     : IRazorViewToStringRendererService
 {
     public async Task<string> RenderViewToStringAsync(string viewName, object model, Dictionary<string, object?> viewData)

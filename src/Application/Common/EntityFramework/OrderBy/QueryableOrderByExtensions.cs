@@ -36,8 +36,8 @@ public static class QueryableOrderByExtensions
 
     private static IQueryable<TEntity> OrderByDefault<TEntity>(IQueryable<TEntity> source)
     {
-        var propertyInfo = typeof(TEntity).GetProperty(nameof(BaseAuditableEntity.Created)) ??
-                           typeof(TEntity).GetProperty(nameof(BaseEntity.Id));
+        var propertyInfo = typeof(TEntity).GetProperty(nameof(BaseAuditableEntity.Created))
+            ?? typeof(TEntity).GetProperty(nameof(BaseEntity.Id));
 
         var result = propertyInfo is not null ? source.OrderBy($"{propertyInfo.Name} DESC") : source;
 

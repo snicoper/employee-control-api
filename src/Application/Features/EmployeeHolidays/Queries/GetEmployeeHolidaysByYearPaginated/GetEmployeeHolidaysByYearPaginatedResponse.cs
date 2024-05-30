@@ -31,7 +31,9 @@ public record GetEmployeeHolidaysByYearPaginatedResponse
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.EmployeeHolidays.FirstOrDefault()!.Id))
                 .ForMember(dest => dest.Year, opt => opt.MapFrom(src => src.EmployeeHolidays.FirstOrDefault()!.Year))
                 .ForMember(dest => dest.TotalDays, opt => opt.MapFrom(src => src.EmployeeHolidays.FirstOrDefault()!.TotalDays))
-                .ForMember(dest => dest.ConsumedDays, opt => opt.MapFrom(src => src.EmployeeHolidays.FirstOrDefault()!.ConsumedDays))
+                .ForMember(
+                    dest => dest.ConsumedDays,
+                    opt => opt.MapFrom(src => src.EmployeeHolidays.FirstOrDefault()!.ConsumedDays))
                 .ForMember(dest => dest.Remaining, opt => opt.MapFrom(src => Remaining(src)))
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Id));
         }
@@ -39,7 +41,7 @@ public record GetEmployeeHolidaysByYearPaginatedResponse
         private static int Remaining(User user)
         {
             var remaining = user.EmployeeHolidays.FirstOrDefault()!.TotalDays -
-                            user.EmployeeHolidays.FirstOrDefault()!.ConsumedDays;
+                user.EmployeeHolidays.FirstOrDefault()!.ConsumedDays;
 
             return remaining;
         }
