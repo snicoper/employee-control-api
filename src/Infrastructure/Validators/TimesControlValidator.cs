@@ -14,7 +14,7 @@ namespace EmployeeControl.Infrastructure.Validators;
 public class TimesControlValidator(
     IApplicationDbContext context,
     IStringLocalizer<TimeControlResource> localizer,
-    IDateTimeService dateTimeService)
+    IDateTimeProvider dateTimeProvider)
     : ITimesControlValidator
 {
     public async Task<Result> ValidateCreateAsync(TimeControl timeControl, Result result, CancellationToken cancellationToken)
@@ -53,7 +53,7 @@ public class TimesControlValidator(
             .TimeControls
             .AnyAsync(
                 tc => tc.UserId == timeControl.UserId && tc.TimeState == TimeState.Open &&
-                      timeControl.Start >= tc.Start && timeControl.Start <= dateTimeService.UtcNow,
+                      timeControl.Start >= tc.Start && timeControl.Start <= dateTimeProvider.UtcNow,
                 cancellationToken);
 
         if (!checkTime)
@@ -116,8 +116,8 @@ public class TimesControlValidator(
             .TimeControls
             .AnyAsync(
                 tc => tc.UserId == timeControl.UserId && tc.Id != timeControl.Id && tc.TimeState == TimeState.Open &&
-                      ((timeControl.Start >= tc.Start && timeControl.Start <= dateTimeService.UtcNow) ||
-                       (timeControl.Finish >= tc.Start && timeControl.Finish <= dateTimeService.UtcNow)),
+                      ((timeControl.Start >= tc.Start && timeControl.Start <= dateTimeProvider.UtcNow) ||
+                       (timeControl.Finish >= tc.Start && timeControl.Finish <= dateTimeProvider.UtcNow)),
                 cancellationToken);
 
         if (!checkTime)

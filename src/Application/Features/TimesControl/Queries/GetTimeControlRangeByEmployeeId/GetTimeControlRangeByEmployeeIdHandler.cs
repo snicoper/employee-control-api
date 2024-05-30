@@ -8,7 +8,7 @@ using EmployeeControl.Domain.Repositories;
 namespace EmployeeControl.Application.Features.TimesControl.Queries.GetTimeControlRangeByEmployeeId;
 
 internal class GetTimeControlRangeByEmployeeIdHandler(
-    IDateTimeService dateTimeService,
+    IDateTimeProvider dateTimeProvider,
     ITimeControlRepository timeControlRepository)
     : IQueryHandler<GetTimeControlRangeByEmployeeIdQuery, List<GetTimeControlRangeByEmployeeIdResponse>>
 {
@@ -39,7 +39,7 @@ internal class GetTimeControlRangeByEmployeeIdHandler(
         foreach (var control in timesControlGroup)
         {
             // Si algún tiempo Finish no esta cerrado, pone el tiempo actual y lo suma al total.
-            var timeFinish = control.ClosedBy == ClosedBy.Unclosed ? dateTimeService.UtcNow : control.Finish;
+            var timeFinish = control.ClosedBy == ClosedBy.Unclosed ? dateTimeProvider.UtcNow : control.Finish;
             var diff = timeFinish - control.Start;
             var percent = Math.Round(diff.TotalMinutes / minutesInDay * 100, 2);
             var minutes = (int)Math.Floor(diff.TotalMinutes);

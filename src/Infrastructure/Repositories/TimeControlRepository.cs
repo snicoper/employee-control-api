@@ -17,7 +17,7 @@ using Microsoft.Extensions.Localization;
 namespace EmployeeControl.Infrastructure.Repositories;
 
 public class TimeControlRepository(
-    IDateTimeService dateTimeService,
+    IDateTimeProvider dateTimeProvider,
     ITimesControlValidator timesControlValidator,
     IApplicationDbContext context,
     ICompanySettingsRepository companySettingsRepository,
@@ -91,7 +91,7 @@ public class TimeControlRepository(
         // Si el tiempo ha superado las 23:59:59 respecto al día que se inicializó el sistema lo cierra y lo reporta como alerta.
         // El tiempo es en base al timezone de la compañía.
         var dateTimeZone = await companySettingsRepository.ConvertToTimezoneCurrentCompanyAsync(
-            dateTimeService.EndOfDay(dateTimeService.UtcNow),
+            dateTimeProvider.EndOfDay(dateTimeProvider.UtcNow),
             cancellationToken);
 
         if (timeControl.Start.Day != dateTimeZone.Day)
@@ -156,8 +156,8 @@ public class TimeControlRepository(
         var timeControl = new TimeControl
         {
             UserId = user.Id,
-            Start = dateTimeService.UtcNow,
-            Finish = dateTimeService.UtcNow,
+            Start = dateTimeProvider.UtcNow,
+            Finish = dateTimeProvider.UtcNow,
             DeviceTypeStart = deviceType,
             LatitudeStart = latitude,
             LongitudeStart = longitude
@@ -207,7 +207,7 @@ public class TimeControlRepository(
             Result.Failure(ValidationErrorsKeys.NotificationErrors, message).RaiseBadRequest();
         }
 
-        timeControl.Finish = dateTimeService.UtcNow;
+        timeControl.Finish = dateTimeProvider.UtcNow;
         timeControl.ClosedBy = closedBy;
         timeControl.TimeState = TimeState.Close;
         timeControl.DeviceTypeFinish = deviceType;

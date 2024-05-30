@@ -2,7 +2,7 @@
 
 namespace EmployeeControl.Infrastructure.Services.Common;
 
-public class DateTimeService(TimeProvider timeProvider) : IDateTimeService
+public class DateTimeProvider(TimeProvider timeProvider) : IDateTimeProvider
 {
     public TimeProvider TimeProvider { get; } = timeProvider;
 

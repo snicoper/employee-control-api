@@ -16,7 +16,7 @@ public class CloseTimeControlJob(
     ICompanySettingsRepository companySettingsRepository,
     IApplicationDbContext context,
     IStringLocalizer<TimeControlResource> localizer,
-    IDateTimeService dateTimeService,
+    IDateTimeProvider dateTimeProvider,
     IHubContext<NotificationTimeControlIncidenceHub> hubContext,
     ILogger<CloseTimeControlJob> logger)
     : ICloseTimeControlJob
@@ -29,7 +29,7 @@ public class CloseTimeControlJob(
 
         var timesControl = context
             .TimeControls
-            .Where(tc => tc.TimeState == TimeState.Open && (dateTimeService.UtcNow - tc.Start).Hours >= periodTimeControlMax)
+            .Where(tc => tc.TimeState == TimeState.Open && (dateTimeProvider.UtcNow - tc.Start).Hours >= periodTimeControlMax)
             .ToList();
 
         foreach (var timeControl in timesControl)

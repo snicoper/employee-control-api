@@ -16,7 +16,7 @@ public class AuthService(
     UserManager<User> userManager,
     IOptions<JwtSettings> jwtSettings,
     ITokenService tokenService,
-    IDateTimeService dateTimeService,
+    IDateTimeProvider dateTimeProvider,
     IStringLocalizer<IdentityResource> localizer)
     : IAuthService
 {
@@ -59,7 +59,7 @@ public class AuthService(
     {
         var user = userManager.Users.SingleOrDefault(au => au.RefreshToken == refreshToken);
 
-        if (user is null || !user.Active || user.RefreshTokenExpiryTime <= dateTimeService.UtcNow)
+        if (user is null || !user.Active || user.RefreshTokenExpiryTime <= dateTimeProvider.UtcNow)
         {
             throw new UnauthorizedAccessException();
         }
@@ -75,7 +75,7 @@ public class AuthService(
         var newRefreshToken = tokenService.GenerateRefreshToken();
 
         user.RefreshToken = newRefreshToken;
-        user.RefreshTokenExpiryTime = dateTimeService.UtcNow.AddDays(jwtSettings.Value.RefreshTokenLifeTimeDays);
+        user.RefreshTokenExpiryTime = dateTimeProvider.UtcNow.AddDays(jwtSettings.Value.RefreshTokenLifeTimeDays);
 
         await userManager.UpdateAsync(user);
 

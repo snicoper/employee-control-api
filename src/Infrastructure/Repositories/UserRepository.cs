@@ -22,7 +22,7 @@ public class UserRepository(
     IAuthorizationService authorizationService,
     ICurrentUserService currentUserService,
     IIdentityValidator identityValidator,
-    IDateTimeService dateTimeService,
+    IDateTimeProvider dateTimeProvider,
     ILogger<UserRepository> logger)
     : IUserRepository
 {
@@ -110,7 +110,7 @@ public class UserRepository(
     {
         user.Active = true;
         user.UserName = user.Email;
-        user.EntryDate = dateTimeService.UtcNow;
+        user.EntryDate = dateTimeProvider.UtcNow;
 
         // Validaciones.
         var result = Result.Create();

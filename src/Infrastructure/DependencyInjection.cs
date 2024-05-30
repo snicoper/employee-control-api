@@ -43,7 +43,7 @@ public static class DependencyInjection
                     .WithTransientLifetime());
 
         services.AddSingleton(TimeProvider.System);
-        services.AddScoped<IDateTimeService, DateTimeService>();
+        services.AddScoped<IDateTimeProvider, DateTimeProvider>();
 
         // SignalR.
         services.AddSignalR();

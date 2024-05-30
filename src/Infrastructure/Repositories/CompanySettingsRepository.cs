@@ -12,7 +12,7 @@ namespace EmployeeControl.Infrastructure.Repositories;
 public class CompanySettingsRepository(
     IApplicationDbContext context,
     ICurrentUserService currentUserService,
-    IDateTimeService dateTimeService)
+    IDateTimeProvider dateTimeProvider)
     : ICompanySettingsRepository
 {
     public async Task<CompanySettings> GetByIdAsync(Guid companySettingsId, CancellationToken cancellationToken)
@@ -70,7 +70,7 @@ public class CompanySettingsRepository(
 
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
-            timezoneId = dateTimeService.TryConvertIanaIdToWindowsId(timezoneId);
+            timezoneId = dateTimeProvider.TryConvertIanaIdToWindowsId(timezoneId);
         }
 
         return timezoneId;

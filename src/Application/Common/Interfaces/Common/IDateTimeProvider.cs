@@ -1,6 +1,6 @@
 ﻿namespace EmployeeControl.Application.Common.Interfaces.Common;
 
-public interface IDateTimeService
+public interface IDateTimeProvider
 {
     /// <summary>
     /// Obtener el <see cref="TimeProvider" />.
