@@ -14,9 +14,6 @@ internal class WorkingDaysWeekConfiguration : IEntityTypeConfiguration<WorkingDa
         // Key.
         builder.HasKey(wd => wd.Id);
 
-        // Indexes.
-        builder.HasIndex(wd => wd.Id);
-
         // Properties.
         builder.Property(wd => wd.Monday)
             .IsRequired();

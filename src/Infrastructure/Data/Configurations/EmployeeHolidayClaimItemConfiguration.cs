@@ -15,8 +15,6 @@ internal class EmployeeHolidayClaimItemConfiguration : IEntityTypeConfiguration<
         builder.HasKey(ehcl => ehcl.Id);
 
         // Indexes.
-        builder.HasIndex(ehcl => ehcl.Id);
-
         builder.HasIndex(ehcl => new { ehcl.Date, ehcl.UserId })
             .IsUnique();
 

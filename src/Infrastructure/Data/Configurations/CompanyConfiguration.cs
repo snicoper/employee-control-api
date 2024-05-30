@@ -15,8 +15,6 @@ internal class CompanyConfiguration : IEntityTypeConfiguration<Company>
         builder.HasKey(c => c.Id);
 
         // Indexes.
-        builder.HasIndex(c => c.Id);
-
         builder.HasIndex(c => c.Name)
             .IsUnique();
 

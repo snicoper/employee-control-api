@@ -631,16 +631,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryAbsences_Id",
-                table: "CategoryAbsences",
-                column: "Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Companies_Id",
-                table: "Companies",
-                column: "Id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Companies_Name",
                 table: "Companies",
                 column: "Name",
@@ -652,26 +642,10 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 column: "CompanyCalendarId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CompanyCalendarHolidays_Date",
+                name: "IX_CompanyCalendarHolidays_Date_Description",
                 table: "CompanyCalendarHolidays",
-                column: "Date",
+                columns: new[] { "Date", "Description" },
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CompanyCalendarHolidays_Description",
-                table: "CompanyCalendarHolidays",
-                column: "Description",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CompanyCalendarHolidays_Id",
-                table: "CompanyCalendarHolidays",
-                column: "Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CompanyCalendars_Id",
-                table: "CompanyCalendars",
-                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CompanyCalendars_Name",
@@ -686,19 +660,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CompanySettings_Id",
-                table: "CompanySettings",
-                column: "Id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CompanyTasks_CompanyId",
                 table: "CompanyTasks",
                 column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CompanyTasks_Id",
-                table: "CompanyTasks",
-                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CompanyTasks_Name",
@@ -712,15 +676,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Departments_Id",
-                table: "Departments",
-                column: "Id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Departments_Name",
                 table: "Departments",
-                column: "Name",
-                unique: true);
+                column: "Name");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeCompanyTasks_CompanyTaskId",
@@ -728,20 +686,9 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 column: "CompanyTaskId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeCompanyTasks_UserId_CompanyTaskId",
-                table: "EmployeeCompanyTasks",
-                columns: new[] { "UserId", "CompanyTaskId" },
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_EmployeeDepartments_DepartmentId",
                 table: "EmployeeDepartments",
                 column: "DepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EmployeeDepartments_UserId_DepartmentId",
-                table: "EmployeeDepartments",
-                columns: new[] { "UserId", "DepartmentId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeHolidayClaimItems_Date_UserId",
@@ -755,29 +702,14 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 column: "EmployeeHolidayClaimId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeHolidayClaimItems_Id",
-                table: "EmployeeHolidayClaimItems",
-                column: "Id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_EmployeeHolidayClaimItems_UserId",
                 table: "EmployeeHolidayClaimItems",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmployeeHolidayClaims_Id",
-                table: "EmployeeHolidayClaims",
-                column: "Id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_EmployeeHolidayClaims_UserId",
                 table: "EmployeeHolidayClaims",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EmployeeHolidays_Id",
-                table: "EmployeeHolidays",
-                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeHolidays_UserId",
@@ -802,11 +734,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_TimeControls_Id",
-                table: "TimeControls",
-                column: "Id");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TimeControls_UserId",
                 table: "TimeControls",
                 column: "UserId");
@@ -816,11 +743,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                 table: "WorkingDaysWeek",
                 column: "CompanyId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_WorkingDaysWeek_Id",
-                table: "WorkingDaysWeek",
-                column: "Id");
         }
 
         /// <inheritdoc />

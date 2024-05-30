@@ -15,12 +15,7 @@ internal class CompanyCalendarHolidayConfiguration : IEntityTypeConfiguration<Co
         builder.HasKey(ch => ch.Id);
 
         // Indexes.
-        builder.HasIndex(ch => ch.Id);
-
-        builder.HasIndex(ch => new { Day = ch.Date })
-            .IsUnique();
-
-        builder.HasIndex(ch => new { Day = ch.Description })
+        builder.HasIndex(ch => new { ch.Date, ch.Description })
             .IsUnique();
 
         // One-to-Many.

@@ -14,11 +14,6 @@ internal class CompanySettingsConfiguration : IEntityTypeConfiguration<CompanySe
         // Key.
         builder.HasKey(cs => cs.Id);
 
-        // Indexes.
-        builder.HasIndex(cs => cs.Id);
-
-        // Relations.
-
         // Properties.
         builder.Property(cs => cs.Timezone)
             .HasMaxLength(50);

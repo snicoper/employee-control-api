@@ -14,9 +14,6 @@ internal class EmployeeDepartmentConfiguration : IEntityTypeConfiguration<Employ
         // Key.
         builder.HasKey(ed => new { ed.UserId, ed.DepartmentId });
 
-        // Indexes.
-        builder.HasIndex(ed => new { ed.UserId, ed.DepartmentId });
-
         // Relations.
         builder.HasOne(ed => ed.User)
             .WithMany(au => au.EmployeeDepartments)

@@ -14,9 +14,6 @@ internal class TimeControlConfiguration : IEntityTypeConfiguration<TimeControl>
         // Key.
         builder.HasKey(tc => tc.Id);
 
-        // Indexes.
-        builder.HasIndex(tc => tc.Id);
-
         // One-to-Many.
         builder.HasOne<User>(tc => tc.User)
             .WithMany(au => au.TimeControls)

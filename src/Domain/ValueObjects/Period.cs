@@ -16,9 +16,7 @@ public class Period : ValueObject
 
     public static Period Create(DateTimeOffset start, DateTimeOffset end)
     {
-        var timeInterval = new Period(start, end);
-
-        return timeInterval;
+        return new Period(start, end);
     }
 
     protected override IEnumerable<object> GetEqualityComponents()

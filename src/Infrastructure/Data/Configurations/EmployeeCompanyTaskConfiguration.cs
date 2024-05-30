@@ -14,10 +14,6 @@ internal class EmployeeCompanyTaskConfiguration : IEntityTypeConfiguration<Emplo
         // Key.
         builder.HasKey(ect => new { ect.UserId, ect.CompanyTaskId });
 
-        // Indexes.
-        builder.HasIndex(ect => new { ect.UserId, ect.CompanyTaskId })
-            .IsUnique();
-
         // Relations.
         builder.HasOne(ect => ect.User)
             .WithMany(au => au.EmployeeCompanyTasks)

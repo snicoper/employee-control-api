@@ -16,9 +16,7 @@ internal class CompanyCalendarConfiguration : IEntityTypeConfiguration<CompanyCa
         builder.HasKey(cc => cc.Id);
 
         // Indexes.
-        builder.HasIndex(cc => cc.Id);
-
-        builder.HasIndex(cc => new { Day = cc.Name })
+        builder.HasIndex(cc => cc.Name)
             .IsUnique();
 
         // Properties.

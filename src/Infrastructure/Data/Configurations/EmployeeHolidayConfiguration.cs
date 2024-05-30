@@ -15,8 +15,6 @@ internal class EmployeeHolidayConfiguration : IEntityTypeConfiguration<EmployeeH
         builder.HasKey(eh => eh.Id);
 
         // Indexes.
-        builder.HasIndex(eh => eh.Id);
-
         builder.HasIndex(eh => new { eh.Year, eh.UserId })
             .IsUnique();
 

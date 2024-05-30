@@ -15,9 +15,7 @@ internal class CompanyTaskConfiguration : IEntityTypeConfiguration<CompanyTask>
         builder.HasKey(ct => ct.Id);
 
         // Indexes.
-        builder.HasIndex(ct => ct.Id);
-
-        builder.HasIndex(ct => new { ct.Name })
+        builder.HasIndex(ct => ct.Name)
             .IsUnique();
 
         // Properties.

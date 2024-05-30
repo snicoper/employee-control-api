@@ -15,11 +15,6 @@ internal class DepartmentConfiguration : IEntityTypeConfiguration<Department>
         builder.HasKey(d => d.Id);
 
         // Indexes.
-        builder.HasIndex(d => d.Id);
-
-        builder.HasIndex(d => new { d.Name })
-            .IsUnique();
-
         builder.HasIndex(d => d.Name);
 
         // Properties.

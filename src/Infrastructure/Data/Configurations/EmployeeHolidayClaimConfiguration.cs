@@ -14,9 +14,6 @@ internal class EmployeeHolidayClaimConfiguration : IEntityTypeConfiguration<Empl
         // Key.
         builder.HasKey(ehc => ehc.Id);
 
-        // Indexes.
-        builder.HasIndex(ehc => ehc.Id);
-
         // One-to-Many.
         builder.HasOne<User>(ehc => ehc.User)
             .WithMany(au => au.EmployeeHolidayClaims)

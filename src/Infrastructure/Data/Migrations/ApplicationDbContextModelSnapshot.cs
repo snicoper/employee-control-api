@@ -64,8 +64,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasIndex("Description")
                         .IsUnique();
 
-                    b.HasIndex("Id");
-
                     b.ToTable("CategoryAbsences", (string)null);
                 });
 
@@ -93,8 +91,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasColumnType("character varying(256)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Id");
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -135,8 +131,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id");
-
                     b.HasIndex("Name")
                         .IsUnique();
 
@@ -176,13 +170,8 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasIndex("CompanyCalendarId");
 
-                    b.HasIndex("Date")
+                    b.HasIndex("Date", "Description")
                         .IsUnique();
-
-                    b.HasIndex("Description")
-                        .IsUnique();
-
-                    b.HasIndex("Id");
 
                     b.ToTable("CompanyCalendarHolidays", (string)null);
                 });
@@ -226,8 +215,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasIndex("CompanyId")
                         .IsUnique();
-
-                    b.HasIndex("Id");
 
                     b.ToTable("CompanySettings", (string)null);
                 });
@@ -274,8 +261,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
-
-                    b.HasIndex("Id");
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -326,10 +311,7 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasIndex("Name");
 
                     b.ToTable("Departments", (string)null);
                 });
@@ -361,9 +343,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasIndex("CompanyTaskId");
 
-                    b.HasIndex("UserId", "CompanyTaskId")
-                        .IsUnique();
-
                     b.ToTable("EmployeeCompanyTasks", (string)null);
                 });
 
@@ -393,8 +372,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasKey("UserId", "DepartmentId");
 
                     b.HasIndex("DepartmentId");
-
-                    b.HasIndex("UserId", "DepartmentId");
 
                     b.ToTable("EmployeeDepartments", (string)null);
                 });
@@ -430,8 +407,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Id");
 
                     b.HasIndex("UserId");
 
@@ -474,8 +449,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("EmployeeHolidayClaims", (string)null);
@@ -511,8 +484,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeHolidayClaimId");
-
-                    b.HasIndex("Id");
 
                     b.HasIndex("UserId");
 
@@ -617,8 +588,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Id");
 
                     b.HasIndex("UserId");
 
@@ -803,8 +772,6 @@ namespace EmployeeControl.Infrastructure.Data.Migrations
 
                     b.HasIndex("CompanyId")
                         .IsUnique();
-
-                    b.HasIndex("Id");
 
                     b.ToTable("WorkingDaysWeek", (string)null);
                 });

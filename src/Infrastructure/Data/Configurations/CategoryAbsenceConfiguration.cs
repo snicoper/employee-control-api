@@ -15,9 +15,7 @@ internal class CategoryAbsenceConfiguration : IEntityTypeConfiguration<CategoryA
         builder.HasKey(ca => ca.Id);
 
         // Indexes.
-        builder.HasIndex(ca => ca.Id);
-
-        builder.HasIndex(ca => new { ca.Description })
+        builder.HasIndex(ca => ca.Description)
             .IsUnique();
 
         // OneToMany.
