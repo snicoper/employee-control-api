@@ -30,7 +30,7 @@ public class IdentityEmailsService(
         emailService.Subject = localizer["Invitación de la empresa {0}.", company.Name];
         emailService.To.Add(user.Email ?? string.Empty);
 
-        await emailService.SendMailWithViewAsync(EmailViews.InviteEmployee, model);
+        await emailService.SendMailWithViewAsync(NameEmailViews.InviteEmployee, model);
     }
 
     public async Task SendRecoveryPasswordAsync(User user, string code)
@@ -49,6 +49,6 @@ public class IdentityEmailsService(
 
         emailService.To.Add(user.Email ?? string.Empty);
 
-        await emailService.SendMailWithViewAsync(EmailViews.RecoveryPassword, recoveryPasswordViewModel);
+        await emailService.SendMailWithViewAsync(NameEmailViews.RecoveryPassword, recoveryPasswordViewModel);
     }
 }

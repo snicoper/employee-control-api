@@ -30,10 +30,8 @@ public class AuthorizationBehaviour<TRequest, TResponse>(ICurrentUserService cur
             throw new UnauthorizedAccessException();
         }
 
-        // Role-based authorization.
         await RoleBasedAuthorization(attributes, currentUserService.Id);
 
-        // Policy-based authorization.
         await PolicyBasedAuthorization(attributes, currentUserService.Id);
 
         // User is authorized / authorization not required.

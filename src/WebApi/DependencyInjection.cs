@@ -43,17 +43,10 @@ public static class DependencyInjection
         services.AddControllersWithViews()
             .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
             .AddDataAnnotationsLocalization(
-                options =>
-                {
-                    options.DataAnnotationLocalizerProvider = (_, factory) => factory.Create(typeof(SharedResource));
-                });
+                options => { options.DataAnnotationLocalizerProvider = (_, factory) => factory.Create(typeof(SharedResource)); });
 
         // Customize default API behavior.º
-        services.Configure<ApiBehaviorOptions>(
-            options =>
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            });
+        services.Configure<ApiBehaviorOptions>(options => { options.SuppressModelStateInvalidFilter = true; });
 
         // Routing.
         services.AddRouting(options => { options.LowercaseUrls = true; });

@@ -35,6 +35,6 @@ public class CompanyTaskEmailsService(
             emailService.To.Add(email);
         }
 
-        await emailService.SendMailWithViewAsync(EmailViews.SendEmployeeAssignTask, model);
+        await emailService.SendMailWithViewAsync(NameEmailViews.SendEmployeeAssignTask, model);
     }
 }

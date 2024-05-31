@@ -3,7 +3,7 @@
 /// <summary>
 /// Nombres de las vistas (cshtml) para envío de Emails.
 /// </summary>
-public static class EmailViews
+public static class NameEmailViews
 {
     public const string InviteEmployee = nameof(InviteEmployee);
 

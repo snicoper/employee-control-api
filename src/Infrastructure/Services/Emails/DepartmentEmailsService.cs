@@ -35,6 +35,6 @@ public class DepartmentEmailsService(
             emailService.To.Add(email);
         }
 
-        await emailService.SendMailWithViewAsync(EmailViews.SendEmployeeAssignDepartment, model);
+        await emailService.SendMailWithViewAsync(NameEmailViews.SendEmployeeAssignDepartment, model);
     }
 }

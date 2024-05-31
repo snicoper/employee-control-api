@@ -44,7 +44,7 @@ internal class InviteEmployeeHandler(
 
         var resultResponse = identityResult.Succeeded
             ? Result.Success(newUser.Id)
-            : Result.Failure<Guid>(ValidationErrorsKeys.IdentityError, identityResult.Errors.First().Description);
+            : Result.Failure<Guid>(ValidationErrorTypes.IdentityError, identityResult.Errors.First().Description);
 
         return resultResponse;
     }

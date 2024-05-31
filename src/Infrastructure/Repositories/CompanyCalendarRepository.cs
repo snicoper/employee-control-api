@@ -23,8 +23,8 @@ public class CompanyCalendarRepository(
     {
         var companyCalendar = await context
                 .CompanyCalendars
-                .FirstOrDefaultAsync(cc => cc.Id == id, cancellationToken) ??
-            throw new NotFoundException(nameof(CompanyCalendar), nameof(CompanyCalendar.Id));
+                .FirstOrDefaultAsync(cc => cc.Id == id, cancellationToken)
+            ?? throw new NotFoundException(nameof(CompanyCalendar), nameof(CompanyCalendar.Id));
 
         return companyCalendar;
     }

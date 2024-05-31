@@ -15,6 +15,6 @@ public static class IdentityResultExtensions
 
         return result.Succeeded
             ? Result.Success()
-            : Result.Failure(ValidationErrorsKeys.IdentityError, identityErrors);
+            : Result.Failure(ValidationErrorTypes.IdentityError, identityErrors);
     }
 }

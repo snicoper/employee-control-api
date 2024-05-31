@@ -15,8 +15,8 @@ public static class QueryableOrderByExtensions
     {
         if (string.IsNullOrEmpty(request.Order))
         {
-            // Por defecto si existe, ordena por "Created | Id" - Descending.
-            return OrderByDefault(source);
+            // Por defecto si existe, ordena por "Created" - Descending.
+            return OrderByCreatedIfExists(source);
         }
 
         var requestItemOrderBy = JsonSerializer
@@ -24,7 +24,7 @@ public static class QueryableOrderByExtensions
 
         if (requestItemOrderBy is null)
         {
-            var result = OrderByDefault(source);
+            var result = OrderByCreatedIfExists(source);
 
             return result;
         }
@@ -34,10 +34,9 @@ public static class QueryableOrderByExtensions
         return source;
     }
 
-    private static IQueryable<TEntity> OrderByDefault<TEntity>(IQueryable<TEntity> source)
+    private static IQueryable<TEntity> OrderByCreatedIfExists<TEntity>(IQueryable<TEntity> source)
     {
-        var propertyInfo = typeof(TEntity).GetProperty(nameof(BaseAuditableEntity.Created))
-            ?? typeof(TEntity).GetProperty(nameof(BaseEntity.Id));
+        var propertyInfo = typeof(TEntity).GetProperty(nameof(BaseAuditableEntity.Created));
 
         var result = propertyInfo is not null ? source.OrderBy($"{propertyInfo.Name} DESC") : source;
 

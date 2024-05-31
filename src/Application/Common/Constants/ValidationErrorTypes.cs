@@ -1,6 +1,6 @@
 ﻿namespace EmployeeControl.Application.Common.Constants;
 
-public static class ValidationErrorsKeys
+public static class ValidationErrorTypes
 {
     public const string NonFieldErrors = nameof(NonFieldErrors);
 

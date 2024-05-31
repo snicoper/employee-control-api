@@ -202,7 +202,7 @@ public class TimeControlRepository(
         {
             var message = localizer["No hay un tiempo inicializado."];
             Result
-                .Failure(ValidationErrorsKeys.NotificationErrors, message)
+                .Failure(ValidationErrorTypes.NotificationErrors, message)
                 .RaiseBadRequestIfErrorsExist();
         }
 

@@ -27,7 +27,7 @@ internal class ActivateEmployeeHandler(
         if (isAdministrator)
         {
             var message = localizer["No tiene permisos para activar esta cuenta"];
-            Result.Failure(ValidationErrorsKeys.NotificationErrors, message).RaiseBadRequestIfErrorsExist();
+            Result.Failure(ValidationErrorTypes.NotificationErrors, message).RaiseBadRequestIfErrorsExist();
         }
 
         user.Active = true;

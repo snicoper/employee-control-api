@@ -23,7 +23,7 @@ public class TimesControlValidator(
         if (timeControl.Finish < timeControl.Start)
         {
             result.AddError(
-                ValidationErrorsKeys.NotificationErrors,
+                ValidationErrorTypes.NotificationErrors,
                 localizer["El tiempo final no puede ser antes que el tiempo de inicio."]);
 
             return result;
@@ -42,7 +42,7 @@ public class TimesControlValidator(
         if (checkTime)
         {
             result.AddError(
-                ValidationErrorsKeys.NotificationErrors,
+                ValidationErrorTypes.NotificationErrors,
                 localizer["El tiempo coincide con algún tiempo creado y no es posible iniciar el tiempo."]);
 
             return result;
@@ -62,7 +62,7 @@ public class TimesControlValidator(
         }
 
         result.AddError(
-            ValidationErrorsKeys.NotificationErrors,
+            ValidationErrorTypes.NotificationErrors,
             localizer["El tiempo coincide con algún tiempo abierto y no es posible iniciar el tiempo."]);
 
         return result;
@@ -74,7 +74,7 @@ public class TimesControlValidator(
         if (timeControl.TimeState == TimeState.Open)
         {
             result.AddError(
-                ValidationErrorsKeys.NotificationErrors,
+                ValidationErrorTypes.NotificationErrors,
                 localizer["El tiempo esta actualmente iniciado."]);
 
             return result;
@@ -84,7 +84,7 @@ public class TimesControlValidator(
         if (timeControl.Finish < timeControl.Start)
         {
             result.AddError(
-                ValidationErrorsKeys.NotificationErrors,
+                ValidationErrorTypes.NotificationErrors,
                 localizer["El tiempo final no puede ser antes que el tiempo de inicio."]);
 
             return result;
@@ -105,7 +105,7 @@ public class TimesControlValidator(
         if (checkTime)
         {
             result.AddError(
-                ValidationErrorsKeys.NotificationErrors,
+                ValidationErrorTypes.NotificationErrors,
                 localizer["El tiempo coincide con algún tiempo creado y no es posible actualizar el tiempo."]);
 
             return result;
@@ -126,7 +126,7 @@ public class TimesControlValidator(
         }
 
         result.AddError(
-            ValidationErrorsKeys.NotificationErrors,
+            ValidationErrorTypes.NotificationErrors,
             localizer["El tiempo coincide con algún tiempo abierto y no es posible actualizar el tiempo."]);
 
         return result;

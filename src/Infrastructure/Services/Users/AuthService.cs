@@ -36,7 +36,7 @@ public class AuthService(
             var errorMessage = localizer["El correo esta pendiente de validación desde tu bandeja de correo."];
 
             Result
-                .Failure(ValidationErrorsKeys.NonFieldErrors, errorMessage)
+                .Failure(ValidationErrorTypes.NonFieldErrors, errorMessage)
                 .RaiseBadRequestIfErrorsExist();
         }
 
@@ -46,7 +46,7 @@ public class AuthService(
             var errorMessage = localizer["La cuenta no esta activa, debes hablar con un responsable de tu empresa."];
 
             Result
-                .Failure(ValidationErrorsKeys.NotificationErrors, errorMessage)
+                .Failure(ValidationErrorTypes.NotificationErrors, errorMessage)
                 .RaiseBadRequestIfErrorsExist();
         }
 

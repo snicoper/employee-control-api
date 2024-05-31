@@ -27,14 +27,14 @@ internal class UpdateEmployeeHandler(
         if (currentUserService.Id == user.Id)
         {
             var errorMessage = localizer["No te puedes editar a ti mismo."];
-            result.AddError(ValidationErrorsKeys.NonFieldErrors, errorMessage);
+            result.AddError(ValidationErrorTypes.NonFieldErrors, errorMessage);
         }
 
         // No es posible editar a un usuario con role.
         if (await userRepository.IsInRoleAsync(user.Id, Roles.Admin))
         {
             var errorMessage = localizer["No se puede editar a un administrador."];
-            result.AddError(ValidationErrorsKeys.NonFieldErrors, errorMessage);
+            result.AddError(ValidationErrorTypes.NonFieldErrors, errorMessage);
         }
 
         result.RaiseBadRequestIfErrorsExist();

@@ -78,7 +78,7 @@ public class IdentityValidator(
 
         var errorMessage = localizer["Un usuario no puede editar sus propios Roles."];
         logger.LogError("{ErrorMessage}", errorMessage);
-        result.AddError(ValidationErrorsKeys.NotificationErrors, errorMessage);
+        result.AddError(ValidationErrorTypes.NotificationErrors, errorMessage);
 
         return result;
     }
