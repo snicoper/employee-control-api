@@ -33,14 +33,14 @@ public interface ITimeControlRepository
     Task<TimeControl?> GetTimeStateOpenByEmployeeIdAsync(Guid employeeId, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Obtener un grupos por días de <see cref="TimeControl" /> en un rango de fechas de un
+    /// Obtener un grupo por días de <see cref="TimeControl" /> en un rango de fechas de un
     /// empleado concreto por su Id.
     /// <para>El rango se busca tanto en Start como Finish del <see cref="TimeControl" />.</para>
     /// </summary>
     /// <param name="employeeId">Id empleado.</param>
     /// <param name="from">Fecha de inicio.</param>
     /// <param name="to">Fecha final.</param>
-    /// <param name="cancellationToken">Cancelation token.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>Grupo por días de <see cref="TimeControl" />.</returns>
     Task<IEnumerable<IGrouping<int, TimeControl>>> GetRangeByEmployeeIdAsync(
         Guid employeeId,
