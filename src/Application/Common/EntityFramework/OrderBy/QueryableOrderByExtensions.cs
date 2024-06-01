@@ -15,7 +15,6 @@ public static class QueryableOrderByExtensions
     {
         if (string.IsNullOrEmpty(request.Order))
         {
-            // Por defecto si existe, ordena por "Created" - Descending.
             return OrderByCreatedIfExists(source);
         }
 

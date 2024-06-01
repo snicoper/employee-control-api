@@ -1,8 +1,5 @@
 ﻿namespace EmployeeControl.Domain.Enums;
 
-/// <summary>
-/// Tiempo cerrado por una de las opciones.
-/// </summary>
 public enum ClosedBy
 {
     Unclosed = 0,

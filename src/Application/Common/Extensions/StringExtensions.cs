@@ -6,11 +6,6 @@ namespace EmployeeControl.Application.Common.Extensions;
 
 public static class StringExtensions
 {
-    /// <summary>
-    /// Devolver un string con la primera letra en minúscula.
-    /// </summary>
-    /// <param name="value">String a convertir.</param>
-    /// <returns>El string con la primera letra en minúsculas.</returns>
     public static string LowerCaseFirst(this string value)
     {
         var result = string.IsNullOrEmpty(value) ? value : $"{value[..1].ToLower()}{value[1..]}";
@@ -18,11 +13,6 @@ public static class StringExtensions
         return result;
     }
 
-    /// <summary>
-    /// Devolver un string con la primera letra en mayúscula.
-    /// </summary>
-    /// <param name="value">String a convertir.</param>
-    /// <returns>El string con la primera letra en mayúsculas.</returns>
     public static string UpperCaseFirst(this string value)
     {
         var result = string.IsNullOrEmpty(value) ? value : $"{value[..1].ToUpper()}{value[1..]}";
@@ -30,11 +20,6 @@ public static class StringExtensions
         return result;
     }
 
-    /// <summary>
-    /// Devolver un string con la primera letra de cada palabra en mayúscula.
-    /// </summary>
-    /// <param name="value">String a convertir.</param>
-    /// <returns>El string con la primera letra de casa palabra en mayúsculas.</returns>
     public static string ToTile(this string value)
     {
         var parts = value.Split()
@@ -46,9 +31,6 @@ public static class StringExtensions
         return result;
     }
 
-    /// <summary>
-    /// Genera un Slug de un string.
-    /// </summary>
     public static string Slugify(this string text)
     {
         const string pattern = @"[^a-zA-Z0-9\-]";
