@@ -2,9 +2,6 @@
 
 namespace EmployeeControl.Domain.Entities;
 
-/// <summary>
-/// Días laborables de la compañía.
-/// </summary>
 public class WorkingDaysWeek : BaseAuditableEntity
 {
     public bool Monday { get; set; }

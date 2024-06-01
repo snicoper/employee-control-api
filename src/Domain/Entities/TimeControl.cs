@@ -3,9 +3,6 @@ using EmployeeControl.Domain.Enums;
 
 namespace EmployeeControl.Domain.Entities;
 
-/// <summary>
-/// Control de tiempos para empleados.
-/// </summary>
 public class TimeControl : BaseAuditableEntity
 {
     public DateTimeOffset Start { get; set; }

@@ -2,9 +2,6 @@
 
 namespace EmployeeControl.Domain.Entities;
 
-/// <summary>
-/// Departamentos en la compañía.
-/// </summary>
 public class Department : BaseAuditableEntity
 {
     public string Name { get; set; } = default!;

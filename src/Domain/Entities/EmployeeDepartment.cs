@@ -2,9 +2,6 @@
 
 namespace EmployeeControl.Domain.Entities;
 
-/// <summary>
-/// Asociación de empleados y departamentos.
-/// </summary>
 public class EmployeeDepartment : BaseAuditableEntity
 {
     public Guid DepartmentId { get; set; }

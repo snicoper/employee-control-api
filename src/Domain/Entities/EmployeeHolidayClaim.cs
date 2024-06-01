@@ -2,9 +2,6 @@
 
 namespace EmployeeControl.Domain.Entities;
 
-/// <summary>
-/// Cabecera de días de vacaciones.
-/// </summary>
 public class EmployeeHolidayClaim : BaseAuditableEntity
 {
     public int Year { get; set; }

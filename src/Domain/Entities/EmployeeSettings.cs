@@ -2,9 +2,6 @@
 
 namespace EmployeeControl.Domain.Entities;
 
-/// <summary>
-/// Configuración de empleados.
-/// </summary>
 public class EmployeeSettings : BaseAuditableEntity
 {
     public string Timezone { get; set; } = default!;

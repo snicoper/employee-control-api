@@ -2,9 +2,6 @@
 
 namespace EmployeeControl.Domain.Entities;
 
-/// <summary>
-/// Configuración de la compañía.
-/// </summary>
 public class CompanySettings : BaseAuditableEntity
 {
     public string Timezone { get; set; } = default!;

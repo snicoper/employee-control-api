@@ -2,9 +2,6 @@
 
 namespace EmployeeControl.Domain.Entities;
 
-/// <summary>
-/// Grupo de calendario con días festivos.
-/// </summary>
 public class CompanyCalendar : BaseAuditableEntity
 {
     public string Name { get; set; } = default!;

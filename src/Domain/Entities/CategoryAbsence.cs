@@ -2,9 +2,6 @@
 
 namespace EmployeeControl.Domain.Entities;
 
-/// <summary>
-/// Ausencias dinámicas de la compañía.
-/// </summary>
 public class CategoryAbsence : BaseAuditableEntity
 {
     public string Description { get; set; } = default!;

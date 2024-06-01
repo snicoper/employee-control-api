@@ -2,9 +2,6 @@
 
 namespace EmployeeControl.Domain.Entities;
 
-/// <summary>
-/// Asociación de empleados y tareas de la compañía.
-/// </summary>
 public class EmployeeCompanyTask : BaseAuditableEntity
 {
     public Guid UserId { get; set; }

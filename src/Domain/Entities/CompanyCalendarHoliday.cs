@@ -2,9 +2,6 @@
 
 namespace EmployeeControl.Domain.Entities;
 
-/// <summary>
-/// Día festivo de un calendario concreto.
-/// </summary>
 public class CompanyCalendarHoliday : BaseAuditableEntity
 {
     public DateOnly Date { get; set; }

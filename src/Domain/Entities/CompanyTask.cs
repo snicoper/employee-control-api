@@ -2,9 +2,6 @@
 
 namespace EmployeeControl.Domain.Entities;
 
-/// <summary>
-/// Tareas en la compañía.
-/// </summary>
 public class CompanyTask : BaseAuditableEntity
 {
     public string Name { get; set; } = default!;

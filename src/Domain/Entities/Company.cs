@@ -2,9 +2,6 @@ using EmployeeControl.Domain.Common;
 
 namespace EmployeeControl.Domain.Entities;
 
-/// <summary>
-/// Compañías registradas.
-/// </summary>
 public class Company : BaseAuditableEntity
 {
     public string Name { get; set; } = default!;
@@ -13,7 +10,7 @@ public class Company : BaseAuditableEntity
 
     public WorkingDaysWeek WorkingDaysWeek { get; set; } = null!;
 
-    public ICollection<Department> Departaments { get; set; } = [];
+    public ICollection<Department> Departments { get; set; } = [];
 
     public ICollection<User> Users { get; set; } = [];
 
