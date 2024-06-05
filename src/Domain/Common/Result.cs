@@ -97,5 +97,10 @@ public class Result<TValue> : Result
     }
 
     public TValue? Value { get; }
+
+    public static implicit operator Result<TValue>(TValue? value)
+    {
+        return Create(value);
+    }
 }
 #pragma warning disable SA1402 // File may only contain a single type
