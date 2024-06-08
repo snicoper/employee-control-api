@@ -249,7 +249,7 @@ dotnet_diagnostic.IDE0005.severity = error
 dotnet_diagnostic.AD0001.severity = none
 
 ####################################
-# Stylecoop Analyzer.
+# Stylecop Analyzer.
 ####################################
 
 # https://dotnetanalyzers.github.io/StyleCopAnalyzers/
